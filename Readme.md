@@ -1,5 +1,5 @@
 
-# Research Methods HS25 - Dokumentation
+# Research Methods HS26 - Dokumentation
 
 ## Überblick
 
@@ -36,8 +36,8 @@ Wir empfehlen folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 - [happygitwithr: New RStudio Project via RStudio IDE](https://happygitwithr.com/new-github-first#rstudio-ide)
 - Happywithgitr (s.o.) empfiehlt die Verwendung von `https` (statt `ssh`). Hier die beiden URLS für unser Repo:
-  - `https` URL: https://github.com/ResearchMethods-ZHAW/HS25.git 
-  - `ssh` URL: git@github.com:ResearchMethods-ZHAW/HS25.git
+  - `https` URL: https://github.com/ResearchMethods-ZHAW/HS26.git 
+  - `ssh` URL: git@github.com:ResearchMethods-ZHAW/HS26.git
 - Mit folgendem Befehl wird das **GitHub** Repo als *upstream* gesetzt: `git branch -u origin/main`
 
 
@@ -46,7 +46,7 @@ Wir empfehlen folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 ## 2. Datensätze (Submodule)
 
-Damit die Datensätze nicht öffentlich einsehbar sind, befinden sie sich in einem eigenen git-Verzeichnis *innerhalb dieses Ordners*. Dieses Verschachteln von zwei git-Verzeichnissen funktioniert über sogenannte *submodules*: Der Ordner `datasets` ist ein *submodule* dieses Repos `HS25`.
+Damit die Datensätze nicht öffentlich einsehbar sind, befinden sie sich in einem eigenen git-Verzeichnis *innerhalb dieses Ordners*. Dieses Verschachteln von zwei git-Verzeichnissen funktioniert über sogenannte *submodules*: Der Ordner `datasets` ist ein *submodule* dieses Repos `HS26`.
 
 ### Submodule initialisieren
 
@@ -58,7 +58,7 @@ git submodule update --init --recursive
 
 ### Submodule Workflow
 
-Wenn eine Änderung im Ordner `datasets` gemacht wurde, sind diese im HS25-repo sichtbar: Der Ordner `datasets` ist beispielsweise im *git Pane* in RStudio sichtbar, und `git status` zeigt folgende Meldung:
+Wenn eine Änderung im Ordner `datasets` gemacht wurde, sind diese im HS26-repo sichtbar: Der Ordner `datasets` ist beispielsweise im *git Pane* in RStudio sichtbar, und `git status` zeigt folgende Meldung:
 
 ```bash
 Changes not staged for commit:
@@ -82,10 +82,10 @@ git add myfile.csv   # oder git add .
 git commit -m  "changed column names"
 git push
 
-# das working directory zurück in HS25 wechseln
+# das working directory zurück in HS26 wechseln
 cd ..
 
-# die neue Version von datasets ins HS25 stagen / committen / pushen
+# die neue Version von datasets ins HS26 stagen / committen / pushen
 # Note: bei dieserm Schritt wird nur die Versionsnummer aktualisiert, die Änderungen
 # selbst werden im datasets-repo getracked.
 git add datasets
