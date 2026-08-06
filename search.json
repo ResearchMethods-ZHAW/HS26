@@ -1,0 +1,803 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Research Methods HS26",
+    "section": "",
+    "text": "Willkommen\nDas Modul „Research Methods” vermittelt vertiefte Methodenkompetenzen für praxisorientiertes und angewandtes wissenschaftliches Arbeiten im Fachbereich „Umwelt und Natürliche Ressourcen” auf MSc-Niveau. Die Studierenden erarbeiten sich vertiefte Methodenkompetenzen für die analytische Betrachtung der Zusammenhänge im Gesamtsystem „Umwelt und Natürliche Ressourcen”. Die Studierenden erlernen die methodischen Kompetenzen, auf denen die nachfolgenden Module im MSc Programm UNR aufbauen. Das Modul vermittelt einerseits allgemeine, fächerübergreifende methodische Kompetenzen (z.B. Wissenschaftstheorie, computer-gestützte Datenverarbeitung und Statistik).\nHier werden die Unterlagen für die R-Übungsteile bereitgestellt. Es werden sukzessive sowohl Demo-Files, Aufgabenstellungen und Lösungen veröffentlicht.",
+    "crumbs": [
+      "Willkommen"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/0_Vorbereitung.html",
+    "href": "fallstudie_s/0_Vorbereitung.html",
+    "title": "Vorbereitung",
+    "section": "",
+    "text": "Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten Bibliotheken automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"readr\", \"ggplot2\", \"dplyr\", \"lubridate\", \"ggpubr\", \"PerformanceAnalytics\",\n  \"MuMIn\", \"AICcmodavg\", \"fitdistrplus\", \"lme4\", \"DHARMa\", \"blmeco\", \"sjPlot\", \"lattice\",\n   \"suncalc\", \"glmmTMB\"\n)\n\nipak(packages)\n\nZudem könnt ihr alle für die Fallstudie Profil S benötigten Daten unter auf Moodle im Abschnitt Fallstudie “Ecosystems & Biodiversity” herunterladen.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Vorbereitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/1_Einführung.html",
+    "href": "fallstudie_s/1_Einführung.html",
+    "title": "Einführung",
+    "section": "",
+    "text": "Hintergrund\nDas rund 1100 ha grosse Naturschutzgebiet Wildnispark Zürich Sihlwald, welches im periurbanen Raum südlich von Zürich liegt, gilt seit dem 1. Januar 2010 als erster national anerkannter Naturerlebnispark. Er ist Teil des Wildnisparks Zürich (WPZ) und wichtiges Naherholungsgebiet für die Stadt Zürich.\nDas Schutzgebiet befindet sich im Spannungsfeld zwischen Schutz und Nutzen, denn einerseits sollen die Besuchenden den Wald erleben dürfen, andererseits soll sich dieser, in der Kernzone, frei entwickeln dürfen. Im Perimeter gelten darum verschiedene Regeln. So darf z. B. nur auf bestimmten Wegen mit den Fahrrad gefahren werden.\nDas Management des Parks braucht solide, empirisch erhobene Daten zur Natur und zu den Besuchenden damit die Ziele von Nutzen und Schürzen erreicht werden können. Das Besuchermonitoring deckt den zweiten Teil dieser notwendigen Daten ab. Im WPZ sind mehrere automatische Zählstellen zur Erfassung der Besuchenden in Betrieb. Die Zählstellen erfassen diese stundenweise auf den untersuchten Wegabschnitten. Einige Zählstellen erfassen richtungsgetrennt und / oder können zwischen verschiedenen Nutzergruppen wie Personen, die zu Fuss gehen, und Fahrradfahrenden unterscheiden.\nIm Rahmen des Moduls Research Methods werden in dieser Fallstudie Daten von mehreren dieser automatischen Zählstellen untersucht. Die Daten, welche im Besitz des WPZ sind, wurden bereits kalibriert. Das heisst, Zählungen während Wartungsarbeiten, bei Fehlbetrieb o.ä. wurden bereits ausgeschlossen. Dies ist eine zeitintensive Arbeit und wir dürfen hier mit einem sauber aufbereiteten “Datenschatz” arbeiten.\nPerimeter des Wildnispark Zürichs mit den ungefähren Standorten von zwei ausgewählten automatischen Zählstellen. Hinweis: die Zählstellen erfassen die Besuchenden an einem Punkt / auf einem Querschnitt des Wegabschnittes. Hier ist aus Gründen der Vertraulichkeit nur der Wegabschnitt dargestellt, auf welchem sich dieser QUerschnitt befindet.\nDie beiden zur Verfügung stehenden Zähler 211 und 502 erfassen sowohl Fussgänger:innen als auch Fahrräder. Die Erfassung erfolgt bei beiden richtungsgetrennt.\nDer Wildnispark wertet die Zahlen routinemässig aus. So sind z. B. Jahresgänge (an welchen Monaten herrscht besonders viel Betrieb?) und die absoluten Nutzungszahlen bekannt. Vertiefte Auswertungen, die beispielsweise den Zusammenhang zwischen Besuchszahlen und dem Wetter untersuchen, werden aber nicht gemacht.\nUnsere Analysen in diesem Modul helfen dem WPZ, ein besseres Verständnis zum Verhalten der Besuchenden zu erlangen und bilden Grundlagen für verschiedene Managemententscheide in der Praxis.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Einführung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/1_Einführung.html#ziel",
+    "href": "fallstudie_s/1_Einführung.html#ziel",
+    "title": "Einführung",
+    "section": "Ziel",
+    "text": "Ziel\n\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl der Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan).\nIn unsere Analysen ziehen wir erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.\nDa Wildtiere, wie z. B. Rehe, besonders Dämmerungs- und Nachtaktiv sind, liegt diese Tageszeit bei unseren Auswertungen speziell im Fokus.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Einführung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/1_Einführung.html#grundlagen",
+    "href": "fallstudie_s/1_Einführung.html#grundlagen",
+    "title": "Einführung",
+    "section": "Grundlagen",
+    "text": "Grundlagen\nZur Verfügung stehen:\n\ndie stündlichen Zählungen von Fussgänger:innen und Fahrrädern an den beiden Zählstellen 211 und 502\nMeteodaten (Temperatur, Sonnenscheindauer, Niederschlagssumme)\nAnleitungen und Code mit Hinweisen zur Auswertung (hier auf dieser Seite)",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Einführung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/1_Einführung.html#aufbau-der-fallstudie",
+    "href": "fallstudie_s/1_Einführung.html#aufbau-der-fallstudie",
+    "title": "Einführung",
+    "section": "Aufbau der Fallstudie",
+    "text": "Aufbau der Fallstudie\nIn dieser Fallstudie erheben wir zuerst selber Daten auf dem Grüntal, welche wir dann deskriptiv auswerten. Dies, um ein “Gefühl” für die Daten zu bekommen.\nAnschliessend beschäftigen wir uns mit den Daten aus dem WPZ, welche wir zuerst ebenfalls deskriptiv auswerten. Anschliessend schreiben wir auch statistisch schliessende Modelle. Die Erkentnnisse, welche wir aus den Daten des WPZs ableiten, werden dann im Abschlussbericht dokumentiert.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Einführung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html",
+    "href": "fallstudie_s/2_Besuchermonitoring.html",
+    "title": "Monitoring",
+    "section": "",
+    "text": "Einführung\nEs gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Automatische Zählgeräte bieten die Möglichkeit, lange und durchgehende Zeitreihen zu erfassen. Inputs dazu, wie diese ausgewertet werden können, erhält ihr in dieser Aufgabe.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Monitoring</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#ziele",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#ziele",
+    "title": "Monitoring",
+    "section": "Ziele",
+    "text": "Ziele\n\nIhr könnt das eingesetzte Zählgerät installieren und kennt die Vor- und Nachteile verschiedener Methoden.\nIhr könnt die generierten Daten explorativ und deskriptiv auswerten.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Monitoring</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#grundlagen",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#grundlagen",
+    "title": "Monitoring",
+    "section": "Grundlagen",
+    "text": "Grundlagen\nDie Geräte werden gemeinsam auf dem Campus Grüntal besichtigt.\nDatenschutz ist ein wichtiges Thema. Die eingesetzten Geräte erfassen keine Personendaten, sondern nur Bewegungen. Es handelt sich um Pyroelektrische Infrarotsensoren, welche auf den Temperaturunterschied reagieren, wenn sich eine Person vor der Linse bewegt. Insofern handelt es sich, vereinfacht gesagt, um Bewegungsmelder.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Monitoring</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "",
+    "text": "Ziele\nIhr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind abgeschlossen und wir beschäftigen uns ab jetzt ausschliesslich mit dem WPZ.\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besuchenden auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele).\nFür meine Analysen habe ich untenstehende Fragestellungen formuliert. Ihr könnt aber auch eure Fragestellungen aus eurem Forschungsplan übernehmen, falls ihr das möchtet und falls diese mit den zur Verügung stehenden Daten bearbeitet werden können.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#ziele",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#ziele",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "",
+    "text": "Welchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ?\nWie stark sind die jeweiligen Einflüsse, welche Effektrichtungen sind beobachtbar und welche der untersuchten Parameter sind signifikant?\nGibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?\nWelches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?\n\n\n\nJede Gruppe wertet Daten von einem Zählgerät aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Die Daten von jeder Zählstelle sollen nur von einer Gruppe ausgewertet werden!\nBezieht in eure Auswertungen den gesamten zur Verfügung stehenden Zeitraum ein.\nFür euren Zähler stehen Zahlen zu Fussgänger:innen und Fahrrädern zur Verfügung (siehe [Einführung], Hinweis). Entscheidet euch selbst, ob ihr Fussgänger:innen ODER Fahrräder auswerten wollt. Die anderen Daten dürft ihr vernachlässigen.\nIm Bericht sollen die Informationen und Erfahrungen aus dem gesamten Verlauf der Fallstudie in geeigneter Weise einfliessen. Bezüglich der Felderhebung Grüental erwarten wir keine Angaben.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#erwartungen",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#erwartungen",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Erwartungen",
+    "text": "Erwartungen\n\nStruktur / Aufbau\n\n\nAbstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch). Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.\nEinleitung (hier können allenfalls Elemente / Teile aus den Forschungsplänen übernommen werden)\nFragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)\nMethoden (aufschlussreiches Kapitel mit den statistischen Analysen)\nResultate (deskriptive Statistik, multivariates Modell; kurzer Fliesstext sowie die notwendigen Tabellen und eine Auswahl möglichst informativer Grafiken)\nDiskussion (Diskussion der deskriptiven Analysen und der Modellergebnisse; dieser Abschnitt sollte die eigenen Resultate auch im Zusammenhang mit aktueller Fachliteratur reflektieren.)\nLiteraturverzeichnis (Tipp: Das Literaturverzeichnis sollte vollständig sein, sowie formal korrekt und einheitlich daherkommen. Wir erwarten speziell in der Diskussion eine Abstützung auf aktuelle Fachliteratur. Auf Moodle haben wir euch eine Auswahl relevanter Studien bereitgestellt.)\nAnhang (für alle Auswertungen relevanter R-Code in geeigneter Form)\n\n\nGesamtumfang max. 12’000 Zeichen (inkl. Leerzeichen; exkl. Tabellen, Literaturverzeichnis und Anhang)\nAbgabe per Mail an hoce@zhaw.ch (Datum siehe Stundenplan)",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#bewertungskriterien",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#bewertungskriterien",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Bewertungskriterien",
+    "text": "Bewertungskriterien\n\nIst die Methode klar und verständlich formuliert?\nSind die deskriptiven Analysen klar beschrieben und geeignet visualisiert?\nIst die Variablenselektion klar beschrieben, plausibel und nachvollziehbar?\nSind die Modellresultate in Text- und Tabellenform korrekt beschrieben und geeignet visualisiert?\nIst die Diskussion klar formuliert und inhaltlich schlüssig?\nWie gut ist die Diskussion auf relevante und aktuelle Fachliteratur abgestützt?\nZusätzliche bewerten wir die inhaltliche Dichte der Arbeit und die formale Qualität (Sprache, Struktur, Aufbau, Darstellung, Literaturverzeichnis, Umgang mit Literatur im Text)",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#zusammensetzung-note-fallstudie",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#zusammensetzung-note-fallstudie",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Zusammensetzung Note Fallstudie:",
+    "text": "Zusammensetzung Note Fallstudie:\n\nFallstudie-Leistungsnachweis 1 - Forschungsplan: Testatplichtig\nFallstudie-Leistungsnachweis 2 - Multivariate Analyse: 100 %\n\nDie Note der Fallstudie fliesst in die Gesamtbewertung des Moduls Research Methods mit ein.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/4_Projektierung.html",
+    "href": "fallstudie_s/4_Projektierung.html",
+    "title": "Projekt erstellen",
+    "section": "",
+    "text": "Vorbereitung\nVor den eigentlichen Auswertungen müssen einige Vorbereitungen unternommen werden. Die Zeit, die man hier investiert, wird in den späteren Phasen um ein Mehrfaches eingespart.\nWie im Unterricht am Morgen empfehle auch ich mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. –&gt; Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: Link).\n–&gt; File / New Project",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Projekt erstellen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/4_Projektierung.html#vorbereitung",
+    "href": "fallstudie_s/4_Projektierung.html#vorbereitung",
+    "title": "Projekt erstellen",
+    "section": "",
+    "text": "Erstellt an einem passenden Speicherort (evtl. onedrive für das gemeinsame Arbeiten an einem Projekt) ein neues Projekt mit einem treffenden Namen:",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Projekt erstellen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/4_Projektierung.html#aufgabe-1-projektaufbau",
+    "href": "fallstudie_s/4_Projektierung.html#aufgabe-1-projektaufbau",
+    "title": "Projekt erstellen",
+    "section": "Aufgabe 1: Projektaufbau",
+    "text": "Aufgabe 1: Projektaufbau\nHinweise:\nNutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, können vor dem Wort “#” und nach dem Wort “####” eingefügt werden.\n\n# Texte, vor denen ein # und nach denen #### stehen, sind Überschriften\n\n# Ich bin eine first level Überschrift ####\n\n## Ich bin eine second level Überschrift ####\n\n# Texte, vor denen ein # steht, erklaeren den Ablauf (nicht was, sondern warum)\n\n# Dann folgen die Arbeitsschritte\n1 + 1\n\n# Wenn man auf \"Outline\" klickt (oder CTRL + SHIFT + O),\n# öffnet sich die Übersicht zu den Überschriften\n\nTipps:\n\nAlt + - = &lt;-\nCtrl + Shift + C = # vor der ausgewählten Zeile / den ausgewählten Zeilen hinzufügen oder wieder löschen\n\nAufbau eines Skripts\nZuerst immer den Titel des Projekts sowie den Autor/ die Autorin des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer Dateneigentümer ist (WPZ und Meteo Schweiz).\nIm Skript soll immer die Ordnerstruktur des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __scripts, data, results).\nBeschreibt zudem kurz die verwendeten Meteodaten (siehe dazu Metadata Meteodaten, –&gt; order_XXX_legend.txt)\nEin Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthält bei uns folgende Kapitel:\n\nMetadaten und Definitionen\nDatenimport\nVorbereitung\nDeskriptive Analyse und Visualisierung\nMultifaktorielle Analyse und Visualisierung\n\nBereitet euer Skript mit diesen Kapitel vor.\n\n# .###########################################################################################\n# TITEL ####\n# Fallstudie Modul Research Methods, HS24. Autor/in ####\n# .##########################################################################################\n\n# .##########################################################################################\n# METADATA UND DEFINITIONEN ####\n# .##########################################################################################\n\n# Datenherkunft ####\n# ...\n\n# .##########################################################################################\n# 1. DATENIMPORT #####\n# .##########################################################################################\n\nIn einem professionellen Bericht ist es angebracht, wenn alle Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable “mycolors” abrufen kann.\n\nmycolors &lt;- c(\"orangered\", \"gold\", \"mediumvioletred\", \"darkblue\")",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Projekt erstellen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/4_Projektierung.html#aufgabe-2-laden-der-bibliotheken",
+    "href": "fallstudie_s/4_Projektierung.html#aufgabe-2-laden-der-bibliotheken",
+    "title": "Projekt erstellen",
+    "section": "Aufgabe 2: Laden der Bibliotheken",
+    "text": "Aufgabe 2: Laden der Bibliotheken\n\nLädt nun die nachfolgenden, benötigten Bibliotheken.\nDiese habt ihr, falls nötig, im Kapitel Vorbereitung installiert.\n\n\n# Benoetigte Bibliotheken ####\nlibrary(\"readr\") # read data into r\nlibrary(\"ggplot2\") # plot nice graphs\nlibrary(\"dplyr\") # select data\nlibrary(\"lubridate\") # Arbeiten mit Datumsformaten\nlibrary(\"suncalc\") # berechne Tageszeiten abhaengig vom Sonnenstand\nlibrary(\"ggpubr\") # to arrange multiple plots in one graph\nlibrary(\"PerformanceAnalytics\") # Plotte Korrelationsmatrix\nlibrary(\"MuMIn\") # Multi-Model Inference\nlibrary(\"AICcmodavg\") # Modellaverageing\nlibrary(\"fitdistrplus\") # Prueft die Verteilung in Daten\nlibrary(\"lme4\") # Multivariate Modelle\nlibrary(\"DHARMa\") # Modeldiagnostik\nlibrary(\"blmeco\") # Bayesian data analysis using linear models\nlibrary(\"sjPlot\") # Plotten von Modellergebnissen (tab_model)\nlibrary(\"lattice\") # einfaches plotten von Zusammenhängen zwischen Variablen\nlibrary(\"glmmTMB\")# zero-inflated model",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Projekt erstellen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/4_Projektierung.html#aufgabe-3-zeitliche-definitionen",
+    "href": "fallstudie_s/4_Projektierung.html#aufgabe-3-zeitliche-definitionen",
+    "title": "Projekt erstellen",
+    "section": "Aufgabe 3: Zeitliche Definitionen",
+    "text": "Aufgabe 3: Zeitliche Definitionen\nWir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag gemäss den bei euch vorhandenen Zähldaten (das unterscheidet sich von Gruppe zu Gruppe).\n\ndepo_start &lt;- as.Date(\"2017-01-01\")\ndepo_end &lt;- as.Date(\"2023-12-31\")\n\nEin Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuchsverhalten.\n-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:\n\nlock_1_start_2020 &lt;- as.Date(\"2020-03-16\")\nlock_1_end_2020 &lt;- as.Date(\"2020-05-11\")\n\nlock_2_start_2021 &lt;- as.Date(\"2020-12-22\")\nlock_2_end_2021 &lt;- as.Date(\"2021-03-01\")\n\nEbenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl isoweek() liefert euch die Kalenderwoche, im standartisierten ISO-Format.\n\nKW_start &lt;- isoweek(depo_start)\nKW_end &lt;- isoweek(depo_end)\n\nFerienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/).\nLest das bereitgestellte .csv mit den Ferienzeiträumen ein und speichert es unter schulferien.\n\nschulferien &lt;- read_delim(\"datasets/fallstudie_s/ferien.csv\", \",\")\n\nNun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann im nächsten Schritt beginnen.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Projekt erstellen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/5_Datenverarbeitung.html",
+    "href": "fallstudie_s/5_Datenverarbeitung.html",
+    "title": "Daten(vor)verarbeitung",
+    "section": "",
+    "text": "Aufgabe 1: Zähldaten",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-1-zähldaten",
+    "href": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-1-zähldaten",
+    "title": "Daten(vor)verarbeitung",
+    "section": "",
+    "text": "1a)\nDie Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden.\nLädt die Daten zuerst von Moodle herunter:\n\nZähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2024.csv, 502_sihluferweg_2016_2024.csv) -&gt; wählt einen aus\nMeteodaten und Legende\n\nHinweis: Siehe [einfuehrung] für den Standort der Zähler 211 und 502.\nDie Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.\n\nLest die Zählaten ein, speichert ihn unter der Variable depo und sichtet den Datensatz (z.B. str(), head(), view() usw.). Ihr könnt den Datensatz in R auch anders benennen. WIchtig sind kurze, “sprechende” Namen für die Variablen.\n\n\n\nMusterlösung\n# Speicherort sowie Dateiname anpassen\ndepo &lt;- read_delim(\"./HIER RELATIVEN DATEIPFAD EINGEBEN\", \"HIER SEPERATOR EINGEBEN\")\n\n\nHinweis: Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.\n\n\nMusterlösung\n# lese die Daten ein\ndepo &lt;- read_delim(\"datasets/fallstudie_s/211_sihlwaldstrasse.csv\", \";\")\n\n# erstes Sichten und anpassen der Datentypen\nstr(depo)\n\n\n\n\n1b)\n\nNun muss das Datum als solches definiert werden. Ich nutze dazu as.POSIXct(), wie schon für die Aufgabe zum Besuchermonitoring Grüntal. Welches Format hat das Datum im csv? Das muss im Code angepasst werden.\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n  mutate(\n    Datetime = as.POSIXct(DatumUhrzeit, format = \"HIER STEHT DAS DATUMSFORMAT\", tz = \"CET\"),\n    # nun schreiben wir uns das Datum in eine seperate Spalte\n    Datum = as.Date(Datetime)\n  )\n\n\n\n\nMusterlösung\n# hier der code mit dem richtigen Format\ndepo &lt;- depo |&gt;\n  mutate(\n    Datetime = as.POSIXct(as.character(Datetime), format = \"%Y%m%d%H\", tz = \"CET\"),\n    Datum = as.Date(Datetime)\n  )\n\n\n\n\n1c)\nIhr könnt selbst wählen, ob ihr Fussgänger:innen oder Fahrräder untersuchen wollt.\n\nEntfernt die überflüssigen Spalten aus dem Datensatz. Ich schlage vor, dass ihr dafür den Befehl dplyr::select() verwendet.\nDamit kann man entweder Spalten behalten oder eben auch Spalten entfernen (-c(SPALTENNAMEN)).\n\nHinweis: mit select() können Spalten gewählt werden, mit filter() Zeilen.\n\n\nMusterlösung\n# In dieser Auswertung werden nur Personen zu Fuss betrachtet!\n# it select werden spalten ausgewaehlt oder eben fallengelassen\ndepo &lt;- depo |&gt;\n  dplyr::select(-c(Velo_IN, Velo_OUT))\n\n\n\n\n1d)\n\nBerechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist.\n\nTipp: Wenn man R sagt: “addiere mir Spalte x mit Spalte y”, dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: “speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens Total”, dann hat man die Aufgabe bereits gelöst. Arbeitet mit mutate()).\n\nEntfernt nun alle NA-Werte mit na.omit().\n\n\n\nMusterlösung\n# Berechnen des Totals, da dieses in den Daten nicht vorhanden ist\ndepo &lt;- depo |&gt;\n  mutate(Total = Fuss_IN + Fuss_OUT)\n\n# Entferne die NA's in dem df.\ndepo &lt;- na.omit(depo)",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-2-meteodaten",
+    "href": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-2-meteodaten",
+    "title": "Daten(vor)verarbeitung",
+    "section": "Aufgabe 2: Meteodaten",
+    "text": "Aufgabe 2: Meteodaten\n\n2a)\n\nLest die Meteodaten ein und speichert sie unter meteo.\n\n\n\nMusterlösung\n# Einlesen\nmeteo &lt;- read_delim(\"datasets/fallstudie_s/order_124839_data.txt\", \";\")\n\n\n\n\n2b)\n\nAuch hier müssen die Datentypen manuell gesetzt werden.\n\nTipps: - Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code. - ich nutze hier as.Date() und nicht as.POSIXct. Ersteres ist praktisch nur für das Datum, letzeres für Datetime Objekte.\n\n\nMusterlösung\nmeteo &lt;- mutate(meteo, time = as.Date(as.character(time), \"%Y%m%d\"))\n\n\nHinweise:\nDie Zeitangaben bei den Meteodaten sind in UTC: 00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit, Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00\nDa wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht mit den Daten der Zählstellen übereinstimmt. Learning: es ist zentral immer die Metadaten zu checken.\nWas ist eigentlich Niederschlag:\nLink Meteo Schweiz\n\nWerden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.\nNun schneiden wir den Datensatz auf die Untersuchungsdauer zu.\n\n\n\nMusterlösung\n    ... |&gt;\n    filter(time &gt;= depo_start, time &lt;= depo_end)\n\n\n\nDann müssen auch hier alle nicht verfügbare Werte (NA’s) herausgefiltert werden. Macht das wieder mit na.omit()\nPrüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden:\n\n\n\nMusterlösung\nsum(is.na(df$Variable))\n\n\n\nStimmen alle Datentypen? str()\n\n\n\nMusterlösung\n# Die eigentlichen Messwerte sind alle nummerisch\nmeteo &lt;- meteo |&gt;\n    mutate(\n        tre200nx = as.numeric(tre200nx),\n        tre200jx = as.numeric(tre200jx),\n        rre150n0 = as.numeric(rre150n0),\n        rre150j0 = as.numeric(rre150j0),\n        sremaxdv = as.numeric(sremaxdv)\n    ) |&gt;\n    filter(time &gt;= depo_start, time &lt;= depo_end) # schneide dann auf Untersuchungsdauer\n\n# Was ist eigentlich Niederschlag:\n# https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html\n\n# Filtere Werte mit NA\nmeteo &lt;- na.omit(meteo)\n# Pruefe ob alles funktioniert hat\nstr(meteo)\nsum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-3-datenvorverarbeitung-mutationen",
+    "href": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-3-datenvorverarbeitung-mutationen",
+    "title": "Daten(vor)verarbeitung",
+    "section": "Aufgabe 3: Datenvorverarbeitung (Mutationen)",
+    "text": "Aufgabe 3: Datenvorverarbeitung (Mutationen)\n\n3a)\nJetzt fügen wir viele Convenience Variablen hinzu. Wir brauchen:\n\nWochentag; der Befehl dazu ist wday(). Danach als Faktor speichern.\nWerktag oder Wochenende, ebenfalls als Faktor.\n\nDer Code dazu könnte in Teilen so aussehen:\n\n\nMusterlösung\n  ...|&gt;\n  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), \"Wochenende\", \"Werktag\")) |&gt;\n  # 1 means Monday and 7 means Sunday (default)\n  mutate(Wochenende = as.factor(Wochenende)) |&gt;\n  ...\n\n\nje als Faktor:\n\nKalenderwoche: isoweek()\nMonat: month()\nJahr: year()\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge\n  mutate(\n    Wochentag = wday(Datetime, week_start = 1),\n    Wochentag = factor(Wochentag),\n    # Werktag oder Wochenende hinzufuegen\n    Wochenende = ifelse(Wochentag %in% c(6, 7), \"Wochenende\", \"Werktag\"),\n    Wochenende = as.factor(Wochenende),\n    # Kalenderwoche hinzufuegen\n    KW = isoweek(Datetime),\n    KW = factor(KW),\n    # monat und Jahr\n    Monat = month(Datetime),\n    Monat = factor(Monat),\n    Jahr = year(Datetime),\n    Jahr = factor(Jahr))\n\n\nDies machen wir auch mit dem “meteo” Datensatz. Wiederum bitte Wochentag, Werktag oder Wochenende, Kalenderwoche, Monat und Jahr. Ebenfalls alles als Faktor speichern.\n\n\nMusterlösung\n# Wir gruppieren die Meteodaten noch nach Kalenderwoche und Werktag / Wochenende\n# Dafür brauchen wir zuerst diese als Convenience Variablen\nmeteo &lt;- meteo |&gt;\n  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge\n  mutate(\n    Wochentag = wday(time, week_start = 1),\n    Wochentag = factor(Wochentag),\n    # Werktag oder Wochenende hinzufuegen\n    Wochenende = ifelse(Wochentag %in% c(6, 7), \"Wochenende\", \"Werktag\"),\n    Wochenende = as.factor(Wochenende),\n    # Kalenderwoche hinzufuegen\n    KW = isoweek(time),\n    KW = factor(KW),\n    # monat und Jahr\n    Monat = month(time),\n    Monat = factor(Monat),\n    Jahr = year(time),\n    Jahr = factor(Jahr))\n\n\nWieder zurück zum depo-Datensazt.\nIch mache den folgenden Punkt nachgelagert zu den vorherigen Convenience Variablen, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.\nPhasen der Covid-Pandemie (Code untenstehend). Wir definieren 5 Phasen:\n\nvon Anfang Untersuchungsperiode bis vor Lockdown 1\nLockdown 1\nzwischen den Lockdowns\nLockdown 2\nEnde 2. Lockdown bis Ende Untersuchungsperiode\nWir packen alle Phasen in eine Spalte –&gt; long-format ist praktischer für das plotten als wide-format.\nSpäter im multivariaten Modell werden die Levels der Variablen per “default” alphabetisch geordnet und die Effektstärken der einzelnen Levels gegenüber dem ersten Level gerechnet. Das macht wenig Sinn, den die Levels sind nicht alphabetisch, sondern gemäss der Liste oben (später mehr dazu). Das passen wir ebenfalls an.\nHier der fertige Code dazu:\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n    mutate(Phase = case_when(\n        Datetime &lt; lock_1_start ~ \"Pre\",\n        Datetime &gt;= lock_1_start & Datetime &lt;= lock_1_end ~ \"Lockdown_1\",\n        Datetime &gt; lock_1_end & Datetime &lt; lock_2_start ~ \"Inter\",\n        Datetime &gt;= lock_2_start & Datetime &lt;= lock_2_end ~ \"Lockdown_2\",\n        Datetime &gt; lock_2_end ~ \"Post\"\n    ))\n\n# hat das gepklappt?!\nunique(depo$Phase)\n\ndepo &lt;- depo |&gt;\n    # mit factor() koennen die levels direkt einfach selbst definiert werden.\n    # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem\n    # mix-up mit anderen packages\n    mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nstr(depo)\n\n\nNeben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchszahlen haben. Wir haben die Schulferien bereits als .csv eingelesen. Allerdings können wir die Schulferien nicht mit der case_when()-Funktion zuweisen, da diese mit dieser Funktion alle Vektoren im Datensatz “schulferien” verglichen werden, und nicht elementweise für jede Zeile im “depo”-Datensatz. Dies führt dazu, dass die Bedingungen nur einmal überprüft werden und dann auf den gesamten Vektor angewendet werden, anstatt Zeile für Zeile.\n\nWeil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:\n\n\n\nMusterlösung\n# schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als\n# ende, DANN schreibe ein 1\nfor (i in 1:nrow(schulferien)) {\n  depo$Ferien[depo$Datum &gt;= schulferien[i, \"Start\"] & depo$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo$Ferien[is.na(depo$Ferien)] &lt;- 0\n\n# als faktor speichern\ndepo$Ferien &lt;- factor(depo$Ferien)\n\n\n\n\n3b)\n\nNun soll noch die volle Stunde als Integer im Datensatz stehen. Macht das mit dem Befehl hour()\n\n\n\nMusterlösung\n# Fuer einige Auswertungen muss auf die Stunden als nummerischer Wert zurueckgegriffen werden\ndepo$Stunde &lt;- hour(depo$Datetime)\n# hour gibt uns den integer\ntypeof(depo$Stunde)\n\n\n\n\n3c)\nDie Daten wurden durch den WPZ kalibriert (Nachkommastellen). Unser späteres Modell kann nicht mit Nachkommastellen in der abhängigen Variable umgehen (später dazu mehr).\n\nRundet die Zähldaten in der Spalte “Total” auf 0 Nachkommastellen. Der Befehl lautet round()\nDefiniert sie sicherheitshalber als Integer (= Ganzzahl)\nMacht das nun noch für IN und OUT.\n\n\n\nMusterlösung\ndepo$Total &lt;- as.integer(round(depo$Total, digits = 0))\n\ndepo$Fuss_IN &lt;- as.integer(round(depo$Fuss_IN, digits = 0))\n\ndepo$Fuss_OUT &lt;- as.integer(round(depo$Fuss_OUT, digits = 0))\n\n\n\n\n3d) Tageszeit\nWir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie hinaus geht, liefere ich euch hier den Code dazu, den ihr kopieren könnt. Beschreibt in eurem Bericht später, dass ihr die Einteilung der Tageszeit gemäss den Dämmerungszeiten in Zürich und gemäss meinem Code gemacht habt.\nDie wichtigsten Punkte:\n\nDie Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package “suncalc” berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.\nDie Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert.\n\nHinweis: damit case_when() funktioniert, müsst ihr dplyr Version als 1.1.1 oder neuer haben. Das könnt ihr unter “Packages” (neben dem Reiter “Plots”, unten rechts) prüfen.\n\n\nMusterlösung\n# Einteilung Standort Zuerich\nLatitude &lt;- 47.38598\nLongitude &lt;- 8.50806\n\n# Start und das Ende der Sommerzeit:\n# https://www.schulferien.org/schweiz/zeit/zeitumstellung/\n\n\n# Welche Zeitzone haben wir eigentlich?\n# Switzerland uses Central European Time (CET) during the winter as standard time,\n# which is one hour ahead of Coordinated Universal Time (UTC+01:00), and\n# Central European Summer Time (CEST) during the summer as daylight saving time,\n# which is two hours ahead of Coordinated Universal Time (UTC+02:00).\n# https://en.wikipedia.org/wiki/Time_in_Switzerland\n\n# Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?\n# https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/\n# https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes\n\n# Wir arbeiten mit folgenden Variablen:\n# \"nightEnd\" : night ends (morning astronomical twilight starts)\n# \"goldenHourEnd\" : morning golden hour (soft light, best time for photography) ends\n# \"goldenHour\" : evening golden hour starts\n# \"night\" : night starts (dark enough for astronomical observations)\n\nlumidata &lt;-\n    getSunlightTimes(\n        date = seq.Date(depo_start, depo_end, by = 1),\n        keep = c(\"nightEnd\", \"goldenHourEnd\", \"goldenHour\", \"night\"),\n        lat = Latitude,\n        lon = Longitude,\n        tz = \"CET\"\n    ) |&gt;\n    as_tibble()\n\n# jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw.\n# diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:\ndepo &lt;- depo |&gt;\n    left_join(lumidata, by = c(Datum = \"date\"))\n\ndepo &lt;- depo |&gt;\n    mutate(Tageszeit = case_when(\n        Datetime &gt;= nightEnd & Datetime &lt;= goldenHourEnd ~ \"Morgen\",\n        Datetime &gt; goldenHourEnd & Datetime &lt; goldenHour ~ \"Tag\",\n        Datetime &gt;= goldenHour & Datetime &lt;= night ~ \"Abend\",\n        .default = \"Nacht\"\n    )) |&gt;\n    mutate(Tageszeit = factor(Tageszeit, levels = c(\"Morgen\", \"Tag\", \"Abend\", \"Nacht\"), ordered = TRUE))\n\n# behalte die relevanten Var\ndepo &lt;- depo |&gt; dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)\n\n# Plotte zum pruefn ob das funktioniert hat\nggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +\n    geom_jitter() +\n    scale_color_manual(values = mycolors)\n\nsum(is.na(depo))\n\n# bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht.\n# Diese loesche ich einfach:\ndepo &lt;- na.omit(depo)\n# hat das funktioniert?\nsum(is.na(depo))",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-4-aggregierung-der-stundendaten",
+    "href": "fallstudie_s/5_Datenverarbeitung.html#aufgabe-4-aggregierung-der-stundendaten",
+    "title": "Daten(vor)verarbeitung",
+    "section": "Aufgabe 4: Aggregierung der Stundendaten",
+    "text": "Aufgabe 4: Aggregierung der Stundendaten\n\n4a)\nUnsere Daten liegen, wie ihr wisst, im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen.\n\nDie Stundendaten werden zu ganzen Tagen aggregiert. Bezieht nur die Gruppierung (group_by()) Datum mit ein und speichert das Resultat unter depo_d (“_d” für “day”).\n\nHinweis: Wir gruppieren nur nach Datum, da ich mit den vielen weiteren Gruppierungen hier Probleme hatte, eine korrekte Summe zu erhalten.\n\n\nMusterlösung\ndepo_d &lt;- depo |&gt; \n  group_by(Datum) |&gt;   # Gruppieren nach der Variable Datum\n  summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte\n            Fuss_IN = sum(Fuss_IN),\n            ...\n\n\n\n\nMusterlösung\n# hier werden also pro Nutzergruppe und Richtung die Stundenwerte pro Tag aufsummiert\ndepo_d &lt;- depo |&gt;\n  group_by(Datum) |&gt;\n  summarise(\n    Total = sum(Fuss_IN + Fuss_OUT),\n    Fuss_IN = sum(Fuss_IN),\n    Fuss_OUT = sum(Fuss_OUT)\n  )\n\n\n\nBerechne die Anzahl Tage bis Neujahr, wir brauchen sie später in den Modellen\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt; \n  mutate(Tage_bis_Neujahr = as.numeric(difftime(ymd(paste0(year(Datum), \"-12-31\")), Datum, units = \"days\")))\n\n\n\nund füge nochmals alle Convenience Variablen gemäss oben ein (ihr solltet den Code einfach kopieren können):\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt;\n  mutate(\n  Wochentag = wday(Datum, week_start = 1),\n  Wochentag = factor(Wochentag),\n  # Werktag oder Wochenende hinzufuegen\n  Wochenende = ifelse(Wochentag %in% c(6, 7), \"Wochenende\", \"Werktag\"),\n  Wochenende = as.factor(Wochenende),\n  # Kalenderwoche hinzufuegen\n  KW = isoweek(Datum),\n  KW = factor(KW),\n  # monat und Jahr\n  Monat = month(Datum),\n  Monat = factor(Monat),\n  Jahr = year(Datum),\n  Jahr = factor(Jahr))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = case_when(\n    Datum &lt; lock_1_start ~ \"Pre\",\n    Datum &gt;= lock_1_start & Datum &lt;= lock_1_end ~ \"Lockdown_1\",\n    Datum &gt; lock_1_end & Datum &lt; lock_2_start ~ \"Inter\",\n    Datum &gt;= lock_2_start & Datum &lt;= lock_2_end ~ \"Lockdown_2\",\n    Datum &gt; lock_2_end ~ \"Post\"\n  ))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nfor (i in 1:nrow(schulferien)) {\n  depo_d$Ferien[depo_d$Datum &gt;= schulferien[i, \"Start\"] & depo_d$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo_d$Ferien[is.na(depo_d$Ferien)] &lt;- 0\n\ndepo_d$Ferien &lt;- factor(depo_d$Ferien)\n\n# pruefe das df\nhead(depo_d)\n\n\n\nErstellt nun. ähnlich wie oben, einen Datensatz depo_daytime, in welchem ihr gruppiert nach:\n\n\nJahr\nMonat\nKalenderwoche\nPhase\nFerien\nWochenende oder Werktag\nTageszeit\n\n\n\nMusterlösung\ndepo_daytime &lt;- depo |&gt;\n  group_by(Jahr, Monat, KW, Phase, Ferien, Wochenende, Tageszeit) |&gt;\n  summarise(\n    Total = sum(Fuss_IN + Fuss_OUT),\n    Fuss_IN = sum(Fuss_IN),\n    Fuss_OUT = sum(Fuss_OUT))\n\n\n\nWeiter benötigen wir für das Aufzeigen der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), aufgeteilt nach Tageszeit und Phase (group_by Tageszeit, Phase). Speichert das unter “mean_phase_d”.\n\n\n\nMusterlösung\nmean_phase_d &lt;- depo_daytime |&gt;\n  group_by(Phase, Tageszeit) |&gt;\n  summarise(\n    Total = mean(Total),\n    IN = mean(Fuss_IN),\n    OUT = mean(Fuss_OUT))\n\n\n\n\n4b)\n\nAggregiere die Stundenwerte nach dem Monat (group_by Monat, Jahr). Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr. Speichert das neue df unter depo_m (“_m” für “Monat”).\n\nTipp: Braucht wiederum group_by() und summarise().\n\n\nMusterlösung\ndepo_m &lt;- depo |&gt;\n    group_by(Jahr, Monat) |&gt;\n    summarise(Total = sum(Total))\n\n\n\nFügt dem neu erstellten df depo_m eine Spalte mit Jahr + Monat hinzu.\n\nHier der fertige Code dazu (da etwas umständlich):\n\n\nMusterlösung\ndepo_m &lt;- depo_m |&gt;\n    mutate(\n        Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und Monat sind\n        Ym = lubridate::ym(Ym)\n    ) # formatiere als Datum\n\n\n\nWiederholt diesen Schritt, diesmal aber mit der Gruppierung “Tageszeit” neben “Jahr” und “Monat” (wiederum sollen Jahr und Monat auch in einer Spalte stehen).\nSpeichert das Resultat unter “depo_m_daytime”.\n\n\n\nMusterlösung\n# Gruppiere die Werte nach Monat und TAGESZEIT\ndepo_m_daytime &lt;- depo |&gt;\n    group_by(Jahr, Monat, Tageszeit) |&gt;\n    summarise(Total = sum(Total))\n# sortiere das df aufsteigend (nur das es sicher stimmt)\n\ndepo_m_daytime &lt;- depo_m_daytime |&gt;\n    mutate(\n        Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und Monat sind\n        Ym = lubridate::ym(Ym)\n    ) # formatiere als Datum\n\n\n\n\n4c)\nMacht euch mit den Daten vertraut. Plottet sie, seht euch die df’s an, versteht, was sie repräsentieren.\nZ.B. sind folgende Befehle und Plots wichtig:\n\nstr()\nsummarize()\nhead()\nScatterplot, x = Datum, y = Anzahl pro Zeiteinheit\nHistrogram\nusw.\n\nHinweis: Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine “analysierenden” Plots erstellt.\nNachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/6_Deskriptive_Analysen.html",
+    "href": "fallstudie_s/6_Deskriptive_Analysen.html",
+    "title": "Deskriptive Analysen",
+    "section": "",
+    "text": "Aufgabe 1: Verlauf der Besuchszahlen nach Monat",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Deskriptive Analysen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-1-verlauf-der-besuchszahlen-nach-monat",
+    "href": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-1-verlauf-der-besuchszahlen-nach-monat",
+    "title": "Deskriptive Analysen",
+    "section": "",
+    "text": "1a)\nNachdem wir die Projektstruktur aufgebaut haben und die Daten vorbereitet (inkl. aggregiert) sind, machen wir uns an die deskriptive Analyse. Bevor mach sich an die schliessende Statistik macht, muss man Trends in den Daten erkennen.\nWir interessieren uns in den Analysen für 5 Zeitabschnitte:\n\nvon Anfang Untersuchungsperiode bis vor dem 1. Lockdown (pre)\nLockdown 1\nZwischen beiden Lockdowns (inter)\nLockdown 2\nEnde 2. Lockdown bis Ende Untersuchungsperiode (post)\n\nUnd dabei immer auch für die verschiedenen Tageszeiten (Morgen, Tag, Abend, Nacht).\n\nPlottet den Verlauf der monatlichen Besuchszahlen an eurer Zählstelle.\nAuf der x-Achse steht dabei dabei Jahr und Monat (gespeichert im df depo_m), auf der y-Achse die monatlichen Besuchszahlen.\nZeichnet auch die beiden Lockdown ein (Hinweis: rundet das Start- und Enddatum der Lockdowns auf den Monat, da im Plot die monatlichen Zahlen gezeigt werden).\n\nHaltet euch dabei an untenstehenden Plot (als Inspiration gedacht):\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\nggplot(depo_m, mapping = aes(Ym, Total, group = 1)) + # group = 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird\n  # zeichne Lockdown 1\n  geom_rect(\n    mapping = aes(\n      xmin = ym(\"2020-3\"), xmax = ym(\"2020-5\"),\n      ymin = 0, ymax = max(Total + (Total / 100 * 10))),\n    fill = \"lightskyblue\", alpha = 0.2, colour = NA) +\n  # zeichne Lockdown 2\n  geom_rect(\n    mapping = aes(\n      xmin = ym(\"2020-12\"), xmax = ym(\"2021-3\"),\n      ymin = 0, ymax = max(Total + (Total / 100 * 10))),\n    fill = \"darkolivegreen2\", alpha = 0.2, colour = NA) +\n  geom_line(alpha = 0.6, linewidth = 1) +\n  scale_x_date(date_labels = \"%b%y\", date_breaks = \"6 months\") +\n  labs(title = \"\", y = \"Fussgänger:innen pro Monat\", x = \"Jahr\") +\n  theme_classic(base_size = 15) +\n  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))\n\n\nHinweis: - Nutzt zum plotten ggplot() - folgende Codeschnipsel helfen euch:\n\n\nMusterlösung\nggplot(data = depo_m, mapping = aes(Ym, Total, group = 1)) + # group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird\n    # zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen\n  geom_rect(\n    mapping = aes(\n      xmin = ym(\"2020-3\"), xmax = ym(\"2020-5\"),\n      ymin = 0, ymax = max(Total + (Total / 100 * 10))\n    ), # das Rechteck soll 10 % grösser als die maximale Besuchszahl sein\n    fill = \"lightskyblue\", alpha = 0.2, colour = NA\n  ) +\n  # zeichne Lockdown 2\n  ... +\n  # zeichne die Linie\n  geom_line(...) +\n  scale_x_date(...)+\n  theme_linedraw(base_size = 15) +\n  ...\n\n\n\nExportiert euren Plot mit ggsave() nach results. Breite = 20, Höhe = 10, Einheiten = cm, dpi = 1000\n\n\n\n1b)\nDer erste Plot zeigt, wie sich die Besuchszahlen allgemein entwickelt haben. Interessant ist aber auch, wie sie während den einzelnen Monaten zueinander stehen (z.B. “Waren im Mai 2020 mehr Menschen unterwegs als im Mai 2017?”). Dies zeigt folgender Plot:\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\nggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +\n  geom_line(size = 2) +\n  geom_point() +\n  scale_colour_viridis_d() +\n  scale_linetype_manual(values = c(rep(\"solid\", 3), \"twodash\", \"twodash\", \"solid\", \"solid\")) +\n  scale_x_discrete(breaks = c(seq(0, 12, by = 1))) +\n  geom_vline(xintercept = c(seq(1, 12, by = 1)), linetype = \"dashed\", color = \"gray\") +\n  labs(title = \"\", y = \"Fussgänger:innen pro Monat\", x = \"Monat\") +\n  theme_classic(base_size = 15) +\n  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))\n\n\n\nErstellt diesen Plot und speichert ihn.\n\nHinweis: Dieser Plot wird erstellt mit dem Argument group, linetype und color innerhalb des _aes()__ Arguments. geom_line() wiederum zeichnet die Linien.\n\n\n1c)\nUnser Fokus liegt auf der dunklen Tageszeit. Wie verteilen sich die Besuchenden also auf Morgen, Tag, Abend und Nacht?\n\nErstellt und speichert folgenden Plot:\n\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\nggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +\n  geom_area(position = \"fill\", alpha = 0.8) +\n  scale_fill_manual(values = mycolors) +\n  scale_x_date(date_labels = \"%b%y\", date_breaks = \"6 months\", \n               limits = c(min(depo_m_daytime$Ym), max = max(depo_m_daytime$Ym)), expand = c(0, 0)) +\n  geom_vline(xintercept = seq(as.Date(min(depo_m_daytime$Ym)), as.Date(max(depo_m_daytime$Ym)), \n                              by = \"6 months\"), linetype = \"dashed\", color = \"black\")+\n  theme_classic(base_size = 15) +\n  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), \n        legend.position = \"bottom\") +\n  labs(title = \"\", y = \"Verteilung Fussgänger:innen / Monat [%]\", x = \"Jahr\")\n\n\nDiese Codeschnipsel helfen euch:\n\n\nMusterlösung\nggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +\n  geom_area(...) +\n  scale_x_date(date_labels = \"%b%y\", date_breaks = \"6 months\", \n               limits = c(min(depo_m_daytime$Ym), max = max(depo_m_daytime$Ym)), expand = c(0, 0)) +\n  geom_vline(xintercept = seq(as.Date(min(depo_m_daytime$Ym)), as.Date(max(depo_m_daytime$Ym)), \n                              by = \"6 months\"), linetype = \"dashed\", color = \"black\")+\n  ...",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Deskriptive Analysen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-2-wochengang",
+    "href": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-2-wochengang",
+    "title": "Deskriptive Analysen",
+    "section": "Aufgabe 2: Wochengang",
+    "text": "Aufgabe 2: Wochengang\nNun möchten wir genauer untersuchen, wie sich die Besuchszahlen je nach Phase (Pre, Lockdown 1, Inter, Lockdown 2 und Post) auf die Wochentage und Tageszeiten verteilen.\n\n2a)\n\nErstellt dazu einen Violinplot nach untenstehender Vorgabe. Was sagt uns dieser komplexe Plot?\n\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\nggplot(data = depo, aes(x = Wochentag, y = Total, fill = Tageszeit)) +\n  geom_violin(alpha = 0.5) +\n  labs(title = \"\", y = \"Fussgänger:innen pro Tag [log10]\") +\n  facet_grid(cols = vars(Tageszeit), rows = vars(Phase))+\n  scale_y_log10()+\n  scale_fill_manual(values = mycolors) +\n  theme_classic(base_size = 15) +\n  theme(\n    panel.background = element_rect(fill = NA, color = \"black\"),\n    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),\n    legend.title = element_blank(), \n    legend.position = \"none\")\n\n\nHinweis:\n\nNutzt zum plotten ggplot()\nfolgende Codeschnipsel helfen euch:\n\n\n\nMusterlösung\nggplot(data = depo, aes(x = Wochentag, y = Total, fill = Tageszeit)) +\n  geom_violin() +\n  facet_grid(cols = vars(...), rows = vars(...))+\n  scale_y_log10()+ \n  ...\n\n\n\nWarum macht es Sinn, hier die y-Achse zu logarithmieren?\nGibt es alternative Darstellungsformen, welche besser geeignet wären?\nExportiert auch diesen Plot mit ggsave(). Welche Breite und Höhe passt hier?",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Deskriptive Analysen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-3-tagesgang",
+    "href": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-3-tagesgang",
+    "title": "Deskriptive Analysen",
+    "section": "Aufgabe 3: Tagesgang",
+    "text": "Aufgabe 3: Tagesgang\nVon der Übersicht ins Detail. Jetzt widmen wir uns dem Tagesgang, das heisst der Verteilung der Besuchenden auf die 24 Tagesstunden je nach Phase.\n\n3a)\n\nBerechnet zuerst den Mittelwert der totalen Besuchszahlen pro Wochentag, pro Stunde pro Phase und speichert das df unter Mean_h.\n\n\n\nMusterlösung\nMean_h &lt;- depo |&gt;\n  group_by(Wochentag, Stunde, Phase) |&gt;\n  summarise(Total = mean(Total))\n\n\nVergewissert euch vor dem Plotten, dass der Datensatz im long-Format vorliegt.\n\n\n3b)\n\nPlottet den Tagesgang, unterteilt nach den 7 Wochentagen nun für die verschiedenen Phasen.\n\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\nggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag)) +\n  geom_line(size = 1) +\n  scale_colour_viridis_d() +\n  scale_linetype_manual(values = c(rep(\"solid\", 5), \"twodash\", \"twodash\")) +\n  scale_x_continuous(breaks = c(seq(0, 23, by = 1)), labels = c(seq(0, 23, by = 1))) +\n  facet_grid(rows = vars(Phase)) +\n  labs(x = \"Uhrzeit [h]\", y = \"Durchscnnitt Fussganger_Innen / h\", title = \"\") +\n  lims(y = c(0, 25)) +\n  theme_linedraw(base_size = 15) +\n  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))\n\n\nHinweis: - Nutzt zum plotten ggplot() - folgende Codeschnipsel helfen euch:\n\n\nMusterlösung\nggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag)) +\n  geom_line(...) +\n  facet_grid(...)\n...",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Deskriptive Analysen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-4-kennzahlen",
+    "href": "fallstudie_s/6_Deskriptive_Analysen.html#aufgabe-4-kennzahlen",
+    "title": "Deskriptive Analysen",
+    "section": "Aufgabe 4: Kennzahlen",
+    "text": "Aufgabe 4: Kennzahlen\nBis hier hin haben wir in diesem Kapitel v.a. visuell gearbeitet. Für den Bericht kann es aber sinnvoll sein, auch einige Kennzahlen in der Hinterhand zu haben. Wir haben das bereits im Kapitel [Datenverarbeitung] berechnet.\n\nReflektiert, welche Zahlen ihr habt und was für den Bericht spannend sein könnte, resp. eure Abbildungen unterstützen oder ergänzen.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Deskriptive Analysen</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html",
+    "title": "Multivariate Modelle",
+    "section": "",
+    "text": "Aufgabe 1: Verbinden von Daten\nNachdem die deskriptiven Resultate vorliegen, kann jetzt die Berechnung eines multivariaten Modells angegangen werden.\nDas Ziel ist es (siehe dazu auch [Aufgabenstellung Abschlussbericht]), - den Zusammenhang zwischen der gesamten Anzahl Besucher:innen (Total; entweder Fussgänger:innen ODER Fahrräder, je nach dem für was ihr euch entschieden habt) - und verschiedenen erklärenden Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie, Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) aufzuzeigen.\nAktuell haben wir noch zwei verschiedene Datensätze von Interesse:",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-1-verbinden-von-daten",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-1-verbinden-von-daten",
+    "title": "Multivariate Modelle",
+    "section": "",
+    "text": "Einen mit den Besuchszahlen pro Tag von Besucher:innen mit den dazugehörigen Convenience Variablen (Datensatz “depo_d” - zu Tagen aggregierte Stunden und Convenience Variablen )\nund einen mit den Wetterparametern pro Tag (“meteo”).\n\n\nDiese beiden Datensätze müssen miteinander verbunden werden. Ziel: Ein Datensatz mit den Zähldaten und Convenience Variablen wie Phase Covid, Ferien Ja oder Nein, Jahr, Monat, KW, Wochenendtag oder Werktag, angereichert mit Meteodaten. Welcher join-Befehl eignet sich dazu?\nDer neue Datensatz soll ” umwelt ” heissen.\n\n\nSind durch das Zusammenführen NA’s entstanden? Falls ja, müssen alle für die weiteren Auswertungen ausgeschlossen werden.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-2-skalieren",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-2-skalieren",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 2: Skalieren",
+    "text": "Aufgabe 2: Skalieren\n\n2a)\n\nVergewissert euch, dass die numerischen Messwerte zu den Meteodaten auch in numerischer Form vorliegen. (is.numeric())\nNachfolgende Schritte funktionieren nur, wenn umwelt als data.frame vorliegt! Prüft das und ändert das, falls noch kein data.frame (Hinweis: auch ein “tibble” funktioniert nicht, obwohl bei der Abfrage is.data.frame() TRUE angegeben wird. Damit ihr beim scalen keine NaN Werte erhaltet, wendet ihr darum am besten sowieso zuerst den Befehl as.data.frame() auf umwelt an).\n\n\nUnser Modell kann in der abhängigen Variabel nur mit Ganzzahlen (Integer) umgehen. Daher müssen Kommazahlen in Integer umgewandelt werden. Zum Glück haben wir das schon gemacht in der Datenvorverarbeitung (Aufgabe 3c) und uns bleibt nichts weiter zu tun.\n\n\n\n2b)\n\nProblem: verschiedene Skalen der Variablen (z.B. Temperatur in Grad Celsius, Niederschlag in Millimeter und Sonnenscheindauer in %)\nLösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:\n\n\n\nMusterlösung\numwelt &lt;- umwelt |&gt; \n  mutate(tre200jx_scaled = scale(tre200jx)|&gt;\n  ...",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-3-korrelationen-und-variablenselektion",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-3-korrelationen-und-variablenselektion",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 3: Korrelationen und Variablenselektion",
+    "text": "Aufgabe 3: Korrelationen und Variablenselektion\n\n3a)\nKorrelierende Variablen können das Modellergebnis verfälschen. Daher muss vor der Modelldefinition auf Korrelation zwischen den Messwerten getestet werden. Welches sind die erklärenden Variablen, welches ist die Abhängige? (Ihr müsst nicht prüfen, ob die Voraussetzungen zur Berechnung von Korrelationen erfüllt sind)\n\nTeste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.\n\n\n\nMusterlösung\ncor &lt;- cor(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : \n                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))\n\n\n\n\n3b)\nMit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgebaut werden. Hier kann auch die Schwelle für die Korrelation gesetzt werden (0.7 ist liberal / 0.5 konservativ).\n\n\nMusterlösung\ncor[abs(cor) &lt; 0.7] &lt;- 0 # Setzt alle Werte kleiner 0.7 auf 0\n\n\nZur Visualisierung kann ein Plot erstellt werden.\n\n\nMusterlösung\nchart.Correlation(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : \n                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), \n                  histogram = TRUE, pch = 19)\n\n\nWo kann eine kritische Korrelation beobachtet werden? Kann man es verantworten, trotzdem alle (Wetter)parameter in das Modell zu geben?\nFalls ja: warum? Falls nein: schliesst den betreffenden Parameter aus. Wenn ihr Parameter ausschliesst: welchen der beiden korrelierenden Parameter behaltet ihr im Modell?",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-4-optional-automatische-variablenselektion",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-4-optional-automatische-variablenselektion",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 4 (OPTIONAL): Automatische Variablenselektion",
+    "text": "Aufgabe 4 (OPTIONAL): Automatische Variablenselektion\nFühre die dredge-Funktion und ein Modelaveraging durch. Der Code dazu ist unten. Was passiert in der Funktion? Macht es Sinn, die Funktion auszuführen?\nHinweis: untenstehender Code ist sehr rechenentensiv.\n\n\nMusterlösung\n# Hier wird die Formel für die dredge-Funktion vorbereitet\nf &lt;- Total ~ Wochentag + Ferien + Phase + Monat +\n    tre200jx_scaled + rre150j0_scaled + rre150n0_scaled +\n    sremaxdv_scaled\n# Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht\nf_dredge &lt;- paste(c(f, \"+ (1|Jahr)\"), collapse = \" \") |&gt;\n    as.formula()\n# Das Modell mit dieser Formel ausführen\nm &lt;- glmer.nb(f_dredge, data = umwelt, na.action = \"na.fail\")\n# Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)\nall_m &lt;- dredge(m)\n# suche das beste Modell\nprint(all_m)\n# Importance values der Variablen\n# hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen\nMuMIn::sw(all_m)\n\n# Schliesslich wird ein Modelaverage durchgeführt\n# Schwellenwert für das delta-AIC = 2\navgmodel &lt;- model.avg(all_m, rank = \"AICc\", subset = delta &lt; 2)\nsummary(avgmodel)",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-5-verteilung-der-abhängigen-variabel-pruefen",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-5-verteilung-der-abhängigen-variabel-pruefen",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 5: Verteilung der abhängigen Variabel pruefen",
+    "text": "Aufgabe 5: Verteilung der abhängigen Variabel pruefen\nDie Verteilung der abhängigen Variabel bestimmt, was für ein Modell geschrieben werden kann. Alle Modelle gehen von einer bestimmten gegebenen Verteilung aus. Wenn diese Annahme verletzt wird, kann es sein, dass das Modellergebnis nicht valide ist.\nUntenstehender Codeblock zeigt, wie unsere Daten auf verschiedene Verteilungen passen.\nHinweis: es kann sein, dass nicht jede Verteilung geplottet werden kann, es erscheint eine Fehlermeldung. Das ist nicht weiter schlimm, die betreffende Verteilung kann gelöscht werden. Analog muss das auch im Befehl gofstat() passieren.\n\nDie besten drei Verteilungen (gemäss AIC) sollen zur Visualisierung geplottet werden. Dabei gilt, je besser die schwarze Punktlinie (eure Daten) auf die farbigen Linien (theoretische Verteilungen) passen, desto besser ist diese Verteilung geeignet.\n\nHinweis: CDF = Cumulative distribution function; Wikipedia = “Anschaulich entspricht dabei der Wert der Verteilungsfunktion an der Stelle x der Wahrscheinlichkeit, dass die zugehörige Zufallsvariable X einen Wert kleiner oder gleich x annimmt.” Ihr müsst aber nicht weiter verstehen, wie das berechnet wird, wichtig für euch ist, dass ihr den Plot interpretieren könnt.\n\n\nMusterlösung\nf1 &lt;- fitdist(umwelt$Total, \"norm\") # Normalverteilung\nf1_1 &lt;- fitdist((umwelt$Total + 1), \"lnorm\") # log-Normalvert (beachte, dass ich +1 rechne.\n# log muss positiv sein; allerdings kann man die\n# Verteilungen dann nicht mehr miteinander vergleichen).\nf2 &lt;- fitdist(umwelt$Total, \"pois\") # Poisson\nf3 &lt;- fitdist(umwelt$Total, \"nbinom\") # negativ binomial\nf4 &lt;- fitdist(umwelt$Total, \"exp\") # exponentiell\nf5&lt;-fitdist(umwelt$Total,\"gamma\")  # gamma (berechnung mit meinen Daten nicht möglich)\nf6 &lt;- fitdist(umwelt$Total, \"logis\") # logistisch\nf7 &lt;- fitdist(umwelt$Total, \"geom\") # geometrisch\nf8&lt;-fitdist(umwelt$Total,\"weibull\")  # Weibull (berechnung mit meinen Daten nicht möglich)\n\ngofstat(list(f1, f2, f3, f4, f6, f7),\n  fitnames = c(\n    \"Normalverteilung\", \"Poisson\",\n    \"negativ binomial\", \"exponentiell\", \"logistisch\",\n    \"geometrisch\"))\n\n# die 2 besten (gemaess Akaike's Information Criterion) als Plot + normalverteilt,\nplot.legend &lt;- c(\"Normalverteilung\", \"exponentiell\", \"negativ binomial\")\n# vergleicht mehrere theoretische Verteilungen mit den empirischen Daten\ncdfcomp(list(f1, f4, f3), legendtext = plot.legend)\n\n\n\n\n\n\n\n\n\n\n\n\nWie sind unsere Daten verteilt? Welche Modelle können wir anwenden?",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-6-multivariates-modell-berechnen",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-6-multivariates-modell-berechnen",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 6: Multivariates Modell berechnen",
+    "text": "Aufgabe 6: Multivariates Modell berechnen\nJetzt geht’s ans Eingemachte!\nIch verwende hauptsächlich die Funktion glmmTMB(). Es ist wahnsinnig schnell und erlaubt viele Spezifikationen: Link\nAuch glmer() aus der Bibliothek lme4 ist recht neu und praktisch (diese Bibliothek wird auch in vielen wissenschaftlichen Papern im Feld Biologie / Wildtiermamagement zitiert). Link\n\n6a) Modelle berechnen\nHinweis: Auch wenn wir gerade herausgefunden haben, dass die Verteilung negativ binominal (in meinem Fall) ist, berechne ich für den Vergleich zuerst ein “einfaches Modell” der Familie poisson. Alternative Modelle rechnen wir in später.\n\nDie Totale Besucheranzahl pro Tag soll durch die abhängigen Variablen erklärt werden (Datensatz “umwelt”). Die Tage bis Neujahr sollen hierbei nicht beachtet werden, sie werden als “random factor” bestimmt.\n\nFrage: Warum bestimmen wir die Tage bis Neujahr als random factor?\nDie Modellformel lautet:\n\n\nMusterlösung\npoisson_model &lt;- glmer(Total ~ Monat + Ferien + Phase + Wochenende +\n                       tre200jx_scaled + rre150j0_scaled + rre150n0_scaled +\n                         sremaxdv_scaled +\n                         (1 | Tage_bis_Neujahr), family = poisson, data = umwelt)\n\nsummary(poisson_model) # zeigt das Ergebins des Modells\n\n\nFrage: Was bedeutet “family = poisson”?\nLöst zuerst Aufgabe 6b bevor ihr alternative (besser passende) Modelle rechnet; das kommt in Aufgabe 6c!\n\n\n6b) Modelldiagnostik\n\nPrüft ob euer Modell valide ist, mit dem Package DHARMa: Link\n\nBitte unbedingt diese obenstehende Vignette des DHARMa-Package konsultieren!\nHinweis: Wir verwenden etwas andere Funktionen als in der Vorlesung am morgen. Sie sind unten aufgeführt, und die Funktionen analog zu den Funktionen aus der Vorlesung, aber halt etwas anders.\n\n\nMusterlösung\n# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und\n# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt\n# werden (dauert je nach dem sehr lange)\n\n# wenn faktoren drin sind, dann gibt Anova einen einfachen überblick, welche faktoren signifikant sind\ncar::Anova(poisson_model)\n\n# dann kommt dharma\nsimulationOutput &lt;- simulateResiduals(fittedModel = poisson_model, n = 1000)\n\n# plotting and testing scaled residuals\n\nplot(simulationOutput)\n\ntestResiduals(simulationOutput)\n\ntestUniformity(simulationOutput)\n\n# The most common concern for GLMMs is overdispersion, underdispersion and\n# zero-inflation.\n\n# separate test for dispersion\n\ntestDispersion(simulationOutput)\n\n# test for Zeroinflation\n\ntestZeroInflation(simulationOutput)\n\n# Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls\n# auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)\n# use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values\n# not substantially greater than 1 (say 5), no need to worry.\n\ncar::vif(poisson_model) # funktioniert nicht mit glmmTMB\nmean(car::vif(poisson_model))\n\n# erklaerte varianz\n# The marginal R squared values are those associated with your fixed effects,\n# the conditional ones are those of your fixed effects plus the random effects.\n# Usually we will be interested in the marginal effects.\nperformance::r2(poisson_model)\n\n\nSind die Voraussetzungen des Modells erfüllt?\n\n\n6c) Alternative Modelle\nWir sind auf der Suche nach dem minimalen adäquaten Modell. Das ist ein iterativer Prozess. Wir schreiben ein Modell, prüfen ob die Voraussetzungen erfüllt sind und ob die abhängige Variable besser erklärt wird als im Vorhergehenden. Und machen das nochmals und nochmals und nochmals…\n\nglmmTMB() ist eine sehr schnelle und kompatible Funktion, auch für negativ binomiale Daten. Ich empfehle (spätestens ab dem exponierten Modell weiter unten) mit ihr zu arbeiten.\nUnsere (meine) Daten sind negativ binominal verteilt. Daher sollte wir unbedingt ein solches Modell programmieren. –&gt; Funktion glmer.nb()\n\n\n\nMusterlösung\nnb_model &lt;- glmmTMB(Total ~ Monat + Ferien + ..., \n                        family =nbinom1,\n                        data = umwelt)\n\n\n\nschliesst im Modell Variablen aus, welche nicht signifikant sind. In euren “besten” Modellen sollen nur signifikante Variablen verbleiben.\nÜber family = kann in der Funktion _glmer()__ einiges (aber leider nicht alles so einfach [z.B. negativ binominale Modelle]) angepasst werden: Link\nAuch über link = kann man in _glmer()__ anpassen: Link\nFalls die Daten exponentiell Verteilt sind, hier der Link zu einem Blogeintrag dazu: Link\n\n\n\nMusterlösung\nglmmTMB((Total + 1) ~ ... \n                         family = Gamma(link = \"log\"), data = umwelt_night)\n\n\n\nHypothese: “Es gehen weniger Leute in den Wald, wenn es zu heiss ist” –&gt; auf quadratischen Term Temperatur testen! Hinweis: ich welchsel hier auf glmmTBM, da diese funktion beudeutend schneller ist und das Ergeniss besser wird (in meinem Fall).\n\n\n\nMusterlösung\nnb_quad_model &lt;- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +\n                               tre200jx_scaled + I(tre200jx_scaled^2) + # hier ist der quadratische Term\n                               rre150j0_scaled +  sremaxdv_scaled +\n                               (1 | Tage_bis_Neujahr), \n                             family =nbinom1, # es ist ein negativ binomiales Modell\n                               data = umwelt)\n\n\n\nKönnte es zwischen einzelnen Variablen zu Interaktionen kommen, die plausible sind? (z. B.: Im Winter hat Niederschlag einen negativeren Effekt als im Sommer, wenn es heiss ist) –&gt; Falls ja: testen!\n\nHinweis: Interaktionen berechnen ist sehr rechenintensiv. Auch die Interpretation der Resultate wird nicht unbedingt einfacher. Wenn ihr auf Interaktionen testet, dann geht “langsam” vor, probiert nicht zu viel auf einmal und verwendet glmmTMB.\n\n\nMusterlösung\n  ...\nMonat * rre150j0_scaled +\n  ...\n\n\n\nHabt ihr ein Problem mit zeroinflation? (Dies wisst ihr aus dem Test testZeroInflation() und testResiduals())\n\n\n\nMusterlösung\nnb_model_zi &lt;- glmmTMB(..., \n                           # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-\n                           # inflation parameter applying to all observations (ziformula~1)\n                           ziformula=~1,\n                           family = nbinom2) # family nbinom1 oder nbinom2\n\n\n\nWenn ihr verschiedene Modelle gerechnet habt, können diese über den AICc verglichen werden. Folgender Code kann dazu genutzt werden:\n\nHinweis: Nur Modelle mit demselben Datensatz können miteinander verglichen werden. D.h., dass die Modelle mit den originalen Daten nicht mit logarithmiertem oder exponierten Daten verglichen werden können und glmer kann nicht mit glmmTMB verglichen werden. –&gt; Untenstehende Funktion hat für uns also einen eingeschränkten Wert…\n\n\n6d) (OPTIONAL) Transformationen\nBei meinen Daten waren die Modellvoraussetzungen überall mehr oder weniger verletzt. Das ist ein Problem, allerdings auch nicht ein so grosses (man sollte es aber trotzdem ernst nehmen). Mehr dazu unter:\nSchielzeth u. a. (2020) - Robustness of linear mixed‐effects models to violations of distributional assumptions. Link\nLo und Andrews (2015) - To transform or not to transform: using generalized linear mixed models to analyse reaction time data Link\nFalls die Voraussetzungen stark verletzt werden, wäre eine Transformation angezeigt. Mehr dazu unter: Link\n\nWenn ihr das machen wollt, berechnet zuerst den skewness coefficient\n\n\n\nMusterlösung\nlibrary(\"moments\")\nskewness(umwelt$Anzahl_Total)\n## A positive value means the distribution is positively skewed (rechtsschief).\n## The most frequent values are low; tail is toward the high values (on the right-hand side)\n\n\n\nWelche Transformation kann angewandt werden?\nWas spricht gegen eine Transformation (auch im Hinblick zur Visualisierung und Interpretation)? Was spricht dafür?\n\n\n\n6d) Exportiere die Modellresultate (der besten Modelle)\nWelches ist euer bestes Modell? Meines ist jenes ohne Interaktionen und zero-inflated-adjusted.\nModellresultate können mit summary() angezeigt werden. Ich verwende aber lieber die Funktion tab_model()! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen.\n\n\nMusterlösung\ntab_model(MODELLNAME, \n          transform = NULL, # To plot the estimates on the linear scale, use transform = NULL.\n          show.se = TRUE) # zeige die Standardabweichung\n## The marginal R squared values are those associated with your fixed effects,\n## the conditional ones are those of your fixed effects plus the random effects.\n## Usually we will be interested in the marginal effects.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-7-modellvisualisierung",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#aufgabe-7-modellvisualisierung",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 7: Modellvisualisierung",
+    "text": "Aufgabe 7: Modellvisualisierung\n\nVisualisiert die (signifikanten) Ergebnisse eures Modells. Sabrina Harsch hat im HS21 eine sehr nützliche Funktion dafür geschriben (welche ich etwas weiter ausgebaut habe). Es gibt für die kontinuierlichen Variablen und für die diskreten Variablen je eine separate Funktion.\n\n\n\nMusterlösung\n# schreibe fun fuer continuierliche var\nrescale_plot_num &lt;- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {\n  plot_id &lt;- plot_model(input_df, type = \"pred\", terms = input_term, axis.title = \"\", title = \"\", color = \"orangered\")\n  labels &lt;- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks + 1) * x_scaling, x_nk)\n  \n  custom_breaks &lt;- seq(min(scaled_var), max(scaled_var), by = ((max(scaled_var) - min(scaled_var)) / num_breaks))\n  custom_limits &lt;- c(min(scaled_var), max(scaled_var))\n  \n  plot_id &lt;- plot_id +\n    scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x = x_lab)) +\n    scale_y_continuous(labs(y = y_lab), limits = c(0, 25)) +\n    theme_classic(base_size = 20)\n  \n  return(plot_id)\n}\n\n# schreibe fun fuer diskrete var\nrescale_plot_fac &lt;- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {\n  plot_id &lt;- plot_model(input_df, type = \"pred\", terms = input_term, axis.title = \"\", title = \"\", color = \"orangered\")\n  \n  plot_id &lt;- plot_id +\n    scale_y_continuous(labs(y = y_lab), limits = c(0, 40)) +\n    theme_classic(base_size = 20) +\n    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))\n  \n  return(plot_id)\n}\n\n\nNun können die einzelnen Variabeln aus den besten Modellen in der Funktion jeweils für die Plots angepasst werden:\n\n\nMusterlösung\n## Tagesmaximaltemperatur\ninput_df &lt;- nb_model_zi\ninput_term &lt;- \"tre200jx_scaled [all]\"\nunscaled_var &lt;- umwelt$tre200jx\nscaled_var &lt;- umwelt$tre200jx_scaled\nnum_breaks &lt;- 10\nx_lab &lt;- \"Temperatur [°C]\"\ny_lab &lt;- \"Fussgänger:innen pro Tag\"\nx_scaling &lt;- 1 # in prozent\nx_nk &lt;- 0 # x runde nachkommastellen\n\n\np_temp &lt;- rescale_plot_num(\n  input_df, input_term, unscaled_var, scaled_var, num_breaks,\n  x_lab, y_lab, x_scaling, x_nk\n)\np_temp\n\n\n\n\n\n\n\n\n\n\n\nMusterlösung\n## Wochentag \ninput_df &lt;- nb_model_zi\ninput_term &lt;- \"Wochenende [all]\"\nunscaled_var &lt;- umwelt$Wochenende\nscaled_var &lt;- umwelt$Wochenende\nnum_breaks &lt;- 10\nx_lab &lt;- \"Wochentag\"\ny_lab &lt;- \"Fussgänger:innen pro Tag\"\nx_scaling &lt;- 1 # in prozent\nx_nk &lt;- 0 # x runde nachkommastellen\n\n\np_wd &lt;- rescale_plot_fac(\n  input_df, input_term, unscaled_var, scaled_var, num_breaks,\n  x_lab, y_lab, x_scaling, x_nk)\np_wd\n\n\n\n\n\n\n\n\n\n\nExportiert die Ergebnisse via ggsave().\n\nHinweis: damit unsere Plots verglichen werden können, sollen sie alle dieselbe Skalierung (limits) auf der y-Achse haben. Das wird erreicht, indem man bei jedem Plot die limits in scale_y_continuous() gleichsetzt.\nHinweis: Es könnten auch interaction-plots erstellt werden: Link",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_s/7_Multivariate_Modelle.html#abschluss",
+    "href": "fallstudie_s/7_Multivariate_Modelle.html#abschluss",
+    "title": "Multivariate Modelle",
+    "section": "Abschluss",
+    "text": "Abschluss\nNun habt ihr verschiedenste Ergebnisse vorliegen. In einem wissenschaftlichen Bericht sollen aber niemals alle Ergebnisse abgebildet werden. Eine Faustregel besagt, dass nur signifikante Ergebnisse visualisiert werden. Entscheidet euch daher, was ihr in eurem Bericht abbilden wollt und was lediglich besprochen werden soll.\nStellt im Bericht die Ergebnisse des Tages, der Dämmerung und der Nacht gegenüber und beschreibt die Gemeinsamkeiten und Unterschieden. Behaltet dabei immer die Forschungsfragen in Erinnerung.\n\n\n\n\nLo, Steson, und Sally Andrews. 2015. „To transform or not to transform: using generalized linear mixed models to analyse reaction time data“. Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, u. a. 2020. „Robustness of linear mixed-effects models to violations of distributional assumptions“. Methods in ecology and evolution 11 (9): 1141–52.",
+    "crumbs": [
+      "Fallstudie S",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/1_Vorbemerkung.html",
+    "href": "fallstudie_n/1_Vorbemerkung.html",
+    "title": "Vorbereitung",
+    "section": "",
+    "text": "Aktuell dient diese Plattform für die BiEc Fallstudie - Profil N einzig der Bereitstellung von Aufgaben die von euch im Rahmen dieses Fallstudienprojekts erarbeitet werden sollen. Die Aufgaben werden in den meisten Fällen mit Code-Beispielen erläutert oder benötigten Code-snippets resp. Funktionen werden mitgeliefert. Im Laufe des Semesters werden hier ausserdem häppchenweise (mögliche) Lösungen zu den Aufgaben aufgeschaltet. Alles grundlegende Material und alle Unterlagen zu den theoretischen Inputs sind weiterhin und ausschliesslich im Moodlekurs Research Methods - Fallstudie BiEc zu finden. Die für die Aufgaben benötigten Datengrundlagen sind ebenfalls im entsprechenden Abschnitt auf Moodle zu finden. Frohes Schaffen!\n\nIm Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"adehabitatHR\", \"bbmle\", \"car\", \"cowplot\", \"DHARMa\", \"dplyr\",\n  \"ggeffects\", \"ggplot2\", \"ggspatial\", \"glmmTMB\", \"gstat\", \"kableExtra\", \"lme4\",\n  \"MASS\", \"MuMIn\", \"pastecs\", \"performance\", \"PerformanceAnalytics\", \"psych\",\n  \"readr\", \"rms\", \"ROCR\", \"sf\", \"sjPlot\", \"sjstats\", \"terra\"\n)\n\nipak(packages)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Vorbereitung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html",
+    "href": "fallstudie_n/2_Datenverarbeitung.html",
+    "title": "Pre-Processing",
+    "section": "",
+    "text": "Projektaufbau RStudio-Projekte\nVor den eigentlichen Auswertungen müssen einige vorbereitende Arbeiten unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein vielfaches eingespart. Im Skript soll die Ordnerstruktur des Projekts genannt werden, damit der Arbeitsvorgang auf verschiedenen Rechnern reproduzierbar ist.\nArbeitet mit Projekten, da diese sehr einfach untereinander ausgetauscht und somit auch reproduziert werden können; es gibt keine absoluten Arbeitspfade sondern nur relative. Der Datenimport (und auch der Export) kann mithilfe dieser relativen Pfaden stark vereinfacht werden. Projekte helfen alles am richtigen Ort zu behalten. (mehr zur Arbeit mit Projekten: Link)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#aufbau-von-r-skripten",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#aufbau-von-r-skripten",
+    "title": "Pre-Processing",
+    "section": "Aufbau von R-Skripten",
+    "text": "Aufbau von R-Skripten\nIm Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).\n\n# .##################################################################################\n# Daten(vor)verarbeitung Fallstudie WPZ  ####\n# Modul Research Methods, HS25. Autor/in ####\n# .##################################################################################\n\nBeschreibt zudem folgendes:\n\nOrdnerstruktur; ich verwende hier den Projektordner mit den Unterordnern:\n\nSkripts\nData\nResults\nPlots\n\nVerwendete Daten\n\nEin Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel:\n\nDatenimport\nDatenvorverarbeitung\nAnalyse\nVisualisierung\n\nBereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:\n\n# .###################################################################################\n# METADATA ####\n# .###################################################################################\n# Datenherkunft ####\n# ...\n\n# .###################################################################################\n# 1. DATENIMPORT ####\n# .###################################################################################",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#libraries-laden",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#libraries-laden",
+    "title": "Pre-Processing",
+    "section": "Libraries laden",
+    "text": "Libraries laden\n\nlibrary(\"readr\")\nlibrary(\"dplyr\")\nlibrary(\"ggplot2\")\nlibrary(\"purrr\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#daten-laden",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#daten-laden",
+    "title": "Pre-Processing",
+    "section": "Daten laden",
+    "text": "Daten laden\nHerunterladen der Daten der Feldaufnahmen von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.\nVerschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.\n\ndf_team1 &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebungen_GruppeTürkis.csv\", delim = \";\") \n\ndf_team2 &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/ReMe_Gr_trh_Gr_2.csv\", delim = \";\")\n\ndf_team3 &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebung Gruppe 3 pink.csv\", delim = \";\")\n\ndf_team4 &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/2025_10_07_Felderhebung_Waldstuktur_Team_4_blau.csv\", delim = \";\")\nstr(df_team4)\n## spc_tbl_ [26 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ Felderhebungen Waldstruktur: TEAM 4 (blau): chr [1:26] \"Kreis (r 12.5)\" \"0\" \"1\" \"2\" ...\n##  $ ...2                                      : chr [1:26] \"x\" \"684825\" \"684800\" \"684800\" ...\n##  $ ...3                                      : chr [1:26] \"y\" \"237125\" \"237075\" \"237400\" ...\n##  $ ...4                                      : chr [1:26] \"Deckungsgrad Rubus sp. [%]\" \"45.00\" \"0.80\" \"93.30\" ...\n##  $ ...5                                      : chr [1:26] \"DG Strauchschicht [%] (0.5-3m)\" \"59.50\" \"22.50\" \"73.30\" ...\n##  $ ...6                                      : chr [1:26] \"DG Baumschicht [%] (ab 3m)\" \"76.80\" \"95.00\" \"48.80\" ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   `Felderhebungen Waldstruktur: TEAM 4 (blau)` = col_character(),\n##   ..   ...2 = col_character(),\n##   ..   ...3 = col_character(),\n##   ..   ...4 = col_character(),\n##   ..   ...5 = col_character(),\n##   ..   ...6 = col_character()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;\n\ndf_team4 &lt;- df_team4 %&gt;% { setNames(.[-1, ], as.character(unlist(.[1, ], use.names = FALSE))) }\n\ndf_team4 &lt;- df_team4 %&gt;% \n  dplyr::mutate(across(everything(), as.numeric))\n\ndf_team5 &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/reme_felderhebung_team_5_violett_20251007.csv\", delim = \";\")\nstr(df_team5)\n## spc_tbl_ [26 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ ...1: chr [1:26] \"Kreis (r 12.5m)\" \"0\" \"1\" \"2\" ...\n##  $ ...2: chr [1:26] \"X\" \"684800\" \"684800\" \"684775\" ...\n##  $ ...3: chr [1:26] \"Y\" \"237100\" \"237375\" \"237075\" ...\n##  $ ...4: chr [1:26] \"Deckungsgrad Rubus sp. [%]\" \"2\" \"2\" \"7\" ...\n##  $ ...5: chr [1:26] \"DG Strauchschicht [%] (0.5-3m)\" \"5\" \"5\" \"40\" ...\n##  $ ...6: chr [1:26] \"DG Baumschicht [%] (ab 3m)\" \"90\" \"40\" \"80\" ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   ...1 = col_character(),\n##   ..   ...2 = col_character(),\n##   ..   ...3 = col_character(),\n##   ..   ...4 = col_character(),\n##   ..   ...5 = col_character(),\n##   ..   ...6 = col_character()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;\n\ndf_team5 &lt;- df_team5 %&gt;% { setNames(.[-1, ], as.character(unlist(.[1, ], use.names = FALSE))) }\n\ndf_team5 &lt;- df_team5 %&gt;% \n  dplyr::mutate(across(everything(), as.numeric))\n\n# hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der\n# LIDAR-basierten Ableitung der Waldstruktur eingelesen werden\n\ndf_lidar &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_LIDAR_Waldstruktur_Reh_Kreise_251013.csv\", delim = \";\")\nstr(df_lidar)\n## spc_tbl_ [305 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ Anz_reh_lokalisationen: num [1:305] 0 0 0 0 0 0 0 0 0 0 ...\n##  $ x                     : num [1:305] 684900 684900 684900 684900 684875 ...\n##  $ y                     : num [1:305] 237100 237125 237150 237175 237075 ...\n##  $ DG_us_2014            : num [1:305] 0.0903 0.2717 0.468 0.7407 0.1811 ...\n##  $ DG_os_2014            : num [1:305] 0.908 0.959 0.871 0.986 0.86 ...\n##  $ DG_us_2022            : num [1:305] 0.269 0.823 0.936 0.359 0.245 ...\n##  $ DG_os_2022            : num [1:305] 0.945 0.99 0.953 0.997 0.898 ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   Anz_reh_lokalisationen = col_double(),\n##   ..   x = col_double(),\n##   ..   y = col_double(),\n##   ..   DG_us_2014 = col_double(),\n##   ..   DG_os_2014 = col_double(),\n##   ..   DG_us_2022 = col_double(),\n##   ..   DG_os_2022 = col_double()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;\n\n# Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz\n# verbinden. Ist der Output zufriedenstellend?\n\ndf_gesamt &lt;- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)\nstr(df_gesamt)\n## spc_tbl_ [125 × 16] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ Kreis (r 12.5m)               : num [1:125] 0 1 2 3 4 5 6 7 8 9 ...\n##  $ X                             : num [1:125] 684900 684875 684875 684875 684850 ...\n##  $ Y                             : num [1:125] 237175 237125 237175 237250 237225 ...\n##  $ Deckungsgrad Rubus sp. %      : num [1:125] 10 20 8 60 3 0 40 20 20 50 ...\n##  $ DG Strauchschicht % (0.5-3m)  : num [1:125] 10 50 20 40 90 70 50 80 10 15 ...\n##  $ DG Baumschicht % (ab 3m)      : num [1:125] 50 60 70 50 40 50 75 70 80 60 ...\n##  $ Kreis                         : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG_Rub                        : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG_Str                        : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG_Bau                        : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ Deckungsgrad Rubus sp. [%]    : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Strauchschicht [%] (0.5-3m): num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Baumschicht [%] (ab 3m)    : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ Kreis (r 12.5)                : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ x                             : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  $ y                             : num [1:125] NA NA NA NA NA NA NA NA NA NA ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   `Kreis (r 12.5m)` = col_double(),\n##   ..   X = col_double(),\n##   ..   Y = col_double(),\n##   ..   `Deckungsgrad Rubus sp. %` = col_double(),\n##   ..   `DG Strauchschicht % (0.5-3m)` = col_double(),\n##   ..   `DG Baumschicht % (ab 3m)` = col_double()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-1",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-1",
+    "title": "Pre-Processing",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\n\n1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-5)\n1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann\n\n→ Befehle mutate und rename, mit pipes (alt: %&gt;%, neu: |&gt;) in einem Schritt möglich\n\n\n\n\nMusterlösung\n# .#################################################################################\n# 2. DATENVORVERARBEITUNG #####\n# .#################################################################################\n\ndf_team1 &lt;- df_team1 |&gt;\n  mutate(team = \"team1\") |&gt;\n  rename(\n    KreisID = \"Kreis (r 12.5m)\",\n    DG_Rubus = \"Deckungsgrad Rubus sp. %\",\n    DG_Strauchschicht = \"DG Strauchschicht % (0.5-3m)\",\n    DG_Baumschicht = \"DG Baumschicht % (ab 3m)\"\n  )\n\ndf_team2 &lt;- df_team2 |&gt;\n  mutate(team = \"team2\") |&gt;\n  rename(\n    KreisID = \"Kreis\",\n    DG_Rubus = \"DG_Rub\",\n    DG_Strauchschicht = \"DG_Str\",\n    DG_Baumschicht = \"DG_Bau\"\n  )\n\ndf_team3 &lt;- df_team3 |&gt;\n  mutate(team = \"team3\") |&gt;\n  rename(\n    KreisID = \"Kreis (r 12.5m)\",\n    DG_Rubus = \"Deckungsgrad Rubus sp. [%]\",\n    DG_Strauchschicht = \"DG Strauchschicht [%] (0.5-3m)\",\n    DG_Baumschicht = \"DG Baumschicht [%] (ab 3m)\"\n  )\n\ndf_team4 &lt;- df_team4 |&gt;\n  mutate(team = \"team4\") |&gt;\n  rename(\n    KreisID = \"Kreis (r 12.5)\",\n    X = \"x\",\n    Y = \"y\",\n    DG_Rubus = \"Deckungsgrad Rubus sp. [%]\",\n    DG_Strauchschicht = \"DG Strauchschicht [%] (0.5-3m)\",\n    DG_Baumschicht = \"DG Baumschicht [%] (ab 3m)\"\n  )\n\ndf_team5 &lt;- df_team5 |&gt;\n  mutate(team = \"team5\") |&gt;\n  rename(\n    KreisID = \"Kreis (r 12.5m)\",\n    DG_Rubus = \"Deckungsgrad Rubus sp. [%]\",\n    DG_Strauchschicht = \"DG Strauchschicht [%] (0.5-3m)\",\n    DG_Baumschicht = \"DG Baumschicht [%] (ab 3m)\"\n  )\n\n\nBeim Erfassen und Dokumentieren von Daten aus verschiedenen Quellen sollte darauf geachtet werden, dass dies möglichst einheitlich passiert (Dateiformate, Spalten, Bezeichnungen, Datentypen, usw.), damit kann man sich einiges an Arbeit ersparen. Hilfreich ist in diesem Zusammenhang immer ein klares und sauberes Feldprotokoll resp. eine Vorlage für die Erfassung der Daten zu erstellen.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-2",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-2",
+    "title": "Pre-Processing",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nZusammenführen der Teildatensätze zu einem Datensatz\n\n\nMusterlösung\ndf_gesamt &lt;- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-3",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-3",
+    "title": "Pre-Processing",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nVerbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der LIDAR Variablen in den Reh-Kreisen (Aufgabe3_LIDAR_Waldstruktur_Reh_Kreise_251013.csv).\nZiel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us_2022, DG_os_2022) aus dem LIDAR-Waldstruktur-Datensatz. –&gt; Welche Art von join? Welche Spalten zum Verbinden (join_by()) der Datensätze\n\n\nMusterlösung\ndf_with_LIDAR &lt;- left_join(df_gesamt, df_lidar, join_by(X == x, Y == y))",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-4",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#aufgabe-4",
+    "title": "Pre-Processing",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nScatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen gegen die Umweltvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). Korrelieren die Feldaufnahmen und die LiDAR basierte Waldstruktur?\nIm LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung 2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen.\n\n\nMusterlösung\n# .#####################################################################################\n# 4. VISUALISERUNG #####\n# .#####################################################################################\n\nggplot(df_with_LIDAR, aes(DG_us_2022, DG_Strauchschicht, color = team)) +\n  geom_point() +\n  stat_smooth(method = \"lm\") +\n  xlim(0, 1) +\n  ylim(0, 100) +\n  geom_abline(slope = 100, intercept = 0, linetype = \"dashed\", color = \"red\")\n\n\n\n\n\n\n\n\n\nMusterlösung\n\n\nwrite_delim(df_with_LIDAR, \"datasets/fallstudie_n/df_with_lidar_2025.csv\", delim = \";\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/2_Datenverarbeitung.html#zusatz-aufgabe-5",
+    "href": "fallstudie_n/2_Datenverarbeitung.html#zusatz-aufgabe-5",
+    "title": "Pre-Processing",
+    "section": "(Zusatz-)Aufgabe 5",
+    "text": "(Zusatz-)Aufgabe 5\nHerunterladen der Felderhebungsdaten von Moodle aus den vergangenen Jahren. Zusammenführen aller Datensätze. Explorative Datenanalyse zu den Veränderungen der Erhebungen ground truth LiDAR über die Zeit und zum Zusammenhang mit den LiDAR-basierten Waldstrukturvariablen aus den zwei Befliegungszeiträumen (2014 und 2022)\n!Achtung! es sind nicht alle Jahre gleich viele Teams an den Erhebungen beteiligt gewesen, daher gibt es nicht für alle Teams in allen Jahren Daten.\n\n\nMusterlösung\n\nfiles &lt;- list.files(\"datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_vergangene_Jahre\", pattern = \"*.csv\", full.names = TRUE)\n\n\ndf_ground_truth &lt;- files %&gt;%\n  map_df(~ read_delim(.x, delim = \";\") %&gt;% \n           mutate(Jahr = gsub(\"df_ground_truth_|\\\\.csv$\", \"\", basename(.x))))\n\n\ndf_without_LIDAR &lt;- df_with_LIDAR %&gt;% dplyr::select(KreisID:team) %&gt;% mutate(Jahr = \"2025\")\n\ndf_ground_truth &lt;- bind_rows(df_without_LIDAR, df_ground_truth)\n\ndf_ground_truth_with_LIDAR &lt;- left_join(df_ground_truth, df_lidar, join_by(X == x, Y == y))\n\ndf_ground_truth_with_LIDAR %&gt;%\n  ggplot(aes(KreisID, DG_Strauchschicht, color = as.numeric(Jahr), size = as.numeric(Jahr))) +\n  facet_wrap(~team, ncol = 1) +\n  geom_point() +\n  scale_color_viridis_c(option = \"plasma\") +  \n  scale_size_continuous(range = c(1, 3)) +  \n  labs(color = \"Year\", shape = \"Year\", size = \"Year\") +  \n  theme_minimal()",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Pre-Processing</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html",
+    "title": "Berechnung Homeranges",
+    "section": "",
+    "text": "Libraries laden\nlibrary(\"sf\")\nlibrary(\"terra\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"terra\")\nlibrary(\"adehabitatHR\")\nlibrary(\"ggspatial\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#daten-einlesen",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#daten-einlesen",
+    "title": "Berechnung Homeranges",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nEinlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen\n\n\nRehe &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe3_Homeranges_Rehe_landforst_251021.csv\", delim = \";\")\n\nstr(Rehe)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-1",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-1",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nIm Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?\n\n\nRehe &lt;- Rehe |&gt;\n  mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time),\n                                   format = \"%Y-%m-%d %H:%M:%S\"))",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-2",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-2",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nMit den folgenden Zeilen können die GPS-Punkte visualisiert werden\n\n\nRehe_sf &lt;- st_as_sf(Rehe, coords = c(\"X\", \"Y\"), crs = 21781)\n\nRE13 &lt;- filter(Rehe_sf, TierID == \"RE13\")\n\nplot(RE13[\"TierID\"])\n\nHier einige Zeilen Code, um eine HomeRange zu berechnen.\nHerumschrauben an der Ausdehnung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr)\n→ Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR\n\n\nRE13_xy &lt;- st_coordinates(RE13)\n\nRE13_sp &lt;- as(RE13[\"TierID\"], \"Spatial\")\n\nsigma &lt;- 0.5 * (sd(RE13_xy[, 1]) + sd(RE13_xy[, 2]))\nn &lt;- nrow(RE13)\nhref &lt;- sigma * n ^ (-1 / 6) * 0.9 # scaled reference: href * 0.9\n\nkud &lt;- kernelUD(RE13_sp, h = href, grid = 25) \n\nhomerange &lt;- getverticeshr(kud, percent = 95) # Berechnung der Home Range (95% Isopleth)\n\n# Schreibt HR in den oben beschriebenen Ordner (als Shapefile)\n\nhr &lt;- st_as_sf(homerange)\n\nst_write(\n  hr,\n  dsn = \"results\",\n  layer = \"HR_RE13\",\n  driver = \"ESRI Shapefile\",\n  delete_layer = TRUE\n)\n\n\n\n# mit diesem Befehl kann die HR geplottet werden\n\nggplot(hr) + \n  geom_sf(size = 1, alpha = 0.3, color = \"red\", fill=\"red\") +\n  coord_sf(datum = sf::st_crs(21781))+\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position=\"none\"\n  )\n\n# und die Punkte der GPS-Lokalisationen darüber gelegt werden \n\nggplot(hr) + \n  geom_sf(size = 1, alpha = 0.3, color = \"red\", fill=\"red\") +\n  geom_sf(data = RE13, aes(fill = \"red\")) +\n  coord_sf(datum = sf::st_crs(21781))+\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position=\"none\"\n  )\n\nCode um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.\n\n\npk25_wpz &lt;- rast(\"datasets/fallstudie_n/pk25_wpz.tif\")\n\nggplot(hr, aes(color = \"red\", fill = \"red\")) +\n  annotation_spatial(pk25_wpz) +\n  geom_sf(size = 1, alpha = 0.3) +\n  geom_sf(data = RE13, aes(fill = \"red\")) +\n  coord_sf(datum = sf::st_crs(21781)) +\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position = \"none\"\n  )\n\nNachbauen des Sampling Grids mit den Kreisen (Wurde als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges benötigt)\n\nAusdehnung des Grids basiert auf hr\nCellsize des Grids: 25m\n\n\n\nx25 &lt;- st_make_grid(hr, 25, what = \"centers\")\ngrid_plot &lt;- st_buffer(x25, 12.5)\n\nggplot(grid_plot, color = \"black\", fill = NA) +\n  geom_sf() +\n  geom_sf(data = RE13, color = \"blue\", ) +\n  geom_sf(data = hr, color = \"red\", fill = NA, size = 2) +\n  coord_sf(datum = 21781) +\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position = \"none\"\n  )",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-3",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-3",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nTesten der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs. DG_os / DG_Strauchschicht vs. DG_us aus dem Datensatz df_with_lidar_2025 den wir letzte Woche erstellt haben\nDie Theorie in den Vormittagslektionen zu Korrelation folgt erst ab 03.11.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html",
+    "title": "Multivariate Modelle",
+    "section": "",
+    "text": "Libraries laden\nEinstieg Multivariate Modelle / Habitatselektionsmodell\nlibrary(\"sf\")\nlibrary(\"terra\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"PerformanceAnalytics\")\nlibrary(\"pastecs\")\nlibrary(\"car\")\nlibrary(\"psych\")\nlibrary(\"DHARMa\")\n\noptions(scipen = 999)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-1",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-1",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nEinlesen der Gesamtdatensätze für die Multivariate Analysen von Moodle\n\nSichtung der Datensätze, der Variablen und der Datentypen\nKontrolle wieviele Rehe/Rothirsche in den Datensätzen enthalten sind\n\n\n\nMusterlösung\nDF_reh &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv\", delim = \";\")\n\nstr(DF_reh)\n\nclass(DF_reh$time_of_day)\n\ntable(DF_reh$id)\n\nDF_reh |&gt;\n  group_by(id) |&gt;\n  summarize(anzahl = n())\n\nlength(unique(DF_reh$id))",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-2",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-2",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nUnterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit\n\n\nMusterlösung\nDF_reh_night &lt;- DF_reh |&gt;\n  filter(time_of_day == \"night\")\n\nDF_reh_day &lt;- DF_reh |&gt;\n  filter(time_of_day == \"day\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-3",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-3",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nErstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen. Diese Übung dient einer ersten groben Einschätzung der Wirkung der Umweltvariablen auf die abhängige Variable (Präsenz/Absenz in unserem Fall)\n\n# Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz\n\npar(mfrow = c(3, 3), mar = c(4, 4, 3, 3)) # Vorbereitung Raster für Plots\n\n# innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen\n\nfor (i in 5:12) {\n  dp &lt;- DF_reh_day |&gt; filter(pres_abs == 1) |&gt; pull(i)\n  dp &lt;- density(dp)\n  da &lt;- DF_reh_day |&gt; filter(pres_abs == 0) |&gt; pull(i)\n  da &lt;- density(da)\n  plot(0, 0, type = \"l\",\n    xlim = range(c(dp$x, da$x)),\n    ylim = range(dp$y, da$y),\n    xlab = names(DF_reh_day[i]),\n    ylab = \"Density\"\n  )\n  lines(dp$x, dp$y, col = \"blue\")             # Präsenz = used\n  lines(da$x, da$y, col = \"red\")              # Absenz = available\n}",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-4",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-4",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nFür jede kontinuierliche Variable: ein binomiales GLM fitten (pres_abs ~ x, data = DF_mod_day, family = binomial), Residuen berechnen und ein Histogramm + Q-Q-Plot (Residuen sollen grob „normal“ wirken) plotten. Wenn starke Abweichungen auftreten (krummes Histogramm, Q-Q-Punkte weit von der Linie): Transformationen probieren, das Modell neu fitten und die Residuen nochmal überprüfen.\n\n\nMusterlösung\n\n# Definition des zu verarbeitenden Teildatensatzes \n\ndata &lt;- DF_reh_day\n\n# Liste mit den zu verarbeitenden kontinuierlichen Variablen\n\nvars &lt;- c(\"slope\",\"topo_pos\",\"dist_road_trails\",\"dist_road_only\",\n          \"dist_sett\",\"forest_prop\",\"us_2014\",\"os_2014\")\n\n# Ausgabe-Datei als PDF\n\nout_pdf &lt;- \"fallstudie_n/glm_DHARMa_checks_DF_reh_day.pdf\"\n\npdf(out_pdf, width = 7, height = 6)\non.exit(dev.off(), add = TRUE)\n\n# Loop über die Variablen\n\nfor (v in vars) {\n  if (!v %in% names(data)) next\n  x &lt;- data[[v]]\n  if (sum(!is.na(x)) &lt; 30 || length(unique(na.omit(x))) &lt; 3) next\n\n  # GLM fitten\n  m   &lt;- glm(as.formula(paste0(\"pres_abs ~ \", v)), data = data, family = binomial)\n\n  # DHARMa Standardseite (QQ + Residuen vs Fitted)\n  sim &lt;- simulateResiduals(m, n = 1000, plot = FALSE)\n\n  plot(sim, main = \"\")                 # Standardtitel ausblenden\n  mtext(v, side = 3, line = 0.5, font = 2)  # eigene Überschrift (nur Variablenname)\n  \n  # Histogramm der Variable\n  par(mfrow = c(1,1), mar = c(4,4,3,1))\n  hist(x, breaks = \"FD\", main = paste(\"Histogramm:\", v), xlab = v)\n\n}",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-5",
+    "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-5",
+    "title": "Multivariate Modelle",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nExplorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen\n\nZu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.\nTesten der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)\n\n\n\nMusterlösung\npairs.panels(DF_reh_day[5:12],\n  method = \"pearson\", # correlation method\n  hist.col = \"#00AFBB\",\n  density = TRUE, # show density plots\n  ellipses = TRUE # show correlation ellipses\n)\n\n\n\n\n\n\n\n\n\nMusterlösung\n\n# Die Korrelation bei einem Teildatensatz zu testen reicht,\n# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,\n# nur die Nutzung durch das Reh nicht.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html",
+    "href": "fallstudie_n/5_Variablenselektion.html",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "",
+    "text": "Libraries laden\nlibrary(\"sf\")\nlibrary(\"terra\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"PerformanceAnalytics\")\nlibrary(\"pastecs\")\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"MASS\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#variablenselektion",
+    "href": "fallstudie_n/5_Variablenselektion.html#variablenselektion",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Variablenselektion",
+    "text": "Variablenselektion\n→ Vorgehen analog Coppes u. a. (2017)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-1",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-1",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nMit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden, vergl. Aufgabe 5 vorangehende Woche\n\nDF_reh &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv\", delim = \";\")\n\nDF_reh_day &lt;- DF_reh |&gt;\n  filter(time_of_day == \"day\")\n\nround(cor(DF_reh_day[, 5:12], method = \"pearson\"), 2)\n##                  slope topo_pos dist_road_trails dist_road_only dist_sett\n## slope             1.00     0.09             0.31           0.34      0.14\n## topo_pos          0.09     1.00             0.06           0.09      0.08\n## dist_road_trails  0.31     0.06             1.00           0.93     -0.05\n## dist_road_only    0.34     0.09             0.93           1.00     -0.08\n## dist_sett         0.14     0.08            -0.05          -0.08      1.00\n## forest_prop       0.29     0.01            -0.03          -0.05      0.50\n## us_2014           0.28    -0.04             0.03           0.04      0.06\n## os_2014           0.45     0.06            -0.03          -0.01      0.34\n##                  forest_prop us_2014 os_2014\n## slope                   0.29    0.28    0.45\n## topo_pos                0.01   -0.04    0.06\n## dist_road_trails       -0.03    0.03   -0.03\n## dist_road_only         -0.05    0.04   -0.01\n## dist_sett               0.50    0.06    0.34\n## forest_prop             1.00    0.34    0.76\n## us_2014                 0.34    1.00    0.47\n## os_2014                 0.76    0.47    1.00\n\n# hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist eher liberal /\n# 0.5 konservativ\n\ncor &lt;- round(cor(DF_reh_day[, 5:12], method = \"pearson\"), 2)\ncor[abs(cor) &lt; 0.7] &lt;- 0\ncor\n##                  slope topo_pos dist_road_trails dist_road_only dist_sett\n## slope                1        0             0.00           0.00         0\n## topo_pos             0        1             0.00           0.00         0\n## dist_road_trails     0        0             1.00           0.93         0\n## dist_road_only       0        0             0.93           1.00         0\n## dist_sett            0        0             0.00           0.00         1\n## forest_prop          0        0             0.00           0.00         0\n## us_2014              0        0             0.00           0.00         0\n## os_2014              0        0             0.00           0.00         0\n##                  forest_prop us_2014 os_2014\n## slope                   0.00       0    0.00\n## topo_pos                0.00       0    0.00\n## dist_road_trails        0.00       0    0.00\n## dist_road_only          0.00       0    0.00\n## dist_sett               0.00       0    0.00\n## forest_prop             1.00       0    0.76\n## us_2014                 0.00       1    0.00\n## os_2014                 0.76       0    1.00",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-2",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-2",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nSkalieren der Variablen, damit ihr Einfluss vergleichbar wird (Befehl scale(); Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern)); Umwandeln der Reh-ID in einen Faktor, damit dieser als Random Factor ins Model eingespiesen werden kann.\n\nDF_reh_day &lt;- DF_reh_day |&gt;\n  mutate(\n    slope_scaled = scale(slope),\n    topo_pos_scaled = scale(topo_pos),\n    us_scaled = scale(us_2014),\n    os_scaled = scale(os_2014),\n    forest_prop_scaled = scale(forest_prop),\n    dist_road_trails_scaled = scale(dist_road_trails),\n    dist_road_only_scaled = scale(dist_road_only),\n    dist_sett_scaled = scale(dist_sett),\n    id = as.factor(id)\n  )",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-3",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-3",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nSelektion der Variablen in einem univariaten Model\nEin erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel\n\nwichtige Seite auf der man viele Hilfestellungen zu GLMM’s finden kann.\n\n\n# wir werden das package lme4 mit der Funktion glmer verwenden\n\n# die Hilfe von glmer aufrufen: ?glmer\n\n# glmer(formula, data = , family = binomial)\n\n# 1) formula:\n# Abhängige Variable ~ Erklärende Variable + Random Factor\n# In unseren Modellen kontrollieren wir für individuelle Unterschiede bei den Rehen\n# indem wir einen Random Factor definieren =&gt; (1 | id)\n\n# 2) data:\n# euer Datensatz\n\n# 3) family:\n# hier binomial\n\n# warum binomial? Verteilung Daten der abhängigen Variable Präsenz/Absenz\n\nggplot(DF_reh_day, aes(pres_abs)) +\n  geom_histogram()\n\n\n\n\n\n\n\n\n# --&gt; Binäre Verteilung =&gt; Binomiale Verteilung mit n = 1\n\n# und wie schaut die Verteilung der Daten der abhängigen Variable Nutzungsintensität\n# (nmb, werden wir in diesem Kurs aber nicht genauer anschauen) aus?",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-4",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-4",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nMit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.\nAls abhängige Variable verwenden wir die Präsenz/Absenz der Rehe in den Kreisen\n\n# Die erklärende Variable in m1 ist die erste Variable der korrelierenden Variablen\n# Die erklärende Variable in m2 ist die zweite Variable der korrelierenden Variablen\n\nmodell_1 &lt;- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),\n  data = DF_reh_day,\n  family = binomial\n)\n\nmodell_2 &lt;- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),\n  data = DF_reh_day,\n  family = binomial\n)\n\n# mit dieser Funktion können die Modellergebnisse inspiziert werden\nsummary(modell_1)\nsummary(modell_2)\n\n# Mit dieser Funktion kann der Informationgehalt der beiden Modelle gegeneinander\n# abgeschätzt werden\nbbmle::AICtab(modell_1, modell_2)\n\n# tieferer AIC -&gt; besser (AIC = Akaike information criterion)\n\n# ==&gt; dieses Vorgehen muss nun für alle korrelierten Variablen für jeden Teildatensatz\n# (Tag/Nacht) durchgeführt werden, um nur noch nicht (R &lt; 0.7) korrelierte Variablen\n# in das Modell einfliessen zu lassen\n\n\n\nMusterlösung\n\nmodell_1 &lt;- glmer(pres_abs ~ dist_road_trails_scaled + (1 | id), data = DF_reh_day, family = binomial)\nmodell_2 &lt;- glmer(pres_abs ~ dist_road_only_scaled + (1 | id), data = DF_reh_day, family = binomial)\n\nsummary(modell_1)\n## Generalized linear mixed model fit by maximum likelihood (Laplace\n##   Approximation) [glmerMod]\n##  Family: binomial  ( logit )\n## Formula: pres_abs ~ dist_road_trails_scaled + (1 | id)\n##    Data: DF_reh_day\n## \n##       AIC       BIC    logLik -2*log(L)  df.resid \n##    5104.9    5123.7   -2549.4    5098.9      3961 \n## \n## Scaled residuals: \n##     Min      1Q  Median      3Q     Max \n## -2.1046 -0.7564 -0.6277  1.0812  1.9219 \n## \n## Random effects:\n##  Groups Name        Variance Std.Dev.\n##  id     (Intercept) 0.1996   0.4467  \n## Number of obs: 3964, groups:  id, 12\n## \n## Fixed effects:\n##                         Estimate Std. Error z value Pr(&gt;|z|)    \n## (Intercept)             -0.31120    0.13418  -2.319   0.0204 *  \n## dist_road_trails_scaled  0.37745    0.03848   9.808   &lt;2e-16 ***\n## ---\n## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n## \n## Correlation of Fixed Effects:\n##             (Intr)\n## dst_rd_trl_ -0.004\nsummary(modell_2)\n## Generalized linear mixed model fit by maximum likelihood (Laplace\n##   Approximation) [glmerMod]\n##  Family: binomial  ( logit )\n## Formula: pres_abs ~ dist_road_only_scaled + (1 | id)\n##    Data: DF_reh_day\n## \n##       AIC       BIC    logLik -2*log(L)  df.resid \n##    5098.4    5117.2   -2546.2    5092.4      3961 \n## \n## Scaled residuals: \n##     Min      1Q  Median      3Q     Max \n## -1.9625 -0.7615 -0.6080  1.0579  1.9425 \n## \n## Random effects:\n##  Groups Name        Variance Std.Dev.\n##  id     (Intercept) 0.2103   0.4586  \n## Number of obs: 3964, groups:  id, 12\n## \n## Fixed effects:\n##                       Estimate Std. Error z value Pr(&gt;|z|)    \n## (Intercept)            -0.3024     0.1375  -2.199   0.0279 *  \n## dist_road_only_scaled   0.3950     0.0389  10.154   &lt;2e-16 ***\n## ---\n## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n## \n## Correlation of Fixed Effects:\n##             (Intr)\n## dst_rd_nly_ 0.002\n\nbbmle::AICtab(modell_1, modell_2)\n##          dAIC df\n## modell_2 0.0  3 \n## modell_1 6.5  3\n\n# tieferer AIC -&gt; besser (AIC = Akaike information criterion) -&gt; als deltaAIC ausgewiesen \n# Distanz zu Strassen (dist_road_only) = besser\n\n\nmodell_3 &lt;- glmer(pres_abs ~ forest_prop_scaled + (1 | id), data = DF_reh_day, family = binomial)\nmodell_4 &lt;- glmer(pres_abs ~ os_scaled + (1 | id), data = DF_reh_day, family = binomial)\n\nsummary(modell_3)\n## Generalized linear mixed model fit by maximum likelihood (Laplace\n##   Approximation) [glmerMod]\n##  Family: binomial  ( logit )\n## Formula: pres_abs ~ forest_prop_scaled + (1 | id)\n##    Data: DF_reh_day\n## \n##       AIC       BIC    logLik -2*log(L)  df.resid \n##    4726.1    4745.0   -2360.1    4720.1      3961 \n## \n## Scaled residuals: \n##     Min      1Q  Median      3Q     Max \n## -2.2952 -0.7853 -0.3909  0.9056  3.4113 \n## \n## Random effects:\n##  Groups Name        Variance Std.Dev.\n##  id     (Intercept) 0.3069   0.554   \n## Number of obs: 3964, groups:  id, 12\n## \n## Fixed effects:\n##                    Estimate Std. Error z value Pr(&gt;|z|)    \n## (Intercept)         -0.4351     0.1649  -2.639  0.00831 ** \n## forest_prop_scaled   0.8805     0.0443  19.878  &lt; 2e-16 ***\n## ---\n## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n## \n## Correlation of Fixed Effects:\n##             (Intr)\n## frst_prp_sc -0.060\nsummary(modell_4)\n## Generalized linear mixed model fit by maximum likelihood (Laplace\n##   Approximation) [glmerMod]\n##  Family: binomial  ( logit )\n## Formula: pres_abs ~ os_scaled + (1 | id)\n##    Data: DF_reh_day\n## \n##       AIC       BIC    logLik -2*log(L)  df.resid \n##    4863.0    4881.9   -2428.5    4857.0      3961 \n## \n## Scaled residuals: \n##     Min      1Q  Median      3Q     Max \n## -2.0044 -0.7984 -0.4421  0.9854  2.8754 \n## \n## Random effects:\n##  Groups Name        Variance Std.Dev.\n##  id     (Intercept) 0.3228   0.5682  \n## Number of obs: 3964, groups:  id, 12\n## \n## Fixed effects:\n##             Estimate Std. Error z value Pr(&gt;|z|)    \n## (Intercept) -0.34748    0.16847  -2.063   0.0392 *  \n## os_scaled    0.67559    0.03862  17.494   &lt;2e-16 ***\n## ---\n## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n## \n## Correlation of Fixed Effects:\n##           (Intr)\n## os_scaled -0.029\n\nbbmle::AICtab(modell_3, modell_4)\n##          dAIC  df\n## modell_3   0.0 3 \n## modell_4 136.9 3\n\n# tieferer AIC -&gt; besser (AIC = Akaike information criterion) -&gt; als deltaAIC ausgewiesen \n# Distanz zu Strassen (dist_road_only) = besser",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-5",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-5",
+    "title": "Variablenselektion Multivariate Modelle",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nSelektion der Variablen in einem multivariaten Model –&gt; Multimodel inference\nMit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Multimodel inference aufgebaut werden (siehe auch Stats-Skript von J.Dengler & Team)\n\n# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6\n# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)\n\nf &lt;- pres_abs ~\n  V1 +\n  V2 +\n  V3 +\n  V4 +\n  V5 +\n  V6 \n\n# in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel\n# daraus gemacht\n\nf_dredge &lt;- paste(c(f, \"+ (1 | id)\"), collapse = \" \") |&gt; as.formula()\n\n# Das Modell mit dieser Formel ausführen\n\nm_reh_day &lt;- glmer(f_dredge, data = DF_reh_day, family = binomial, na.action = \"na.fail\")\n\n# Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)\n\nall_m_reh_day &lt;- dredge(m_reh_day)\nall_m_reh_day\n\n# Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte\n# Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))\n\nsw(all_m_reh_day)\n\n# Schlussendlich kann ein Modelaverage durchgeführt werden (Schwellenwert für das delta-AIC = 2)\n\navgmodel_m_reh_day &lt;- model.avg(all_m_reh_day, rank = \"AICc\", subset = delta &lt; 2)\nsummary(avgmodel_m_reh_day)\n\n\n\nMusterlösung\n\n# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6\n# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)\n\nf &lt;- pres_abs ~\n  slope_scaled +\n  topo_pos_scaled +\n  us_scaled +\n  forest_prop_scaled +\n  dist_road_only_scaled +\n  dist_sett_scaled \n\n# in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel\n# daraus gemacht\n\nf_dredge &lt;- paste(c(f, \"+ (1 | id)\"), collapse = \" \") |&gt; as.formula()\n\n# Das Modell mit dieser Formel ausführen\n\nm_reh_day &lt;- glmer(f_dredge, data = DF_reh_day, family = binomial, na.action = \"na.fail\")\n\n# Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)\n\nall_m_reh_day &lt;- dredge(m_reh_day)\n\n# Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte\n# Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))\n\nsw(all_m_reh_day)\n##                      dist_road_only_scaled forest_prop_scaled us_scaled\n## Sum of weights:      1.00                  1.00               1.00     \n## N containing models:   32                    32                 32     \n##                      slope_scaled dist_sett_scaled topo_pos_scaled\n## Sum of weights:      0.99         0.46             0.30           \n## N containing models:   32           32               32\n\n# Schlussendlich kann ein Modelaverage durchgeführt werden (Schwellenwert für das delta-AIC = 2)\n\navgmodel_m_reh_day &lt;- model.avg(all_m_reh_day, rank = \"AICc\", subset = delta &lt; 2)\nsummary(avgmodel_m_reh_day)\n## \n## Call:\n## model.avg(object = get.models(object = all_m_reh_day, subset = delta &lt; \n##     2), rank = \"AICc\")\n## \n## Component model call: \n## glmer(formula = pres_abs ~ &lt;4 unique rhs&gt;, data = DF_reh_day, family = \n##      binomial, na.action = na.fail)\n## \n## Component models: \n##        df   logLik    AICc delta weight\n## 1346    6 -2268.17 4548.37  0.00   0.38\n## 12346   7 -2267.34 4548.71  0.34   0.32\n## 13456   7 -2268.01 4550.04  1.68   0.16\n## 123456  8 -2267.16 4550.35  1.98   0.14\n## \n## Term codes: \n## dist_road_only_scaled      dist_sett_scaled    forest_prop_scaled \n##                     1                     2                     3 \n##          slope_scaled       topo_pos_scaled             us_scaled \n##                     4                     5                     6 \n## \n## Model-averaged coefficients:  \n## (full average) \n##                        Estimate Std. Error Adjusted SE z value Pr(&gt;|z|)    \n## (Intercept)           -0.432191   0.139554    0.139597   3.096  0.00196 ** \n## dist_road_only_scaled  0.416554   0.046861    0.046875   8.886  &lt; 2e-16 ***\n## forest_prop_scaled     0.818821   0.057266    0.057282  14.295  &lt; 2e-16 ***\n## slope_scaled          -0.158651   0.049230    0.049245   3.222  0.00127 ** \n## us_scaled              0.390805   0.041070    0.041083   9.513  &lt; 2e-16 ***\n## dist_sett_scaled      -0.036839   0.058045    0.058054   0.635  0.52571    \n## topo_pos_scaled        0.006678   0.022846    0.022852   0.292  0.77013    \n##  \n## (conditional average) \n##                       Estimate Std. Error Adjusted SE z value Pr(&gt;|z|)    \n## (Intercept)           -0.43219    0.13955     0.13960   3.096  0.00196 ** \n## dist_road_only_scaled  0.41655    0.04686     0.04688   8.886  &lt; 2e-16 ***\n## forest_prop_scaled     0.81882    0.05727     0.05728  14.295  &lt; 2e-16 ***\n## slope_scaled          -0.15865    0.04923     0.04924   3.222  0.00127 ** \n## us_scaled              0.39081    0.04107     0.04108   9.513  &lt; 2e-16 ***\n## dist_sett_scaled      -0.08030    0.06208     0.06210   1.293  0.19597    \n## topo_pos_scaled        0.02197    0.03717     0.03718   0.591  0.55451    \n## ---\n## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Variablenselektion Multivariate Modelle</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "",
+    "text": "Libraries laden\nPackages die wir für die Modelle und die Diagnostics brauchen\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"DHARMa\")\nlibrary(\"car\")\nlibrary(\"MASS\")\nlibrary(\"ROCR\")\nlibrary(\"sjPlot\")\nlibrary(\"ggeffects\")\nlibrary(\"sjstats\")\nlibrary(\"cowplot\")\nlibrary(\"gstat\")\nlibrary(\"purrr\")\nlibrary(\"broom.mixed\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#ausgangslage",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#ausgangslage",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Ausgangslage",
+    "text": "Ausgangslage\n\nDer Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen.\nDie Modellresultate aus dem avgmodel wären grundsätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht gut, weshalb wir das beste Modell aus der dredge-Funktion wählen und damit weitergehen: falls mehrere innerhalb Δ≤2 -&gt; das mit den WENIGSTEN Fixeffekten\n\n\ncand &lt;- get.models(all_m_reh_day, subset = delta &lt;= 2)\npick  &lt;- if (length(cand) == 1) cand[[1]] else cand[[ which.min(sapply(cand, function(m) length(lme4::fixef(m)))) ]]\nm_reh_day &lt;- update(pick)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-1",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-1",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nBerechnet die AUC eures Modelles (area under the receiver operating characteristic curve) = Mass der Modellgüte\nÜber die Herleitung der AUC findet ihr weiterführende Informationen unter: Link\n\n\nMusterlösung\n\nprob &lt;- predict(m_reh_day, type = c(\"response\"))\npred &lt;- prediction(prob, DF_reh_day$pres_abs)\n\n# AUC\n\nauc &lt;- performance(pred, measure = \"auc\")@y.values[[1]]\nauc\n## [1] 0.765188",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-2",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-2",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nDiagnose der Modell-Residuen mittels Tests aus dem DHARMa-Package auf verschiedene Aspekte (Dispersion, Zeroinfaltion, Autocorrelation)\n\ndazu unbedingt die Vignette des DHARMa-Package konsultieren: Link\n\n\n# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und\n# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt\n# werden (dauert je nach dem lange)\n\nsimulationOutput &lt;- simulateResiduals(fittedModel = m_reh_day, n = 10000)\n\n# plotting and testing scaled residuals\n\nplot(simulationOutput)\ntestResiduals(simulationOutput)\n\n\nAufgabe 2.1\nDie häufigsten Probleme sind overdispersion, underdispersion und Zero-Inflation. Wendet die entsprechenden Tests aus dem DHARMA auf euren simulationOutput an.\n\n\nMusterlösung\n\n\n# test for dispersion\n\ntestDispersion(simulationOutput)\n\n\n\n\n\n\n\n\n## \n##  DHARMa nonparametric dispersion test via sd of residuals fitted vs.\n##  simulated\n## \n## data:  simulationOutput\n## dispersion = 0.99362, p-value = 0.7922\n## alternative hypothesis: two.sided\n\n# test for Zeroinflation\n\ntestZeroInflation(simulationOutput)\n\n\n\n\n\n\n\n## \n##  DHARMa zero-inflation test via comparison to expected zeros with\n##  simulation under H0 = fitted model\n## \n## data:  simulationOutput\n## ratioObsSim = 1.0318, p-value = 0.5262\n## alternative hypothesis: two.sided\n\n\n\nAufgabe 2.2\nBei räumlichen Daten / Modellen kann ausserdem räumliche Autokorrelation auftreten. Dieses Phämomen bezieht sich darauf, dass Beobachtungen die näher beieinander liegen häufig ähnlicher sind und dadurch Beobachtungen gewissermassen pseudo-repliziert werden. Auch dafür gibt es im DHARMa-Package einen entsprechenden Test:\n\n\n# test for spatial Autocorrelation\n\n# calculating x, y positions per group\ngroupLocations &lt;- aggregate(DF_reh_day[, 3:4], list(DF_reh_day$x, DF_reh_day$y), mean)\ngroupLocations$group &lt;- paste(groupLocations$Group.1, groupLocations$Group.2)\ngroupLocations &lt;- groupLocations |&gt; dplyr::select(x,y,group)\n\n# calculating residuals per group\nres2 = recalculateResiduals(simulationOutput, group = groupLocations$group)\n\n# running the spatial test on grouped residuals\ntestSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)\n\n\n\nAufgabe 2.3\nTesten des Modells m_reh_day auf Multikollinearität mittels VIF. Multikollinearität ist vor allem ein Problem, wenn zu starke Korrelationen im finalen Modell vorliegen, zB. falls Variablen rein auf der Basis von ökologischen Kriterien inkludiert wurden und dadurch stark korrelierte Variablen im Modell sind.\n\n\nMusterlösung\n\n\n# use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values\n# not substantially greater than 1 (say 5), no need to worry.\n\ncar::vif(m_reh_day)\n## dist_road_only_scaled    forest_prop_scaled          slope_scaled \n##              1.059651              1.255186              1.354885 \n##             us_scaled \n##              1.129149\nmean(car::vif(m_reh_day))\n## [1] 1.199718",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-3",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-3",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nGraphische Darstellung der Modellresultate\n\n# graphische Darstellung aller Fixeffekte\n\nplot_model(m_reh_day, transform = NULL, show.values = TRUE, value.offset = .25)\n\n\nAufgabe 3.1\nIn diesem Schritt sollen Vorhersageplots für jede Umweltvariable gemacht werden. Diese “ResponseCurves” visualisieren die vorhergesagte Wahrscheinlichkeit, ob ein Kreis durch ein Reh besetzt ist in Abhängigkeit der erklärenden Variable.\n\nplot_model(m_reh_day, type = \"pred\", terms = \"us_scaled [all]\")\n\n# Problem: skalierte Variablen lassen sich nicht so ohne weiteres interpretieren, daher müssen die Variablen rückskaliert werden \n# Vorhersageplot für eine Variable (hier us_scaled) + Rücketikettierung auf Originalskala\n\n# Die Einstellungen müssen für jede Variable separat geändert werden\n\np_us &lt;- plot_model(m_reh_day, type = \"pred\", terms = \"us_scaled [all]\")\nmu &lt;- mean(DF_reh_day$us_2014, na.rm = TRUE)\nsdv &lt;- sd(DF_reh_day$us_2014, na.rm = TRUE)\nmin_us &lt;- min(DF_reh_day$us_2014, na.rm = TRUE)\nmax_us &lt;- max(DF_reh_day$us_2014, na.rm = TRUE)\n\np_us + scale_x_continuous(\n      limits = c((min_us - mu)/sdv, (max_us - mu)/sdv),\n      breaks = seq((min_us - mu)/sdv, (max_us - mu)/sdv, length.out = 5),\n      labels = function(x) round(x*sdv + mu, 2),\n      name = \"Deckungsgrad Strauchschicht [0-1]\"\n    )\n\n\n\nAufgabe 3.2\nDie resultierenden ResponseCurves sollten möglichst auf einem Element/Plot zusammengebracht werden als Gesamtgrafik in einem Raster (Small multiples)\n\n\nMusterlösung\n# Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst\n# gute Funktionen für schöne Layouts für Grafiken)\n\ncowplot::plot_grid()",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-4",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-4",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nErmittlung des individuellen Beitrags der einzelnen Variablen im Gesamtmodell (leave-one-out Ansatz)\n\nBestimmen delta AIC nach Coppes u. a. (2017) → Vergleich des Gesamtmodells gegenüber einem Modell ohne den entsprechenden Fixeffekt.\nAuftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)\n\n\n\nMusterlösung\n\nvars &lt;- c(\"slope_scaled\", \"forest_prop_scaled\", \"dist_road_only_scaled\", \"us_scaled\")\n\n# leave-one-out models\nmodelle &lt;- lapply(vars, function(var) {\n  formula &lt;- as.formula(paste(\"pres_abs ~\", paste(setdiff(vars, var), collapse = \" + \"), \"+ (1 | id)\"))\n  glmer(formula, data = DF_reh_day, family = binomial, na.action = \"na.fail\")\n})\n\n\nnames(modelle) &lt;- paste0(\"m_\", vars)\n\nmodelle &lt;- c(list(m_reh_day = m_reh_day), modelle)\n\n\nbbmle::AICtab(modelle)\n##                         dAIC  df\n## m_reh_day                 0.0 6 \n## m_slope_scaled            8.3 5 \n## m_dist_road_only_scaled  83.6 5 \n## m_us_scaled              94.2 5 \n## m_forest_prop_scaled    282.1 5\n\n\n\n\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Modellgüte und -diagnostics MM</span>"
+    ]
+  },
+  {
+    "objectID": "References.html",
+    "href": "References.html",
+    "title": "Literaturverzeichnis",
+    "section": "",
+    "text": "Coppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, and Veronika\nBraunisch. 2017. “Outdoor Recreation Causes Effective Habitat\nReduction in Capercaillie Tetrao Urogallus: A Major Threat for\nGeographically Restricted Populations.” Journal of Avian\nBiology 48 (12): 1583–94.\n\n\nLo, Steson, and Sally Andrews. 2015. “To Transform or Not to\nTransform: Using Generalized Linear Mixed Models to Analyse Reaction\nTime Data.” Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, et al. 2020.\n“Robustness of Linear Mixed-Effects Models to Violations of\nDistributional Assumptions.” Methods in Ecology and\nEvolution 11 (9): 1141–52.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
+    ]
+  }
+]
