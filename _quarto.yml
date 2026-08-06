@@ -45,7 +45,7 @@ book:
   # globbing would be cool. Wait for https://github.com/quarto-dev/quarto-cli/issues/1917 to be resolved 
   chapters:
     - index.qmd
-    # - part: PrePro.qmd
+    - part: PrePro.qmd
     #   chapters:
     #   - prepro/Prepro1_Vorbereitung.qmd
     #   - --
