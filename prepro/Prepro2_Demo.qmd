@@ -1,0 +1,140 @@
+---
+lesson: PrePro2
+thema: Piping / Joins
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# Prepro 2: Demo
+
+## Piping {#sec-piping}
+
+Gegeben ist ein *character vector* (`temperature`) mit Temperaturwerten in Fahrenheit. Das Ziel ist es, die mittlere Temperatur in Grad Celsius zu berechnen. 
+
+$$°C = (F - 32) \times \frac{5}{9}$$
+
+
+```{r}
+temperature <- c("111", "150", "123")
+
+```
+
+Um einen character vector in Zahlen umzuwandeln, brauchen wir die Funktion `as.numeric`. Für die Subtraktion und Multiplikation brauchen wir zur Veranschaulichung die entsprechenden Funktionen `subtract` und `multiply_by` aus der Library `magrittr`.
+
+Übersetzt in `R`-Code entsteht folgende Operation:
+
+```{r}
+library("magrittr")
+
+out <- as.numeric(temperature)      # 1. Konvertierung in Numeric
+out <- subtract(out, 32)            # 2. Subtraktion von 32
+out <- multiply_by(out, 5/9)        # 3. Multiplikation mit 5/9
+out <- mean(out)                    # 4. Berechnung des Mittelwertes
+
+out
+```
+
+Möchte man das Zwischenspeichern vermeiden, entsteht eine komplexe, unleserliche Operation
+
+```{r}
+out <- mean(multiply_by(subtract(as.numeric(temperature), 32), 5/9))
+```
+
+Um den Code sowohl leserlich zu halten als auch das Abspeichern von Zwischenergebnissen zu vermeiden, kann Piping verwendet werden: *Mit "piping" wird der Output der einen Funktion der erste Parameter der darauf folgenden Funktion.*
+
+```{r}
+temperature |>                  
+  as.numeric() |>               # 1. Konvertierung in Numeric
+  subtract(32) |>               # 2. Subtraktion von 32
+  multiply_by(5/9) |>           # 3. Multiplikation mit 5/9
+  mean()                        # 4. Berechnung des Mittelwertes
+```
+
+:::{.callout-important}
+- der `|>` Pipe Operator wurde erst in R `4.1` eingeführt
+- Neben dem *base R* Pipe Operator existiert im Package `magrittr` ein sehr ähnlicher[^pipe] Pipe Operator: `%>%`
+- Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein. 
+- Welcher Pipe Operator `|>` oder `%>%` mit der obigen Tastenkombination eingefügt wird, kann über die RStudio Settings `Tools` → `Global Options` → `Code` → Häkchen setzen bei `Use native pipe operator`
+- Wir verwenden die base-R Pipe `|>` 
+:::
+
+[^pipe]: siehe <https://stackoverflow.com/q/67633022/4139249>
+
+## Joins
+
+Wie ihr in der Vorlesung gelernt habt, erlauben Joins das Verbinden von Daten in unterschiedichen Tabellen über gemeinsame Schlüsselattribute. Die unterschiedlichen Join-Formen (inner, left, right, full join) bestimmen dabei, wie die Daten verbunden werden sollen. Hier wollen wir die unterschiedlichen Join-Formen in R genauer anschauen: 
+
+Wir benutzen dafür dasselbe Beispiel wie in der Vorlesung. Wir wollen den Ortnamen von Studierenden (gespeichert im Dataframe `ortschaften`) mit verschiedenen Joins via dem Schlüsselattribut `PLZ` an den Dateframe `studierende` knüpfen.
+
+```{r}
+studierende <- data.frame(
+  Matrikel_Nr = c(100002, 100003, 200003),
+  Studi = c("Patrick", "Manuela", "Eva"),
+  PLZ = c(8006, 8001, 8820)
+)
+
+studierende
+
+ortschaften <- data.frame(
+  PLZ = c(8003, 8006, 8810, 8820),
+  Ortsname = c("Zürich", "Zürich", "Horgen", "Wädenswil")
+)
+
+ortschaften
+```
+
+### Inner Join 
+
+```{r}
+# Load library
+library("dplyr")
+
+inner_join(studierende, ortschaften, by = "PLZ")
+```
+
+### Left Join
+
+```{r}
+left_join(studierende, ortschaften, by = "PLZ")
+```
+
+### Right Join
+
+```{r}
+right_join(studierende, ortschaften, by = "PLZ")
+```
+
+### Full Join
+
+```{r}
+full_join(studierende, ortschaften, by = "PLZ")
+```
+
+
+### Unterschiedliche Attributsnamen
+
+Häufig kommt es vor, dass in den  Dataframes, welche miteinander verknüpft werden sollen, die Attributsnamen der Schlüsselattribute nicht übereinstimmen. Im obrigen Beispiel heisst das Schlüsselattribut in beiden Dataframes `PLZ`. Nun heisst im Dataframe `studierende` das Schlüsselattribut `Wohnort`.
+
+
+```{r}
+studierende <- data.frame(
+  Matrikel_Nr = c(100002, 100003, 200003),
+  Studi = c("Patrick", "Manuela", "Pascal"),
+  Wohnort = c(8006, 8001, 8006)
+)
+```
+
+In R kann dies dann folgendermassen umgesetzt werden:
+
+```{r}
+left_join(studierende, ortschaften, by = c("Wohnort" = "PLZ"))
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: false
+
+knitr::purl("prepro/Prepro2_Demo.qmd", "prepro/Prepro2_Demo.R", documentation = 0)
+```

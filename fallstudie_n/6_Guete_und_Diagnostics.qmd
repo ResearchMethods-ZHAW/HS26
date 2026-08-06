@@ -1,0 +1,282 @@
+---
+execute:
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# Modellgüte und -diagnostics MM
+
+## Libraries laden
+
+Packages die wir für die Modelle und die Diagnostics brauchen
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+library("lme4")
+library("bbmle")
+library("MuMIn")
+library("dplyr")
+library("readr")
+library("ggplot2")
+library("DHARMa")
+library("car")
+library("MASS")
+library("ROCR")
+library("sjPlot")
+library("ggeffects")
+library("sjstats")
+library("cowplot")
+library("gstat")
+library("purrr")
+library("broom.mixed")
+```
+
+## Ausgangslage
+
+- Der Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen. 
+
+```{r}
+#| echo: true
+#| code-fold: false
+#| include: false
+
+DF_reh_day <- read_delim("datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv", delim = ";") |>
+  filter(time_of_day == "day") |>
+  mutate(
+    slope_scaled = scale(slope),
+    topo_pos_scaled = scale(topo_pos),
+    us_scaled = scale(us_2014),
+    os_scaled = scale(os_2014),
+    forest_prop_scaled = scale(forest_prop),
+    dist_road_trails_scaled = scale(dist_road_trails),
+    dist_road_only_scaled = scale(dist_road_only),
+    dist_sett_scaled = scale(dist_sett),
+    id = as.factor(id)
+  )
+
+f <- pres_abs ~
+  slope_scaled +
+  topo_pos_scaled +
+  us_scaled +
+  forest_prop_scaled +
+  dist_road_only_scaled +
+  dist_sett_scaled 
+
+f <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
+
+m_reh_day <- glmer(f, data = DF_reh_day, family = binomial, na.action = "na.fail")
+
+all_m_reh_day <- dredge(m_reh_day)
+all_m_reh_day
+
+avgmodel_m_reh_day <- model.avg(all_m_reh_day, rank = "AICc", subset = delta < 2)
+summary(avgmodel_m_reh_day)
+```
+
+- Die Modellresultate aus dem avgmodel wären grundsätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht gut, weshalb wir das beste Modell aus der dredge-Funktion wählen und damit weitergehen: falls mehrere innerhalb Δ≤2 -> das mit den WENIGSTEN Fixeffekten
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+cand <- get.models(all_m_reh_day, subset = delta <= 2)
+pick  <- if (length(cand) == 1) cand[[1]] else cand[[ which.min(sapply(cand, function(m) length(lme4::fixef(m)))) ]]
+m_reh_day <- update(pick)  
+
+```
+
+## Aufgabe 1
+
+Berechnet die AUC eures Modelles (area under the receiver operating characteristic curve) **= Mass der Modellgüte**
+
+Über die Herleitung der AUC findet ihr weiterführende Informationen unter: [Link](simtest.pdf) 
+
+```{r}
+
+prob <- predict(m_reh_day, type = c("response"))
+pred <- prediction(prob, DF_reh_day$pres_abs)
+
+# AUC
+
+auc <- performance(pred, measure = "auc")@y.values[[1]]
+auc
+```
+
+## Aufgabe 2
+
+Diagnose der Modell-Residuen mittels Tests aus dem DHARMa-Package auf verschiedene Aspekte (Dispersion, Zeroinfaltion, Autocorrelation)
+
+- dazu unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
+
+```{r}
+#| output: false
+#| echo: true
+#| code-fold: false
+
+# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
+# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
+# werden (dauert je nach dem lange)
+
+simulationOutput <- simulateResiduals(fittedModel = m_reh_day, n = 10000)
+
+# plotting and testing scaled residuals
+
+plot(simulationOutput)
+testResiduals(simulationOutput)
+
+```
+
+### Aufgabe 2.1
+
+Die häufigsten Probleme sind overdispersion, underdispersion und Zero-Inflation. Wendet die entsprechenden Tests aus dem DHARMA auf euren `simulationOutput` an.
+
+```{r}
+
+
+# test for dispersion
+
+testDispersion(simulationOutput)
+
+# test for Zeroinflation
+
+testZeroInflation(simulationOutput)
+
+```
+
+### Aufgabe 2.2 
+
+Bei räumlichen Daten / Modellen kann ausserdem räumliche Autokorrelation auftreten. Dieses Phämomen bezieht sich darauf, dass Beobachtungen die näher beieinander liegen häufig ähnlicher sind und dadurch Beobachtungen gewissermassen pseudo-repliziert werden. Auch dafür gibt es im DHARMa-Package einen entsprechenden Test:
+
+
+```{r}
+#| eval: false
+#| output: false
+#| echo: true
+#| code-fold: false
+
+
+# test for spatial Autocorrelation
+
+# calculating x, y positions per group
+groupLocations <- aggregate(DF_reh_day[, 3:4], list(DF_reh_day$x, DF_reh_day$y), mean)
+groupLocations$group <- paste(groupLocations$Group.1, groupLocations$Group.2)
+groupLocations <- groupLocations |> dplyr::select(x,y,group)
+
+# calculating residuals per group
+res2 = recalculateResiduals(simulationOutput, group = groupLocations$group)
+
+# running the spatial test on grouped residuals
+testSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)
+
+```
+
+### Aufgabe 2.3
+
+Testen  des Modells `m_reh_day` auf Multikollinearität mittels VIF. Multikollinearität ist vor allem ein Problem, wenn zu starke Korrelationen im finalen Modell vorliegen, zB. falls Variablen rein auf der Basis von ökologischen Kriterien inkludiert wurden und dadurch stark korrelierte Variablen im Modell sind.
+
+```{r}
+
+
+# use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
+# not substantially greater than 1 (say 5), no need to worry.
+
+car::vif(m_reh_day)
+mean(car::vif(m_reh_day))
+
+```
+
+## Aufgabe 3
+
+Graphische Darstellung der Modellresultate
+
+
+```{r}
+#| output: false
+#| echo: true
+#| code-fold: false
+
+# graphische Darstellung aller Fixeffekte
+
+plot_model(m_reh_day, transform = NULL, show.values = TRUE, value.offset = .25)
+
+```
+
+### Aufgabe 3.1
+
+In diesem Schritt sollen Vorhersageplots für jede Umweltvariable gemacht werden. Diese "ResponseCurves" visualisieren die vorhergesagte Wahrscheinlichkeit, ob ein Kreis durch ein Reh besetzt ist in Abhängigkeit der erklärenden Variable.
+
+```{r}
+#| output: false
+#| echo: true
+#| code-fold: false
+
+plot_model(m_reh_day, type = "pred", terms = "us_scaled [all]")
+
+# Problem: skalierte Variablen lassen sich nicht so ohne weiteres interpretieren, daher müssen die Variablen rückskaliert werden 
+# Vorhersageplot für eine Variable (hier us_scaled) + Rücketikettierung auf Originalskala
+
+# Die Einstellungen müssen für jede Variable separat geändert werden
+
+p_us <- plot_model(m_reh_day, type = "pred", terms = "us_scaled [all]")
+mu <- mean(DF_reh_day$us_2014, na.rm = TRUE)
+sdv <- sd(DF_reh_day$us_2014, na.rm = TRUE)
+min_us <- min(DF_reh_day$us_2014, na.rm = TRUE)
+max_us <- max(DF_reh_day$us_2014, na.rm = TRUE)
+
+p_us + scale_x_continuous(
+      limits = c((min_us - mu)/sdv, (max_us - mu)/sdv),
+      breaks = seq((min_us - mu)/sdv, (max_us - mu)/sdv, length.out = 5),
+      labels = function(x) round(x*sdv + mu, 2),
+      name = "Deckungsgrad Strauchschicht [0-1]"
+    )
+
+```
+
+### Aufgabe 3.2
+
+Die resultierenden ResponseCurves sollten möglichst auf einem Element/Plot zusammengebracht werden als Gesamtgrafik in einem Raster (Small multiples)
+
+
+```{r}
+#| eval: false
+
+# Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst
+# gute Funktionen für schöne Layouts für Grafiken)
+
+cowplot::plot_grid()
+```
+
+## Aufgabe 4
+
+Ermittlung des individuellen Beitrags der einzelnen Variablen im Gesamtmodell (leave-one-out Ansatz)
+
+- Bestimmen delta AIC nach @coppes2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne den entsprechenden Fixeffekt.
+- Auftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
+
+```{r}
+
+vars <- c("slope_scaled", "forest_prop_scaled", "dist_road_only_scaled", "us_scaled")
+
+# leave-one-out models
+modelle <- lapply(vars, function(var) {
+  formula <- as.formula(paste("pres_abs ~", paste(setdiff(vars, var), collapse = " + "), "+ (1 | id)"))
+  glmer(formula, data = DF_reh_day, family = binomial, na.action = "na.fail")
+})
+
+
+names(modelle) <- paste0("m_", vars)
+
+modelle <- c(list(m_reh_day = m_reh_day), modelle)
+
+
+bbmle::AICtab(modelle)
+
+```
+

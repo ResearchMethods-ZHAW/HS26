@@ -1,0 +1,64 @@
+---
+lesson: PrePro1
+knitr:
+  opts_chunk: 
+    collapse: true
+format: 
+  html: default
+  pdf: default
+---
+
+## Vorbereitung {#sec-prepro-vorbereitung}
+
+:::{.callout-important}
+
+Die häufigste Verwirrung von Einsteigern liegt in der Verwendung von Packages. Dieses Kapitel unbedingt vormerken und bei Bedarf nochmal lesen.
+
+:::
+
+R ist ohne Zusatzpakete, sogenannte "Packages" nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Allerdings prüft R dabei nicht, ob das Package bereits vorhanden ist oder nicht: Auch bereits installierte Packages werden *nochmal* installiert, was unter Umständen ziemlich unpraktisch sein kann. 
+
+
+```{r}
+#| eval: false
+
+
+# so werden packages klassischerweise installiert:
+install.packages("lubridate")
+
+
+# so werden sie in die aktuelle Session geladen:
+library(lubridate)
+
+# nun kann eine Funktion aus dem geladenen Package verwendet werden
+# (die Funktion "now" war vorher nicht verfügbar)
+now()
+```
+
+Alternativ zu `install.packages` können Packages auch mittels der Funktion `ipak` installiert werden. In der Funktion wird zuerst geprüft, ob das Package vorhanden ist. Ist das jeweilige Package vorhanden, wird auf eine Installation verzichtet. 
+
+
+
+```{r}
+# so werden packages mit "ipak" installiert:
+ipak <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
+}
+
+ipak("dplyr")
+
+
+```
+
+Im Rahmen von Prepro 1 - 3 werden wir folgende Packages brauchen: `dplyr`, `ggplot2`, `lubridate`, `readr`, `tidyr` und `magrittr`. Wir empfehlen, diese bereits *vor* der ersten Lektion mit `ipak` zu installieren (s.u.).
+
+```{r}
+ipak(c("dplyr", "ggplot2", "lubridate", "readr", "tidyr", "magrittr"))
+
+```
+
+
+

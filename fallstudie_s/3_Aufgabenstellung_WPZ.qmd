@@ -1,0 +1,93 @@
+---
+lesson: Aufgabenstellung
+thema: Abschlussbericht Fallstudie
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# Aufgabenstellung Abschlussbericht
+
+
+## Ziele 
+
+Ihr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind __abgeschlossen__ und wir beschäftigen uns ab jetzt ausschliesslich mit dem __WPZ__.
+
+Im Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besuchenden auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele). 
+
+Für meine Analysen habe ich untenstehende Fragestellungen formuliert. Ihr könnt aber auch eure Fragestellungen aus eurem Forschungsplan übernehmen, falls ihr das möchtet und falls diese mit den zur Verügung stehenden Daten bearbeitet werden können.
+
+>1) Welchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ?
+>
+>2) Wie stark sind die jeweiligen Einflüsse, welche Effektrichtungen sind beobachtbar und welche der untersuchten Parameter sind signifikant?
+>
+>3)	Gibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?
+>
+>4)	Welches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?
+>
+
+
+- Jede Gruppe wertet __Daten von einem Zählgerät__ aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Die Daten von jeder Zählstelle sollen nur von einer Gruppe ausgewertet werden!
+
+- Bezieht in eure Auswertungen den gesamten zur Verfügung stehenden Zeitraum ein. 
+
+- Für euren Zähler stehen Zahlen zu Fussgänger:innen und Fahrrädern zur Verfügung (siehe [Einführung], Hinweis). Entscheidet euch selbst, ob ihr Fussgänger:innen __ODER__ Fahrräder auswerten wollt. Die anderen Daten dürft ihr vernachlässigen.
+
+- Im Bericht sollen die Informationen und Erfahrungen aus dem gesamten Verlauf der Fallstudie in geeigneter Weise einfliessen. Bezüglich der Felderhebung Grüental erwarten wir __keine__ Angaben. 
+
+
+![](images/Aufbau_Fallstudie_Profil_S.png)
+
+## Erwartungen
+
+1) Struktur / Aufbau
+
+- Abstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch). Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.
+
+- Einleitung (hier können allenfalls Elemente / Teile aus den Forschungsplänen übernommen werden)
+
+-	Fragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)
+
+-	Methoden (aufschlussreiches Kapitel mit den statistischen Analysen)
+
+-	Resultate (deskriptive Statistik, multivariates Modell; kurzer Fliesstext sowie die notwendigen Tabellen und eine Auswahl möglichst informativer Grafiken)
+
+-	Diskussion (Diskussion der deskriptiven Analysen und der Modellergebnisse; dieser Abschnitt sollte die eigenen Resultate auch im Zusammenhang mit aktueller Fachliteratur reflektieren.)
+
+-	Literaturverzeichnis (Tipp: Das Literaturverzeichnis sollte vollständig sein, sowie formal korrekt und einheitlich daherkommen. Wir erwarten speziell in der Diskussion eine Abstützung auf aktuelle Fachliteratur. Auf Moodle haben wir euch eine Auswahl relevanter Studien bereitgestellt.)
+
+-	Anhang (für alle Auswertungen relevanter R-Code in geeigneter Form) 
+
+2) Gesamtumfang max. 12'000 Zeichen (inkl. Leerzeichen; exkl. Tabellen, Literaturverzeichnis und Anhang)
+
+3) Abgabe per Mail an hoce@zhaw.ch (Datum siehe Stundenplan)
+
+## Bewertungskriterien
+
+-	Ist die Methode klar und verständlich formuliert?
+
+-	Sind die deskriptiven Analysen klar beschrieben und geeignet visualisiert?
+
+-	Ist die Variablenselektion klar beschrieben, plausibel und nachvollziehbar?
+
+-	Sind die Modellresultate in Text- und Tabellenform korrekt beschrieben und geeignet visualisiert?
+
+-	Ist die Diskussion klar formuliert und inhaltlich schlüssig?
+
+-	Wie gut ist die Diskussion auf relevante und aktuelle Fachliteratur abgestützt?
+
+-	Zusätzliche bewerten wir die inhaltliche Dichte der Arbeit und die formale Qualität (Sprache, Struktur, Aufbau, Darstellung, Literaturverzeichnis, Umgang mit Literatur im Text)
+
+
+## Zusammensetzung Note Fallstudie:
+
+-	Fallstudie-Leistungsnachweis 1 - Forschungsplan: Testatplichtig
+
+-	Fallstudie-Leistungsnachweis 2 - Multivariate Analyse: 100 %
+
+Die Note der Fallstudie fliesst in die Gesamtbewertung des Moduls Research Methods mit ein.

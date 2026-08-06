@@ -1,0 +1,17 @@
+## TODOS 2024
+- Generell:
+  - Pacman für die Instalattion von Packges? Siehe CEM / DAMO
+  - Wickham 2017 ersetzen mit Wickham 2023 
+- Vorbereitungen: Link zu RStudio Desktop einfügen
+- Prepro:
+  - vereinfachen, anpassen analog DAMO
+  -  
+- Infovis 1: 
+  - Lief dieses Jahr etwas aus dem Ruder, weil einerseits der Theorie Input sehr lange war, aber dann auch die Demo aus sehr ausführlich. 
+  - Zudem hat verwirrt, das wir in der Theorie mit ggplot begonnen haben aber in der Übung mit base-R
+  - Weiter haben wir mit Qmd Files gearbeitet, was für die Studenten sehr verwirrend war und zeit kostete
+  - InfoVis1 war an einem Montag, da können wir kaum erwarten, dass die studis auf dienstag nenneswert viel zuhause machen können
+  - Vorschlag:
+    - Quarto: verschieben in InfoVis2. Zudem in der 1. Lektion von InfoVis2 mit R-Scripts arbeiten, und erst in der zweiten Lektion demonstrieren, wie aus diesem R-Script ein Quarto-File erstellt werden kann
+    - InfoVis1: base-R nach hinten schieben. Viele Details entfernen, wie z.b. date_breaks, limits usw.
+    - InfoVis2: 

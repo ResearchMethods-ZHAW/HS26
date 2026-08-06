@@ -1,0 +1,165 @@
+---
+lesson: InfoVis2
+thema: Vertiefung ggplot
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+
+# Infovis 2: Übung optional
+
+Für die optionale Übung brauchst du den Datensatz *temperature_2005.csv*. Dabei handelt es sich wieder um Temperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (insbesondere `read_delim`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
+
+
+```{r}
+#| echo: true
+#| code-fold: false
+library("readr")
+temperature <- read_delim("datasets/infovis/temperature_2005.csv", ",")
+```
+
+## Aufgabe 1
+
+Mache aus der *wide table* eine *long table*, die wie folgt aussieht. 
+
+```{r}
+#| output: true
+
+library("tidyr")
+temperature_long <- pivot_longer(temperature, -time, names_to = "station", values_to = "temperature")
+
+knitr::kable(head(temperature_long))
+```
+
+Importiere anschliessend den Datensatz *temperature_2005_metadata.csv* und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
+
+```{r}
+metadata <- read_delim("datasets/infovis/temperature_2005_metadata.csv", ",")
+
+library("dplyr")
+
+temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
+```
+
+## Aufgabe 2 {#sec-infovis2-scatterplot}
+
+Erstelle ein Scatterplot (`time` vs. `temperature`), wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (`scale_color_gradient`). Verkleinere die Punkte, um übermässiges Überplotten der Punkte zu vermeiden (`size =`). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (`date_breaks` bzw. `date_labels` von `scale_x_datetime()`).
+
+```{r}
+#| output: true
+
+# Musterlösung
+library("ggplot2")
+ggplot(temperature_long, aes(time, temperature, color = Meereshoehe)) +
+  geom_point(size = 0.5) +
+  labs(x = "", y = "Temperatur in °C") +
+  scale_x_datetime(date_breaks = "3 months", date_labels = "%b") +
+  scale_color_gradient(low = "blue", high = "red")
+```
+
+## Aufgabe 3 {#sec-infovis2-aggregate}
+
+Erstelle eine Zusatzvariable `Date` mit dem Datum der jeweiligen Messung ( mit `as.Date`). Nutze diese Spalte, um die Tagesmitteltemperatur pro Station zu berechnen (mit `summarise()`). 
+
+Um die Metadaten  (`Name`, `Meereshoehe`, `x`, `y`) nicht zu verlieren, kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber weniger intuitiv) kannst du diese Variablen innerhalb deines `group_by` verwenden.
+
+```{r}
+temperature_long <- temperature_long |>
+  mutate(time = as.Date(time)) |>
+  group_by(time, station, Name, Meereshoehe, x, y) |>
+  summarise(temperature = mean(temperature, na.rm = TRUE))
+```
+
+## Aufgabe 4
+
+Wiederhole nun den Plot aus @sec-infovis2-scatterplot mit den aggregierten Daten aus @sec-infovis2-aggregate. Um die labels korrekt zu setzen, musst du `scale_x_datetime` mit `scale_x_date` ersetzen. 
+
+```{r}
+#| output: true
+
+p <- ggplot(temperature_long, aes(time, temperature, color = Meereshoehe)) +
+  geom_point(size = 0.5) +
+  labs(x = "", y = "Temperatur in °C") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b") +
+  scale_color_gradient(low = "blue", high = "red")
+p
+```
+
+## Aufgabe 5
+
+Füge zum obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.
+
+```{r}
+#| output: true
+
+# Musterlösung
+p <- p +
+  stat_smooth(colour = "black", lty = 2)
+p
+```
+
+## Aufgabe 6
+
+Positioniere die Legende oberhalb des Plots (nutze dazu `theme()` mit `legend.position`). 
+
+```{r}
+#| output: true
+
+# Musterlösung
+p <- p +
+  theme(legend.position = "top")
+p
+```
+
+
+<!--
+## Aufgabe 7
+
+Jetzt verlassen wir den Scatterplot und machen einen Boxplot mit den Temperaturdaten. Färbe die Boxplots wieder in Abhängigkeit der Meereshöhe ein. 
+
+- Beachte den Unterschied zwischen `colour =` und `fill =`
+- Beachte den Unterschied zwischen `facet_wrap()` und `facet_grid()`
+- `facet_grid()` braucht übrigens noch einen Punkt (`.`) zur Tilde (`~`). 
+- Beachte den Unterschied zwischen "`.~`" und "`~.`" bei `facet_grid()`
+- verschiebe nach Bedarf die Legende
+
+```{r}
+#| output: true
+
+# Musterlösung
+library("lubridate")
+temperature_long <- mutate(temperature_long, monat = month(time, label = T, abbr = F))
+
+ggplot(temperature_long, aes(monat, temperature, fill = Meereshoehe)) +
+  geom_boxplot() +
+  labs(x = "Monat", y = "Temperatur") +
+  facet_wrap(~station) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+## Aufgabe 8
+
+Als letzter wichtiger Plottyp noch zwei Übungen zum Histogramm. Erstelle ein Histogramm `geom_histogram()` mit den Temperaturwerten. Teile dazu die  Stationen in verschiedene Höhenlagen ein (Tieflage [< 400 m], Mittellage [400 - 600 m] und Hochlage [> 600 m]). Vergleiche die Verteilung der Temperaturwerte in den verschiedenen Lagen mit einem Histogramm. 
+
+Tipp: Nutze `cut` um die Stationen in die drei Gruppen aufzuteilen
+
+```{r}
+#| output: true
+
+# Musterlösung
+temperature_long <- temperature_long |>
+  mutate(lage = cut(Meereshoehe, c(0, 400, 600, 1000), labels = c("Tieflage", "Mittellage", "Hochlage")))
+
+ggplot(temperature_long, aes(temperature)) +
+  geom_histogram() +
+  facet_grid(~lage) +
+  labs(x = "Temperatur", y = "Häufigkeit") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+-->

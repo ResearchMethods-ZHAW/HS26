@@ -1,0 +1,15 @@
+{
+  "hash": "986bef3ff3ef9a1fb98d0cf2813399d6",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\nlesson: InfoVis1\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n## Vorbereitung {#sec-infovis-vorbereitung}\n\nIm Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten Packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nipak <- function(pkg) {\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages <- c(\"dplyr\", \"ggplot2\", \"lubridate\", \"readr\", \n  \"scales\", \"tidyr\")\n\nipak(packages)\n```\n:::\n\n\nZudem könnt ihr die Daten für die Übungen auf [Moodle](https://moodle.zhaw.ch/course/view.php?id=24871&section=5) herunterladen.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,251 @@
+---
+lesson: Statistik5
+knitr:
+  opts_chunk: 
+    collapse: false
+---
+
+# Statistik 5: Demo
+
+[Demoscript herunterladen (.R)](../purl/Statistik5_Demo.R){.dld}
+
+[Demoscript herunterladen (.qmd)](../purl/Statistik5_Demo.qmd){.dld}
+
+```{r}
+#| message: false
+library(readr)
+library(ggplot2)
+library(tibble)
+```
+
+## von LMs zu GLMs
+
+```{r}
+# Daten erstellen und anschauen
+strand <- tibble(
+  Temperatur = c(10, 12, 16, 20, 24, 25, 30, 33, 37),
+  Besucher = c(40, 12, 50, 500, 400, 900, 1500, 900, 2000)
+)
+
+ggplot(strand, aes(Temperatur, Besucher)) +
+  geom_point() +
+  xlim(0, 40) +
+  theme_classic()
+```
+
+```{r}
+# Modell definieren und anschauen
+lm_strand <- lm(Besucher ~ Temperatur, data = strand)
+summary(lm_strand)
+
+# Modellvalidierung
+par(mfrow = c(2, 2))
+plot(lm_strand)
+```
+
+```{r}
+ggplot(strand, aes(x = Temperatur, y = Besucher)) +
+  geom_point() +
+  xlim(0, 40) +    
+  geom_smooth(method = "lm") +
+  theme_classic()
+```
+
+
+```{r}
+# GLMs definieren und anschauen
+
+# ist dasselbe wie ein LM
+glm_gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand) 
+summary(glm_gaussian)
+```
+
+
+## Poisson Regression
+
+```{r}
+# Poisson passt besser zu den Daten 
+glm_poisson <- glm(Besucher ~ Temperatur, family = "poisson", data = strand) 
+summary(glm_poisson)
+```
+
+Rücktransformation der Werte auf die orginale Skala (Hier Exponentialfunktion 
+da family = possion als Link-Funktion den natürlichen Logarithmus (log) verwendet) 
+Besucher = exp(3.50 + 0.11 Temperatur/°C)
+
+```{r}
+# So kann man auf die Coefficients des Modells "extrahieren" und dann mit[] 
+# auswählen
+glm_poisson$coefficients 
+
+# Anzahl besucher bei 0°C
+exp(glm_poisson$coefficients[1])
+
+# Anzahl besucher bei 30°C
+exp(glm_poisson$coefficients[1] + 30 * glm_poisson$coefficients[2]) 
+
+# Test Overdispersion
+library("performance")
+check_overdispersion(glm_poisson)
+```
+-> Es liegt Overdispersion vor. Darum quasipoisson wählen.
+
+```{r}
+glm_quasipoisson <- glm(Besucher ~ Temperatur,  family = "quasipoisson", 
+                        data = strand)
+summary(glm_quasipoisson)
+
+# zum Vergleich
+summary(glm_poisson)
+```
+
+-> Die Outputs von glm_poisson und glm_quasipoisson sind bis auf die p-Werte identisch.
+
+```{r}
+ggplot(data = strand, aes(x = Temperatur, y = Besucher)) +
+  geom_point() +
+  xlim(0, 40) +    
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  geom_smooth(method = "glm", method.args = list(family = "poisson"), 
+                color = "red", se = FALSE) +
+  geom_smooth(method = "glm", method.args = list(family = "quasipoisson"), 
+                  color = "green", linetype = "dashed", se = FALSE) +
+  annotate(geom = "text", x = 4, y = 2000, label = "gaussian", color = "blue") +
+  annotate(geom = "text", x = 4, y = 1800, label = "poisson", color = "red") +
+  annotate(geom = "text", x = 4, y = 1600, label = "quasipoisson", 
+           color = "green") +
+  theme_classic()
+```
+
+
+## Logistische Regression
+
+```{r}
+bathing <- tibble(
+  temperatur = c(1, 2, 5, 9, 14, 14, 15, 19, 22, 24, 25, 26, 27, 28, 29),
+  badend = c(0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1)
+)
+
+ggplot(bathing, aes(x = temperatur, y = badend)) +
+  geom_point() +
+  xlim(0, 30) +
+  theme_classic()
+
+# Logistisches Modell definieren
+glm_logistic <- glm(badend ~ temperatur, family = "binomial", data = bathing)
+summary(glm_logistic)
+
+# Modeldiagnostik (godness of fit test, wenn nicht signifikant, dann OK)
+1 - pchisq(glm_logistic$deviance, glm_logistic$df.resid)
+
+# Modelldiagnostik mit funktion "DHARMa"
+library(DHARMa)
+set.seed(123)
+simulateResiduals(fittedModel = glm_logistic, plot = TRUE, n = 1000)
+```
+
+```{r}
+# Modellergebnis
+
+# Area Under the Curve (AUC)
+library("performance")
+performance_roc(glm_logistic)
+
+# pseudo-R² (library "performance")
+r2(glm_logistic)
+
+# Steilheit der Beziehung (relative Änderung der odds bei x + 1 vs. x)
+exp(glm_logistic$coefficients[2])
+
+# LD50 (also hier: Temperatur, bei der 50% der Touristen baden)
+-glm_logistic$coefficients[1] / glm_logistic$coefficients[2]
+
+# oder
+library("MASS")
+dose.p(glm_logistic, p = 0.5)
+
+# Plotting
+ggplot(data = bathing, aes(x = temperatur, y = badend)) +
+  geom_point() +
+  xlim(0, 30) +
+  labs(x = "Temperature (°C)", y = "% Bathing") +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  theme_classic()
+```
+
+## Binominale Regression
+```{r}
+library("doBy")
+?budworm
+
+data(budworm)
+str(budworm)
+summary(budworm)
+```
+
+Die Insektiziddosen wurden als Zweierpotenzen gewählt (d.h. jede Dosis ist 
+doppelt so hoch wie die vorhergehende Dosis). Da wir von einer multiplikativen 
+Wirkung der Dosis ausgehen, ist es vorteilhaft, die Werte mit einem Logarithmus 
+mit Basis 2 zu logarithmieren.
+
+```{r}
+budworm$ldose <- log2(budworm$dose)
+
+# Das Modell kann auf zwei verschiedene Varianten spezifiziert werden 
+glm_binomial <- glm( cbind( ndead, ntotal-ndead) ~ ldose*sex, family = binomial, data = budworm)
+
+glm_binom <- glm(ndead/ntotal ~ ldose*sex, family = binomial, weights = ntotal, data = budworm)
+
+coef(glm_binomial)
+coef(glm_binom)
+# Das Resultat ist identisch
+
+# Modelloptimierung
+drop1(glm_binomial, test = "Chisq")
+glm_binomial_2 <- update( glm_binomial, .~.-sex:ldose)
+drop1(glm_binomial_2, test = "Chisq")
+
+# Validate Model
+library(DHARMa)
+set.seed(123)
+simulateResiduals(glm_binomial_2, plot = TRUE, n = 1000)
+
+# Resultat und Visualisierung
+summary(glm_binomial_2)
+# Modellgüte (pseudo-R²)
+1 - (glm_binomial_2$dev / glm_binomial_2$null)
+
+# ld 50 Female (cf = c(1, 2) = Intercept und dosis)
+( ld50_feamle <- dose.p(glm_binomial_2, cf = c(1, 2)) ) 
+
+# Zurücktransformieren
+2^ld50_feamle
+
+# ld 50 male
+# dose.p(glm_binomial_2, cf = c(1, 2, 3)) 
+# funktioniert nicht wir müssen es manuell ausrechnen
+ld50_male <- 
+  -(glm_binomial_2$coefficients[1] + glm_binomial_2$coefficients[2] ) /
+  glm_binomial_2$coefficients[3]
+
+# Zurücktransformieren
+2^ld50_male
+
+# Männliche Tiere reagieren wesentlich empfindlicher auf das Insektizid
+```
+
+```{r}
+#| message: false
+#| warning: false
+# Visualisierung
+ggplot(budworm, aes(x = ldose, y = ndead / 20, color = sex)) +
+  geom_point() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"), se = FALSE) +
+  labs(x = "Dose", y = "Probability dead") +
+    scale_x_continuous(
+    breaks = log2(c(1, 2, 4, 8, 16, 32)),
+    labels = c(1, 2, 4, 8, 16, 32)) +
+  theme_classic()
+```
+

@@ -1,0 +1,176 @@
+---
+lesson: RaumAn2
+thema: Einführung Rasterdaten
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
+---
+
+# Rauman 2: Übung B {#sec-raster-intro}
+
+In [der letzten Übung](#sec-raster-intro1) habt ihr nun eine erste Erfahrung mit Rasterdaten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfasst werden. 
+
+## Aufgabe 1
+
+In dieser Übung werden wir weiter mit `terra` arbeiten, um zu zeigen, wie wir einen Rasterdatensatz importieren, visualisieren und weiter verarbeiten können. In euren Daten findet ihr einen Datensatz namens *dhm250m.tif*, der das "Digitale Höhenmodell" (DHM) des Kantons Schwyz darstellt. Führen Sie den angegebenen Code aus.
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+library("terra")
+```
+
+Importieren Sie Ihr Raster mit der Funktion `rast`
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+dhm_schwyz <- rast("datasets/rauman/dhm250m.tif")
+```
+
+Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den Variablennamen in die Konsole eingeben.  
+
+```{r}
+#| code-fold: false
+#| output: true
+#| echo: true
+
+
+dhm_schwyz
+```
+
+Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir einfach die `plot()` Funktion verwenden.
+
+```{r}
+#| code-fold: false
+#| output: true
+#| echo: true
+
+plot(dhm_schwyz)
+```
+
+Leider ist das Verwenden von Rastern in `ggplot` nicht sehr einfach. Da `ggplot` ein universelles Plot-Framework ist, stossen wir schnell an die Grenzen des Möglichen, wenn wir etwas so Spezielles wie Karten erstellen. Mit `plot` können wir zwar sehr schnell plotten, aber auch hier stossen wir schnell an Grenzen.
+
+Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten spezialisiert ist und in einem sehr ähnlichen Design wie ggplot gebaut wurde: `tmap`. Laden Sie dieses Paket jetzt in Ihre Session:
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+library("tmap")
+```
+
+Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` verbunden sind. Jede Ebene hat zwei Komponenten:
+
+- eine Datensatzkomponente, die immer `tm_shape(dataset)` ist (ersetzen Sie `dataset` durch Ihre Variable)
+- eine Geometriekomponente, die beschreibt, wie das vorangegangene `tm_shape()` visualisiert werden soll. Dies kann `tm_dots()` für Punkte, `tm_polygons()` für Polygone, `tm_lines()` für Linien usw. sein. Für Einzelbandraster (was bei `dhm_schwyz` der Fall ist) ist es `tm_raster()`.
+
+```{r}
+#| output: true
+#| echo: true
+#| code-fold: false
+
+tm_shape(dhm_schwyz) +
+  tm_raster()
+```
+
+Beachten Sie, dass `tm_shape()` und `tm_raster()` (in diesem Fall) zusammengehören. Das eine kann nicht ohne das andere leben.
+
+Wenn Sie die Hilfe von `?tm_raster` konsultieren, werden Sie eine Vielzahl von Optionen sehen, mit denen Sie die Visualisierung Ihrer Daten verändern können. Zum Beispiel ist der Standardstil von `tm_raster()` die Erstellung von "Bins" mit einer diskreten Farbskala. Wir können dies mit `col.scale = tm_scale_continuous()` ausser Kraft setzen.
+
+```{r}
+#| output: true
+#| echo: true
+#| code-fold: false
+
+tm_shape(dhm_schwyz) +
+  tm_raster(col.scale = tm_scale_continuous())
+```
+
+Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbpalette ändern. Ein nettes GUI, das einem die Auswahl der Farben erleichtern soll, erhält ihr mit dem Befehl `cols4all::c4a_gui()`.
+
+```{r}
+#| output: true
+#| echo: true
+#| code-fold: false
+
+tm_shape(dhm_schwyz) +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.spectral"))
+```
+
+Eine grosse Stärke von `tmap` ist die Tatsache, dass mit dem gleichen Befehl sowohl statische wie auch interative Plots erstellt werden können. Dafür muss der Modus von statisch auf interaktiv gewechselt werden. 
+
+```{r}
+#| output: true
+#| echo: true
+#| code-fold: false
+
+tmap_mode("view") # wechselt auf interakive Plots
+
+tm_shape(dhm_schwyz) +
+  tm_raster(col.scale = tm_scale_continuous(values = "brewer.spectral"))
+```
+
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+tmap_mode("plot") # wechselt zurück auf statische Plots
+```
+
+## Aufgabe 2 {#sec-raster-slope}
+
+Mit `terra` können wir eine Vielzahl von Rasteroperationen über unser Höhenmodell laufen lassen. Eine klassische Rasteroperation ist zum Beispiel das Berechnen der Hangneigung ("slope") oder dessen Orientierung ("aspect"). Nutzen Sie die Funktion `terrain()` aus `terra`, um die Hangneigung und Orientierung zu berechnen. Visualisieren Sie die Resultate.
+
+```{r}
+#| output: true
+#| fig-cap: Hangneigung des Kantons Schwyz (`v = "slope"`)
+
+terrain(dhm_schwyz, "slope") |>
+  plot()
+```
+
+```{r}
+#| output: true
+#| fig-cap: Hangausrichtung des Kantons Schwyz (`v = "aspect"`). Hier wurde eine eigene Farbpalette erstellt, da sich die Extremwerte 0 und 360 (*Norden*) sich farblich nicht unterscheiden sollten.
+
+schwyz_aspect <- terrain(dhm_schwyz, "aspect")
+
+tm_shape(schwyz_aspect) +
+  tm_raster(
+    col.scale = tm_scale_continuous(
+      values = c("#EF476F", "#FFD166", "#06D6A0", "#118AB2", "#EF476F"),
+      ticks = seq(0, 360, 90),values.repeat = TRUE
+      )
+    )
+
+```
+ 
+## Aufgabe 3
+
+Mit Hangneigung und -ausrichtung können wir einen *Hillshading*-Effekt berechnen. Hillshading bedeutet, dass der Schattenwurf des Oberflächenmodells bei gegebenen Einfallswinkel der Sonne (Höhe und Azimut) berechnet wird. Der typische Einfallswinkel liegt bei 45° über dem Horizont und von Nordwesten bei 315°.
+
+Um einen Hillshading Effekt zu erzeugen, berechne zuerst `slope` und `aspect` von `dhm_schwyz` analog der letzten Aufgabe, **achte aber darauf, dass die Einheit `radians` entspricht**. Nutze diese beiden Objekte in der Funktion `shade()`, um den Hillshade zu berechnen. Visualisiere den Output anschliessend mit `plot` oder `tmap`.
+
+```{r}
+#| output: true
+#| fig-cap: Für diese Visualisierung verwende ich `tmap` und als Farbpalette `values = "matplotlib.cividis"`.
+
+dhm_slope <- terrain(dhm_schwyz, "slope", unit = "radians")
+dhm_aspect <- terrain(dhm_schwyz, "aspect", unit = "radians")
+
+dhm_hillshade <- shade(dhm_slope, dhm_aspect, 45, 315)
+
+tm_shape(dhm_hillshade) +
+  tm_raster(
+    col.scale = tm_scale_continuous(values = "matplotlib.cividis")
+  )
+```

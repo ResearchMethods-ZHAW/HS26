@@ -1,0 +1,195 @@
+---
+lesson: PrePro1
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# PrePro 1: Übung
+
+```{r}
+#| include: false
+#| purl: false
+
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+## Arbeiten mit RStudio "Project"
+
+Wir empfehlen die Verwendung von "Projects" innerhalb von RStudio. RStudio legt für jedes Projekt dann einen Ordner an, in welchem die Projekt-Datei abgelegt wird (Dateiendung `.Rproj`). Sollen innerhalb des Projekts dann R-Skripts geladen oder erzeugt werden, werden diese dann auch im angelegten Ordner abgelegt. Mehr zu RStudio Projects findet ihr [hier](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+
+
+
+Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
+
+-   Festlegen der Working Directory ohne die Verwendung des expliziten Pfads (`setwd()`). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)
+-   Automatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session
+-   Festlegen verschiedener projektspezifischer Optionen
+-   Verwendung von Versionsverwaltungssystemen (z.B. *git*)
+
+
+
+:::{#imp-rstudio-projects .callout-important}
+
+## Prüfungsrelevant
+
+Die korrekte Verwendung von RStudio Projects und relativen Pfaden wird an der praktischen Prüfung vorausgesetzt!
+
+:::
+
+
+## Aufgabe 1
+
+Erstelle eine `data.frame` mit nachstehenden Daten.
+
+```{r}
+df <- data.frame(
+  Tierart = c("Fuchs", "Bär", "Hase", "Elch"),
+  Anzahl = c(2, 5, 1, 3),
+  Gewicht = c(4.4, 40.3, 1.1, 120),
+  Geschlecht = c("m", "f", "m", "m"),
+  Beschreibung = c("Rötlich", "Braun, gross", "klein, mit langen Ohren", "Lange Beine, Schaufelgeweih")
+)
+```
+
+```{r}
+#| echo: false
+#| purl: false
+#| output: true
+
+knitr::kable(df)
+```
+
+## Aufgabe 2
+
+Was für Datentypen wurden in der letzten Aufgabe automatisch angenommen? Ermittle diese mit `str()` und prüfe, ob diese sinnvoll sind und wandle um wo nötig.
+
+```{r}
+str(df)
+typeof(df$Anzahl)
+# Anzahl wurde als `double` interpretiert, ist aber eigentlich ein `integer`.
+
+df$Anzahl <- as.integer(df$Anzahl)
+```
+
+## Aufgabe 3
+
+Nutze die Spalte `Gewicht`, um die Tiere in 3 Gewichtskategorien einzuteilen:
+
+-   leicht: \< 5kg
+-   mittel: 5 - 100 kg
+-   schwer: \> 100kg
+
+```{r}
+df$Gewichtsklasse[df$Gewicht > 100] <- "schwer"
+df$Gewichtsklasse[df$Gewicht <= 100 & df$Gewicht > 5] <- "mittel"
+df$Gewichtsklasse[df$Gewicht <= 5] <- "leicht"
+```
+
+Das Resultat:
+
+```{r}
+#| echo: false
+#| output: true
+
+knitr::kable(df)
+```
+
+## Aufgabe 4
+
+Auf Moodle findest du ein Zip-File mit dem Namen *prepro.zip*. Lade das File herunter und entpacke es **in deinem Projektordner**. Importiere die Datei `weather.csv`. Falls du dafür das RStudio GUI verwendest, speichere den Import-Befehl in deinem R-Script ab. Bitte verwende einen relativen Pfad (also kein Pfad, der mit `C:/`, `~/` o.ä. beginnt).
+
+:::{#nte-readr .callout-note}
+Wir nutzen `readr`, um CSV-Dateien zu importieren, und verwenden die Funktion `read_delim` (mit *underscore*) als alternative zu `read.csv` oder `read.delim` (mit *Punkt*). Das ist eine persönliche Präferenz[^readr], es ist euch überlassen, welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.
+:::
+
+[^readr]: Vorteile von `read_delim` gegenüber `read.csv`: <https://stackoverflow.com/a/60374974/4139249>
+
+
+
+
+```{r}
+library("readr")
+
+
+wetter <- read_delim("datasets/prepro/weather.csv", ",")
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: true
+
+knitr::kable(head(wetter, 10))
+```
+
+## Aufgabe 5
+
+Schau dir die Rückmeldung von `read_delim()` an. Sind die Daten korrekt interpretiert worden?
+
+```{r}
+# Die Spalte 'time' wurde als 'integer' interpretiert. Dabei handelt es
+# sich offensichtlich um Zeitangaben.
+```
+
+## Aufgabe 6
+
+Die Spalte `time` ist eine Datum/Zeitangabe im Format `JJJJMMTTHH` (siehe *meta.txt*). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
+
+:::{.callout-tip}
+- Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe `metadata.csv`)
+- `as.POSIXct` erwartet `character`: Wenn du eine Fehlermeldung hast, die `'origin' must be supplied` (o.ä) heisst, hast du der Funktion vermutlich einen `Numeric` übergeben.
+:::
+
+```{r}
+wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: true
+
+knitr::kable(head(wetter, 10), caption = "Die neue Tabelle sollte so aussehen")
+```
+
+## Aufgabe 7
+
+Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte `POSIXct`-Spalte sowie eine geeignete Funktion aus `lubridate`.
+
+```{r}
+library("lubridate")
+
+wetter$wochentag <- wday(wetter$time, label = T)
+wetter$kw <- week(wetter$time)
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: true
+
+knitr::kable(head(wetter, 10))
+```
+
+## Aufgabe 8
+
+Erstelle eine neue Spalte basierend auf den Temperaturwerten mit der Einteilung "kalt" (unter Null Grad) und "warm" (über Null Grad)
+
+```{r}
+wetter$temp_kat[wetter$tre200h0 > 0] <- "warm"
+wetter$temp_kat[wetter$tre200h0 <= 0] <- "kalt"
+```
+
+```{r}
+#| purl: false
+#| echo: false
+#| output: true
+
+knitr::kable(head(wetter, 10))
+```

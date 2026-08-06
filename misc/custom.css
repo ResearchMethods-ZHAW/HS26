@@ -1,0 +1,40 @@
+kbd{
+    padding: .3rem
+}
+
+table{
+    font-size: smaller;
+}
+
+figcaption{
+    font-size: 0.9rem !important;
+}
+
+details > summary{
+    color: #00bc8c;
+    /* folgende zeile hat kein effekt */
+    text-transform: capitalize; 
+}
+
+.padding-top-500 {
+    padding-top: 500px;
+}
+
+.presenter-btn{
+    background-color: gray;
+}
+
+.dld{
+  /*background-color: gray;*/
+  padding: 2px;
+  radius: 2px;
+}
+
+.dld::before{
+  content: "🖫 ";
+}
+
+.dld::after{
+  content: " (rechtsclick→speichern unter)";
+  font-size: smaller;
+}

@@ -1,0 +1,288 @@
+---
+lesson: RaumAn1
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
+---
+
+# Rauman 1: Übung A
+
+Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden:
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+library("sf")
+library("dplyr")
+library("ggplot2")
+```
+
+## Aufgabe 1: Vektor Daten importieren
+
+Importiere die Datensätze *kantone.gpkg* und *gemeinden.gpkg* wie folgt. Es handelt sich um Geodatensätze im Format Geopackage ("\*.gpkg"), ein alternatives Datenformat zum bekannteren Format "Shapefiles". 
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+kantone <- read_sf("datasets/rauman/kantone.gpkg")
+gemeinden <- read_sf("datasets/rauman/gemeinden.gpkg")
+```
+
+Schau Dir die importierten Datensätze an. 
+
+:::{.callout-note}
+Am meisten Informationen zu `sf` Objekten bekommst du, wenn du dir den Datensatz *in der Konsole* anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden `sf` Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.
+:::
+
+## Aufgabe 2: Daten visualisieren
+
+Eine sehr einfache Möglichkeit, `sf`-Objekte zu visualiseren, ist die base-R Funktion `plot()`. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
+
+```{r}
+#| echo: true
+#| output: true
+#| code-fold: false
+
+# ohne max.plot = 1 macht R einen Plot pro Spalte
+plot(gemeinden, max.plot = 1)
+
+# Alternativ kann man auch eine spezifische Spalte plotten
+plot(kantone["KANTONSFLA"])
+```
+
+## Input: Koodinatensysteme
+
+In der obigen Visualierung fällt folgendes auf:
+
+- die X/Y Achsen weisen zwei ganz unterschiedliche Zahlenbereiche auf (vergleiche die Achsenbeschriftungen)
+- der Umriss der Schweiz sieht in den beiden Datensätzen unterschiedlich aus (`kantone` ist gegenüber `gemeinden` gestaucht)
+
+Dies hat natürlich damit zu tun, dass die beiden Datensätze in unterschiedlichen Koordinatensystemen erfasst wurden. Koordinatensysteme werden mit CRS (**C**oordinate **R**eference **S**ystem) abgekürzt. Mit `st_crs()` können die zugewiesenen Koordinatensysteme abgefragt werden.
+
+```{r}
+#| echo: true
+#| output: true
+#| code-fold: false
+
+st_crs(kantone)
+st_crs(gemeinden)
+```
+
+Leider sind in unserem Fall keine Koordinatensysteme zugewiesen. Mit etwas Erfahrung kann man das Koordinatensystem aber erraten, so viele kommen nämlich gar nicht in Frage. Am häufigsten trifft man hierzulande eines der drei folgenden Koordinatensysteme an:
+
+- `CH1903 LV03`: das alte Koordinatensystem der Schweiz
+- `CH1903+ LV95`: das neue Koordinatensystem der Schweiz
+- `WGS84`: ein häufig genutztes, weltumspannendes geodätisches Koordinatensystem, sprich die Koordinaten werden in Länge und Breite angegeben (Lat/Lon).
+
+Nun gilt es, anhand der Koordinaten, die in der Spalte `geometry` ersichtlich sind, das korrekte Koordinatensystem festzustellen. Wenn man auf [map.geo.admin.ch](https://map.geo.admin.ch) mit der rechten Maustaste einen Ort anwählt, erfährt man die Koordinaten dieses Ortes in verschiedenen Koordinatenbezugssystemen. 
+
+![](images/map.geo.admin.png)
+
+<!--
+Wenn man sich auf [epsg.io/map](https://epsg.io/map#srs=4326&x=8.407288&y=46.773731&z=9&layer=streets) die Schweiz anschaut, kann man die Koordinaten in verschiedenen Koordinatensystem betrachten.
+
+**Bedienungshinweise**:
+
+::: {layout="[50,50], [100]]"}
+![Koordinanten (des Fadenkreuzes) werden im ausgewählten Koordinatensystem dargestellt](images/koordinatenpaar.jpg)
+
+![Das Koordinatensystem, in welchem die Koordinaten dargestellt werden sollen, kann mit "Change" angepasst werden](images/koordinatensystem.jpg)
+
+![Für Enthusiasten: Schau Dir die Schweiz in verschiedenen Koordinatensystemen an, in dem Du auf "Reproject Map" klickst](images/reproject.jpg)
+:::
+-->
+
+Wenn man diese Koordinaten mit den Koordinaten unserer Datensätze vergleicht, dann ist schnell klar, dass es sich beim Datensatz `kantone` um das Koordinatenbezugsystem (CRS) WGS84 handelt. Wir können diese Information nutzen, um das CRS unserers Datensatzes mit `st_set_crs()` zu setzen.
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Zuweisen mit st_set_crs()...
+kantone <- st_set_crs(kantone, "WGS84")
+```
+
+Wenn wir die CRS Information nun abrufen, sehen wir, dass diese Zuweisung funktioniert hat.
+
+```{r}
+#| echo: true
+#| output: true
+#| code-fold: false
+
+# ... abfragen mit st_crs()
+st_crs(kantone)
+```
+
+Etwas komplizierter ist es, wenn wir das CRS vom Datensatz `gemeinden` setzen wollen. Im Vergleich mit map.geo.admin.ch sehen wir, dass es sich hier um das CRS `CH1903+ LV95` handeln muss. Wenn wir diesen Namen für unsere CRS Zuweisung verwenden möchten, funktioniert das nicht:
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Zuweisen mit st_set_crs()...
+gemeinden <- st_set_crs(gemeinden, "CH1903+ LV95")
+
+# ... abfragen mit st_crs()
+st_crs(gemeinden)
+```
+
+Die ausgeschriebenen Namen dieser CRS sind fehleranfällig. Deshalb ist es besser, mit den jeweiligen EPSG Codes der Bezugssysteme zu arbeiten. Diese EPSG Codes kann man auf folgender Website erfahren: [epsg.io/map](https://epsg.io/map#srs=4326&x=8.407288&y=46.773731&z=9&layer=streets). Es lohnt sich aber, die EPSG Codes der für uns relevanten CRS zu notieren:
+
+- [CH1903 LV03](https://epsg.io/21781): `EPSG:21781`
+- [CH1903+ LV95](https://epsg.io/2056): `EPSG:2056`
+- [WGS84](https://epsg.io/4326): `EPSG:4326`
+
+Diesen Code können wir nutzen, um das CRS des Datensatz `gemeinde` zu setzen: 
+
+```{r}
+#| echo: true
+#| output: true
+#| code-fold: false
+
+# Zuweisen mit st_set_crs()...
+gemeinden <- st_set_crs(gemeinden, 2056)
+
+# ... abfragen mit st_crs()
+st_crs(gemeinden)
+```
+
+Jetzt, wo das CRS der Datensätze bekannt ist, können wir `ggplot2` nutzen, um usere Daten zu visualisieren. In InfoVis 1 & 2 haben wir intensiv mit `ggplot2` gearbeitet und dort die Layers `geom_point()` und `geom_line()` kennengelernt. Zusätzlich beinhaltet `ggplot` die Möglichkeit, mit `geom_sf()` Vektordaten direkt und sehr einfach zu plotten. 
+
+```{r}
+ggplot() +
+  # bei geom_sf müssen weder x noch y Spalten angegeben werden
+  geom_sf(data = gemeinden)
+```
+
+## Aufgabe 3: Koordinatensyteme *transformieren*
+
+In der vorherigen Übung haben wir das bestehende Koordinatensystem *zugewiesen*. Dabei haben wir die bestehenden Koordinaten (in der Spalte `geom`) *nicht* manipuliert. Ganz anders ist eine *Transformation* der Daten von einem Koordinatensystem in das andere. Bei einer Transformation werden die Koordinaten in das neue Koordinatensystem umgerechnet und somit manipuliert. Aus praktischen Gründen wollen <!-- Was sind diese Gründe? genauer erläutern? -->
+wir all unsere Daten ins neue Schweizer Koordinatensystem CH1903+ LV95 transfomieren. Transformiere den Datensatz `kantone` mit `st_transform()`in CH1903+ LV95, nutze dafür den korrekten EPSG-Code.
+
+Vor der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):
+
+```{r}
+#| echo: true
+#| code-fold: false
+#| output: true
+
+kantone
+```
+
+```{r}
+kantone <- st_transform(kantone, 2056)
+```
+
+Nach der Transformation (betrachte die Attribute `Bounding box`, `Projected CRS` sowie die Werte in der Spalte `geom`):
+
+```{r}
+#| echo: true
+#| code-fold: false
+#| output: true
+
+kantone
+```
+
+## Aufgabe 4: Tidyverse Funktionen
+
+`sf` Objekte sind im wesentlichen `data.frames` mit ein paar Metadaten und einer speziellen `geometry`-Spalte. Wir können mit ihnen die gleichen Operationen durchführen wie mit `data.frames`. Beispielsweise können wir aus den Spalten `EINWOHNERZ` und `KANTONSFLA` die Einwohnerdichte berechnen:
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+kantone <- kantone |>
+  mutate(
+    # hektaren in km2 konvertieren
+    flaeche_km2 = KANTONSFLA / 100,
+    # dichte pro km2 berechnen
+    bevoelkerungsdichte = EINWOHNERZ / flaeche_km2
+  )
+```
+
+Berechne nun die Einwohnerdichte auf der Ebene der Gemeinden.
+
+```{r}
+#| code-fold: false
+
+gemeinden <- gemeinden |>
+  mutate(
+    flaeche_km2 = GEM_FLAECH / 100,
+    bevoelkerungsdichte = EINWOHNERZ / flaeche_km2
+  )
+```
+
+## Aufgabe 5: Choroplethen Karte
+
+Nun wollen wir die Gemeinden respektive die Kantone nach ihrer Bevölkerungsdichte einfärben. Dafür verwenden wir wie gewohnt die Methode `aes(fill = ...)` von `ggplot`. 
+
+```{r}
+#| output: true
+
+ggplot(kantone) +
+  geom_sf(aes(fill = bevoelkerungsdichte))
+```
+
+Hier sind farblich kaum Unterschiede erkennbar, weil die extrem hohe Bevölkerungsdichte vom Halbkanton Basel-Stadt (>5'000 Einwohner pro km<sup>2</sup>!) die ganze Farbskala dominiert. Der [Statistischer Atlas der Schweiz](https://www.atlas.bfs.admin.ch/maps/13/de/15467_75_3501_70/24216.html) löst das Problem, indem es Klassen mit irregulären Schwellenwerte verwendet und alle Zahlen >2'000 gruppiert. Diese Vorgehensweise können wir mit `cut()` rekonstruieren.
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Schwellwerte analog BFS "Statistischer Atlas der Schweiz"
+breaks = c(0, 50, 100, 150, 200, 300, 500, 750, 1000, 2000, Inf)
+
+# Klassen auf der Basis dieser Schwellenwerte bilden
+kantone <- kantone |>
+    mutate(bevoelkerungsdichte_klassen = cut(bevoelkerungsdichte, breaks))
+
+# Farbpalette erstellen: Wir brauchen so viele Farben, wie wir "breaks" haben, minus 1
+ncols <- length(breaks) - 1
+
+# Farbpalette erstellen (siehe RColorBrewer::display.brewer.all())
+red_yellow_green <- RColorBrewer::brewer.pal(ncols, "RdYlGn")
+
+# Farbpalette umdrehen (zu green-red-yellow)
+green_red_yellow <- rev(red_yellow_green)
+
+p_kantone <- ggplot(kantone, aes(fill = bevoelkerungsdichte_klassen)) +
+  geom_sf(colour = NA) +
+  scale_fill_manual(values = green_red_yellow) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+Erstelle die gleichen Klassen für die Bevölkerungsdichte der Gemeinden und vergleiche die Plots.
+
+```{r}
+gemeinden <- gemeinden |>
+  mutate(bevoelkerungsdichte_klassen = cut(bevoelkerungsdichte, breaks))
+
+p_gemeinden <- ggplot(gemeinden, aes(fill = bevoelkerungsdichte_klassen)) +
+  geom_sf(colour = NA) +
+  scale_fill_manual(values = green_red_yellow) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| echo: false
+#| column: page
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - "Kantone"
+#|   - "Gemeinde"
+#| fig.cap: Der Vergleich dieser beiden Darstellungen veranschaulicht die MAUP Problematik sehr deutlich
+#| label: fig-ggplot-ex4
+
+p_kantone
+
+p_gemeinden
+```

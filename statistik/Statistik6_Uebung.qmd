@@ -1,0 +1,202 @@
+---
+lesson: Statistik 6
+knitr:
+  opts_chunk: 
+    collapse: false
+musterloesung: true
+---
+
+
+# Statistik 6: Übung
+
+**Datensatz *novanimal.csv***
+
+### Hintergrund Daten
+
+Im Forschungsprojekt NOVANIMAL wird u.a. der Frage nachgegangen, was es braucht, 
+damit Menschen freiwillig weniger tierische Produkte konsumieren? Ein interessanter 
+Ansatzpunkt ist die Ausser-Haus-Verpflegung. Gemäss der ersten in den Jahren 2014/2015 durchgeführten nationalen Ernährungserhebung menuCH essen 70 % der Bevölkerung 
+zwischen 18 und 75 Jahren am Mittag auswärts [@bochud2017]. Daher rückt die 
+Gastronomie als zentraler Akteur einer innovativen und nachhaltigen 
+Ernährungswirtschaft ins Blickfeld. Welche Innovationen in der Gastronomie 
+könnten dazu beitragen, den Pro-Kopf-Verbrauch an tierischen Nahrungsmitteln 
+zu senken?
+
+Dazu wurde u.a. ein Experiment in zwei Hochschulmensen durchgeführt. 
+Forschungsleitend war die Frage, wie die Gäste dazu bewogen werden können, 
+häufiger vegetarische oder vegane Gerichte zu wählen. Konkret wurde untersucht, 
+wie die Gäste auf ein verändertes Menü-Angebot mit einem höheren Anteil an 
+vegetarischen und veganen Gerichten reagieren. Das Experiment fand während 12 
+Wochen statt und bestand aus zwei Mensazyklen à 6 Wochen. Über den gesamten 
+Untersuchungszeitraum werden insgesamt 90 verschiedene Gerichte angeboten. 
+In den 6 Referenz- bzw. Basiswochen wurden zwei fleisch- oder fischhaltige Menüs 
+und ein vegetarisches Menü angeboten. In den 6 Interventionswochen wurde das 
+Verhältnis umgekehrt und es wurden ein veganes, ein vegetarisches und ein 
+fleisch- oder fischhaltiges Gericht angeboten. Basis- und Interventionsangebote 
+wechselten wöchentlich ab. Während der gesamten 12 Wochen konnten die Gäste 
+jeweils auf ein Buffet ausweichen und ihre Mahlzeit aus warmen und kalten 
+Komponenten selber zusammenstellen. Die Gerichte wurden über drei vorgegebene 
+Menülinien (F, K, W) randomisiert angeboten.
+
+![Die Abbildung zeigt das Versuchsdesign der ersten 6 Experimentwochen (Kalenderwoche 40 bis 45).](figures/design_experiment.png)
+
+Mehr Informationen über das Forschungsprojekt NOVANIMAL findet ihr auf der [Webpage](https://www.novanimal.ch).
+
+
+### Aufgaben
+
+Führt mit dem novanimal Datensatz (inviduelle Daten) eine logistische Regression durch, wobei ihr die einzelnen Käufer (single campus_card holder "ccrs") als randomisierte Variable mitberücksichtigt. Kann der Fleischkonsum durch das Geschlecht, die Hochschulzugehörigkeit und das Alter erklärt werden? Berücksichtigt auch mögliche Interaktionen zwischen dem Geschlecht und dem Alter sowie dem Geschlecht und der Hochschulzugehörigkeit
+
+-   Bestimmt das minimal adäquate Modell
+-   Stellt die Ergebnisse dar
+
+
+::::{.content-hidden unless-meta="musterloesung"}
+
+:::{.callout-note}
+
+## Musterlösung Übung 6: GLMM
+
+[Demoscript herunterladen (.R)](../purl/Statistik6_Uebung.R){.dld}
+
+[Demoscript herunterladen (.qmd)](../purl/Statistik6_Uebung.qmd){.dld}
+
+- [Lösungstext als Download](Statistik6_Loesung.pdf)
+
+
+```{r}
+#| echo: false
+#| message: false
+#| results: hide
+library("tidyverse")
+library("glmmTMB")
+library("performance")
+library("DHARMa")
+library("car")
+```
+
+```{r}
+#| message: false
+# Lade daten
+nova <- read_delim("datasets/stat/novanimal.csv", delim = ";") |>
+  mutate(across(where(is.character), as.factor))
+str(nova)
+```
+
+```{r}
+# Die Variable“ccrs” (single campus_card holder) sollte ein factor sein
+nova$ccrs <- as.factor(nova$ccrs)
+summary(nova)
+
+# sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an,
+# beide Kategorien kommen nicht gleich häufig vor, ist aber nicht tragisch
+table(nova$meat) 
+# Werte in Prozent
+prop.table( table(nova$meat)) 
+
+table(nova$gender, nova$member, nova$age_group) 
+
+# Definiert das logistische Modell mit ccrs als random intercept und
+# wendet es auf den Datensatz an
+glmm_1 <- glmmTMB(meat ~ gender + age_group + member + gender:age_group + gender:member + 
+                    (1 | ccrs), 
+                 family = binomial, 
+                 data = nova)
+
+Anova(glmm_1)
+summary(glmm_1)
+
+# erste Interpretation: Geschlecht (Referenzkategorie: Mann) scheint den 
+# Fleischkonsum positiv zu beeinflussen, schauen wir ob wir das Model 
+# vereinfachen können:
+
+# Modelloptimierung
+drop1(glmm_1, test = "Chisq")
+glmm_2 <- update(glmm_1,~. -gender:age_group)
+
+drop1(glmm_2, test = "Chisq")
+glmm_3 <- update(glmm_2,~. -gender:member)
+
+drop1(glmm_3, test = "Chisq")
+glmm_4 <- update(glmm_3,~. -age_group)
+
+drop1(glmm_4, test = "Chisq")
+```
+
+```{r}
+# Modellvalidierung
+set.seed(123)
+simulationOutput <- simulateResiduals(fittedModel = glmm_4, plot = TRUE, n = 500)
+
+# Plot residuals vs covariates des models
+plotResiduals(simulationOutput, form = nova$gender)
+plotResiduals(simulationOutput, form = nova$member)
+```
+
+Die formalen Tests zeigen, dass es Probleme gibt. Die visuelle Inspektion 
+zeigt jedoch, dass es überhaupt keine Probleme gibt und die Residiuen beinahe 
+perfekt normalverteilt sind (dies zeigt, dass die Testergebnisse stark von der 
+Anzahl der Beobachtungen (in diesem Fall viele) abhängen).
+
+
+```{r}
+# Modellergebnisse
+Anova(glmm_4)
+summary(glmm_4)
+
+# Pseudo R^2
+r2(glmm_1)
+# das marginale R^2 (r2m) gibt uns die erklärte Varianz der fixen Effekte: 
+# hier 4% (das ist sehr wenig)
+# das conditionale R^2 (r2c) gibt uns die erklärte Varianz für das ganze Modell
+# (mit fixen und variablen Effekten): hier 34% 
+
+performance_roc(glmm_4)
+```
+
+
+```{r}
+# Odds Ratios
+
+# Extrahiere Estimates
+estimates <- fixef(glmm_4)
+
+# Berechne Odds Ratios
+odsr <- 
+  rbind( 
+  "Mitarbeiterinnen" = exp( estimates$cond["(Intercept)"] ), 
+  "Mitarbeiter" = exp( estimates$cond["(Intercept)"] + estimates$cond["genderM"]),
+  "Studentinnen" =  exp( estimates$cond["(Intercept)"] + 
+                           estimates$cond["memberStudierende"]),
+  "Studenten" = exp( estimates$cond["(Intercept)"] + estimates$cond["genderM"] +
+                       estimates$cond["memberStudierende"])
+                 )
+
+colnames(odsr) <- c("Odds_ratios")
+odsr <- as.data.frame(odsr)
+```
+
+
+```{r}
+#| message: false
+# Wahrscheinlichkeiten in %
+odsr$Wahrscheinlichkeit <- ( odsr$Odds_ratios / (odsr$Odds_ratios + 1 ) )
+odsr
+
+# oder
+library("ggeffects")
+( pred <- predict_response(glmm_4, c("member", "gender") ) )
+```
+
+```{r}
+#| message: false
+# Visualisierung
+plot(pred) +
+  labs(x = "",
+       y = "Wahrscheinlichkeiten ein Fleischgericht zu wählen \n") +
+  theme_classic() +
+  theme(plot.title = element_blank())
+```
+
+:::
+:::: 

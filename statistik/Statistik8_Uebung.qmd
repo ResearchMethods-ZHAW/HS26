@@ -1,0 +1,224 @@
+---
+lesson: Statistik 8
+knitr:
+  opts_chunk: 
+    collapse: false
+musterloesung: true
+---
+
+
+
+
+# Statistik 8: Übung
+
+- Datensatz *crime.csv*
+
+Raten von 7 Kriminalitätsformen pro 100000 Einwohner und Jahr für die 
+Bundesstaaten der USA
+
+- **(a) Führt eine k-means- Clusteranalyse durch.**
+- **(b) Überlegt bzw testet wieviele Cluster sinnvoll sind** 
+- **(c)** Abschliessend entscheidet euch für eine Clusterung und **vergleicht die erhaltenen Cluster bezüglich der Kriminalitätsformen mittels ANOVA und interpretiert die Cluster entsprechend.**
+
+**Hinweis:**
+Wegen der sehr ungleichen Varianzen muss auf jeden Fall eine Standardisierung 
+stattfinden, damit Distanzen zwischen den verschiedenen Kriminalitätsraten sinnvoll 
+berechnet werden können
+
+- Bitte erklärt und begründet die einzelnen Schritte, die ihr unternehmt, um zu 
+diesem Ergebnis zu kommen. Dazu erstellt bitte ein mit Quarto generiertes 
+pdf-Dokument, in das ihr Schritt für Schritt den verwendeten R-Code, die dazu 
+gehörigen Ausgaben von R, eure Interpretation derselben und die sich ergebenden 
+Schlussfolgerungen für das weitere Vorgehen dokumentieren.
+- Formuliert abschliessend einen Methoden- und Ergebnisteil 
+(ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer 
+wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je 
+einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den 
+Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten 
+sein, unnötige Redundanz dagegen vermieden werden.
+- **Zu erstellen sind (a) Ein quarto generiertes html-Dokument mit begründetem Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (b) ausformulierter Methoden- und Ergebnisteil**
+
+
+::::{.content-hidden unless-meta="musterloesung"}
+
+:::{.callout-note}
+
+
+
+## Lösung Übung 8
+
+- [Lösungstext als Download](Statistik8_Loesung.pdf)
+
+
+[Demoscript herunterladen (.R)](../purl/Statistik8_Uebung.R){.dld}
+
+[Demoscript herunterladen (.qmd)](../purl/Statistik8_Uebung.qmd){.dld}
+
+```{r}
+#| message: false
+library("readr")
+library("ggplot2")
+library("tibble")
+```
+
+
+```{r}
+#| message: false
+crime <- 
+  read_delim("./datasets/stat/crime.csv", delim = ";", col_names = TRUE) |>
+  column_to_rownames(var = "State")
+
+str(crime)
+summary(crime)
+```
+
+```{r}
+crimez <- scale(crime)
+```
+
+„scale“ führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessend einen Mittelwert von 0 und eine SD von 1 haben. Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
+
+```{r}
+library("vegan")
+set.seed(123)
+km_cascade <- cascadeKM(crimez, inf.gr = 2, sup.gr = 6, iter = 100, criterion = "ssi")
+
+km_cascade$results
+km_cascade$partition
+
+# k-means visualisation
+library("cclust")
+plot(km_cascade, sortg = TRUE)
+```
+
+Nach SSI ist die 4-Gruppenlösung die beste, mit dieser wird also weitergerechnet.
+
+```{r}
+# 4 Kategorien sind nach SSI offensichtlich besonders gut
+set.seed(123)
+kmeans_1 <- kmeans(crimez, 4, nstart = 100)
+
+kmeans_1
+kmeans_1$size
+
+#  Clustering-Resultat in Ordinationsplots darstellen
+library(factoextra)
+
+fviz_cluster(kmeans_1, data = crimez) +
+  theme_classic() +
+  theme(plot.title = element_blank())
+
+
+# File für ANOVA (Originaldaten der Vorfälle, nicht die ztransformierten)
+crime_KM4 <- data.frame(crime, kmeans_1[1])
+crime_KM4$cluster <- as.factor(crime_KM4$cluster)
+crime_KM4
+str(crime_KM4)
+```
+
+
+Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese, anders als für die Clusterung, die untransformierten Incidenz-Werte verwendet (also crime statt crimez). Die Spalte mit der Clusterzugehörigkeit im Fall von k-means mit 4 Clustern hängt man als Spalte an (Achtung: muss als Faktor definiert werden!).
+
+Anschliessend kann man die 7 ANOVAs rechnen, die Posthoc-Vergleiche durchführen und die zugehörigen Boxplots mit Buchstaben für die homogenen Gruppen erzeugen. Sinnvollerweise gruppiert man die Abbildungen gleich, z. B. je 2 x 2. 
+
+```{r}
+library("multcomp")
+
+aov_Murder <- aov(Murder ~ cluster, data = crime_KM4)
+summary(aov_Murder)
+letters <- cld( glht(aov_Murder, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Murder <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Murder)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Murder) * 1.2)) +
+  ylim(0, max(crime_KM4$Murder) * 1.2) +
+  theme_classic()
+#
+aov_Rape <- aov(Rape ~ cluster, data = crime_KM4)
+summary(aov_Rape)
+letters <- cld(glht(aov_Rape, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Rape <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Rape)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Rape)* 1.2)) +
+  ylim(0, max(crime_KM4$Rape) * 1.2) +
+  theme_classic()
+#
+aov_Robbery <- aov(Robbery ~ cluster, data = crime_KM4)
+summary(aov_Robbery)
+letters <- cld(glht(aov_Robbery, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Robbery <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Robbery)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Robbery) * 1.2)) +
+  ylim(0, max(crime_KM4$Robbery) * 1.2) +
+  theme_classic()
+#
+aov_Assault <- aov(Assault ~ cluster, data = crime_KM4)
+summary(aov_Assault)
+letters <- cld(glht(aov_Rape, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Ausault <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Assault)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Assault) * 1.2)) +
+  ylim(0, max(crime_KM4$Assault) * 1.2) +
+  theme_classic()
+#
+aov_Burglary <- aov(Burglary ~ cluster, data = crime_KM4)
+summary(aov_Burglary)
+letters <- cld(glht(aov_Burglary, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Burglary <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Burglary)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Burglary)* 1.2)) +
+  ylim(0, max(crime_KM4$Burglary) * 1.2) +
+  theme_classic()
+#
+aov_Theft <- aov(Theft ~ cluster, data = crime_KM4)
+summary(aov_Theft)
+letters <- cld(glht(aov_Theft, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Theft <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Theft)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Theft)* 1.2)) +
+  ylim(0, max(crime_KM4$Theft) * 1.2) +
+  theme_classic()
+#
+aov_Vehicle <- aov(Vehicle ~ cluster, data = crime_KM4)
+summary(aov_Vehicle)
+letters <- cld(glht(aov_Vehicle, linfct = mcp(cluster = "Tukey")))
+cld_letters <- data.frame(cluster = names(letters$mcletters$Letters), 
+                          letters = letters$mcletters$Letters)
+f_Vehicle <-
+  ggplot(crime_KM4, aes(x = cluster,  y = Vehicle)) + 
+  geom_boxplot() +
+  geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Vehicle) * 1.2)) +
+  ylim(0, max(crime_KM4$Vehicle) * 1.2) +
+  theme_classic()
+
+
+library(patchwork)
+
+  f_Murder + f_Rape + f_Robbery  + 
+  f_Ausault + f_Burglary + f_Theft +
+  f_Vehicle +
+  plot_layout(ncol = 3, nrow = 3)
+```
+
+Die Boxplots erlauben jetzt auch eine Beurteilung der Modelldiagnostik: 
+Die Residuen sind hinreichend normalverteilt (symmetrisch) 
+
+:::
+:::: 

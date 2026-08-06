@@ -1,0 +1,58 @@
+flowchart LR
+    A["Schutzgebiete"]
+    B["See"]
+    C["Wald"]
+    D["Strassen"]
+    E["Vereisungshäufigkeit"]
+    EA(["Distance"])
+    EB(["Distance"])
+    EC(["Distance"])
+    ED(["Distance"])
+    AB["Schutzgebiete-Distance"]
+    BB["See-Distance"]
+    CB["Wald-Distance"]
+    CD["Strasse-Distance"]
+    FA(["Reclassify"])
+    FB(["Reclassify"])
+    FC(["Reclassify"])
+    FD(["Reclassify"])
+    FE(["Reclassify"])
+    FF(["Reclassify"])
+    AC["Schutzgebiete-Reclass"]
+    BC["See-Reclass"]
+    CC["Wald-Reclass"]
+    DC["Strasse-Reclass"]
+    G(["Weighted Sum"])
+    H["Potenzialflächen"]
+    A --> EA 
+    B --> EB 
+    C --> EC
+    D --> ED
+    E --> FF
+    EA --> AB
+    EB --> BB
+    EC --> CB
+    ED --> CD
+    AB --> FA
+    BB --> FB
+    CB --> FC
+    CD --> FD
+     M --> FE
+    FA --> AC
+    FB --> BC
+    FC --> CC
+    FD --> DC
+    FE --> DE
+    FF --> G
+    AC --> G
+    BC --> G
+    CC --> G
+    DC --> G
+    G --> H
+    K["DHM"]
+    M["Neigung"]
+    DE["Slope-Reclass"]
+    L(["Slope"])
+    K --> L
+    L --> M
+    DE --> G

@@ -1,0 +1,88 @@
+---
+lesson: RaumAn1
+thema: Spatial Joins
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
+---
+
+# Rauman 1: Übung B {#sec-rauman1b}
+
+Für die kommende Übung arbeiten wir mit dem Datensatz *gruental.gpkg*. Importiere ihn in R. Zudem brauchen wir die folgenden *libraries*:
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+library("dplyr")
+library("sf")
+library("ggplot2")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+read_sf("datasets/rauman/gruental.gpkg")
+```
+
+## Aufgabe 1: Geopackage "Layers"
+
+Allenfalls ist euch beim Importieren des Geopackage *gruental.gpkg* folgende Warnmeldung aufgefallen:
+
+```
+Warning message:
+In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
+  automatically selected the first layer in a data source containing more than one.
+```
+
+Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer-Namen in Erfahrung und nutze diese im Anschluss in `read_sf` (als Argument `layer = `), um die Layers einzeln zu importieren und in Variablen zu speichern (z.B. als Variable `wiesen` und `baeume`).
+
+```{r}
+st_layers("datasets/rauman/gruental.gpkg")
+
+wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
+baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
+```
+
+## Aufgabe 2: Datensätze erkunden
+
+Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`). Du kannst mehrere `geom_sf()` übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.
+
+```{r}
+#| output: true
+#| label: fig-ggplot-ex2
+#| layout-ncol: 2
+#| column: page
+#| fig.cap:
+#| - Wiesen-Flächen eingefärbt nach Typ
+#| - Bäume eingefärbt nach Baumtyp
+
+ggplot(wiesen) +
+  geom_sf(aes(fill = flaechen_typ)) +
+  geom_sf(data = baeume) +
+  theme_void()
+
+ggplot(wiesen) +
+  geom_sf() +
+  geom_sf(data = baeume, aes(colour = baum_typ)) +
+  theme_void()
+```
+
+## Aufgabe 3:  Spatial Join mit Punkten {#sec-spatial-join-points}
+
+Wir wollen nun für jeden *Baum* wissen, ob er sich in einer Wiese befindet oder nicht. Dazu nutzen wir die GIS-Technik *Spatial Join*, die in der Vorlesung beschrieben wurde. In `sf` können wir Spatial Joins mit der Funktion `st_join` durchführen, dabei gibt es nur `left` sowie `inner`-Joins (vgl. PrePro 2 & 3). So müssen die Punkte "Links" also an erster Stelle aufgeführt werden, da wir ja Attribute *an* die Punkte anheften wollen.
+
+Beachte, dass der Output eine neue Spalte `flaechen_typ` aufweist. Diese ist leer (`NA`), wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?
+
+```{r}
+baeume_join <- st_join(baeume, wiesen)
+
+anzahl_in_wiese <- sum(!is.na(baeume_join$flaechen_typ))
+anzahl_nicht_in_wiese <- sum(is.na(baeume_join$flaechen_typ))
+```

@@ -1,0 +1,27 @@
+---
+lesson: InfoVis1
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+## Vorbereitung {#sec-infovis-vorbereitung}
+
+Im Rahmen von Statistik 1 - 8 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
+
+```{r}
+ipak <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
+}
+
+packages <- c("agricolae", "cclust", "car", "coin", "corrplot", "DHARMa", 
+              "doBy", "factoextra","FSA", "glmmTMB", "ggeffects", "HSAUR3",
+              "lme4", "MASS", "multcomp","MuMIn", "patchwork", "performance", 
+              "relaimpo", "tidyverse", "vegan")
+
+ipak(packages)
+```
+

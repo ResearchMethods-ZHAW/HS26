@@ -1,0 +1,123 @@
+---
+lesson: InfoVis2
+thema: "Quarto"
+---
+
+
+# Infovis 2: Demo
+
+In @sec-infovis1 habt ihr die Grafiken aus dem Beitrag von @kovic2014 rekonstruiert. Stellt euch nun vor, ihr wärt Marco Kovic und würdet den Bericht schreiben. Der klassische Weg wäre hier:
+
+1. Grafik in R erstellen
+2. Grafik exportieren
+3. In Word importieren
+4. Grafik in Word mit Prosa ergänzen
+
+So weit, so gut. Allerdings gibt es auch die Möglichkeit, Grafiken innerhalb von R mit Prosa zu versehen und so die Schritte 2-4 zu vermeiden. Diese Herangehensweise ist unter dem Begriff `Computational Notebook` bekannt und wird in R mit dem Tool *Quarto* (Nachfolger von RMarkdown) umgesetzt. 
+
+## Basics
+
+In einem Quarto-Dokument kann Computer Code (z.B. R-Code) mit menschlicher Sprache (Fliesstext) verbunden werden. Am Beispiel von @kovic2014 sieht das folgendermassen aus:
+
+````{.markdown}
+
+Als erste Annäherung bietet sich ein Blick auf das Verhältnis von Ausländer- 
+und Ja-Anteil auf Ebene der Kantone an:
+
+```{{r}}
+ggplot(kanton, aes(auslanderanteil, ja_anteil)) +
+  geom_point() +
+  coord_fixed(1) +
+  labs(y = "Anteil Ja-Stimmen", x = "Ausländeranteil")
+
+```
+````
+
+Zu beachten gilt:
+
+- R-Code muss sich innerhalb von einem sogenannten *Chunk* befinden...
+  - ..., welcher durch jeweils drei *Backticks* (vor und nach dem *Chunk*) begrenzt wird und...
+  - ... wo die Programmiersprache innerhalb von geschweiften Klammern festgehalten wird.
+- Fliesstext wird ausserhalb des Code-Chunks platziert und muss nicht speziell gekennzeichnet werden.
+
+
+Sobald das Quarto-Dokument kompiliert wird, wird der Text und der Code-Output beispielsweise in einem PDF zusammengeführt. 
+
+:::{.callout-important}
+## Sehr, sehr wichtig!
+R-Scripts bilden die Basis von Programmieren mit R. Diese werden meist iterativ entwickelt und nach Abschluss der Entwicklung sollten diese von der ersten bis zur letzten Zeile ohne Fehler ausführbar sein. 
+
+Das Kompilieren von einem Quarto-Dokument funktioniert genau so: Der Code wird von der ersten bis zur letzten Zeile [in einer neuen Session]{.underline} (Libraries müssen in einem Quarto-Dokument also explizit geladen werden!) ausgeführt. Dies bildet den perfekten Test für die Lauffähigkeit des Codes. 
+
+Wir setzen Quarto an der Prüfung ein, damit wir nachvollziehen können, wie der Code in eurer Umgebung ausgeführt wurde. **Das Beherrschen von Quarto ist somit prüfungsrelevant.**
+:::
+
+
+## YAML Header
+
+Ein Quarto-Dokument verfügt meistens über einen sogenannten YAML header, wo Metadaten über das Script gespeichert werden. Dieser Header ist fakultativ, aber sehr sinnvoll. Im Blogbeitrag @kovic2014 könnte der Header folgendermassen ausgesehen haben:
+
+```{.yaml}
+---
+title: "Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?"
+format: html
+execute: 
+  echo: false
+---
+```
+
+Hier eine Erklärung zu den YAML-Einträgen:
+
+- `title`: Der Titel des Dokuments
+- `format`: Das Output Format. `html` produziert eine Website. Es sind viele verschiedene Outputs möglich, wie beispielsweise PDF, docx oder Powerpoint.
+- `execute`: Hier werden Optionen zum Code festgehalten
+  - `echo`: Soll der R-Code im Output dargestellt werden?
+
+
+## RStudio Einstellungen
+
+Wir empfehlen folgende Einstellungen, um die Verwendung von Quarto zu vereinfachen:
+
+Unter Tools → Global Options  → Abschnitt *RMarkdown*
+
+- Show Output Preview in: [Viewer Pane]{.underline}
+- Show equation and image previews: [Never]{.underline}
+
+
+
+
+<!--
+
+
+## Wie ist ein Quarto-Dokument aufgebaut?
+
+Ein Quarto Dokument hat grob drei Elemente: (1) Den Header bzw. die Metadaten, (2) die Code Chunks und (3) die Textbereiche 
+
+1. Der Header wird beim Erstellen des Dokumentes bereits erstellt. Beim `format` könnt ihr definieren, wie am Ende eurer Dokument *gerendert* werden soll. Möglich sind u.a. HTML, PDF und MS Word. Für diesen Kurs zentral sind die Formate *typst* bzw. *pdf* für Mac-User.
+
+    ```bash
+    ---
+    title: "Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?"
+    format: typst
+    execute: 
+      error: true
+    echo: false
+    warning: false
+    ---
+    ```
+    
+::: {.callout-note}
+  Um den Header müsst ihr euch nicht kümmern, den werden wir hier in der Übung wie auch an der praktischen Prüfung vorgeben.
+:::   
+
+2. Der Code wird in sogenannten *Code Chunks* geschrieben. Eine neue Zelle fügt ihr ein, indem ihr `Ctrl+Shift+I` drückt. Falls in der eckigen Klammer nicht *r* stehen sollte, müsst ihr das in diesem Fall anpassen.
+
+3. Zwischen die Code Chunks kommt eurer Text. Titel werden mit *#* davor gesetzt.
+
+
+## Was ist bei einem Quarto-Dokument zu beachten?
+
+Der Code läuft von oben bis unten durch, und zwar unabhängig davon, welche Libraries und Variablen ihr in eurer Environment habt. Das bedeutet, dass alle Libraries zuoberst im Skript geladen werden müssen. Eine Variable, welche weiter unten im Skript verwendet wird, muss vorher explizit im Skript definiert werden.
+
+
+-->
