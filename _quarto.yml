@@ -38,7 +38,7 @@ knitr:
 book:
   title: "Research Methods HS26"
   sidebar: 
-    logo: images/zhaw_sw_neg.png
+    logo: images/zhaw_rgb_logo_schwarz.png
     collapse-level: 1
     style: floating
   reader-mode: true    
@@ -46,8 +46,8 @@ book:
   chapters:
     - index.qmd
     - part: PrePro.qmd
-    #   chapters:
-    #   - prepro/Prepro1_Vorbereitung.qmd
+      chapters:
+      - prepro/Prepro1_Vorbereitung.qmd
     #   - --
     #   - prepro/Prepro1_Demo.qmd
     #   - prepro/Prepro1_Uebung.qmd

@@ -2,7 +2,7 @@
 lesson: PrePro3
 thema: Split-Apply-Combine
 execute: 
-  echo: true   # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"

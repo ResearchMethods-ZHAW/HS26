@@ -5,7 +5,7 @@ knitr:
   opts_chunk: 
     collapse: true
 execute: 
-  echo: true   # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
   output: true
 code-fold: true
 code-summary: "Musterlösung"
