@@ -119,22 +119,26 @@ Statt auf den Preview button in RStudio zu klicken empfehlen wir, quarto von der
 
 **Hinweis:** Auf gewissen Windows Versionen muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen. Versuche es zuerst mit quarto, wenn das nicht klappt versuche die erwähnten Varianten (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2)).
 
-### Änderungen veröffentlichen
 
-Hier müssen wir unterscheiden zwischen den Änderungen an den Source Files (Qmd) und Änderungen an den Output Files (html).
+### Lokale Änderungen auf github.com pushen
 
 #### Source Files (Qmd)
 
-Um die Änderungen an den Source Files zu veröffentlichen müsst ihr diese via git auf das Repository "pushen". Vorher aber müsst ihr die Änderungen `stage`-en und `commit`-en. Ich empfehle, dass ihr zumindest zu Beginn mit dem RStudio "Git" Fenster arbeitet.
+Um die Änderungen an den Source Files zu veröffentlichen, müsst ihr diese via git auf das Repository "pushen". Vorher aber müsst ihr die Änderungen `stage`-en und `commit`-en. Ich empfehle, dass ihr zumindest zu Beginn mit dem RStudio "Git" Fenster arbeitet.
 
 - `stage`: Setzen eines Häckchens bei "Staged" (im Terminal mit `git add .`)
 - `commit`: Klick auf den Button "commit" (im Terminal mit `git commit -m "deine message"`)
 - `pull`: Klick auf den Button "Pull" (im Terminal mit `git pull`)
 - `push`: Klick auf den button "Push" (im Terminal mit `git push`)
 
-#### Output Files (html)
+#### _freeze-Files
 
-Um Änderungen an den Output Files zu veröffentlichen muss folgender Befehl ausgeführt werden:
+Diese entstehen beim Rendern der Source Files und müssen auf die gleiche Art und Weise wie die Source Files auf das Respository gepusht werden.
+
+
+### Änderungen auf Webseite veröffentlichen
+
+Um Änderungen an den Output Files (html) zu veröffentlichen, muss folgender Befehl ausgeführt werden:
 
 ```sh
 quarto publish gh-pages --no-prompt 
