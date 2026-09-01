@@ -17,15 +17,15 @@ knitr:
 ### Daten generieren und anschauen
 
 ```{r}
-# Je 10 Messwerte für Cultivar a und b zu einem Data Frame im long-Format verbinden 
+# Je 10 Messwerte für die Sorten Andro und Bulli zu einem Data Frame im long-Format verbinden 
 
-# Messwerte von Cultivar Andro
+# Messwerte von der Sorte Andro
 Messwerte_a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14) 
 
-# Messwerte von Cultivar Bulli
+# Messwerte von der Sorte Bulli
 Messwerte_b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10) 
 
-# Bezeichnug der Cultivare in der Tabelle
+# Bezeichnug der Sorten in der Tabelle
 cultivar <- factor(rep( c("Andro", "Bulli"), each = 10))
 
 # Data frame erstellen 
@@ -43,7 +43,6 @@ ggplot(blume, aes(x = cultivar, y = size)) +
 
 ```{r}
 # Histogramme
-
 ggplot(blume, aes(x = size)) +
   geom_histogram(binwidth = 2) +
   facet_wrap(~ cultivar)
@@ -84,8 +83,8 @@ t.test(size ~ cultivar, data = blume) # dasselbe wie var.equal = FALSE
 
 ### Gepaarter t-Test
 
-Gepaarter t-Test: erster Wert von a wird mit erstem Wert von b gepaart, 
-zweiter  Wert von a mit zweitem von b ect.
+Gepaarter t-Test: erster Wert von Andro wird mit erstem Wert von Bullie gepaart, 
+zweiter  Wert von Andro mit zweitem von Bullie ect.
 
 ```{r}
 # für gepaarten t-Test funktioniert Notation "size ~ cultivar" nicht (mehr)
@@ -106,7 +105,6 @@ binom.test(77, 200, p = 0.5)
 # Anzahl gewählte Männer im Nationalrat (≙ 61.5 %; Stand 2023)
 binom.test(123, 200, p = 0.5) 
 ```
-
 
 Alternativ können auch die Anzahl gewählter Manner und Frauen übergeben werden. 
 Die erste Zahl wird als Anzahl der Erfolge definiert die Stichprobengrösse wird 
