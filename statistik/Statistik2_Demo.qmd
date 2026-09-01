@@ -11,7 +11,6 @@ knitr:
 
 [Demoscript herunterladen (.qmd)](../purl/Statistik2_Demo.qmd){.dld}
 
-
 ## ANOVA
 
 ### t-test als ANOVA
@@ -44,7 +43,7 @@ summary.lm(aov_1)
 ### Echte ANOVA
 
 ```{r}
-# Ein weiterer Cultivar hinzufügen
+# Eine weitere Sorte hinzufügen
 Messwerte_c <- c(30, 19, 31, 23, 18, 25, 26, 24, 17, 20)
 cultivar <- factor( rep( c("Andro", "Bulli", "Chroma"), each = 10))
 blume2 <- data.frame("cultivar" = cultivar, 
@@ -57,8 +56,8 @@ ggplot(blume2, aes(cultivar, size)) +
   stat_summary(fun = mean, geom = "point") 
 ```
 
+#### Kennzahlen der Daten anschauen
 
-# Kennzahlen der Daten anschauen
 ```{r}
 #| message: false
 library("dplyr")
@@ -88,26 +87,28 @@ summary(lm_1)
 ### Tukeys Posthoc-Test
 
 ```{r}
-# Load library
-library("agricolae")
+library(multcomp)
 
 # ANOVA und Posthoc-Test durchführen
 aov_2 <- aov(size ~ cultivar, data = blume2)
-HSD.test(aov_2, "cultivar", console = TRUE, group = FALSE)
-posthoc <- HSD.test(aov_2, "cultivar", console = TRUE)
-posthoc
+posthoc <- glht(aov_2, linfct = mcp(cultivar = "Tukey"))
+summary(posthoc)
+cld(posthoc)
 
 # Darstellung der Ergebnisse mit Post-Hoc-Labels über Boxplots
 
 # Labels des Posthoc-Tests extrahieren
-labels <- posthoc$groups
-labels$cultivar <- rownames(labels)
+letters <- cld(posthoc)
+
+labels <- data.frame(
+  cultivar = names( letters$mcletters$Letters), 
+  letters = letters$mcletters$Letters)
 
 # In Plot darstellen
 ggplot(blume2, aes(cultivar, size)) +
   geom_boxplot() +
-  geom_text(data = labels, aes(x = cultivar, y = 33, label = groups)) +
-  stat_summary(fun = mean, geom = "point") 
+  geom_text(data = labels, aes(x = cultivar, y = 33, label = letters)) +
+  stat_summary(fun = mean, geom = "point")
 ```
 
 ### 2-faktorielle ANOVA
@@ -124,7 +125,7 @@ blume3 <- data.frame(
     size = c(Messwerte_a, Messwerte_b, Messwerte_c, Messwerte_d, Messwerte_e, Messwerte_f)
 )
 
-blume3
+table(blume3$cultivar, blume3$house)
 ```
 
 ```{r}
@@ -138,7 +139,8 @@ summary(aov_3)
 aov_4a <- aov(size ~ cultivar + house + cultivar:house, data = blume3)
 summary(aov_4a)
          
-# Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird
+# Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house 
+# eingeschlossen wird
 aov_4b <- aov(size ~ cultivar * house, data = blume3)
 summary(aov_4b)
 summary.lm(aov_4b)
@@ -156,13 +158,12 @@ ggplot(blume3, aes(house, size, color = cultivar, group = cultivar)) +
 ## Modelldiagnostik
 
 ### Beispiel Modelldiagnostik
+
 ```{r}
 # 4 Plots in einem Fenster
 par(mfrow = c(2, 2))
-
 plot(aov_4b)
 ```
-
 
 ## Nicht-parametrische Alternativen, wenn Modellannahmen massiv verletzt sind
 
@@ -172,7 +173,6 @@ plot(aov_4b)
 library(coin)
 wilcox_test(size ~ cultivar, data = blume) 
 ```
-
 
 ### Kruskal-Wallis-Test bei starken Abweichungen von der Normalverteilung, aber ähnlichen Varianzen
 
@@ -189,7 +189,7 @@ library("FSA")
 dunnTest(size ~ cultivar, method = "bh", data = blume2)
 ```
 
-###  Welch-Test bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen
+### Welch-Test bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen
 
 ```{r}
 # Welch-Test

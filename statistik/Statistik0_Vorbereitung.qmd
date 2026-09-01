@@ -17,7 +17,7 @@ ipak <- function(pkg) {
   }
 }
 
-packages <- c("agricolae", "cclust", "car", "coin", "corrplot", "DHARMa", 
+packages <- c("cclust", "car", "coin", "corrplot", "DHARMa", 
               "doBy", "factoextra","FSA", "glmmTMB", "ggeffects", "HSAUR3",
               "lme4", "MASS", "multcomp","MuMIn", "patchwork", "performance", 
               "relaimpo", "tidyverse", "vegan")

@@ -3,7 +3,7 @@ lesson: Statistik 1
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
 
 # Statistik 1: Übung

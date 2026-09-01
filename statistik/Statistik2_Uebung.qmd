@@ -3,7 +3,7 @@ lesson: Statistik 2
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
 
 
@@ -48,7 +48,7 @@ musterloesung: true
 library("readr")
 
 # Daten laden
-kormoran <- read_delim("datasets/stat/kormoran.csv", ";", 
+kormoran <- read_delim("datasets/stat/kormoran.csv", delim = ";", 
                        col_types = cols("Unterart" = "f", "Jahreszeit" = "f")) 
 
 # Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt
