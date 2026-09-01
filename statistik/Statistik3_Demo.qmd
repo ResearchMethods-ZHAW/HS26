@@ -55,11 +55,10 @@ lm_1
 # zuerst N_deposition dann Species_richness  
 lm(N_deposition ~ Species_richness, data = df) 
 
- 
 summary(lm_1) 
 
 # Signifikantes Ergebnis visualisieren
-ggplot(df, aes(x = N_deposition, y = Species_richness)) +
+ggplot(df, aes(N_deposition, Species_richness)) +
   geom_point() +
   geom_abline(intercept = lm_1$coefficients[1], slope = lm_1$coefficients[2], 
               color = "blue")
@@ -131,14 +130,14 @@ y_lm_quad <- predict(lm_quad, data.frame(pred = xv))
 ModPred <- data.frame(xv, y_lm_1, y_lm_quad)
 
 # Modellvorhersagen plotten
-ggplot(df_2, aes(x = pred, y = resp)) +
+ggplot(df_2, aes(pred, resp)) +
   geom_point() +
-  geom_line(data = ModPred, aes(x = xv, y = y_lm_1), 
+  geom_line(data = ModPred, aes(xv, y_lm_1), 
             color = "red", linetype = "dashed") + 
-  geom_line(data = ModPred, aes(x = xv, y = y_lm_quad), color = "blue")
+  geom_line(data = ModPred, aes(xv, y_lm_quad), color = "blue")
 
 # Mit der funktion geom_smooth welche predict im Hintergrund verwendet
-ggplot(df_2, aes(x = pred, y = resp)) +
+ggplot(df_2, aes(pred, resp)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x, color = "red", linetype = "dashed",
               se = FALSE) +
@@ -171,7 +170,7 @@ str(compensation)
 summary(compensation)
 
 # Plotten der vollständigen Daten/Information
-ggplot(compensation, aes(x = Root, y = Fruit, color = Grazing)) +
+ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   geom_point()
 ```
 
@@ -201,7 +200,7 @@ grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 A
 
 ```{r}
 # Visualisierung
-ggplot(compensation, aes(x = Root, y = Fruit, color = Grazing)) +
+ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   geom_point() +
   stat_smooth(formula = y ~ x, method = "lm" ) +
   ylim(0, 125)

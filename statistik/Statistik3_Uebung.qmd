@@ -3,7 +3,7 @@ lesson: Statistik 3
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
 
 
@@ -50,9 +50,7 @@ Du sollst nun untersuchen, ob und wie Sparquote von den anderen drei Variablen a
 
 ```{r}
 library(ggplot2)
-library(patchwork)
 ```
-
 
 # Daten anschauen
 
@@ -60,15 +58,16 @@ library(patchwork)
 str(lcs)
 summary(lcs)
 
-p1 <- ggplot(lcs, aes(x = pop15, y = sr)) +
+p1 <- ggplot(lcs, aes(pop15, sr)) +
   geom_point()
 
-p2 <- ggplot(lcs, aes(x = pop75, y = sr)) +
+p2 <- ggplot(lcs, aes(pop75, sr)) +
   geom_point()
 
-p3 <- ggplot(lcs, aes(x = dpi, y = sr)) +
+p3 <- ggplot(lcs, aes(dpi, sr)) +
   geom_point()
 
+library(patchwork)
 p1 + p2 + p3 + 
   plot_layout(ncol = 1, nrow = 3)
 ```
@@ -91,7 +90,7 @@ lm_q_pop75 <- lm(sr ~ pop75 + I(pop75^2),  data = lcs)
 # Einfaches lineares Modell
 lm_dpi <- lm(sr ~ dpi , data = LifeCycleSavings ) 
 # Modell mit quadratischem Term
-lm_q_dpi <- lm(sr ~ dpi + I(dpi^2),  data = LifeCycleSavings) 
+lm_q_dpi <- lm(sr ~ dpi + I(dpi^2),  data = lcs) 
 ```
 
 ### Modell-Outputs anschauen
