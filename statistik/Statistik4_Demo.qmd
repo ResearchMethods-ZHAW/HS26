@@ -146,6 +146,7 @@ Einfacher geht es mit der function avPlots (package "car"). Nachteil ist, dass
 mit der funktion anders als mit der Methode oben, keine quadratische prädiktoren 
 dargestellt werden können
 
+
 ```{r}
 par(mfrow = c(1, 1))
 avPlots(lm_5, ~GRAZE, ask = F)
@@ -153,6 +154,33 @@ avPlots(lm_5, ~GRAZE, ask = F)
 #Für alle Prädiktoren im Modell
 avPlots(lm_5, layout = c(1, 2) )
 ```
+
+### Partial Effect Plot
+
+#Vorschlag wids ersetzten von partiellen Regressions plot durch partielle effect plots
+
+```{r}
+
+library(ggeffects)
+plot(wt_effect, show_data = TRUE)
+
+p1 <- predict_response(lm_5, terms = "AREA", margin = "empirical")  |>
+plot()
+
+p2 <- predict_response(lm_5, terms = "GRAZE", margin = "empirical") |>
+plot()
+
+library(patchwork)
+p1 + p2
+```
+margin = "mean_reference" (default): "non-focal" numerische prädiktoren werden gemittelt 
+"non-focal" kategoriale prädiktoren (factors) auf das Referenzlevel (erster level des factors) fixiert
+
+margin = "empirical" (deafult): "non-focal" numerische prädiktoren werden gemittelt 
+"non-focal" kategoriale prädiktoren (factors) werden proportinal zur Häufigkeit gemittelt
+
+Da wir oben nur numerische prädiktoren haben hat die Wahl kein Einfluss auf das Resultat
+
 
 ## Multimodel inference
 

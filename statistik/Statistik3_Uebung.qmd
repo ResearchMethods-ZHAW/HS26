@@ -137,21 +137,21 @@ plot(lm_q_dpi)
 
 ```{r}
 # Erstellen der Plots
-p1 <- ggplot(LifeCycleSavings, aes(x = pop15, y = sr)) +
+p1 <- ggplot(LifeCycleSavings, aes(pop15, sr)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
   labs(x = "% der Bevölkerung < 15 Jahre",
        y = "Sparquote") +
   theme_classic()
 
-p2 <- ggplot(LifeCycleSavings, aes(x = pop75, y = sr)) +
+p2 <- ggplot(LifeCycleSavings, aes(pop75, sr)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
   labs(x = "% der Bevölkerung > 75 Jahren",
        y = "Sparquote") +
   theme_classic()
 
-p3 <- ggplot(LifeCycleSavings, aes(x = dpi, y = sr)) +
+p3 <- ggplot(LifeCycleSavings, aes(dpi, sr)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE) +
   labs(x = "Pro-Kopf-Einkommen",
