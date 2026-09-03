@@ -79,10 +79,10 @@ Besucher = exp(3.50 + 0.11 Temperatur/°C)
 glm_poisson$coefficients 
 
 # Anzahl besucher bei 0°C
-exp(glm_poisson$coefficients[1])
+exp(glm_poisson$coefficients["(Intercept)"])
 
 # Anzahl besucher bei 30°C
-exp(glm_poisson$coefficients[1] + 30 * glm_poisson$coefficients[2]) 
+exp(glm_poisson$coefficients["(Intercept)"] + 30 * glm_poisson$coefficients["Temperatur"]) 
 
 # Test Overdispersion
 library("performance")
@@ -91,7 +91,7 @@ check_overdispersion(glm_poisson)
 -> Es liegt Overdispersion vor. Darum quasipoisson wählen.
 
 ```{r}
-glm_quasipoisson <- glm(Besucher ~ Temperatur,  family = "quasipoisson", 
+glm_quasipoisson <- glm(Besucher ~ Temperatur, family = "quasipoisson", 
                         data = strand)
 summary(glm_quasipoisson)
 
@@ -135,9 +135,6 @@ ggplot(bathing, aes(x = temperatur, y = badend)) +
 glm_logistic <- glm(badend ~ temperatur, family = "binomial", data = bathing)
 summary(glm_logistic)
 
-# Modeldiagnostik (godness of fit test, wenn nicht signifikant, dann OK)
-1 - pchisq(glm_logistic$deviance, glm_logistic$df.resid)
-
 # Modelldiagnostik mit funktion "DHARMa"
 library(DHARMa)
 set.seed(123)
@@ -155,16 +152,16 @@ performance_roc(glm_logistic)
 r2(glm_logistic)
 
 # Steilheit der Beziehung (relative Änderung der odds bei x + 1 vs. x)
-exp(glm_logistic$coefficients[2])
+exp(glm_logistic$coefficients["temperatur"])
 
 # LD50 (also hier: Temperatur, bei der 50% der Touristen baden)
--glm_logistic$coefficients[1] / glm_logistic$coefficients[2]
+-glm_logistic$coefficients["(Intercept)"] / glm_logistic$coefficients["temperatur"]
 
 # oder
 library("MASS")
 dose.p(glm_logistic, p = 0.5)
 
-# Plotting
+# Ploten
 ggplot(data = bathing, aes(x = temperatur, y = badend)) +
   geom_point() +
   xlim(0, 30) +
@@ -212,21 +209,23 @@ simulateResiduals(glm_binomial_2, plot = TRUE, n = 1000)
 
 # Resultat und Visualisierung
 summary(glm_binomial_2)
+
 # Modellgüte (pseudo-R²)
 1 - (glm_binomial_2$dev / glm_binomial_2$null)
 
 # ld 50 Female (cf = c(1, 2) = Intercept und dosis)
-( ld50_feamle <- dose.p(glm_binomial_2, cf = c(1, 2)) ) 
+ld50_feamle <- dose.p(glm_binomial_2, cf = c(1, 2)) 
 
 # Zurücktransformieren
 2^ld50_feamle
 
 # ld 50 male
-# dose.p(glm_binomial_2, cf = c(1, 2, 3)) 
+dose.p(glm_binomial_2, cf = c(1, 2, 3))
 # funktioniert nicht wir müssen es manuell ausrechnen
 ld50_male <- 
-  -(glm_binomial_2$coefficients[1] + glm_binomial_2$coefficients[2] ) /
-  glm_binomial_2$coefficients[3]
+  -(glm_binomial_2$coefficients["(Intercept)"] + glm_binomial_2$coefficients["sexmale"] ) /
+  glm_binomial_2$coefficients["ldose"]
+
 
 # Zurücktransformieren
 2^ld50_male
@@ -235,17 +234,22 @@ ld50_male <-
 ```
 
 ```{r}
-#| message: false
-#| warning: false
 # Visualisierung
-ggplot(budworm, aes(x = ldose, y = ndead / 20, color = sex)) +
-  geom_point() +
-  geom_smooth(method = "glm", 
-              method.args = list(family = "binomial"), se = FALSE) +
-  labs(x = "Dose", y = "Probability dead") +
-    scale_x_continuous(
-    breaks = log2(c(1, 2, 4, 8, 16, 32)),
-    labels = c(1, 2, 4, 8, 16, 32)) +
+# geom_smooth funktioniert hier nicht (Gewichte ntotal werden ignoriert) wir 
+# predicten die Kurven deshalb manuell (siehe Statistik 3)
+
+grid <- 
+  expand.grid(ldose = seq( min(budworm$ldose), max(budworm$ldose), length = 100),
+  sex = unique(budworm$sex))
+
+grid$pred <- predict(glm_binomial_2, newdata = grid, type = "response")
+
+ggplot() +
+  geom_point(data = budworm, aes(ldose, ndead / ntotal, color = sex)) +
+  geom_line(data = grid, aes(ldose, pred, color = sex)) +
+  labs(x = "Insektizidosis [µg]", y = "Sterbewahrscheinlichkeit") +
+  scale_x_continuous(breaks = log2(c(1, 2, 4, 8, 16, 32)),
+                     labels = c(1, 2, 4, 8, 16, 32)) +
   theme_classic()
 ```
 

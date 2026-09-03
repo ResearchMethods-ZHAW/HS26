@@ -3,7 +3,7 @@ lesson: Statistik 5
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
 
 
@@ -64,8 +64,6 @@ Modell ist signifikant (p-Wert in Zeile RATIO ist < 0.05). Jetzt müssen wir noc
 
 ```{r}
 # Modelldiagnostik für das gewählte Modell (wenn nicht signifikant, dann OK)
-1 - pchisq(glm_1$deviance, glm_1$df.resid)
-
 library(DHARMa)
 set.seed(123)
 simulateResiduals(fittedModel = glm_1, plot = TRUE, n = 1000)
@@ -86,7 +84,8 @@ etwas Interpretierbares übersetzt werden:
 
 ```{r}
 # Steilheit der Beziehung in Modellen mit nur einem Parameter
-exp(glm_1$coef[2])
+exp(glm_1$coef["RATIO"])
+
 ```
 
 < 1, d. h. Vorkommenswahrscheinlichkeit sinkt mit zunehmender Isolation.
