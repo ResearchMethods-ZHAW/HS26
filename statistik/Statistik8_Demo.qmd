@@ -116,15 +116,17 @@ str(spe_2)
 aov_1 <- aov(species_richness~cluster, data = spe_2)
 summary(aov_1)
 
-library("agricolae")
-( Tukey <- HSD.test(aov_1, "cluster") )
+library(multcomp)
+posthoc <- glht(aov_1, linfct = mcp(cluster = "Tukey"))
+letters <- cld(posthoc)
 
-sig_letters <- Tukey$groups[order(row.names(Tukey$groups)), ]
+labels <- data.frame(
+  cluster = names( letters$mcletters$Letters), 
+  letters = letters$mcletters$Letters)
 
-ggplot(spe_2, aes(x = cluster,  y = species_richness)) + 
+ggplot(spe_2, aes(cluster, species_richness)) +
   geom_boxplot() +
-  geom_text(data = sig_letters, 
-            aes(label = groups, x = c(1:3), 
-                y = max(spe_2$species_richness) * 1.2)) +
+  geom_text(data = labels, aes(cluster, y = max(spe_2$species_richness) * 1.2, label = letters)) +
+  stat_summary(fun = mean, geom = "point") +
   theme_classic()
 ```

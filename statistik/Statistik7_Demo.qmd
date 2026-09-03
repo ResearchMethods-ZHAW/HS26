@@ -13,7 +13,6 @@ knitr:
 
 -   Datensatz *Doubs_env*
 
-
 ## Ordination Hauptkomponentenanalyse (PCA)
 
 ### Datenbeschreibung

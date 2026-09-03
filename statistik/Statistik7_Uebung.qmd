@@ -30,7 +30,6 @@ musterloesung: true
 ```{r}
 #| message: false
 # Packete laden
-library("tidyverse")
 library("vegan")
 library("factoextra")
 ```

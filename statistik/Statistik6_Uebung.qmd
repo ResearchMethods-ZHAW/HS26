@@ -3,7 +3,7 @@ lesson: Statistik 6
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
 
 
@@ -68,7 +68,9 @@ Führt mit dem novanimal Datensatz (inviduelle Daten) eine logistische Regressio
 #| echo: false
 #| message: false
 #| results: hide
-library("tidyverse")
+library("readr")
+library("dplyr")
+library("ggplot2")
 library("glmmTMB")
 library("performance")
 library("DHARMa")
@@ -79,7 +81,7 @@ library("car")
 #| message: false
 # Lade daten
 nova <- read_delim("datasets/stat/novanimal.csv", delim = ";") |>
-  mutate(across(where(is.character), as.factor))
+  mutate( across( where(is.character), as.factor))
 str(nova)
 ```
 
@@ -98,7 +100,8 @@ table(nova$gender, nova$member, nova$age_group)
 
 # Definiert das logistische Modell mit ccrs als random intercept und
 # wendet es auf den Datensatz an
-glmm_1 <- glmmTMB(meat ~ gender + age_group + member + gender:age_group + gender:member + 
+glmm_1 <- glmmTMB(meat ~ gender + age_group + member + 
+                    gender:age_group + gender:member + 
                     (1 | ccrs), 
                  family = binomial, 
                  data = nova)
@@ -128,7 +131,7 @@ drop1(glmm_4, test = "Chisq")
 set.seed(123)
 simulationOutput <- simulateResiduals(fittedModel = glmm_4, plot = TRUE, n = 500)
 
-# Plot residuals vs covariates des models
+# Plot residuals vs. covariates des models
 plotResiduals(simulationOutput, form = nova$gender)
 plotResiduals(simulationOutput, form = nova$member)
 ```

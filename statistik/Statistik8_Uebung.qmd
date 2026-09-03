@@ -3,11 +3,8 @@ lesson: Statistik 8
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: true
+musterloesung: false
 ---
-
-
-
 
 # Statistik 8: Übung
 
@@ -207,7 +204,6 @@ f_Vehicle <-
   geom_text(data = cld_letters, aes(label = letters, x = c(1:4), y = max(crime_KM4$Vehicle) * 1.2)) +
   ylim(0, max(crime_KM4$Vehicle) * 1.2) +
   theme_classic()
-
 
 library(patchwork)
 

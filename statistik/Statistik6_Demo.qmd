@@ -24,7 +24,7 @@ library("ggplot2")
 library("dplyr")
 ```
 
-## Repeated measurement
+## Repeated measures
 
 Es handelt sich um einen Düngeversuch (Daten aus Lepš & Šmilauer 2020).
 18 Pflanzenindividuen wurden zufällig einer von drei Düngevarianten
@@ -80,7 +80,7 @@ plotResiduals(simulationOutput, form = plantf$Treatment)
 #| warning: false
 # Darstellung (Interaktions Plot)
 library("ggeffects")
-pred <- ggpredict(pf_lmm, terms = c("Time", "Treatment")) 
+pred <- predict_response(pf_lmm, terms = c("Time", "Treatment")) 
 pred
 
 plot(pred) +
@@ -88,7 +88,7 @@ plot(pred) +
   theme(plot.title = element_blank())
 ```
 
-## Split-plot Design
+## Split-plot & Repeated measures Design
 
 Es wurden zufällig fünf Untersuchungsgebiete (sites) ausgewählt, in
 denen jeweils der gleiche Versuchsblock implementiert wurde, bestehend
@@ -127,6 +127,7 @@ Bei REML sind die estimates genauer, aber REML sollte nicht für
 Modelvergleiche (z.B mit AIcc oder drop1 funktion) benutzt werden Dies
 ist nur relevant für Gaussian mixed models (LMM) nicht für GLMMs
 
+
 ```{r}
 # 2.1 Model fitten
 lmm_1 <- glmmTMB(SR ~ year * treatment * plot_type + 
@@ -149,32 +150,11 @@ drop1(lmm_3, test = "Chi")
 
 # Refit with REML
 lmm_4 <- update(lmm_3, REML = TRUE)
-Anova(lmm_4)
-```
-
-```{r}
-#| warning: false
-# Modellselektion mit AICc
-library(MuMIn)
-options(na.action = "na.fail")
-
-allmodels <- dredge(lmm_1)
-allmodels
-```
-
-```{r}
-#| warning: false
-best_model <- get.models(allmodels, delta==0)[[1]]
-```
-
-```{r}
-# Mit REML refitten
-lmm_bm_2 <- update(best_model, REML = TRUE)
 
 # Resultat
-Anova(lmm_bm_2)
-summary(lmm_bm_2)
-r2(lmm_bm_2)
+Anova(lmm_4)
+summary(lmm_4)
+r2(lmm_4)
 ```
 
 Modelvalidierung
@@ -189,11 +169,7 @@ sum( fitted(lmm_2) < 0)
 
 set.seed(123)
 simulationOutput <- 
-  simulateResiduals(fittedModel = lmm_2, plot = TRUE, n = 1000)
-# Plot residuals vs. covariates des Modells
-plotResiduals(simulationOutput, form = glex$year)
-plotResiduals(simulationOutput, form = glex$treatment)
-plotResiduals(simulationOutput, form = glex$plot_type)
+  simulateResiduals(lmm_2, plot = TRUE, n = 1000)
 ```
 
 ```{r}
@@ -201,7 +177,7 @@ plotResiduals(simulationOutput, form = glex$plot_type)
 # Darstellung
 library("ggeffects")
 
-pred_2 <- ggpredict(lmm_2, terms = c("year", "treatment", "plot_type") ) 
+pred_2 <- predict_response(lmm_2, terms = c("year", "treatment", "plot_type") ) 
 
 plot(pred_2) +
   theme_classic() +
@@ -272,7 +248,7 @@ summary(lmm_2)
 r2(lmm_2)
 
 # Visualisierung
-plot( ggpredict(lmm_2) ) +
+plot( predict_response(lmm_2)) +
   geom_line(color = "blue") +
   geom_point(data = sleepstudy_2, aes(Days, Reaction), alpha = 0.5) +
   theme_classic() +
@@ -319,7 +295,6 @@ performance_roc(glmm_1)
 
 ```{r}
 # Modellvalidierung
-
 set.seed(123)
 simulationOutput <- 
   simulateResiduals(fittedModel = glmm_1, plot = TRUE, n = 1000)
@@ -331,9 +306,9 @@ plotResiduals(simulationOutput, form = scale(DeerEcervi$Length) )
 #| warning: false
 # Visualisierung
 pred_3 <- predict_response(glmm_1, c("Length[all]", "Sex") )
+
 # mit all werden für mehr Körperlängen Werte predicted was zu smootheren 
 # lines im plot führt
-
 ggplot(pred_3, aes(x, predicted, color = group)) +
   geom_line(linewidth = 1) +
   geom_point(data = DeerEcervi, aes(Length, Ecervi, color = Sex), alpha = 0.5) +
