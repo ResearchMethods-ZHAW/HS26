@@ -60,7 +60,7 @@ summary(lm_1)
 # Signifikantes Ergebnis visualisieren
 ggplot(df, aes(N_deposition, Species_richness)) +
   geom_point() +
-  geom_abline(intercept = lm_1$coefficients[1], slope = lm_1$coefficients[2], 
+  geom_abline(intercept = lm_1$coefficients["(Intercept)"], slope = lm_1$coefficients["N_deposition"], 
               color = "blue")
 ```
 

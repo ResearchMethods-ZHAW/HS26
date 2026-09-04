@@ -46,7 +46,7 @@ cor1 <-
 library("corrplot")
 corrplot.mixed(cor1, lower = "ellipse", upper = "number", order = "AOE")
 
-# Nur Darstellung von variablen über Schwelenwert von 0.7
+# Nur Darstellung von variablen über Schwelenwert von |0.7|
 cor1[abs(cor1)<0.7] <- 0
 cor1
 ```

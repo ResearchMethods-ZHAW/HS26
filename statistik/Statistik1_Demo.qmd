@@ -11,7 +11,6 @@ knitr:
 
 [Demoscript herunterladen (.qmd)](../purl/Statistik1_Demo.qmd){.dld}
 
-
 ## t-Test
 
 ### Daten generieren und anschauen
@@ -20,16 +19,16 @@ knitr:
 # Je 10 Messwerte für die Sorten Andro und Bulli zu einem Data Frame im long-Format verbinden 
 
 # Messwerte von der Sorte Andro
-Messwerte_a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14) 
+a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14) 
 
 # Messwerte von der Sorte Bulli
-Messwerte_b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10) 
+b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10) 
 
 # Bezeichnug der Sorten in der Tabelle
 cultivar <- factor(rep( c("Andro", "Bulli"), each = 10))
 
 # Data frame erstellen 
-blume <- data.frame("cultivar" = cultivar, "size" = c(Messwerte_a, Messwerte_b) ) 
+blume <- data.frame("cultivar" = cultivar, "size" = c(a, b) ) 
 ```
 
 ```{r}
@@ -50,14 +49,13 @@ ggplot(blume, aes(x = size)) +
 
 ### Zweiseitiger t-Test
 
-Links der Tilde ("~") steht immer die abhängige Variable, rechts die 
-erklärende(n) Variable(n)
+Links der Tilde ("\~") steht immer die abhängige Variable, rechts die erklärende(n) Variable(n)
 
 ```{r}
 # Alternativ kann man die Werte auch direkt in die t.test()-Funktion eingeben:
-# t.test(Messwerte_a, Messwerte_b)
+# t.test(a, b)
 
-# Zweiseitig "Test auf a ≠ b" (default)
+# Zweiseitig "Test auf Andro ≠ Bullie" (default)
 t.test(size ~ cultivar, data = blume) 
 ```
 
@@ -66,9 +64,11 @@ t.test(size ~ cultivar, data = blume)
 ```{r}
 # Einseitig "Test auf Andro > Bulli"
 t.test(size ~ cultivar, alternative = "greater",  data = blume)
+t.test(a, b, alternative = "greater",  data = blume)
 
 # Einseitig "Test auf Andro < Bulli"
 t.test(size ~ cultivar, alternative = "less",  data = blume) 
+t.test(a, b, alternative = "less",  data = blume) 
 ```
 
 ### Klassischer t-Test vs. Welch Test
@@ -83,8 +83,7 @@ t.test(size ~ cultivar, data = blume) # dasselbe wie var.equal = FALSE
 
 ### Gepaarter t-Test
 
-Gepaarter t-Test: erster Wert von Andro wird mit erstem Wert von Bullie gepaart, 
-zweiter  Wert von Andro mit zweitem von Bullie ect.
+Gepaarter t-Test: erster Wert von Andro wird mit erstem Wert von Bullie gepaart, zweiter Wert von Andro mit zweitem von Bullie ect.
 
 ```{r}
 # für gepaarten t-Test funktioniert Notation "size ~ cultivar" nicht (mehr)
@@ -106,9 +105,7 @@ binom.test(77, 200, p = 0.5)
 binom.test(123, 200, p = 0.5) 
 ```
 
-Alternativ können auch die Anzahl gewählter Manner und Frauen übergeben werden. 
-Die erste Zahl wird als Anzahl der Erfolge definiert die Stichprobengrösse wird 
-autmoatisch ausgerechnet
+Alternativ können auch die Anzahl gewählter Manner und Frauen übergeben werden. Die erste Zahl wird als Anzahl der Erfolge definiert die Stichprobengrösse wird autmoatisch ausgerechnet
 
 ```{r}
 binom.test( c(123, 77), p = 0.5) 

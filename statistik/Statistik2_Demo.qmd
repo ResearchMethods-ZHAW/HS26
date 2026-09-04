@@ -87,9 +87,9 @@ summary(lm_1)
 ### Tukeys Posthoc-Test
 
 ```{r}
+# ANOVA und Posthoc-Test durchführen
 library(multcomp)
 
-# ANOVA und Posthoc-Test durchführen
 aov_2 <- aov(size ~ cultivar, data = blume2)
 posthoc <- glht(aov_2, linfct = mcp(cultivar = "Tukey"))
 summary(posthoc)

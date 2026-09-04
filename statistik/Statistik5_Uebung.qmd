@@ -29,7 +29,6 @@ Bitte prüft mit einer logistischen Regression, ob und ggf. wie die Inselform di
 - [Lösungstext als Download](Statistik5_Loesung.pdf)
 
 
-
 ## Musterlösung Übung 5
 
 ```{r}
