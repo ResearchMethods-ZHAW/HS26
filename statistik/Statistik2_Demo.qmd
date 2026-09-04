@@ -151,8 +151,8 @@ ggplot(blume3, aes(cultivar, size, color = house, group = house)) +
   stat_summary(fun = mean, geom = "line", linewidth = 1) 
 
 ggplot(blume3, aes(house, size, color = cultivar, group = cultivar)) +
-  stat_summary(fun = mean, geom = "line", size = 1) +
-  stat_summary(fun = mean, geom = "point", size = 3) 
+  stat_summary(fun = mean, geom = "point", size = 3) +
+  stat_summary(fun = mean, geom = "line", linewidth = 1) 
 ```
 
 ## Modelldiagnostik

@@ -220,8 +220,8 @@ ld50_feamle <- dose.p(glm_binomial_2, cf = c(1, 2))
 2^ld50_feamle
 
 # ld 50 male
-dose.p(glm_binomial_2, cf = c(1, 2, 3))
-# funktioniert nicht wir müssen es manuell ausrechnen
+# dose.p(glm_binomial_2, cf = c(1, 2, 3))
+# funktioniert nicht wir müssen es manuell ausrechnen:
 ld50_male <- 
   -(glm_binomial_2$coefficients["(Intercept)"] + glm_binomial_2$coefficients["sexmale"] ) /
   glm_binomial_2$coefficients["ldose"]
