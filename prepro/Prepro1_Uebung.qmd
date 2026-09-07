@@ -24,7 +24,6 @@ knitr::opts_chunk$set(collapse = TRUE)
 Wir empfehlen die Verwendung von "Projects" innerhalb von RStudio. RStudio legt für jedes Projekt dann einen Ordner an, in welchem die Projekt-Datei abgelegt wird (Dateiendung `.Rproj`). Sollen innerhalb des Projekts dann R-Skripts geladen oder erzeugt werden, werden diese dann auch im angelegten Ordner abgelegt. Mehr zu RStudio Projects findet ihr [hier](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
 
 
-
 Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
 
 -   Festlegen der Working Directory ohne die Verwendung des expliziten Pfads (`setwd()`). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)
