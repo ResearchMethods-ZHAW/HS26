@@ -1,0 +1,193 @@
+---
+lesson: PrePro4
+thema: Debugging Demo
+execute: 
+  echo: true
+  output: false
+  error: true
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+
+# Prepro 4: Debugging Demo
+
+## Was ist Debugging?
+
+Zuerst: Was ist ein Bug beim Programmieren? -> Fehler in einem Computercode, Syntaxfehler, Laufzeitfehler und logische Fehler; 
+
+funktionierender Code ≠ korrekter Code
+
+- Gute“ Fehler: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, das Problem zu erkennen. → Der Fehler macht sich bemerkbar. 
+- „Schlechte“ Fehler: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis. → Wir müssen den Fehler selbst erkennen. 
+- Die gefährlichsten Fehler: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis. → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
+
+Debugging: Entfernen dieses Fehlers
+
+Aber wie? Ganze Reihe von verschiedenen Methoden, wir zeigen hier was für diesen Kurs mit R/RStudio hilfreich ist.
+
+
+## Debugging in R/RStudio
+
+- Error-Messages verstehen
+- R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
+- R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
+
+### Beispiel 1
+
+```{r}
+library("readr")
+library("lubridate")
+
+wetter <- read_delim("datasets/prepro/weather_prepro4.csv", ",")
+wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
+wetter$monat <- month(wetter$time)
+```
+
+
+```{r}
+#| eval: false
+
+mean(wetter$tre200h0[wetter$monat == "Januar"])
+mean(wetter$tre200h0[wetter$monat == "Februar])
+mean(wetter$tre200h0[wetter$monat == "März"])
+
+```
+
+Bevor der Code ausgeführt wird:
+
+1. Fehler
+- Analyse: Rote Kreuze erscheinen, einen Teil ist grün eingefärbt
+- Vermutung: nicht geschlossene Klammern, Strings
+- Problem lokalisieren: Kreuze immer in dieser Zeile, wo Fehler beginnt
+- Fix 1: bei "Februar string schliessen
+
+
+Jetzt Code laufen lassen
+
+```{r}
+#| output: true
+
+mean(wetter$tre200h0[wetter$monat == "Januar"])
+mean(wetter$tre200h0[wetter$monat == "Februar"])
+mean(wetter$tre200h0[wetter$monat == "März"])
+
+```
+
+2. Fehler:
+- Analyse: NaN als Ergebnis
+- Strategie: einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
+
+Welche Werte sind in der Spalte monat?
+
+```{r}
+#| output: true
+
+wetter$monat[1:10]
+
+```
+
+Monate sind als Integer codiert, nicht mit Namen, Fehler lokalisiert
+
+Fix 2: 
+
+```{r}
+wetter$monat == 1
+wetter$monat == 2
+wetter$monat == 3
+```
+
+Code noch einmal laufen lassen, Output betrachten
+
+```{r}
+#| output: true
+
+mean(wetter$tre200h0[wetter$monat == 1])
+mean(wetter$tre200h0[wetter$monat == 2])
+mean(wetter$tre200h0[wetter$monat == 3])
+
+```
+
+
+Jetzt sieht der Output gut sein.
+
+
+### Beispiel 2
+
+Gleicher Datensatz von oben, gleiches Beispiel, aber mit Pipen
+
+```{r}
+library(dplyr)
+
+wetter_summary <- wetter |>
+  group_by(monate) |>
+  summarise(
+    temp_mean = mean(tre200h0)
+  )
+
+```
+
+1. Fehler: ✖ Column `months` is not found.
+TIPP: Unbedingt autocomplete verwenden
+
+
+```{r}
+colnames(wetter)
+```
+
+Fix 1: month statt months (Tippfehler)
+
+```{r}
+wetter_summary <- wetter |>
+  group_by(monat) |>
+  summarise(
+    temp_mean = mean(tre200h0)
+  )
+
+```
+
+Keine Error-Meldung, dafür ist Output nicht zufriedenstellend
+
+Im Monat April NA als temp_mean
+
+Debugging-Strategie: Temp.Werte im April anschauen
+
+```{r}
+wetter |> 
+  filter(monat == 4 & is.na(tre200h0))
+
+```
+--> an einem Tag viel der Sensor aus
+ 
+Fix 2
+ 
+```{r}
+wetter_summary <- wetter |>
+  group_by(monat) |>
+  summarise(
+    temp_mean = mean(tre200h0, na.rm = T)
+  )
+
+```
+
+## Wie kann KI helfen?
+
+Nach Lokalisation des Bugs und wenn Bug nicht auf anhieb gelöst werden kann:
+
+Fehlerhafter Code plus Error-Message prompten
+
+Lösungsvorschlag der KI testen und Output beurteilen.
+
+1. Fehler selbst lesen
+2. Problem lokalisieren
+3. KI um Erklärung/Hinweis bitten, sehr gut in Diagnoseschritte vorzuschlagen
+4. Lösung testen
+5. Lösung verstehen.
+
+
+
+Trotzdem gilt: aus Fehlern lernt man
+
+
+

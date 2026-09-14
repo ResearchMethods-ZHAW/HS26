@@ -1,0 +1,93 @@
+---
+lesson: PrePro4
+thema: Debugging Demo
+execute: 
+  echo: true
+  output: false
+  error: true
+  warning: false
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+
+# Prepro 4: Debugging Übung
+
+
+```{r}
+library("readr")
+library("lubridate")
+library("dplyr")
+```
+
+
+
+
+## Aufgabbe 1
+
+Führe diesen Code aus und schau dir den Output an:
+
+```{r}
+meta <- read.csv("datasets/prepro/metadata.csv", sep = ";")
+wetter <- read.csv("datasets/prepro/weather_prepro4.csv")
+```
+
+Frage eine KI deiner Wahl nach **zwei** verschiedene Lösungen.
+
+:::{.callout-note}
+Ich möchte ein csv file in RStudio mit read.csv hineinladen, jedoch werden die Spalten nicht erkannt. Kannst du mir zwei Lösungsvorschläge machen?
+:::
+
+Gibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast? 
+
+Fixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output
+
+
+## Aufgabe 2
+
+Verwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:
+
+```{r}
+wetter |> 
+  mutate(monat = month(time))
+
+```
+
+Erkennst du den Fehler? Kopiere ansonsten den Code und die Error-Message in einen Prompt.
+
+
+## Aufgabe 3
+
+Stimmt die Format-Schablone für as.POSIXct? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone.
+Gibt dazu ein Wert-Beispiel aus der Spalte time. Passe den Code an
+
+```{r}
+wetter |> 
+  mutate(time = as.POSIXct(as.character(time), format = "%Y%m%d", tz = "UTC"),
+    monat = month(time)
+    )
+
+```
+
+:::{.callout-note}
+Ein Wert aus der Spalte time sieht so aus: 2000010100. Kannst du mir die passende Formatschablone für as.POSIXct geben?
+:::
+
+```{r}
+#| echo: false
+  
+wetter |> 
+  mutate(time = as.POSIXct(as.character(time), format = "%Y%m%d%H", tz = "UTC"),
+    monat = month(time)
+    )
+
+```
+
+## Aufgabe 4
+
+```{r}
+
+```
+
+

@@ -1,0 +1,15 @@
+{
+  "hash": "177014384f9350f624eff76b198b8284",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\nlesson: PrePro4\nthema: Debugging Demo\nexecute: \n  echo: true\n  output: false\n  error: true\n  warning: false\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n# Prepro 4: Debugging Übung\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(\"readr\")\nlibrary(\"lubridate\")\nlibrary(\"dplyr\")\n```\n:::\n\n\n\n\n\n## Aufgabbe 1\n\nFühre diesen Code aus und schau dir den Output an:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmeta <- read.csv(\"datasets/prepro/metadata.csv\", sep = \";\")\nwetter <- read.csv(\"datasets/prepro/weather_prepro4.csv\")\n```\n:::\n\n\nFrage eine KI deiner Wahl nach **zwei** verschiedene Lösungen.\n\n:::{.callout-note}\nIch möchte ein csv file in RStudio mit read.csv hineinladen, jedoch werden die Spalten nicht erkannt. Kannst du mir zwei Lösungsvorschläge machen?\n:::\n\nGibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast? \n\nFixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output\n\n\n## Aufgabe 2\n\nVerwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nwetter |> \n  mutate(monat = month(time))\n## Error in `mutate()`:\n## ℹ In argument: `monat = month(time)`.\n## Caused by error in `month.numeric()`:\n## ! Values are not in 1:12\n```\n:::\n\n\nErkennst du den Fehler? Kopiere ansonsten den Code und die Error-Message in einen Prompt.\n\n\n## Aufgabe 3\n\nStimmt die Format-Schablone für as.POSIXct? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone.\nGibt dazu ein Wert-Beispiel aus der Spalte time. Passe den Code an\n\n\n::: {.cell}\n\n```{.r .cell-code}\nwetter |> \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d\", tz = \"UTC\"),\n    monat = month(time)\n    )\n\n```\n:::\n\n\n:::{.callout-note}\nEin Wert aus der Spalte time sieht so aus: 2000010100. Kannst du mir die passende Formatschablone für as.POSIXct geben?\n:::\n\n\n::: {.cell}\n\n:::\n\n\n## Aufgabe 4\n\n\n::: {.cell}\n\n:::\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

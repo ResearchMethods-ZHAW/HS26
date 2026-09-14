@@ -57,6 +57,9 @@ book:
     #   - --
     #   - prepro/Prepro3_Demo.qmd
     #   - prepro/Prepro3_Uebung.qmd
+    #   - --
+    #   - prepro/Prepro4_Debugging_Demo.qmd
+    #   - prepro/Prepro4_Debugging_Uebung.qmd
     # - part: InfoVis.qmd
     #   chapters:
     #   - infovis/Infovis1_Vorbereitung.qmd
