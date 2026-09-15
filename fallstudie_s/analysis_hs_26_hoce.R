@@ -1,6 +1,6 @@
 # .################################################################################################
 # Einfluss von verschiedenen Faktoren auf die Besucherzahlen im WPZ waehrend der dunklen Tageszeit ####
-# Modul Research Methods, HS24. Adrian Hochreutener ####
+# Modul Research Methods, HS26. Adrian Hochreutener ####
 # .################################################################################################
 
 # .################################################################################################
