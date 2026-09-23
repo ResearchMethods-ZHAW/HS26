@@ -136,7 +136,7 @@ TIPP: Unbedingt autocomplete verwenden
 colnames(wetter)
 ```
 
-Fix 1: month statt months (Tippfehler)
+Fix 1: monat statt monate (Tippfehler)
 
 ```{r}
 wetter_summary <- wetter |>
@@ -158,7 +158,7 @@ wetter |>
   filter(monat == 4 & is.na(tre200h0))
 
 ```
---> an einem Tag viel der Sensor aus
+--> an einem Tag fiel der Sensor aus
  
 Fix 2
  
@@ -173,7 +173,7 @@ wetter_summary <- wetter |>
 
 ## Wie kann KI helfen?
 
-Nach Lokalisation des Bugs und wenn Bug nicht auf anhieb gelöst werden kann:
+Nach Lokalisation des Bugs und wenn Bug nicht auf Anhieb gelöst werden kann:
 
 Fehlerhafter Code plus Error-Message prompten
 
