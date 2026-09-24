@@ -44,12 +44,15 @@ Zu beachten gilt:
 Sobald das Quarto-Dokument kompiliert wird, wird der Text und der Code-Output beispielsweise in einem PDF zusammengeführt. 
 
 :::{.callout-important}
-## Sehr, sehr wichtig!
+
 R-Scripts bilden die Basis von Programmieren mit R. Diese werden meist iterativ entwickelt und nach Abschluss der Entwicklung sollten diese von der ersten bis zur letzten Zeile ohne Fehler ausführbar sein. 
 
 Das Kompilieren von einem Quarto-Dokument funktioniert genau so: Der Code wird von der ersten bis zur letzten Zeile [in einer neuen Session]{.underline} (Libraries müssen in einem Quarto-Dokument also explizit geladen werden!) ausgeführt. Dies bildet den perfekten Test für die Lauffähigkeit des Codes. 
 
+<!--
 Wir setzen Quarto an der Prüfung ein, damit wir nachvollziehen können, wie der Code in eurer Umgebung ausgeführt wurde. **Das Beherrschen von Quarto ist somit prüfungsrelevant.**
+-->
+
 :::
 
 
@@ -71,7 +74,7 @@ Hier eine Erklärung zu den YAML-Einträgen:
 - `title`: Der Titel des Dokuments
 - `format`: Das Output Format. `html` produziert eine Website. Es sind viele verschiedene Outputs möglich, wie beispielsweise PDF, docx oder Powerpoint.
 - `execute`: Hier werden Optionen zum Code festgehalten
-  - `echo`: Soll der R-Code im Output dargestellt werden?
+- `echo`: Soll der R-Code im Output dargestellt werden?
 
 
 ## RStudio Einstellungen

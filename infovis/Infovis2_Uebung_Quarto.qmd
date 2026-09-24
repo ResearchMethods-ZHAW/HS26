@@ -16,13 +16,13 @@ knitr:
 
 In der Übung von @sec-infovis1 habt ihr bereits die Grafiken aus dem Blogbeitrag von @kovic2014 rekonstruiert. Nun werden wir die Grafiken mit dem Fliesstext aus dem Beitrag ergänzen und daraus einen PDF-Bericht machen.
 
-<!-- Wer darüber hinaus mehr über Quarto lernen möchte, findet unter @wickham2023 ([Kapitel Quarto](https://r4ds.hadley.nz/quarto)) sowie auf der [Quarto Webseite](https://quarto.org/docs/get-started/hello/rstudio.html) mehr darüber. -->
+<!-- Wer darüber hinaus mehr über Quarto lernen möchte, findet unter @wickham2023 ([Kapitel Quarto](https://r4ds.hadley.nz/quarto)) sowie auf der [Quarto Webseite](https://quarto.org/docs/get-started/hello/rstudio.html) mehr darüber.
 
 
 ::: {.callout-important}
 Wie erwähnt werdet ihr in der praktischen Prüfung euren Code ebenfalls mit Quarto erstellen und als PDF kompilieren.
 :::
-
+-->
 
 ## Aufgabe 1
 
@@ -125,13 +125,14 @@ theme_set(theme_classic())
 Rendere das Dokument erneut und schau dir den Output an.
 
 
+<!--
+
 ## ⚠ Abgabe 
 
 :::{.callout-important}
 Zippe nun deinen Projektordner (mit dem Quarto-File und dem PDF-Output) und gib es auf [Moodle](https://moodle.zhaw.ch/mod/assign/view.php?id=1753877) ab.
 :::
 
-
-
+-->
 
 
