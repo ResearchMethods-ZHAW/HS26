@@ -85,7 +85,7 @@ Lösung: month() aus lubridate erwartet, dass die Eingabe ein Datum/Zeit-Objekt 
 
 ## Aufgabe 3
 
-Wieso erscheint die Error-Meldung "Fehler: Objekt 'weather' nicht gefunden"? 
+Wieso erscheint beim Ausführen des untenstehenden Codes die Error-Meldung "Fehler: Objekt 'weather' nicht gefunden"? 
 
 Stimmt die Format-Schablone für as.POSIXct? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone.
 Gibt dazu ein Wert-Beispiel aus der Spalte time. Passe den Code an.
@@ -111,7 +111,7 @@ wetter |>
     )
 
 ```
-:::
+
 
 ## Aufgabe 4
 

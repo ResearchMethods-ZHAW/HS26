@@ -30,7 +30,7 @@ Aber wie? Ganze Reihe von verschiedenen Methoden, wir zeigen hier was für diese
 
 ## Debugging in R/RStudio
 
-- Error-Messages verstehen
+- Error-Messages lesen und versuchen, zu entschlüsseln
 - R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
 - R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
 
