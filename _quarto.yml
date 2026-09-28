@@ -48,13 +48,13 @@ book:
     - part: PrePro.qmd
       chapters:
       - prepro/Prepro1_Vorbereitung.qmd
-    - --
-    - prepro/Prepro1_Demo.qmd
-    - prepro/Prepro1_Uebung.qmd
-    - --
-    - prepro/Prepro2_Demo.qmd
-    - prepro/Prepro2_Uebung_A.qmd
-    - --
+      - --
+      - prepro/Prepro1_Demo.qmd
+      - prepro/Prepro1_Uebung.qmd
+      - --
+      - prepro/Prepro2_Demo.qmd
+      - prepro/Prepro2_Uebung_A.qmd
+      - --
     # - prepro/Prepro3_Demo.qmd
     # - prepro/Prepro3_Uebung.qmd
     # - --
