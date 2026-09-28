@@ -834,8 +834,8 @@ simulationOutput <- simulateResiduals(fittedModel = nb_quad_model, n = 1000)
 plot(simulationOutput)
 testDispersion(simulationOutput)
 testZeroInflation(simulationOutput)
-car::vif(nb_quad_model)
-mean(car::vif(nb_quad_model))
+# car::vif(nb_quad_model)
+# mean(car::vif(nb_quad_model))
 
 
 # Interaktion testen, da Ferien und / oder Wochentage einen Einfluss auf
@@ -879,7 +879,7 @@ exp_model <- glmmTMB((Total + 1) ~ Jahr + Monat + Ferien + Phase + Wochenende +
                            (1 | Tage_bis_Neujahr), 
                          family = Gamma(link = "log"), data = umwelt)
 
-summary(exp_model, dispersion = 1)
+summary(exp_model)
 simulationOutput <- simulateResiduals(fittedModel = nb_quad_model, n = 1000)
 plot(simulationOutput)
 testDispersion(simulationOutput)
@@ -933,8 +933,8 @@ testZeroInflation(simulationOutput)
 # auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
-car::vif(nb_model_zi)
-mean(car::vif(nb_model_zi))
+# car::vif(nb_model_zi)
+# mean(car::vif(nb_model_zi))
 
 
 # erklaerte varianz
@@ -981,7 +981,7 @@ plot(Tages_Model_quad_Jahr_log10, type = c("p", "smooth"))
 qqmath(Tages_Model_quad_Jahr_log10)
 dispersion_glmer(Tages_Model_quad_Jahr_log10)
 r.squaredGLMM(Tages_Model_quad_Jahr_log10)
-car::vif(Tages_Model_nb_quad)
+# car::vif(Tages_Model_nb_quad)
 # lmer zeigt keine p-Werte, da diese schwer zu berechnen sind. Alternative Packages berechnen diese
 # anhand der Teststatistik. Achtung: die Werte sind wahrscheinlich nicht präzise!
 # https://stat.ethz.ch/pipermail/r-sig-mixed-models/2008q2/000904.html
@@ -997,7 +997,7 @@ plot(Tages_Model_quad_Jahr_ln, type = c("p", "smooth"))
 qqmath(Tages_Model_quad_Jahr_ln)
 dispersion_glmer(Tages_Model_quad_Jahr_ln)
 r.squaredGLMM(Tages_Model_quad_Jahr_ln)
-car::vif(Tages_Model_nb_quad)
+# car::vif(Tages_Model_nb_quad)
 
 # --> Die Modellvoraussetzungen sind nicht deutlich besser erfüllt jetzt wo wir Transformationen
 # benutzt haben. log10 und ln performen beide etwa gleich.
@@ -1017,9 +1017,9 @@ car::vif(Tages_Model_nb_quad)
 
 # 4.6 Exportiere die Modellresultate ####
 # (des besten Modells)
-tab_model(nb_int_model_zi, transform = NULL, show.se = TRUE)
-tab_model(nb_red_model_night, transform = NULL, show.se = TRUE)
-tab_model(nb_model_duskdawn_zi, transform = NULL, show.se = TRUE)
+# tab_model(nb_int_model_zi, transform = NULL, show.se = TRUE)
+# tab_model(nb_red_model_night, transform = NULL, show.se = TRUE)
+# tab_model(nb_model_duskdawn_zi, transform = NULL, show.se = TRUE)
 
 
 # The marginal R squared values are those associated with your fixed effects,

@@ -114,7 +114,7 @@ book:
       - fallstudie_s/0_Vorbereitung.qmd
       - --
       - fallstudie_s/1_Einführung.qmd
-    #   - fallstudie_s/2_Besuchermonitoring.qmd
+      - fallstudie_s/2_Besuchermonitoring.qmd
     #   - --
     #   - fallstudie_s/3_Aufgabenstellung_WPZ.qmd
     #   - --
