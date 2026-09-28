@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Vorbereitung – Research Methods HS26</title>
+<title>Prepro 2: Demo – Research Methods HS26</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../prepro/Prepro1_Demo.html" rel="next">
-<link href="../PrePro.html" rel="prev">
+<link href="../prepro/Prepro2_Uebung_A.html" rel="next">
+<link href="../prepro/Prepro1_Uebung.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -112,6 +112,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../misc/custom.css">
 </head>
@@ -287,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Vorbereitung.html"><span class="chapter-title">Vorbereitung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../prepro/Prepro2_Demo.html"><span class="chapter-title">Prepro 2: Demo</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -334,14 +363,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../PrePro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-Processing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vorbereitung</span></a>
+  <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
   </div>
 </li>
       </ul>
@@ -360,7 +389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Demo</span></a>
+  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prepro 2: Demo</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -401,16 +430,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#sec-piping" id="toc-sec-piping" class="nav-link active" data-scroll-target="#sec-piping">Piping</a></li>
+  <li><a href="#joins" id="toc-joins" class="nav-link" data-scroll-target="#joins">Joins</a>
+  <ul class="collapse">
+  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner Join</a></li>
+  <li><a href="#left-join" id="toc-left-join" class="nav-link" data-scroll-target="#left-join">Left Join</a></li>
+  <li><a href="#right-join" id="toc-right-join" class="nav-link" data-scroll-target="#right-join">Right Join</a></li>
+  <li><a href="#full-join" id="toc-full-join" class="nav-link" data-scroll-target="#full-join">Full Join</a></li>
+  <li><a href="#unterschiedliche-attributsnamen" id="toc-unterschiedliche-attributsnamen" class="nav-link" data-scroll-target="#unterschiedliche-attributsnamen">Unterschiedliche Attributsnamen</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Vorbereitung.html"><span class="chapter-title">Vorbereitung</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-prepro-vorbereitung" class="quarto-section-identifier"><span class="chapter-title">Vorbereitung</span></span></h1>
+<h1 class="title"><span class="chapter-title">Prepro 2: Demo</span></h1>
 </div>
 
 
@@ -427,6 +470,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="sec-piping" class="level2">
+<h2 class="anchored" data-anchor-id="sec-piping">Piping</h2>
+<p>Gegeben ist ein <em>character vector</em> (<code>temperature</code>) mit Temperaturwerten in Fahrenheit. Das Ziel ist es, die mittlere Temperatur in Grad Celsius zu berechnen.</p>
+<p><span class="math display">\[°C = (F - 32) \times \frac{5}{9}\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"111"</span>, <span class="st">"150"</span>, <span class="st">"123"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Um einen character vector in Zahlen umzuwandeln, brauchen wir die Funktion <code>as.numeric</code>. Für die Subtraktion und Multiplikation brauchen wir zur Veranschaulichung die entsprechenden Funktionen <code>subtract</code> und <code>multiply_by</code> aus der Library <code>magrittr</code>.</p>
+<p>Übersetzt in <code>R</code>-Code entsteht folgende Operation:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"magrittr"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(temperature)      <span class="co"># 1. Konvertierung in Numeric</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">subtract</span>(out, <span class="dv">32</span>)            <span class="co"># 2. Subtraktion von 32</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">multiply_by</span>(out, <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>)        <span class="co"># 3. Multiplikation mit 5/9</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">mean</span>(out)                    <span class="co"># 4. Berechnung des Mittelwertes</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>out</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 53.33333</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Möchte man das Zwischenspeichern vermeiden, entsteht eine komplexe, unleserliche Operation</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">multiply_by</span>(<span class="fu">subtract</span>(<span class="fu">as.numeric</span>(temperature), <span class="dv">32</span>), <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Um den Code sowohl leserlich zu halten als auch das Abspeichern von Zwischenergebnissen zu vermeiden, kann Piping verwendet werden: <em>Mit “piping” wird der Output der einen Funktion der erste Parameter der darauf folgenden Funktion.</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="sc">|&gt;</span>                  </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>() <span class="sc">|&gt;</span>               <span class="co"># 1. Konvertierung in Numeric</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subtract</span>(<span class="dv">32</span>) <span class="sc">|&gt;</span>               <span class="co"># 2. Subtraktion von 32</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>) <span class="sc">|&gt;</span>           <span class="co"># 3. Multiplikation mit 5/9</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()                        <span class="co"># 4. Berechnung des Mittelwertes</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 53.33333</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -437,41 +513,118 @@ Wichtig
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Die häufigste Verwirrung von Einsteigern liegt in der Verwendung von Packages. Dieses Kapitel unbedingt vormerken und bei Bedarf nochmal lesen.</p>
+<ul>
+<li>der <code>|&gt;</code> Pipe Operator wurde erst in R <code>4.1</code> eingeführt</li>
+<li>Neben dem <em>base R</em> Pipe Operator existiert im Package <code>magrittr</code> ein sehr ähnlicher<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Pipe Operator: <code>%&gt;%</code></li>
+<li>Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein.</li>
+<li>Welcher Pipe Operator <code>|&gt;</code> oder <code>%&gt;%</code> mit der obigen Tastenkombination eingefügt wird, kann über die RStudio Settings <code>Tools</code> → <code>Global Options</code> → <code>Code</code> → Häkchen setzen bei <code>Use native pipe operator</code></li>
+<li>Wir verwenden die base-R Pipe <code>|&gt;</code></li>
+</ul>
 </div>
 </div>
-<p>R ist ohne Zusatzpakete, sogenannte “Packages” nicht mehr denkbar. Die allermeisten Packages werden auf <a href="https://cran.r-project.org/">CRAN</a> gehostet und können leicht mittels <code>install.packages()</code> installiert werden. Allerdings prüft R dabei nicht, ob das Package bereits vorhanden ist oder nicht: Auch bereits installierte Packages werden <em>nochmal</em> installiert, was unter Umständen ziemlich unpraktisch sein kann.</p>
+</section>
+<section id="joins" class="level2">
+<h2 class="anchored" data-anchor-id="joins">Joins</h2>
+<p>Wie ihr in der Vorlesung gelernt habt, erlauben Joins das Verbinden von Daten in unterschiedichen Tabellen über gemeinsame Schlüsselattribute. Die unterschiedlichen Join-Formen (inner, left, right, full join) bestimmen dabei, wie die Daten verbunden werden sollen. Hier wollen wir die unterschiedlichen Join-Formen in R genauer anschauen:</p>
+<p>Wir benutzen dafür dasselbe Beispiel wie in der Vorlesung. Wir wollen den Ortnamen von Studierenden (gespeichert im Dataframe <code>ortschaften</code>) mit verschiedenen Joins via dem Schlüsselattribut <code>PLZ</code> an den Dateframe <code>studierende</code> knüpfen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden packages klassischerweise installiert:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lubridate"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden sie in die aktuelle Session geladen:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nun kann eine Funktion aus dem geladenen Package verwendet werden</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (die Funktion "now" war vorher nicht verfügbar)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>studierende <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Matrikel_Nr =</span> <span class="fu">c</span>(<span class="dv">100002</span>, <span class="dv">100003</span>, <span class="dv">200003</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Studi =</span> <span class="fu">c</span>(<span class="st">"Patrick"</span>, <span class="st">"Manuela"</span>, <span class="st">"Eva"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">PLZ =</span> <span class="fu">c</span>(<span class="dv">8006</span>, <span class="dv">8001</span>, <span class="dv">8820</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>studierende</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi  PLZ</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick 8006</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      100003 Manuela 8001</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      200003     Eva 8820</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ortschaften <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">PLZ =</span> <span class="fu">c</span>(<span class="dv">8003</span>, <span class="dv">8006</span>, <span class="dv">8810</span>, <span class="dv">8820</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ortsname =</span> <span class="fu">c</span>(<span class="st">"Zürich"</span>, <span class="st">"Zürich"</span>, <span class="st">"Horgen"</span>, <span class="st">"Wädenswil"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ortschaften</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">##    PLZ  Ortsname</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 8003    Zürich</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 8006    Zürich</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 8810    Horgen</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 8820 Wädenswil</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Alternativ zu <code>install.packages</code> können Packages auch mittels der Funktion <code>ipak</code> installiert werden. In der Funktion wird zuerst geprüft, ob das Package vorhanden ist. Ist das jeweilige Package vorhanden, wird auf eine Installation verzichtet.</p>
+<section id="inner-join" class="level3">
+<h3 class="anchored" data-anchor-id="inner-join">Inner Join</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden packages mit "ipak" installiert:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(studierende, ortschaften, <span class="at">by =</span> <span class="st">"PLZ"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi  PLZ  Ortsname</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick 8006    Zürich</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      200003     Eva 8820 Wädenswil</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Im Rahmen von Prepro 1 - 4 werden wir folgende Packages brauchen: <code>dplyr</code>, <code>ggplot2</code>, <code>lubridate</code>, <code>readr</code>, <code>tidyr</code> und <code>magrittr</code>. Wir empfehlen, diese bereits <em>vor</em> der ersten Lektion mit <code>ipak</code> zu installieren (s.u.).</p>
+</section>
+<section id="left-join" class="level3">
+<h3 class="anchored" data-anchor-id="left-join">Left Join</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"lubridate"</span>, <span class="st">"readr"</span>, <span class="st">"tidyr"</span>, <span class="st">"magrittr"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(studierende, ortschaften, <span class="at">by =</span> <span class="st">"PLZ"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi  PLZ  Ortsname</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick 8006    Zürich</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      100003 Manuela 8001      &lt;NA&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      200003     Eva 8820 Wädenswil</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="right-join" class="level3">
+<h3 class="anchored" data-anchor-id="right-join">Right Join</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(studierende, ortschaften, <span class="at">by =</span> <span class="st">"PLZ"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi  PLZ  Ortsname</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick 8006    Zürich</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      200003     Eva 8820 Wädenswil</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3          NA    &lt;NA&gt; 8003    Zürich</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          NA    &lt;NA&gt; 8810    Horgen</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="full-join" class="level3">
+<h3 class="anchored" data-anchor-id="full-join">Full Join</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(studierende, ortschaften, <span class="at">by =</span> <span class="st">"PLZ"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi  PLZ  Ortsname</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick 8006    Zürich</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      100003 Manuela 8001      &lt;NA&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      200003     Eva 8820 Wädenswil</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          NA    &lt;NA&gt; 8003    Zürich</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          NA    &lt;NA&gt; 8810    Horgen</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="unterschiedliche-attributsnamen" class="level3">
+<h3 class="anchored" data-anchor-id="unterschiedliche-attributsnamen">Unterschiedliche Attributsnamen</h3>
+<p>Häufig kommt es vor, dass in den Dataframes, welche miteinander verknüpft werden sollen, die Attributsnamen der Schlüsselattribute nicht übereinstimmen. Im obrigen Beispiel heisst das Schlüsselattribut in beiden Dataframes <code>PLZ</code>. Nun heisst im Dataframe <code>studierende</code> das Schlüsselattribut <code>Wohnort</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>studierende <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Matrikel_Nr =</span> <span class="fu">c</span>(<span class="dv">100002</span>, <span class="dv">100003</span>, <span class="dv">200003</span>),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Studi =</span> <span class="fu">c</span>(<span class="st">"Patrick"</span>, <span class="st">"Manuela"</span>, <span class="st">"Pascal"</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Wohnort =</span> <span class="fu">c</span>(<span class="dv">8006</span>, <span class="dv">8001</span>, <span class="dv">8006</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In R kann dies dann folgendermassen umgesetzt werden:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(studierende, ortschaften, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Wohnort"</span> <span class="ot">=</span> <span class="st">"PLZ"</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrikel_Nr   Studi Wohnort Ortsname</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      100002 Patrick    8006   Zürich</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      100003 Manuela    8001     &lt;NA&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      200003  Pascal    8006   Zürich</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>siehe <a href="https://stackoverflow.com/q/67633022/4139249" class="uri">https://stackoverflow.com/q/67633022/4139249</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -940,13 +1093,13 @@ Wichtig
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../PrePro.html" class="pagination-link" aria-label="Pre-Processing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pre-Processing</span>
+      <a href="../prepro/Prepro1_Uebung.html" class="pagination-link" aria-label="PrePro 1: Übung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">PrePro 1: Übung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../prepro/Prepro1_Demo.html" class="pagination-link" aria-label="Prepro 1: Demo">
-        <span class="nav-page-text"><span class="chapter-title">Prepro 1: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../prepro/Prepro2_Uebung_A.html" class="pagination-link" aria-label="Prepro 2: Übung">
+        <span class="nav-page-text"><span class="chapter-title">Prepro 2: Übung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

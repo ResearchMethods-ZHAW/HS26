@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Vorbereitung – Research Methods HS26</title>
+<title>Prepro 4: Debugging Übung – Research Methods HS26</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../prepro/Prepro1_Demo.html" rel="next">
-<link href="../PrePro.html" rel="prev">
+<link href="../fallstudie_s/0_Vorbereitung.html" rel="next">
+<link href="../prepro/Prepro4_Debugging_Demo.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Vorbereitung.html"><span class="chapter-title">Vorbereitung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../prepro/Prepro4_Debugging_Uebung.html"><span class="chapter-title">Prepro 4: Debugging Übung</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -334,14 +334,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../PrePro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-Processing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Vorbereitung</span></a>
+  <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
   </div>
 </li>
       </ul>
@@ -369,6 +369,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro4_Debugging_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 4: Debugging Demo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro4_Debugging_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prepro 4: Debugging Übung</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
@@ -401,16 +411,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
+  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
+  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
+  <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Vorbereitung.html"><span class="chapter-title">Vorbereitung</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-prepro-vorbereitung" class="quarto-section-identifier"><span class="chapter-title">Vorbereitung</span></span></h1>
+<h1 class="title"><span class="chapter-title">Prepro 4: Debugging Übung</span></h1>
 </div>
 
 
@@ -427,51 +447,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Wichtig
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Die häufigste Verwirrung von Einsteigern liegt in der Verwendung von Packages. Dieses Kapitel unbedingt vormerken und bei Bedarf nochmal lesen.</p>
-</div>
-</div>
-<p>R ist ohne Zusatzpakete, sogenannte “Packages” nicht mehr denkbar. Die allermeisten Packages werden auf <a href="https://cran.r-project.org/">CRAN</a> gehostet und können leicht mittels <code>install.packages()</code> installiert werden. Allerdings prüft R dabei nicht, ob das Package bereits vorhanden ist oder nicht: Auch bereits installierte Packages werden <em>nochmal</em> installiert, was unter Umständen ziemlich unpraktisch sein kann.</p>
+<p>Lade die folgenden Libraries:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden packages klassischerweise installiert:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lubridate"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden sie in die aktuelle Session geladen:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nun kann eine Funktion aus dem geladenen Package verwendet werden</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (die Funktion "now" war vorher nicht verfügbar)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Alternativ zu <code>install.packages</code> können Packages auch mittels der Funktion <code>ipak</code> installiert werden. In der Funktion wird zuerst geprüft, ob das Package vorhanden ist. Ist das jeweilige Package vorhanden, wird auf eine Installation verzichtet.</p>
+<section id="aufgabe-1" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
+<p>Führe diesen Code aus und schau dir den Output an:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># so werden packages mit "ipak" installiert:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"datasets/prepro/weather_prepro4.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wetter_prec <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"datasets/prepro/weather_prepro4_precipitation.csv"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Im Rahmen von Prepro 1 - 4 werden wir folgende Packages brauchen: <code>dplyr</code>, <code>ggplot2</code>, <code>lubridate</code>, <code>readr</code>, <code>tidyr</code> und <code>magrittr</code>. Wir empfehlen, diese bereits <em>vor</em> der ersten Lektion mit <code>ipak</code> zu installieren (s.u.).</p>
+<p>Welcher Output sieht falsch aus und warum? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach <strong>zwei</strong> verschiedene Lösungen.</p>
+<p>Gibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?</p>
+<p>Fixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.</p>
+</section>
+<section id="aufgabe-2" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
+<p>Verwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"lubridate"</span>, <span class="st">"readr"</span>, <span class="st">"tidyr"</span>, <span class="st">"magrittr"</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">jahr =</span> <span class="fu">year</span>(time))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Erkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.</p>
+</section>
+<section id="aufgabe-3" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
+<p>Welche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen und frage eine KI deiner Wahl nach Debugging-Strategien.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(time), <span class="at">format =</span> <span class="st">"%Y%m%d"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">jahr =</span> <span class="fu">year</span>(time)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Stimmt die Format-Schablone für <code>as.POSIXct()</code>? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte <code>time</code> mit. Passe den Code an und überprüfe den Output.</p>
+</section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<p>Nun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wetter_max <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">group_by</span>(jahr) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min_temp =</span> <span class="fu">min</span>(tre200h0, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">min_temp_F =</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span> <span class="sc">*</span> min_temp <span class="sc">+</span> <span class="dv">32</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Schau dir <code>wetter_max</code> genau an und überlege dir, ob die Werte in <code>min_temp</code> und <code>min_temp_F</code> stimmen können. Frage zur Sicherheit die KI, indem du den Code in einen Prompt verpackst.</p>
+</section>
+<section id="aufgabe-5" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
+<p>Die beiden Datensätze <code>wetter</code> und <code>wetter_max</code> sollen nun verbundenüber einen geeignete Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(wetter_max, wetter_prec, <span class="at">by =</span> <span class="st">"jahr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -940,13 +972,13 @@ Wichtig
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../PrePro.html" class="pagination-link" aria-label="Pre-Processing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pre-Processing</span>
+      <a href="../prepro/Prepro4_Debugging_Demo.html" class="pagination-link" aria-label="Prepro 4: Debugging Demo">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Prepro 4: Debugging Demo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../prepro/Prepro1_Demo.html" class="pagination-link" aria-label="Prepro 1: Demo">
-        <span class="nav-page-text"><span class="chapter-title">Prepro 1: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../fallstudie_s/0_Vorbereitung.html" class="pagination-link" aria-label="Vorbereitung">
+        <span class="nav-page-text"><span class="chapter-title">Vorbereitung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
