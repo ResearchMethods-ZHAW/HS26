@@ -1,7 +1,7 @@
 ---
 execute:
   echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -27,7 +27,7 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 
 # .##################################################################################
 # Daten(vor)verarbeitung Fallstudie WPZ  ####
-# Modul Research Methods, HS25. Autor/in ####
+# Modul Research Methods, HS26. Autor/in ####
 # .##################################################################################
 ```
 
@@ -124,7 +124,7 @@ str(df_gesamt)
 
 ## Aufgabe 1
 
-- 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-5) 
+- 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
 - 1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann
   - → Befehle mutate und rename, mit pipes (alt: `%>%`, neu: `|>`) in einem Schritt möglich
 
@@ -211,7 +211,7 @@ df_with_LIDAR <- left_join(df_gesamt, df_lidar, join_by(X == x, Y == y))
 
 ## Aufgabe 4
 
-Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen gegen die Umweltvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). Korrelieren die Feldaufnahmen und die LiDAR basierte Waldstruktur?
+Scatterplot der korrespondierenden Umweltvariablen aus den Felderhebungen gegen die Umweltvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). Wie gut korrelieren die Feldaufnahmen und die LiDAR basierte Waldstruktur?
 
 Im LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung  2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen. 
 
@@ -230,38 +230,6 @@ ggplot(df_with_LIDAR, aes(DG_us_2022, DG_Strauchschicht, color = team)) +
   geom_abline(slope = 100, intercept = 0, linetype = "dashed", color = "red")
 
 
-write_delim(df_with_LIDAR, "datasets/fallstudie_n/df_with_lidar_2025.csv", delim = ";")
+write_delim(df_with_LIDAR, "datasets/fallstudie_n/df_with_lidar_2026.csv", delim = ";")
 ```
 
-## (Zusatz-)Aufgabe 5
-
-Herunterladen der Felderhebungsdaten von Moodle aus den vergangenen Jahren. Zusammenführen aller Datensätze. Explorative Datenanalyse zu den Veränderungen der Erhebungen ground truth LiDAR über die Zeit und zum Zusammenhang mit den LiDAR-basierten Waldstrukturvariablen aus den zwei Befliegungszeiträumen (2014 und 2022)
-
-!Achtung! es sind nicht alle Jahre gleich viele Teams an den Erhebungen beteiligt gewesen, daher gibt es nicht für alle Teams in allen Jahren Daten.
-
-```{r}
-
-files <- list.files("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_vergangene_Jahre", pattern = "*.csv", full.names = TRUE)
-
-
-df_ground_truth <- files %>%
-  map_df(~ read_delim(.x, delim = ";") %>% 
-           mutate(Jahr = gsub("df_ground_truth_|\\.csv$", "", basename(.x))))
-
-
-df_without_LIDAR <- df_with_LIDAR %>% dplyr::select(KreisID:team) %>% mutate(Jahr = "2025")
-
-df_ground_truth <- bind_rows(df_without_LIDAR, df_ground_truth)
-
-df_ground_truth_with_LIDAR <- left_join(df_ground_truth, df_lidar, join_by(X == x, Y == y))
-
-df_ground_truth_with_LIDAR %>%
-  ggplot(aes(KreisID, DG_Strauchschicht, color = as.numeric(Jahr), size = as.numeric(Jahr))) +
-  facet_wrap(~team, ncol = 1) +
-  geom_point() +
-  scale_color_viridis_c(option = "plasma") +  
-  scale_size_continuous(range = c(1, 3)) +  
-  labs(color = "Year", shape = "Year", size = "Year") +  
-  theme_minimal()
-
-```
