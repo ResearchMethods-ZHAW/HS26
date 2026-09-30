@@ -1,6 +1,6 @@
 ---
 execute:
-  echo: true   # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
   output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
@@ -112,7 +112,7 @@ df_team5 <- df_team5 %>%
 # Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz
 # verbinden. Ist der Output zufriedenstellend?
 
-df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
+df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)
 str(df_gesamt)
 
 ```
@@ -190,7 +190,7 @@ Zusammenführen der Teildatensätze zu einem Datensatz
 
 ```{r}
 #| eval: true
-df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
+df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)
 ```
 
 ## Aufgabe 3
