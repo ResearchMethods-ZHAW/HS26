@@ -9,7 +9,7 @@ knitr:
     collapse: true
 ---
 
-# Pre-Processing
+# Datenverarbeitung Feldaufnahmen
 
 ## Projektaufbau RStudio-Projekte
 
@@ -79,12 +79,13 @@ library("purrr")
 
 ## Daten laden
 
-Herunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.
+1. Herunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip)
+2. Einlesen, Sichtung der Datensätze und der Datentypen.
 
-Verschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.
+*Verschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.*
 
 ```{r}
-#| echo: true
+#| echo: false
 #| code-fold: false
 
 df_team1 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebungen_GruppeTürkis.csv", delim = ";") 
@@ -120,9 +121,10 @@ str(df_gesamt)
 
 ## Aufgabe 1
 
-- 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
-- 1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann
-  - → Befehle mutate und rename, mit pipes (alt: `%>%`, neu: `|>`) in einem Schritt möglich
+1. Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
+2. Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann.
+
+→ Zb. mit den befehlen `mutate` und `rename` & mit pipes (alt: `%>%`, neu: `|>`) in einem Schritt möglich
 
 ```{r}
 #| eval: true
@@ -181,12 +183,12 @@ df_team5 <- df_team5 |>
 
 ```
 
-Beim Erfassen und Dokumentieren von Daten aus verschiedenen Quellen sollte darauf geachtet werden, dass dies möglichst einheitlich passiert (Dateiformate, Spalten, Bezeichnungen, Datentypen, usw.), damit kann man sich einiges an Arbeit ersparen. Hilfreich ist in diesem Zusammenhang immer ein klares und sauberes Feldprotokoll resp. eine Vorlage für die Erfassung der Daten zu erstellen.
+*Beim Erfassen und Dokumentieren von Daten aus verschiedenen Quellen sollte darauf geachtet werden, dass dies möglichst einheitlich passiert (Dateiformate, Spalten, Bezeichnungen, Datentypen, usw.), damit kann man sich einiges an Arbeit ersparen. Hilfreich ist in diesem Zusammenhang immer ein klares und sauberes Feldprotokoll resp. eine Vorlage für die Erfassung der Daten zu erstellen.*
 
 
 ## Aufgabe 2
 
-Zusammenführen der Teildatensätze zu einem Datensatz
+Zusammenführen der Teildatensätze aller Gruppen zu einem Gesamtdatensatz mit einheitlichen Spaltennamen
 
 ```{r}
 #| eval: true
@@ -197,8 +199,10 @@ df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)
 
 Verbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der LIDAR Variablen in den Reh-Kreisen (Reh_Kreise_LIDAR_Waldstruktur_261013.csv). 
 
+→ Welche Art von join?<br>
+→ Welche Spalten zum Verbinden (join_by()) der beiden Datensätze?
+
 **Ziel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us_2022, DG_os_2022) aus dem LIDAR-Waldstruktur-Datensatz.** 
---> Welche Art von join? Welche Spalten zum Verbinden (join_by()) der Datensätze
 
 ```{r}
 #| eval: true
@@ -214,7 +218,9 @@ df_with_LIDAR <- left_join(df_gesamt, df_lidar, join_by(X == x, Y == y))
 
 ## Aufgabe 4
 
-Scatterplot der Waldstrukturvariablen aus den Felderhebungen gegen die entsprechenden Waldstrukturvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). Wie gut korrelieren die Daten der Feldaufnahmen mit der LiDAR basierten Waldstruktur?
+Scatterplot der Waldstrukturvariablen aus den Felderhebungen gegen die entsprechenden Waldstrukturvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). 
+
+→ Wie gut korrelieren die Daten der Feldaufnahmen mit der LiDAR basierten Waldstruktur?
 
 Im LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung 2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen. 
 
