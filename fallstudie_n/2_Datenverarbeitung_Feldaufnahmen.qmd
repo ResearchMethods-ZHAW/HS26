@@ -216,7 +216,7 @@ df_with_LIDAR <- left_join(df_gesamt, df_lidar, join_by(X == x, Y == y))
 
 Scatterplot der Waldstrukturvariablen aus den Felderhebungen gegen die entsprechenden Waldstrukturvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen). Wie gut korrelieren die Daten der Feldaufnahmen mit der LiDAR basierten Waldstruktur?
 
-Im LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung  2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen. 
+Im LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung 2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen. 
 
 
 ```{r}
