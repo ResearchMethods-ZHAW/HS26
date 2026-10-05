@@ -33,7 +33,7 @@ x
 typeof(x)
 ```
 
-Statt `<-` kann auch `=` verwendet werden. Dies funktioniert aber nicht in allen Situationen, und ist zudem leicht mit `==` zu verwechseln.
+Statt `<-` kann auch `=` verwendet werden, diese Notation ist aber leicht mit `==` zu verwechseln.
 
 ```{r}
 y = 7.3

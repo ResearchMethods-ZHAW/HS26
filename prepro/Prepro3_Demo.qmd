@@ -8,6 +8,7 @@ execute:
   echo: true
 ---
 
+
 # Prepro 3: Demo
 
 In dieser Demo möchten wir weitere Werkzeuge aus dem Tidyverse vorstellen und mit Beispielen illustrieren. Die tidyverse-Tools erleichtern den Umgang mit Daten erheblich und haben sich mittlerweile zu einem "must have" im Umgang mit Daten in R entwickelt.
