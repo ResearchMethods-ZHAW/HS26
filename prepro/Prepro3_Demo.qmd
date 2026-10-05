@@ -127,7 +127,7 @@ Zu `dplyr` gibt es etliche Tutorials online (siehe^[@wickham2017, Kapitel 10 / <
 
 ```{r}
 #| eval: !expr T
-# Maximal und minimal Temperatur pro Kalenderwoche
+# Maximal und minimal Temperatur pro Tag
 weather_summary <- wetter |>                # 1) nimm den Datensatz "wetter"
   filter(month == 1) |>                     # 2) filter auf den Monat Januar
   mutate(day = day(time)) |>                # 3) erstelle eine neue Spalte "day"
