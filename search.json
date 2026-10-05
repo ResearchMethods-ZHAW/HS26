@@ -47,7 +47,7 @@
     "href": "prepro/Prepro1_Uebung.html#arbeiten-mit-rstudio-project",
     "title": "PrePro 1: Übung",
     "section": "",
-    "text": "Festlegen der Working Directory ohne die Verwendung des expliziten Pfads (setwd()). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)\nAutomatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session\nFestlegen verschiedener projektspezifischer Optionen\nVerwendung von Versionsverwaltungssystemen (z.B. git)\n\n\n\n\n\n\n\nWichtig 3.1: Prüfungsrelevant\n\n\n\nDie korrekte Verwendung von RStudio Projects und relativen Pfaden wird an der praktischen Prüfung vorausgesetzt!",
+    "text": "Festlegen der Working Directory ohne die Verwendung des expliziten Pfads (setwd()). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)\nAutomatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session\nFestlegen verschiedener projektspezifischer Optionen\nVerwendung von Versionsverwaltungssystemen (z.B. git)",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>PrePro 1: Übung</span>"
