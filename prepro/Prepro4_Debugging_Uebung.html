@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PrePro 1: Übung – Research Methods HS26</title>
+<title>Prepro 4: Debugging Übung – Research Methods HS26</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../prepro/Prepro2_Demo.html" rel="next">
-<link href="../prepro/Prepro1_Demo.html" rel="prev">
+<link href="../fallstudie_s/0_Vorbereitung.html" rel="next">
+<link href="../prepro/Prepro4_Debugging_Demo.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Uebung.html"><span class="chapter-title">PrePro 1: Übung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../prepro/Prepro4_Debugging_Uebung.html"><span class="chapter-title">Prepro 4: Debugging Übung</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -334,11 +334,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../PrePro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pre-Processing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">PrePro 1: Übung</span></a>
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -369,6 +369,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="px-0"><hr class="sidebar-divider hi "></li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro4_Debugging_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 4: Debugging Demo</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro4_Debugging_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prepro 4: Debugging Übung</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
@@ -432,15 +442,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#arbeiten-mit-rstudio-project" id="toc-arbeiten-mit-rstudio-project" class="nav-link active" data-scroll-target="#arbeiten-mit-rstudio-project">Arbeiten mit RStudio “Project”</a></li>
-  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
   <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
   <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
   <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
   <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
-  <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
-  <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
-  <li><a href="#aufgabe-8" id="toc-aufgabe-8" class="nav-link" data-scroll-target="#aufgabe-8">Aufgabe 8</a></li>
   </ul>
 </nav>
     </div>
@@ -448,9 +454,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro1_Uebung.html"><span class="chapter-title">PrePro 1: Übung</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">PrePro 1: Übung</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
+<h1 class="title"><span class="chapter-title">Prepro 4: Debugging Übung</span></h1>
 </div>
 
 
@@ -467,592 +473,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="arbeiten-mit-rstudio-project" class="level2">
-<h2 class="anchored" data-anchor-id="arbeiten-mit-rstudio-project">Arbeiten mit RStudio “Project”</h2>
-<p>Wir empfehlen die Verwendung von “Projects” innerhalb von RStudio. RStudio legt für jedes Projekt dann einen Ordner an, in welchem die Projekt-Datei abgelegt wird (Dateiendung <code>.Rproj</code>). Sollen innerhalb des Projekts dann R-Skripts geladen oder erzeugt werden, werden diese dann auch im angelegten Ordner abgelegt. Mehr zu RStudio Projects findet ihr <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">hier</a>.</p>
-<p>Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:</p>
-<ul>
-<li>Festlegen der Working Directory ohne die Verwendung des expliziten Pfads (<code>setwd()</code>). Das ist sinnvoll, da sich dieser Pfad ändern kann (Zusammenarbeit mit anderen Usern, Ausführung des Scripts zu einem späteren Zeitpunkt)</li>
-<li>Automatisches Zwischenspeichern geöffneter Scripts und Wiederherstellung der geöffneten Scripts bei der nächsten Session</li>
-<li>Festlegen verschiedener projektspezifischer Optionen</li>
-<li>Verwendung von Versionsverwaltungssystemen (z.B. <em>git</em>)</li>
-</ul>
-<!-- :::{#imp-rstudio-projects .callout-important}
-
-## Prüfungsrelevant
-
-Die korrekte Verwendung von RStudio Projects und relativen Pfaden wird an der praktischen Prüfung vorausgesetzt!
-
-::: -->
-</section>
+<p>Lade die folgenden Libraries:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
-<p>Erstelle eine <code>data.frame</code> mit nachstehenden Daten.</p>
+<p>Führe diesen Code aus und schau dir den Output an:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tierart =</span> <span class="fu">c</span>(<span class="st">"Fuchs"</span>, <span class="st">"Bär"</span>, <span class="st">"Hase"</span>, <span class="st">"Elch"</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Anzahl =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gewicht =</span> <span class="fu">c</span>(<span class="fl">4.4</span>, <span class="fl">40.3</span>, <span class="fl">1.1</span>, <span class="dv">120</span>),</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Geschlecht =</span> <span class="fu">c</span>(<span class="st">"m"</span>, <span class="st">"f"</span>, <span class="st">"m"</span>, <span class="st">"m"</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Beschreibung =</span> <span class="fu">c</span>(<span class="st">"Rötlich"</span>, <span class="st">"Braun, gross"</span>, <span class="st">"klein, mit langen Ohren"</span>, <span class="st">"Lange Beine, Schaufelgeweih"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"datasets/prepro/weather_prepro4.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wetter_prec <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"datasets/prepro/weather_prepro4_precipitation.csv"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Tierart</th>
-<th style="text-align: right;">Anzahl</th>
-<th style="text-align: right;">Gewicht</th>
-<th style="text-align: left;">Geschlecht</th>
-<th style="text-align: left;">Beschreibung</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Fuchs</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4.4</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">Rötlich</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Bär</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">40.3</td>
-<td style="text-align: left;">f</td>
-<td style="text-align: left;">Braun, gross</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hase</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1.1</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">klein, mit langen Ohren</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Elch</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">120.0</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">Lange Beine, Schaufelgeweih</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>Welcher Output sieht falsch aus und warum? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach <strong>zwei</strong> verschiedene Lösungen.</p>
+<p>Gibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?</p>
+<p>Fixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.</p>
 </section>
 <section id="aufgabe-2" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
-<p>Was für Datentypen wurden in der letzten Aufgabe automatisch angenommen? Ermittle diese mit <code>str()</code> und prüfe, ob diese sinnvoll sind und wandle um wo nötig.</p>
+<p>Verwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 'data.frame':    4 obs. of  5 variables:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Tierart     : chr  "Fuchs" "Bär" "Hase" "Elch"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Anzahl      : num  2 5 1 3</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Gewicht     : num  4.4 40.3 1.1 120</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Geschlecht  : chr  "m" "f" "m" "m"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Beschreibung: chr  "Rötlich" "Braun, gross" "klein, mit langen Ohren" "Lange Beine, Schaufelgeweih"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(df<span class="sc">$</span>Anzahl)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "double"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Anzahl wurde als `double` interpretiert, ist aber eigentlich ein `integer`.</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Anzahl <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>Anzahl)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wetter <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">jahr =</span> <span class="fu">year</span>(time))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Erkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.</p>
 </section>
 <section id="aufgabe-3" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Nutze die Spalte <code>Gewicht</code>, um die Tiere in 3 Gewichtskategorien einzuteilen:</p>
-<ul>
-<li>leicht: &lt; 5kg</li>
-<li>mittel: 5 - 100 kg</li>
-<li>schwer: &gt; 100kg</li>
-</ul>
+<p>Welche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen und frage eine KI deiner Wahl nach Debugging-Strategien.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Gewichtsklasse[df<span class="sc">$</span>Gewicht <span class="sc">&gt;</span> <span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="st">"schwer"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Gewichtsklasse[df<span class="sc">$</span>Gewicht <span class="sc">&lt;=</span> <span class="dv">100</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Gewicht <span class="sc">&gt;</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">"mittel"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Gewichtsklasse[df<span class="sc">$</span>Gewicht <span class="sc">&lt;=</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">"leicht"</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(time), <span class="at">format =</span> <span class="st">"%Y%m%d"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">jahr =</span> <span class="fu">year</span>(time)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Das Resultat:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 9%">
-<col style="width: 10%">
-<col style="width: 14%">
-<col style="width: 36%">
-<col style="width: 19%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Tierart</th>
-<th style="text-align: right;">Anzahl</th>
-<th style="text-align: right;">Gewicht</th>
-<th style="text-align: left;">Geschlecht</th>
-<th style="text-align: left;">Beschreibung</th>
-<th style="text-align: left;">Gewichtsklasse</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Fuchs</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">4.4</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">Rötlich</td>
-<td style="text-align: left;">leicht</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Bär</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">40.3</td>
-<td style="text-align: left;">f</td>
-<td style="text-align: left;">Braun, gross</td>
-<td style="text-align: left;">mittel</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hase</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1.1</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">klein, mit langen Ohren</td>
-<td style="text-align: left;">leicht</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Elch</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">120.0</td>
-<td style="text-align: left;">m</td>
-<td style="text-align: left;">Lange Beine, Schaufelgeweih</td>
-<td style="text-align: left;">schwer</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>Stimmt die Format-Schablone für <code>as.POSIXct()</code>? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte <code>time</code> mit. Passe den Code an und überprüfe den Output.</p>
 </section>
 <section id="aufgabe-4" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Auf Moodle findest du ein Zip-File mit dem Namen <em>prepro.zip</em>. Lade das File herunter und entpacke es <strong>in deinem Projektordner</strong>. Importiere die Datei <code>weather.csv</code>. Falls du dafür das RStudio GUI verwendest, speichere den Import-Befehl in deinem R-Script ab. Bitte verwende einen relativen Pfad (also kein Pfad, der mit <code>C:/</code>, <code>~/</code> o.ä. beginnt).</p>
-<div id="nte-readr" class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hinweis&nbsp;3.1
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Wir nutzen <code>readr</code>, um CSV-Dateien zu importieren, und verwenden die Funktion <code>read_delim</code> (mit <em>underscore</em>) als alternative zu <code>read.csv</code> oder <code>read.delim</code> (mit <em>Punkt</em>). Das ist eine persönliche Präferenz<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, es ist euch überlassen, welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.</p>
-</div>
-</div>
+<p>Nun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/prepro/weather.csv"</span>, <span class="st">","</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wetter_max <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">group_by</span>(jahr) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min_temp =</span> <span class="fu">min</span>(tre200h0, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">min_temp_F =</span> <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span> <span class="sc">*</span> min_temp <span class="sc">+</span> <span class="dv">32</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: right;">time</th>
-<th style="text-align: right;">tre200h0</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010100</td>
-<td style="text-align: right;">-2.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010101</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010102</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010103</td>
-<td style="text-align: right;">-2.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010104</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010105</td>
-<td style="text-align: right;">-3.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010106</td>
-<td style="text-align: right;">-3.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010107</td>
-<td style="text-align: right;">-4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010108</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: right;">2000010109</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>Schau dir <code>wetter_max</code> genau an und überlege dir, ob die Werte in <code>min_temp</code> und <code>min_temp_F</code> stimmen können. Frage zur Sicherheit die KI, indem du den Code in einen Prompt verpackst.</p>
 </section>
 <section id="aufgabe-5" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
-<p>Schau dir die Rückmeldung von <code>read_delim()</code> an. Sind die Daten korrekt interpretiert worden?</p>
+<p>Die beiden Datensätze <code>wetter</code> und <code>wetter_max</code> sollen nun verbundenüber einen geeignete Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Spalte 'time' wurde als 'integer' interpretiert. Dabei handelt es</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sich offensichtlich um Zeitangaben.</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-<section id="aufgabe-6" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
-<p>Die Spalte <code>time</code> ist eine Datum/Zeitangabe im Format <code>JJJJMMTTHH</code> (siehe <em>meta.txt</em>). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (<code>POSIXct</code>) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit <code>as.POSIXct()</code> ein und spezifiziere sowohl <code>format</code> wie auch <code>tz</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tipp
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Wenn keine Zeitzone festgelegt wird, trifft <code>as.POSIXct()</code> eine Annahme (basierend auf <code>Sys.timezone()</code>). In unserem Fall handelt es sich aber um Werte in UTC (siehe <code>metadata.csv</code>)</li>
-<li><code>as.POSIXct</code> erwartet <code>character</code>: Wenn du eine Fehlermeldung hast, die <code>'origin' must be supplied</code> (o.ä) heisst, hast du der Funktion vermutlich einen <code>Numeric</code> übergeben.</li>
-</ul>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(wetter<span class="sc">$</span>time), <span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Die neue Tabelle sollte so aussehen</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="aufgabe-7" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
-<p>Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte <code>POSIXct</code>-Spalte sowie eine geeignete Funktion aus <code>lubridate</code>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>wochentag <span class="ot">&lt;-</span> <span class="fu">wday</span>(wetter<span class="sc">$</span>time, <span class="at">label =</span> T)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>kw <span class="ot">&lt;-</span> <span class="fu">week</span>(wetter<span class="sc">$</span>time)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-<th style="text-align: left;">wochentag</th>
-<th style="text-align: right;">kw</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="aufgabe-8" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-8">Aufgabe 8</h2>
-<p>Erstelle eine neue Spalte basierend auf den Temperaturwerten mit der Einteilung “kalt” (unter Null Grad) und “warm” (über Null Grad)</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>temp_kat[wetter<span class="sc">$</span>tre200h0 <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="st">"warm"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>temp_kat[wetter<span class="sc">$</span>tre200h0 <span class="sc">&lt;=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="st">"kalt"</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">stn</th>
-<th style="text-align: left;">time</th>
-<th style="text-align: right;">tre200h0</th>
-<th style="text-align: left;">wochentag</th>
-<th style="text-align: right;">kw</th>
-<th style="text-align: left;">temp_kat</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 00:00:00</td>
-<td style="text-align: right;">-2.6</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 01:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 02:00:00</td>
-<td style="text-align: right;">-3.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 03:00:00</td>
-<td style="text-align: right;">-2.4</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 04:00:00</td>
-<td style="text-align: right;">-2.5</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 05:00:00</td>
-<td style="text-align: right;">-3.0</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 06:00:00</td>
-<td style="text-align: right;">-3.7</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 07:00:00</td>
-<td style="text-align: right;">-4.4</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 08:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ABO</td>
-<td style="text-align: left;">2000-01-01 09:00:00</td>
-<td style="text-align: right;">-4.1</td>
-<td style="text-align: left;">Sa</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">kalt</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(wetter_max, wetter_prec, <span class="at">by =</span> <span class="st">"jahr"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>Vorteile von <code>read_delim</code> gegenüber <code>read.csv</code>: <a href="https://stackoverflow.com/a/60374974/4139249" class="uri">https://stackoverflow.com/a/60374974/4139249</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1522,13 +998,13 @@ Tipp
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../prepro/Prepro1_Demo.html" class="pagination-link" aria-label="Prepro 1: Demo">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Prepro 1: Demo</span></span>
+      <a href="../prepro/Prepro4_Debugging_Demo.html" class="pagination-link" aria-label="Prepro 4: Debugging Demo">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Prepro 4: Debugging Demo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../prepro/Prepro2_Demo.html" class="pagination-link" aria-label="Prepro 2: Demo">
-        <span class="nav-page-text"><span class="chapter-title">Prepro 2: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../fallstudie_s/0_Vorbereitung.html" class="pagination-link" aria-label="Vorbereitung">
+        <span class="nav-page-text"><span class="chapter-title">Vorbereitung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
