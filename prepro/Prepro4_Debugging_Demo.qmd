@@ -15,26 +15,33 @@ knitr:
 
 ## Was ist Debugging?
 
-Zuerst: Was ist ein Bug beim Programmieren? -> Fehler in einem Computercode, Syntaxfehler, Laufzeitfehler und logische Fehler; 
+Bevor wir näher darauf eingehen, was Debugging ist, müssen wir zuerst erklären, was ein **Bug** ist.
 
-funktionierender Code ≠ korrekter Code
+Was also ist ein Bug beim Programmieren?
 
-- Gute“ Fehler: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, das Problem zu erkennen. → Der Fehler macht sich bemerkbar. 
-- „Schlechte“ Fehler: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis. → Wir müssen den Fehler selbst erkennen. 
-- Die gefährlichsten Fehler: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis. → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
+Darunter versteht man einen Fehler in einem Computercode, Syntaxfehler, Laufzeitfehler und logische Fehler.
 
-Debugging: Entfernen dieses Fehlers
+Wer mehr wissen möchte, wie ein Insekt sich in die Computersprache eingeschlichen hat, kann sich [hier](https://www.si.edu/object/log-book-computer-bug%3Anmah_334663) informieren:
 
-Aber wie? Ganze Reihe von verschiedenen Methoden, wir zeigen hier was für diesen Kurs mit R/RStudio hilfreich ist.
+Welche Fehler kann es geben? 
+
+- "Gute" Fehler: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, den Fehler zu erkennen → Der Fehler macht sich bemerkbar. 
+- "Schlechte" Fehler: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis → Wir müssen den Fehler selbst erkennen. 
+- Die gefährlichsten Fehler: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
+
+Die letzten beide Punkte zeigen, dass ein funktionierender Code nicht zwingend auch ein korrekter Code ist.
+
+Was ist jetzt **Debugging**? Damit meint man das Entfernen von Code-Fehlern.
 
 
 ## Debugging in R/RStudio
 
-- Error-Messages lesen und versuchen, zu entschlüsseln
-- R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
-- R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
+Aber wie werden Bugs entfernt? Dafür gibt es eine ganze Reihe von verschiedenen Methoden. In diesem Block zeigen wir, welche Methoden in R/RStudio für diesen Kurs hilfreich sind.
 
-### Beispiel 1
+Wir werden diese anhand von Beispielen in dieser Demo durchgehen.
+
+Zuerst laden wir den Datensatz ein und kreieren die Convenience Variable `monat`.
+
 
 ```{r}
 library("readr")
@@ -45,6 +52,7 @@ wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "
 wetter$monat <- month(wetter$time)
 ```
 
+### Beispiel 1
 
 ```{r}
 #| eval: false
@@ -55,16 +63,26 @@ mean(wetter$tre200h0[wetter$monat == "März"])
 
 ```
 
-Bevor der Code ausgeführt wird:
+Bevor der Code ausgeführt wird, machen wir uns einige Gedanken:
 
-1. Fehler
-- Analyse: Rote Kreuze erscheinen, einen Teil ist grün eingefärbt
-- Vermutung: nicht geschlossene Klammern, Strings
-- Problem lokalisieren: Kreuze immer in dieser Zeile, wo Fehler beginnt
-- Fix 1: bei "Februar string schliessen
+Was wird in RStudio angezeigt?
+
+- Rote Kreuze erscheinen, einen Teil ist grün eingefärbt.
+
+Was könnte dazu führen?
+
+- Vermutung: nicht geschlossene Klammern, Strings.
+
+Wo liegt vermutlich der Fehler?
+
+- Kreuze erscheinen immer in dieser Zeile, wo der Fehler beginnt
+
+Wie löse ich diesen Fehler?
+
+- Bei `"Februar` String schliessen
 
 
-Jetzt Code laufen lassen
+Jetzt lassen wir den Code laufen.
 
 ```{r}
 #| output: true
@@ -75,11 +93,19 @@ mean(wetter$tre200h0[wetter$monat == "März"])
 
 ```
 
-2. Fehler:
-- Analyse: NaN als Ergebnis
-- Strategie: einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
+Was ist der Output dieses Codes?
 
-Welche Werte sind in der Spalte monat?
+- NaN als Ergebnis
+
+Wo liegt vermutlich der Fehler?
+
+- noch nicht eindeutig, vieles könnte dazu führen.
+
+Wie löse ich diesen Fehler?
+
+- einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
+
+Welche Werte sind in der Spalte `monat` enthalten?
 
 ```{r}
 #| output: true
@@ -88,9 +114,8 @@ wetter$monat[1:10]
 
 ```
 
-Monate sind als Integer codiert, nicht mit Namen, Fehler lokalisiert
+Das Problem ist, dass `monat` als Integer codiert ist und nicht mit Namen. Wir haben somit unseren Fehler lokalisiert und können in debuggen.
 
-Fix 2: 
 
 ```{r}
 wetter$monat == 1
@@ -98,7 +123,7 @@ wetter$monat == 2
 wetter$monat == 3
 ```
 
-Code noch einmal laufen lassen, Output betrachten
+Jetzt lassen wir den Code noch einmal laufen, damit wir den Output begutachten können.
 
 ```{r}
 #| output: true
@@ -109,13 +134,12 @@ mean(wetter$tre200h0[wetter$monat == 3])
 
 ```
 
-
 Jetzt sieht der Output gut sein.
 
 
 ### Beispiel 2
 
-Gleicher Datensatz von oben, gleiches Beispiel, aber mit Pipen
+Wir verwenden den gleichen Datensatz von oben und wollen die monatliche Durchschnittstemperatur berechnen.
 
 ```{r}
 library(dplyr)
@@ -127,16 +151,27 @@ wetter_summary <- wetter |>
   )
 
 ```
+Was ist der Output dieses Codes?
 
-1. Fehler: ✖ Column `months` is not found.
-TIPP: Unbedingt autocomplete verwenden
+- Es erscheint die Fehlermeldung: *Error in `group_by()`:
+! Must group by variables found in `.data`.
+✖ Column `monate` is not found.
+Run `rlang::last_trace()` to see where the error occurred.*
+
+Wo liegt das Problem?
+
+- Die Spalte `monate` ist nicht im Datensatz enthalten.
+
+Wie löse ich dieses Problem?
+
+- Autocomplete von RStudio verwenden und/oder Überprüfung der Spaltennamen, damit der richtige Spaltenname verwendet werden kann.
 
 
 ```{r}
 colnames(wetter)
 ```
 
-Fix 1: monat statt monate (Tippfehler)
+Wir bereinigen den Code und lassen den gefixten Code laufen:
 
 ```{r}
 wetter_summary <- wetter |>
@@ -147,20 +182,31 @@ wetter_summary <- wetter |>
 
 ```
 
-Keine Error-Meldung, dafür ist Output nicht zufriedenstellend
+Was ist der Output dieses Codes?
 
-Im Monat April NA als temp_mean
+- Der Code läuft ohne Fehlermeldung durch, dafür ist der Output nicht zufriedenstellend, da im Monat April NA als Durchschnittstemperatur erscheint.
 
-Debugging-Strategie: Temp.Werte im April anschauen
+Wo liegt vermutlich das Problem?
+
+- Werte im April
+
+Wie löse ich diesen Fehler?
+
+- Temperaturwerte im April anschauen
+
 
 ```{r}
 wetter |> 
   filter(monat == 4 & is.na(tre200h0))
 
 ```
---> an einem Tag fiel der Sensor aus
+
+Wie es schein, fiel an einem Tag im April 2000 der Sensor aus.
  
-Fix 2
+Wie löse ich dieses Problem?
+
+- `mean(tre200h0, na.rm = T)` definieren
+
  
 ```{r}
 wetter_summary <- wetter |>
@@ -168,24 +214,28 @@ wetter_summary <- wetter |>
   summarise(
     temp_mean = mean(tre200h0, na.rm = T)
   )
-
 ```
 
-## Wie kann KI helfen?
+### Zusammenfassung
 
-Nach Lokalisation des Bugs und wenn Bug nicht auf Anhieb gelöst werden kann:
+Welche Methoden sind nun in RStudio/R hilfreich?
 
-Fehlerhafter Code plus Error-Message prompten
+- Error-Messages lesen und versuchen, zu entschlüsseln.
+- R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
+- R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
 
-Lösungsvorschlag der KI testen und Output beurteilen.
+
+## Wie kann nun KI helfen?
+
+Um nicht jedes Mal den ganzen Code einer KI zu geben, ist es wichtig, den Bug im eigenen Code lokalisieren zu können, d.h. wo stoppt der Code oder wo ist der Output nicht zufriedenstellend. Nach Lokalisation des Bugs kann KI uns helfen, den Bug zu fixen, indem wir den fehlerhafte Code, evtl. den Output und, wenn vorhanden, die Fehlermeldung. 
+
+Unser Lösungsvorschlag:
 
 1. Fehler selbst lesen
-2. Problem lokalisieren
+2. Fehler lokalisieren
 3. KI um Erklärung/Hinweis bitten, sehr gut in Diagnoseschritte vorzuschlagen
 4. Lösung testen
 5. Lösung verstehen.
-
-
 
 Trotzdem gilt: aus Fehlern lernt man
 
