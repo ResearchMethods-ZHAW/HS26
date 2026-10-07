@@ -114,7 +114,7 @@ summary(aov_2)
 summary.lm(aov_2)
 ```
 
-Im so vereinfachten Modell sind alle verbleibenden Terme signifikant, wir sind also beim „minimal adäquaten Modell“ angelangt
+Im so vereinfachten Modell sind alle verbleibenden Terme signifikant, wir sind also beim "minimal adäquaten Modell" angelangt
 
 ```{r}
 # Anderer Weg, um zu pruefen, ob man das komplexere Modell mit Interaktion behalten soll
@@ -134,7 +134,7 @@ influence.measures(aov_2)
 # ob es evtl. sehr einflussreiche Werte mit Cook's D von 1 oder grösser gibt
 ```
 
-Links oben ist alles bestens, d. h. keine Hinweise auf Varianzheterogenität („Keil“) oder Nichtlinearität („Banane“)
+Links oben ist alles bestens, d. h. keine Hinweise auf Varianzheterogenität ("Keil") oder Nichtlinearität ("Banane")
 Rechts oben ganz gut, allerdings weichen Punkte 1 und 20 deutlich von der optimalen Gerade ab -> aus diesem Grund können wir es doch noch mal mit der log10-Transformation versuchen (s.u.)
 Rechts unten: kein Punkt hat einen problematischen Einfluss (die roten Linien für Cook’s D > 0.5 und > 1 sind noch nicht einmal im Bildausschnitt.
 

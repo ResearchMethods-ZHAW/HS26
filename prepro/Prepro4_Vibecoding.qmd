@@ -1,0 +1,42 @@
+---
+lesson: PrePro4
+thema: KI für Code
+execute: 
+  echo: true
+  output: false
+  error: true
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# KI 
+
+3. Von der Fragestellung zum Code: gemeinsam mit KI entwickeln
+
+
+Hier würde ich einen Schritt weitergehen. Die Studierenden bekommen eine kleine Data-Science-Aufgabe, etwa:
+Welche Pinguinart  weist die grössten Unterschiede im Körpergewicht zwischen den Geschlechtern auf?
+Sie sollen nicht sofort KI nach Code fragen, sondern zunächst den Workflow formulieren:
+Question → required variables → preprocessing → grouping → summary statistic → visualisation
+Danach dürfen sie KI einsetzen, um einzelne Schritte in R umzusetzen.
+Damit vermittelt ihr etwas ausgesprochen Wichtiges: Die eigentliche Data-Science-Kompetenz liegt nicht darin, Syntax auswendig zu kennen, sondern ein Problem in analytische Schritte zerlegen zu können.
+KI übernimmt dann Teile der Übersetzung:
+Research question → analytical workflow → R operations → code
+und nicht:
+Research question → ChatGPT → answer
+Das passt hervorragend zu eurem bisherigen Kurs.
+
+Problemstellung ist so, dass ich eine Tabelle habe und mit einer Look-up Tabelle weitere Variablen dran hängen will. Welche Funktionen machen das (joins). Welches sind die Schlüsselattribute, die ich hier verwenden muss (was ist Primär und was Fremdschlüssel)? Welche Befehle aus welchen packages erlauben mir so einen Join? Wie muss ich diesen Join implementieren? Wie kann ich prüfen, ob mein Resultat stimmt?
+
+Vielleicht eher eine Aufgabe K3 Anwenden, sprich übertragen von unserem Beispiel auf ein ähnliches Beispiel? Wir stellen eine generelle aber ähnliche Aufgabe, für die sie die Lösung erarbeiten sollen. «wir es wärmer?»
+
+Was wir vermeiden möchten, ist, dass sie einfach unsere Anweisungen als Prompts verwenden und dann sehen, aha, da kommt der gleiche Code raus.
+
+Wir bringen ihnen bei, wie sie mit vorher gelernter Fachsprache besser Prompten können (was sind funktionen, was sind packages, Was sind die Datenstrukturen? soll ich Piping verwenden, Was sind Variablennamen, Was sind Datentypen? Müssen Datentypen umformatiert werden). Die Sprache «Coding» wird erlernt mit Voci und Grammatik…
+
+Ich habe einen Ausdruck in base R, bitte formatieren den um unter Verwendung von Piping. Erkläre mir nochmals wieso dies nun für mich besser ist.
+
+Oder. Ich habe einen Datensatz mit Zeitinformationen, den ich einlesen möchte. Was möchte ich am Ende und wie kann ich diese Infos aus dem seltsam formatierten Datensatz einlesen? Welche Werkzeuge gibt es?
+
+Ich lese ein file ein aber ich bekomme den falschen Datentypen. Wie kann ich prüfen, welcher Art meine Variablen sind? Wie kann ich den Typen einer Variable umbauen.

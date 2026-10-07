@@ -86,7 +86,7 @@ str(nova)
 ```
 
 ```{r}
-# Die Variable“ccrs” (single campus_card holder) sollte ein factor sein
+# Die Variable"ccrs” (single campus_card holder) sollte ein factor sein
 nova$ccrs <- as.factor(nova$ccrs)
 summary(nova)
 

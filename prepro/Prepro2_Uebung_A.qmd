@@ -16,7 +16,7 @@ code-summary: "Musterlösung"
 
 ## Aufgabe 1
 
-Lese die Wetterdaten von letzter Woche *weather.csv* (Quelle MeteoSchweiz) in `R` ein. Sorge dafür, dass die Spalten korrekt formatiert sind (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `numeric`.)
+Lese die Wetterdaten von Prepro 1 (*weather.csv*) in `R` ein. Sorge dafür, dass die Spalten korrekt formatiert sind (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `numeric`.)
 
 
 ```{r}

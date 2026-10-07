@@ -96,7 +96,7 @@ library(MASS)
 dose.p(glm_1, p = 0.5)
 ```
 
-Am besten stellen wir auch unsere Funktionsgleichung dar. Dazu müssen wir das „Rohergebnis“ (mit P = Vorkommenswahrscheinlichkeit)
+Am besten stellen wir auch unsere Funktionsgleichung dar. Dazu müssen wir das "Rohergebnis" (mit P = Vorkommenswahrscheinlichkeit)
 
 ln (P/ (1- P)) = 3.606 – 0.220 RATIO
 
