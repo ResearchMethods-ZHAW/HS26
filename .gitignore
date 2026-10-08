@@ -11,7 +11,9 @@
 data/
 /.quarto/
 /_site/
+/_dev/
 _book/
+snowflake.log
 
 /prepro/**/data/
 /infovis/**/data/

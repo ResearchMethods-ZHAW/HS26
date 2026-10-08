@@ -10,10 +10,13 @@ knitr:
     collapse: true
 ---
 
-# KI 
+# KI für Codegenerierung
 
-3. Von der Fragestellung zum Code: gemeinsam mit KI entwickeln
+*Von der Fragestellung zum Code: gemeinsam mit KI entwickeln*
 
+:::{.callout-note collapse="true"}
+
+## Ideen
 
 Hier würde ich einen Schritt weitergehen. Die Studierenden bekommen eine kleine Data-Science-Aufgabe, etwa:
 Welche Pinguinart  weist die grössten Unterschiede im Körpergewicht zwischen den Geschlechtern auf?
@@ -35,8 +38,11 @@ Was wir vermeiden möchten, ist, dass sie einfach unsere Anweisungen als Prompts
 
 Wir bringen ihnen bei, wie sie mit vorher gelernter Fachsprache besser Prompten können (was sind funktionen, was sind packages, Was sind die Datenstrukturen? soll ich Piping verwenden, Was sind Variablennamen, Was sind Datentypen? Müssen Datentypen umformatiert werden). Die Sprache «Coding» wird erlernt mit Voci und Grammatik…
 
-Ich habe einen Ausdruck in base R, bitte formatieren den um unter Verwendung von Piping. Erkläre mir nochmals wieso dies nun für mich besser ist.
+- Ich habe einen Ausdruck in base R, bitte formatieren den um unter Verwendung von Piping. Erkläre mir nochmals wieso dies nun für mich besser ist.
 
-Oder. Ich habe einen Datensatz mit Zeitinformationen, den ich einlesen möchte. Was möchte ich am Ende und wie kann ich diese Infos aus dem seltsam formatierten Datensatz einlesen? Welche Werkzeuge gibt es?
 
-Ich lese ein file ein aber ich bekomme den falschen Datentypen. Wie kann ich prüfen, welcher Art meine Variablen sind? Wie kann ich den Typen einer Variable umbauen.
+- Ich habe einen Datensatz mit Zeitinformationen, den ich einlesen möchte. Was möchte ich am Ende und wie kann ich diese Infos aus dem seltsam formatierten Datensatz einlesen? Welche Werkzeuge gibt es?
+
+- Ich lese ein file ein aber ich bekomme den falschen Datentypen. Wie kann ich prüfen, welcher Art meine Variablen sind? Wie kann ich den Typen einer Variable umbauen.
+
+:::

@@ -1,0 +1,4 @@
+- source: project
+  posit-connect-cloud:
+    - id: 01a116ee-12a8-9ed3-f523-667a943814c0
+      url: https://connect.posit.cloud/ratnanil/content/01a116ee-12a8-9ed3-f523-667a943814c0

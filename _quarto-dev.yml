@@ -5,7 +5,8 @@ book:
   title: "Research Methods HS26 — Prepro 4 (Vorschau)"
   chapters:
     - index.qmd
-    - part: PrePro.qmd
+    - ---
+    - part: ⚠ PREPRO4 VORSCHAU ⚠
       chapters:
       - prepro/Prepro4_Tutor.qmd
       - prepro/Prepro4_Debugging_Demo.qmd
