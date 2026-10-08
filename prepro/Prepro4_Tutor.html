@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Infovis 2: Übung – Research Methods HS26</title>
+<title>Prepro 4: KI als Tutor – Research Methods HS26</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,26 +58,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -87,22 +68,22 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../infovis/Infovis2_Uebung_optional.html" rel="next">
-<link href="../infovis/Infovis2_Demo.html" rel="prev">
+<link href="../prepro/Prepro4_Debugging_Demo.html" rel="next">
+<link href="../prepro/Prepro3_Uebung.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-8e09b5a8d29acdf93648e7d2cca05993.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a75c6444466d8f29defceec42b212f4d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-3bf5937bfe06ca6303a8c69c165a0ed8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a75c6444466d8f29defceec42b212f4d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -306,7 +287,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../infovis/Infovis2_Uebung_Quarto.html"><span class="chapter-title">Infovis 2: Übung</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro4_Tutor.html"><span class="chapter-title">Prepro 4: KI als Tutor</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -399,6 +380,11 @@ div.csl-indent {
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro4_Tutor.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prepro 4: KI als Tutor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../prepro/Prepro4_Debugging_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 4: Debugging Demo</span></a>
   </div>
 </li>
@@ -409,17 +395,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Demo</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_Uebung_Quarto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Infovis 2: Übung</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../infovis/Infovis2_Uebung_optional.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung optional</span></a>
+  <a href="../prepro/Prepro4_Vibecoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">KI</span></a>
   </div>
 </li>
       </ul>
@@ -444,6 +420,32 @@ div.csl-indent {
   <a href="../fallstudie_s/1_Einführung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Einführung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Besuchermonitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Monitoring</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Fallstudie N</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung_Feldaufnahmen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Datenverarbeitung Feldaufnahmen</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -461,14 +463,22 @@ div.csl-indent {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
-  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
-  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
-  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
-  <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
-  <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
-  <li><a href="#aufgabe-7-optional" id="toc-aufgabe-7-optional" class="nav-link" data-scroll-target="#aufgabe-7-optional">Aufgabe 7 (Optional)</a></li>
-  <li><a href="#aufgabe-8" id="toc-aufgabe-8" class="nav-link" data-scroll-target="#aufgabe-8">Aufgabe 8</a></li>
+  <li><a href="#demo" id="toc-demo" class="nav-link active" data-scroll-target="#demo">Demo</a>
+  <ul class="collapse">
+  <li><a href="#schritt-1-r-hilfe" id="toc-schritt-1-r-hilfe" class="nav-link" data-scroll-target="#schritt-1-r-hilfe">Schritt 1: R-Hilfe</a></li>
+  <li><a href="#schritt-2-ki-nachschlagen-und-prüfen" id="toc-schritt-2-ki-nachschlagen-und-prüfen" class="nav-link" data-scroll-target="#schritt-2-ki-nachschlagen-und-prüfen">Schritt 2: KI — Nachschlagen und prüfen</a></li>
+  <li><a href="#schritt-3-paketdokumentation" id="toc-schritt-3-paketdokumentation" class="nav-link" data-scroll-target="#schritt-3-paketdokumentation">Schritt 3: Paketdokumentation</a></li>
+  <li><a href="#schritt-4-ki-konzept-verstehen" id="toc-schritt-4-ki-konzept-verstehen" class="nav-link" data-scroll-target="#schritt-4-ki-konzept-verstehen">Schritt 4: KI — Konzept verstehen</a></li>
+  <li><a href="#schritt-5-ki-orientierung" id="toc-schritt-5-ki-orientierung" class="nav-link" data-scroll-target="#schritt-5-ki-orientierung">Schritt 5: KI — Orientierung</a></li>
+  </ul></li>
+  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung">Übung</a>
+  <ul class="collapse">
+  <li><a href="#aufgabe-1-r-hilfe-vs.-ki" id="toc-aufgabe-1-r-hilfe-vs.-ki" class="nav-link" data-scroll-target="#aufgabe-1-r-hilfe-vs.-ki">Aufgabe 1: R-Hilfe vs.&nbsp;KI</a></li>
+  <li><a href="#aufgabe-2-prompt-qualität" id="toc-aufgabe-2-prompt-qualität" class="nav-link" data-scroll-target="#aufgabe-2-prompt-qualität">Aufgabe 2: Prompt-Qualität</a></li>
+  <li><a href="#aufgabe-3-zwei-anbieter-vergleichen" id="toc-aufgabe-3-zwei-anbieter-vergleichen" class="nav-link" data-scroll-target="#aufgabe-3-zwei-anbieter-vergleichen">Aufgabe 3: Zwei Anbieter vergleichen</a></li>
+  <li><a href="#aufgabe-4-ki-antwort-verifizieren" id="toc-aufgabe-4-ki-antwort-verifizieren" class="nav-link" data-scroll-target="#aufgabe-4-ki-antwort-verifizieren">Aufgabe 4: KI-Antwort verifizieren</a></li>
+  <li><a href="#aufgabe-5-energieverbrauch" id="toc-aufgabe-5-energieverbrauch" class="nav-link" data-scroll-target="#aufgabe-5-energieverbrauch">Aufgabe 5: Energieverbrauch</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -476,9 +486,9 @@ div.csl-indent {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../infovis/Infovis2_Uebung_Quarto.html"><span class="chapter-title">Infovis 2: Übung</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../PrePro.html">Pre-Processing</a></li><li class="breadcrumb-item"><a href="../prepro/Prepro4_Tutor.html"><span class="chapter-title">Prepro 4: KI als Tutor</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Infovis 2: Übung</span></h1>
+<h1 class="title"><span class="chapter-title">Prepro 4: KI als Tutor</span></h1>
 </div>
 
 
@@ -495,137 +505,186 @@ div.csl-indent {
 </header>
 
 
-<p>In der Übung von <span class="quarto-unresolved-ref">?sec-infovis1</span> habt ihr bereits die Grafiken aus dem Blogbeitrag von <span class="citation" data-cites="kovic2014">Kovic (<a href="../References.html#ref-kovic2014" role="doc-biblioref">2014</a>)</span> rekonstruiert. Nun werden wir die Grafiken mit dem Fliesstext aus dem Beitrag ergänzen und daraus einen PDF-Bericht machen.</p>
-<!-- Wer darüber hinaus mehr über Quarto lernen möchte, findet unter @wickham2023 ([Kapitel Quarto](https://r4ds.hadley.nz/quarto)) sowie auf der [Quarto Webseite](https://quarto.org/docs/get-started/hello/rstudio.html) mehr darüber.
-
-
-::: {.callout-important}
-Wie erwähnt werdet ihr in der praktischen Prüfung euren Code ebenfalls mit Quarto erstellen und als PDF kompilieren.
-:::
--->
-<section id="aufgabe-1" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
-<p>Öffne das RStudio-Projekt von letzter Woche (<span class="quarto-unresolved-ref">?sec-infovis1</span>) und erstelle ein neues Quarto-File (File → New File → Quarto Document).</p>
+<p>Wir skripten, um aus Daten Erkenntnisse zu gewinnen, und R ist das Werkzeug dafür. Der Prozess, den Code zu entwicklen besteht aus dem lösen vieler kleiner Teilproblemen. Wenn man bei der Lösung eines Teilproblems Hilfe benötigt, gibt es dafür unterschiedliche Ressourcen, KI ist nur eine davon. In dieser Demo und den Übungen wollen wir einige dieser Ressourcen anschauen und vergleichen:</p>
+<ul>
+<li><strong>R-Hilfe</strong> (<code>?funktionsname</code>, Autocomplete-Tooltips): schnell, präzise, direkt im Editor</li>
+<li><strong>Paketdokumentation / Recherche / Cheatsheets</strong>: gut, wenn man nicht weiss, wonach man suchen soll</li>
+<li><strong>KI</strong>: hilfreich bei konzeptuellen, komplexen Fragen</li>
+</ul>
+<section id="demo" class="level2">
+<h2 class="anchored" data-anchor-id="demo">Demo</h2>
+<p><strong>Analyse-Ziel:</strong> Die mittlere Temperatur pro Kalenderwoche für beide verfügbaren Jahre berechnen und als Linienplot vergleichen.</p>
+<section id="schritt-1-r-hilfe" class="level3">
+<h3 class="anchored" data-anchor-id="schritt-1-r-hilfe">Schritt 1: R-Hilfe</h3>
+<p>Wir kennen <code>read_delim</code> aus Prepro 1. Aber was war nochmal das Argument für das Trennzeichen — hiess es <code>sep</code> oder <code>delim</code>?</p>
+<p>→ <code>?read_delim</code> in der R-Konsole ausführen und im Abschnitt <em>Arguments</em> nachschauen. Alternativ: <code>read_delim(</code> tippen und kurz warten — RStudio zeigt per Autocomplete-Tooltip die verfügbaren Argumente direkt im Editor an.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/prepro/weather.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>stn <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(wetter<span class="sc">$</span>stn)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="schritt-2-ki-nachschlagen-und-prüfen" class="level3">
+<h3 class="anchored" data-anchor-id="schritt-2-ki-nachschlagen-und-prüfen">Schritt 2: KI — Nachschlagen und prüfen</h3>
+<p>Die Spalte <code>time</code> muss als <code>POSIXct</code> eingelesen werden. Dafür braucht <code>as.POSIXct()</code> eine Formatschablone. Die R-Hilfe <code>?strptime</code> listet alle Codes auf — aber als Nachschlagewerk für ein konkretes Format ist sie mühsam. Auch eine Google-Suche führt hier selten direkt ans Ziel. Hier drängt sich die nutzung von KI auf, indem ein Beispielwert aus der Spalte gezeigt und nach der passenden Schablone gefragt wird</p>
+<p>→ Schau dir zuerst an, wie die Werte in <code>time</code> aussehen:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wetter<span class="sc">$</span>time)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2000010100 2000010101 2000010102 2000010103 2000010104 2000010105</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>→ Dann einen gezielten Prompt formulieren:</p>
+<blockquote class="blockquote">
+<p><em>«Ein Wert aus meiner Spalte <code>time</code> sieht so aus: <code>2000010100</code>. Welche Formatschablone brauche ich für <code>as.POSIXct()</code> in R?»</em></p>
+</blockquote>
+<p>Eine typische Antwort könnte so aussehen:</p>
+<blockquote class="blockquote">
+<p><em>Das entspricht 01.01.2000, 00:00 Uhr.</em> <em><code>%Y</code> = 4-stellige Jahreszahl, <code>%m</code> = Monat, <code>%d</code> = Tag, <code>%H</code> = Stunde (00–23)</em> <em>→ Formatschablone: <code>"%Y%m%d%H"</code></em></p>
+</blockquote>
+<p>Das klingt überzeugend — aber stimmt es? Hier lohnt es sich, die Antwort kritisch zu prüfen:</p>
+<ul>
+<li>Die Reihenfolge der Felder im Beispielwert (<code>2000 01 01 00</code>) stimmt mit <code>%Y%m%d%H</code> überein - aber das muss mittels überprüfung der Metadaten kontrolliert werden.</li>
+<li>Die Zeitzone (UTC, aus der Datei <code>meta.txt</code>) hat die KI nicht erwähnt — das Argument <code>tz = "UTC"</code> muss man selbst ergänzen.</li>
+<li>Die Formatcodes sind es wert, einmal kurz nachzuschlagen und die häufigsten zu notieren.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(wetter<span class="sc">$</span>time), <span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Wichtig
+<span class="screen-reader-only">Wichtig</span>Welche KI verwenden?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Entferne dabei das Häkchen bei <em>Use visual markdown editor</em>.</p>
+<p>Nebst den bekannten KI-Anbieter gibt es sinnvolle, weniger bekannte Alternativen - insbesondere wenn man nicht möchte, dass Anfragen auf US-amerikanischen Servern landen. Ein bekanntes europäisches Beispiel ist <strong><a href="https://chat.mistral.ai">Le Chat</a></strong> von Mistral aus Frankreich (kostenlos, kein Account zwingend nötig).</p>
 </div>
 </div>
-<p>Ersetze den Standard YAML Header mit folgendem Header (achte auf die drei Minuszeichen <code>-</code>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> typst</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">error</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">echo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>format: typst</code>: Dies erstellt ein PDF mit der Software <a href="https://typst.app">typst</a>.</li>
-<li><code>execute</code>:
-<ul>
-<li><code>error: true</code>: Falls der R Code einen Error produziert, wird diese Meldung ins Dokument integriert (mit <code>false</code> würde der Kompilierungsprozess abgebrochen werden)</li>
-<li><code>echo: false</code>: Der Code wird im PDF nicht sichtbar sein</li>
-<li><code>warning: false</code>: Warnmeldungen werden im PDF nicht sichtbar sein</li>
-</ul></li>
-</ul>
 </section>
-<section id="aufgabe-2" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
-<p>Füge dem Dokument etwas Fliesstext hinzu. Beispielsweise den Einleitungstext aus <a href="@sec-kovic2014">dem Blogbeitrag</a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="an">Kurz nach der Abstimmung zur Zuwanderungsinitiative hiess es:</span><span class="co"> Bezirke mit </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>geringem Ausländeranteil stimmten dem SVP-Begehren eher zu. Hält der Befund </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>einer tieferen Analyse stand? Marco Kovic vom IPMZ der Uni Zürich hat genau </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>hingeschaut.</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Klicke nun auf <strong><em>Render</em></strong> (<a href="#fig-render" class="quarto-xref">Abbildung&nbsp;<span>11.1</span></a>). Schau dir das erstellte PDF an. Falls kein PDF erstellt wurde: Versuche mal im YAML Header <code>typst</code> mit <code>pdf</code> zu ersetzen. Wenn das Problem damit gelöst ist, wären wir froh um eine entsprechende Info.</p>
-<div id="fig-render" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-render-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/render.png" id="fig-render" class="img-fluid figure-img">
+<section id="schritt-3-paketdokumentation" class="level3">
+<h3 class="anchored" data-anchor-id="schritt-3-paketdokumentation">Schritt 3: Paketdokumentation</h3>
+<p>Wir brauchen das Jahr und die Kalenderwoche. <code>year()</code> aus <code>lubridate</code> kennen wir. Aber für die Kalenderwoche: war das <code>week()</code> oder <code>isoweek()</code>?</p>
+<p>→ In der <code>lubridate</code>-Paketdokumentation nachschlagen (z.B. <a href="https://duckduckgo.com/?q=lubridate+week+r">DuckDuckGO</a> “lubridate week R”). Dort findet man <code>week()</code>, <code>isoweek()</code> und <code>epiweek()</code>. <code>isoweek()</code> entspricht der ISO-8601-Norm, auf der <a href="https://lubridate.tidyverse.org/reference/week.html?q=week#references">Paketdokumentation</a> wird man zum entsprechenden <a href="https://en.wikipedia.org/wiki/ISO_week_date">Wikipedia Artikel</a> verwiesen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">jahr =</span> <span class="fu">year</span>(time),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">kw   =</span> <span class="fu">isoweek</span>(time)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-render-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Abbildung&nbsp;11.1
-</figcaption>
+</section>
+<section id="schritt-4-ki-konzept-verstehen" class="level3">
+<h3 class="anchored" data-anchor-id="schritt-4-ki-konzept-verstehen">Schritt 4: KI — Konzept verstehen</h3>
+<p>Wir wollen aggregieren: eine Zeile pro Jahr und Kalenderwoche. <code>dplyr</code> bietet dafür <code>mutate()</code> und <code>summarise()</code>. Wann nehme ich welches?</p>
+<p>→ KI als Erklärer — mit einem gezielten Prompt:</p>
+<blockquote class="blockquote">
+<p>Erkläre mir den Unterschied zwischen <code>mutate()</code> und <code>summarise()</code> in dplyr. In welcher Situation brauche ich welche Funktion?</p>
+</blockquote>
+<p>Nach der Erklärung schreiben wir den Code selbst:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wetter_kw <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(jahr, kw) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp_mean =</span> <span class="fu">mean</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="schritt-5-ki-orientierung" class="level3">
+<h3 class="anchored" data-anchor-id="schritt-5-ki-orientierung">Schritt 5: KI — Orientierung</h3>
+<p>Wir wollen die Ergebnisse visualisieren — aber welches Package sollen wir überhaupt nehmen? In R gibt es mehrere Möglichkeiten. Hier eignet sich KI gut als erste Orientierung:</p>
+<blockquote class="blockquote">
+<p><em>«Ich möchte in R zwei Zeitreihen als Linienplot darstellen, farblich nach Gruppe unterschieden. Welche Packages kommen dafür in Frage, und was würdest du empfehlen?»</em></p>
+</blockquote>
+<p>Die KI nennt typischerweise <code>ggplot2</code>, Base-R-Grafik und evtl. <code>plotly</code>. Da wir <code>ggplot2</code> bereits aus Prepro 3 kennen, wählen wir das — und stellen direkt eine Anschlussfrage:</p>
+<blockquote class="blockquote">
+<p><em>«Wie erstelle ich mit <code>ggplot2</code> einen Linienplot mit zwei Linien, die sich in der Farbe unterscheiden? Die x-Achse ist eine Zahl (Kalenderwoche), die y-Achse ein Messwert, und die Farbe soll eine Gruppierungsvariable kodieren.»</em></p>
+</blockquote>
+<p>Den vorgeschlagenen Code lesen wir durch, verstehen ihn — und schreiben ihn dann selbst:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wetter_kw, <span class="fu">aes</span>(<span class="at">x =</span> kw, <span class="at">y =</span> temp_mean, <span class="at">colour =</span> <span class="fu">as.factor</span>(jahr))) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x      =</span> <span class="st">"Kalenderwoche"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y      =</span> <span class="st">"Mittlere Temperatur (°C)"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Jahr"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Prepro4_Tutor_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
 </section>
-<section id="aufgabe-3" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Füge nun in deinem Quarto-File mit <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> einen neuen Code-Chunk ein. Kopiere nun die ersten paar Zeilen Code aus der Übung Infovis 1 in diesen Code-Chunk. Rendere das Dokument erneut. Wird nach wie vor ein PDF produziert? Wenn ja, kannst du die restlichen Code-Zeilen aus der letzten Übung aus dem R-Skript in das Quarto Dokument kopieren.</p>
-<p>Rendere das Dokument erneut und schau dir den Output an.</p>
 </section>
-<section id="aufgabe-4" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Stelle sicher, dass nach jedem Plot ein neuer Chunk beginnt. Am einfachsten positionierst du dafür deinen Cursor zur Stelle, wo du einen neuen Chunk beginnen möchtest, und führst erneut die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> aus.</p>
-<p>Rendere das Dokument erneut und schau dir den Output an. Er sollte sich nicht verändert haben.</p>
-</section>
-<section id="aufgabe-5" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
-<p>Ergänze das Quarto-Dokument nun mit dem restlichen Fliesstext aus <span class="citation" data-cites="kovic2014">Kovic (<a href="../References.html#ref-kovic2014" role="doc-biblioref">2014</a>)</span>. Stelle sicher, dass an folgenden Stellen immer eine leere Zeile besteht:</p>
+<section id="übung" class="level2">
+<h2 class="anchored" data-anchor-id="übung">Übung</h2>
+<section id="aufgabe-1-r-hilfe-vs.-ki" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-1-r-hilfe-vs.-ki">Aufgabe 1: R-Hilfe vs.&nbsp;KI</h3>
+<p>Schlag die Funktion <code>read_delim()</code> auf zwei Wegen nach:</p>
+<ol type="1">
+<li>Führe <code>?read_delim</code> in der Konsole aus.</li>
+<li>Stelle einer KI die Frage: <em>«Was macht die Funktion <code>read_delim()</code> in R, und welche Argumente sind besonders wichtig?»</em></li>
+</ol>
+<p>Vergleiche die beiden Antworten:</p>
 <ul>
-<li>zwischen Absätzen</li>
-<li>vor und nach Überschriften</li>
-<li>vor und nach Code-Chunks</li>
+<li>Was erfährst du aus <code>?read_delim</code>, das die KI nicht erwähnt?</li>
+<li>Was erklärt die KI besser als die Dokumentation?</li>
+<li>Für welche Situation würdest du künftig welche Ressource bevorzugen?</li>
 </ul>
-<p>Rendere das Dokument erneut und schau dir den Output an.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hinweis
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Statt das Dokument immer wieder manuell zu rendern, kann auch die Option <em>Render on Save</em> (siehe <a href="#fig-render" class="quarto-xref">Abbildung&nbsp;<span>11.1</span></a>) aktiviert werden.</p>
-</div>
-</div>
 </section>
-<section id="aufgabe-6" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
-<p>Nun formatieren wir den Fliesstext mit etwas Markdown-Syntax. Stelle zu diesem Zweck jeder Überschrift (<em>Kantonsebene</em>, <em>Gemeindeebene</em> etc.) zwei <code>#</code> Zeichen voran. Also so:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kantonsebene</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>...text</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Gemeindeebene</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>... text</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="aufgabe-2-prompt-qualität" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2-prompt-qualität">Aufgabe 2: Prompt-Qualität</h3>
+<p>Stelle einer KI zweimal dieselbe inhaltliche Frage — einmal so, wie jemand ohne R-Kenntnisse fragen würde, einmal mit dem Vokabular aus Prepro 1–3.</p>
+<p><strong>Ohne R-Kenntnisse:</strong> &gt; <em>«Wie berechne ich in einer Tabelle den Durchschnitt einer Spalte, aufgeteilt nach Gruppen?»</em></p>
+<p><strong>Mit R-Kenntnissen:</strong> &gt; <em>«Erkläre mir, wie <code>group_by()</code> und <code>summarise()</code> in dplyr zusammenarbeiten, um den Mittelwert einer Spalte pro Gruppe zu berechnen.»</em></p>
+<p>Vergleiche die Antworten: Wie unterscheiden sie sich in Präzision und Nützlichkeit? Was sagt das darüber aus, wozu R-Grundkenntnisse gut sind — auch im Zeitalter von KI?</p>
 </section>
-<section id="aufgabe-7-optional" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-7-optional">Aufgabe 7 (Optional)</h2>
-<p>Markdown-Syntax ermöglicht das Formatieren von Fliesstext mit einer sogenannten <em>Markup</em> Sprache. Du kannst beispielsweise Text kursiv oder fett rendern lassen. Versuche ein paar Varianten aus, die Syntax ist <a href="https://quarto.org/docs/authoring/markdown-basics.html#text-formatting">hier</a> gut beschrieben.</p>
+<section id="aufgabe-3-zwei-anbieter-vergleichen" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-3-zwei-anbieter-vergleichen">Aufgabe 3: Zwei Anbieter vergleichen</h3>
+<p>Stelle dieselbe Frage bei zwei verschiedenen KI-Tools (z.B. Le Chat und ChatGPT, oder zwei beliebige andere):</p>
+<blockquote class="blockquote">
+<p><em>«Erkläre mir den Unterschied zwischen <code>left_join</code> und <code>inner_join</code> in R anhand eines kurzen, konkreten Beispiels.»</em></p>
+</blockquote>
+<p>Vergleiche die Antworten:</p>
+<ul>
+<li>Unterscheiden sie sich in Stil, Detailgrad oder Verständlichkeit?</li>
+<li>Sind beide korrekt? Gibt es Unterschiede in den Code-Beispielen?</li>
+<li>Welche Antwort findest du für dein Lernen hilfreicher — und warum?</li>
+</ul>
 </section>
-<section id="aufgabe-8" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-8">Aufgabe 8</h2>
-<p>Um die Nützlichkeit von Quarto zu illustrieren, ändern wir jetzt den Theme aller Plots mit einer einzigen Zeile Code. Füge folgende Zeile <em>vor</em> dem ersten Plot hinzu:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Rendere das Dokument erneut und schau dir den Output an.</p>
-<!--
-
-## ⚠ Abgabe 
-
-:::{.callout-important}
-Zippe nun deinen Projektordner (mit dem Quarto-File und dem PDF-Output) und gib es auf [Moodle](https://moodle.zhaw.ch/mod/assign/view.php?id=1753877) ab.
-:::
-
--->
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-kovic2014" class="csl-entry" role="listitem">
-Kovic, Marko. 2014. <span>„Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“</span> <em>Tagesanzeiger Datenblog</em>. <a href="https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich">https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich</a>.
+<section id="aufgabe-4-ki-antwort-verifizieren" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-4-ki-antwort-verifizieren">Aufgabe 4: KI-Antwort verifizieren</h3>
+<p>Stelle einer KI folgende Frage:</p>
+<blockquote class="blockquote">
+<p><em>«Ein Wert aus meiner Datumsspalte sieht so aus: <code>15.03.2001 14:00</code>. Welche Formatschablone brauche ich für <code>as.POSIXct()</code> in R?»</em></p>
+</blockquote>
+<p>Notiere die Antwort der KI, und überprüfe sie dann:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(<span class="st">"15.03.2001 14:00"</span>, <span class="at">format =</span> <span class="st">"___"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] NA</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
+<p>Hat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?</p>
+</section>
+<section id="aufgabe-5-energieverbrauch" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-5-energieverbrauch">Aufgabe 5: Energieverbrauch</h3>
+<p>Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Laut einer Schätzung der Internationalen Energieagentur (IEA, 2024) verbraucht eine Anfrage an ein grosses Sprachmodell wie ChatGPT rund <strong>10× mehr Energie als eine Google-Suche</strong> — ungefähr 0.003 kWh pro Query. Ein Aufruf von <code>?read_delim</code> hingegen ist ein lokaler Dateizugriff: die CPU arbeitet für wenige Millisekunden, der Energieverbrauch liegt bei schätzungsweise <strong>0.000004 kWh</strong> — ein Faktor von etwa 1000.</p>
+<p>Schaue dir nochmals die Aufgaben 1–4 an und überlege:</p>
+<ul>
+<li>Bei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das <code>?</code> oder die Paketdokumentation nicht ebenso gut gekonnt hätte?</li>
+<li>Bei welchen Aufgaben wäre <code>?</code> oder eine Suche in der Dokumentation die energieeffizientere und gleichwertige Alternative gewesen?</li>
+</ul>
+<p>Es gibt keine Musterlösung — die Antwort hängt davon ab, was du in den Aufgaben erlebt hast.</p>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1095,13 +1154,13 @@ Kovic, Marko. 2014. <span>„Je weniger Ausländer, desto mehr Ja-Stimmen? Wirkl
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../infovis/Infovis2_Demo.html" class="pagination-link" aria-label="Infovis 2: Demo">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Infovis 2: Demo</span></span>
+      <a href="../prepro/Prepro3_Uebung.html" class="pagination-link" aria-label="Prepro 3: Übung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Prepro 3: Übung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../infovis/Infovis2_Uebung_optional.html" class="pagination-link" aria-label="Infovis 2: Übung optional">
-        <span class="nav-page-text"><span class="chapter-title">Infovis 2: Übung optional</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../prepro/Prepro4_Debugging_Demo.html" class="pagination-link" aria-label="Prepro 4: Debugging Demo">
+        <span class="nav-page-text"><span class="chapter-title">Prepro 4: Debugging Demo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
