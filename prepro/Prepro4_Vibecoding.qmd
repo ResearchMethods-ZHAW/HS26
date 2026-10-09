@@ -1,48 +1,142 @@
 ---
 lesson: PrePro4
-thema: KI für Code
-execute: 
+thema: KI für Codegenerierung
+execute:
   echo: true
   output: false
   error: true
+  warning: false
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
 ---
 
-# KI für Codegenerierung
+# Prepro 4: KI für Codegenerierung
 
-*Von der Fragestellung zum Code: gemeinsam mit KI entwickeln*
+*Vibecoding* bezeichnet einen Arbeitsstil, bei dem man Code nicht selbst schreibt, sondern der KI beschreibt, was man erreichen möchte — und den generierten Code dann übernimmt, anpasst oder korrigiert.
 
-:::{.callout-note collapse="true"}
+Das setzt R-Kenntnisse nicht ausser Kraft — es verschiebt ihre Rolle. Wer weiss, was `group_by()` tut und wie ein Dataframe aufgebaut ist, kann der KI präziser erklären, was sie tun soll. Und wer den generierten Code lesen kann, erkennt, ob er korrekt ist.
 
-## Ideen
+In dieser Demo zeigen wir verschiedene Arten, wie sich KI in einen R-Workflow integrieren lässt — von Copy & Paste bis zum lokalen Sprachmodell.
 
-Hier würde ich einen Schritt weitergehen. Die Studierenden bekommen eine kleine Data-Science-Aufgabe, etwa:
-Welche Pinguinart  weist die grössten Unterschiede im Körpergewicht zwischen den Geschlechtern auf?
-Sie sollen nicht sofort KI nach Code fragen, sondern zunächst den Workflow formulieren:
-Question → required variables → preprocessing → grouping → summary statistic → visualisation
-Danach dürfen sie KI einsetzen, um einzelne Schritte in R umzusetzen.
-Damit vermittelt ihr etwas ausgesprochen Wichtiges: Die eigentliche Data-Science-Kompetenz liegt nicht darin, Syntax auswendig zu kennen, sondern ein Problem in analytische Schritte zerlegen zu können.
-KI übernimmt dann Teile der Übersetzung:
-Research question → analytical workflow → R operations → code
-und nicht:
-Research question → ChatGPT → answer
-Das passt hervorragend zu eurem bisherigen Kurs.
+## Demo
 
-Problemstellung ist so, dass ich eine Tabelle habe und mit einer Look-up Tabelle weitere Variablen dran hängen will. Welche Funktionen machen das (joins). Welches sind die Schlüsselattribute, die ich hier verwenden muss (was ist Primär und was Fremdschlüssel)? Welche Befehle aus welchen packages erlauben mir so einen Join? Wie muss ich diesen Join implementieren? Wie kann ich prüfen, ob mein Resultat stimmt?
+**Analyse-Ziel:** Die mittlere Monatstemperatur pro Jahr aus `weather.csv` berechnen und als Linienplot vergleichen — eine Variation der Kalenderwoche-Analyse aus Prepro 4: Tutor.
 
-Vielleicht eher eine Aufgabe K3 Anwenden, sprich übertragen von unserem Beispiel auf ein ähnliches Beispiel? Wir stellen eine generelle aber ähnliche Aufgabe, für die sie die Lösung erarbeiten sollen. «wir es wärmer?»
+### Werkzeug 1: Copy & Paste aus dem Web
 
-Was wir vermeiden möchten, ist, dass sie einfach unsere Anweisungen als Prompts verwenden und dann sehen, aha, da kommt der gleiche Code raus.
+Der einfachste Einstieg: Aufgabe in einem Web-KI-Tool formulieren, Code kopieren, in RStudio einfügen und ausführen.
 
-Wir bringen ihnen bei, wie sie mit vorher gelernter Fachsprache besser Prompten können (was sind funktionen, was sind packages, Was sind die Datenstrukturen? soll ich Piping verwenden, Was sind Variablennamen, Was sind Datentypen? Müssen Datentypen umformatiert werden). Die Sprache «Coding» wird erlernt mit Voci und Grammatik…
+→ Prompt an [Le Chat](https://chat.mistral.ai):
 
-- Ich habe einen Ausdruck in base R, bitte formatieren den um unter Verwendung von Piping. Erkläre mir nochmals wieso dies nun für mich besser ist.
+> *«Ich habe einen Dataframe `wetter` mit den Spalten `stn` (factor), `time` (POSIXct, Stundenwerte), `tre200h0` (numeric, Lufttemperatur in °C) sowie convenience-Variablen `jahr` (integer) und `monat` (integer, aus `lubridate::month()`). Berechne mit `dplyr` die mittlere Monatstemperatur pro Jahr (`group_by`, `summarise`) und visualisiere das Resultat als Linienplot mit `ggplot2`, farblich nach Jahr unterschieden.»*
+
+Ein typischer Output der KI — gelesen, verstanden, dann ausgeführt:
+
+```{r}
+library("readr")
+library("dplyr")
+library("lubridate")
+library("ggplot2")
+
+wetter <- read_delim("datasets/prepro/weather.csv", delim = ",")
+wetter$stn  <- as.factor(wetter$stn)
+wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
+
+wetter <- wetter |>
+  mutate(
+    jahr  = year(time),
+    monat = month(time)
+  )
+
+wetter_monat <- wetter |>
+  group_by(jahr, monat) |>
+  summarise(temp_mean = mean(tre200h0, na.rm = TRUE), .groups = "drop")
+```
+
+```{r}
+#| output: true
+ggplot(wetter_monat, aes(x = monat, y = temp_mean, colour = as.factor(jahr))) +
+  geom_line() +
+  labs(
+    x      = "Monat",
+    y      = "Mittlere Temperatur (°C)",
+    colour = "Jahr"
+  )
+```
+
+Einige Punkte, die man nach dem Copy-Paste prüfen sollte:
+
+- Stimmen die **Spaltennamen** mit dem eigenen Datensatz überein?
+- Verwendet die KI `.groups = "drop"` in `summarise()`? Ohne dieses Argument gibt `dplyr` eine Warnung.
+- Stimmt das **Datumsformat** in `as.POSIXct()`? Die KI rät, wenn kein Beispielwert mitgeliefert wurde.
 
 
-- Ich habe einen Datensatz mit Zeitinformationen, den ich einlesen möchte. Was möchte ich am Ende und wie kann ich diese Infos aus dem seltsam formatierten Datensatz einlesen? Welche Werkzeuge gibt es?
+### Werkzeug 2: RStudio Copilot
 
-- Ich lese ein file ein aber ich bekomme den falschen Datentypen. Wie kann ich prüfen, welcher Art meine Variablen sind? Wie kann ich den Typen einer Variable umbauen.
+GitHub Copilot lässt sich direkt in RStudio aktivieren (*Tools → Global Options → Copilot*). Danach schlägt RStudio beim Tippen automatisch Code vor — grau hinterlegt, mit `Tab` übernehmen.
 
+→ Demonstration: Kommentar als Beschreibung, Vorschlag annehmen.
+
+```{r}
+# Mittlere Temperatur pro Monat und Jahr berechnen
+```
+
+:::{.callout-note}
+GitHub Copilot ist für Studierende über das [GitHub Education Pack](https://education.github.com/pack) kostenlos erhältlich.
 :::
+
+
+### Werkzeug 3: opencode
+
+[opencode](https://opencode.ai/) ist ein Desktop- und Terminal-Tool für KI-gestützte Codegenerierung, das verschiedene Anbieter (z.B. Anthropic Claude, OpenAI) unterstützt. Es ist näher am Entwicklungsworkflow als ein Web-Chat.
+
+→ Demonstration: Gleiche Aufgabe in opencode, mit kommerziellem Anbieter.
+
+
+### Werkzeug 4: Lokales Sprachmodell (optional)
+
+opencode lässt sich auch mit einem lokal laufenden Modell verbinden (z.B. via [Ollama](https://ollama.ai/)). Der Code verlässt dann den eigenen Rechner nicht.
+
+Vorteil: Datenschutz. Nachteil: Qualität und Geschwindigkeit abhängig von der verfügbaren Hardware.
+
+
+## Übung
+
+### Aufgabe 1: Naiv vs. Informiert
+
+Wir stellen dieselbe inhaltliche Frage an eine KI — zuerst ohne R-Kontext, dann mit präzisem R-Vokabular. Verwende [Le Chat](https://chat.mistral.ai) (kein Account erforderlich). **Starte jeweils einen neuen Chat**, damit die Antworten unabhängig voneinander sind.
+
+**Forschungsfrage:** War die mittlere Jahrestemperatur an der Station Basel (BAS) im Jahr 2001 höher als im Jahr 2000?
+
+---
+
+**Runde 1 — ohne R-Kenntnisse:**
+
+> *«Ich habe eine CSV-Datei mit stündlichen Wettermessungen. Wie kann ich in R herausfinden, ob es in einem Jahr wärmer war als in einem anderen?»*
+
+---
+
+**Runde 2 — mit R-Kenntnissen aus Prepro 1–3:**
+
+> *«Ich habe einen Dataframe `wetter` mit den Spalten `stn` (factor, z.B. `"BAS"`), `time` (POSIXct, stündliche Werte), `tre200h0` (numeric, Lufttemperatur in °C) und `jahr` (integer, aus `lubridate::year()`). Filtere den Dataframe auf die Station `"BAS"`, gruppiere nach `jahr` mit `group_by` aus `dplyr` und berechne die mittlere Jahrestemperatur mit `summarise`.»*
+
+---
+
+Vergleiche die beiden Antworten:
+
+- Wie unterscheiden sich die vorgeschlagenen Lösungswege?
+- Welcher Code ist für deinen Datensatz direkt verwendbar — und warum?
+- Was musstest du wissen, um den informierten Prompt zu formulieren?
+
+
+### Aufgabe 2: Zwei Anbieter vergleichen
+
+Stelle den informierten Prompt aus Aufgabe 1 bei zwei verschiedenen KI-Tools (z.B. Le Chat und ChatGPT, oder zwei andere):
+
+- Unterscheiden sich die generierten Codes?
+- Sind beide korrekt und direkt ausführbar?
+- Gibt es Unterschiede im Stil — z.B. Base R vs. tidyverse, mit oder ohne Piping?
+- Was sagt das über die Verlässlichkeit von KI-generiertem Code aus?
+
+Es gibt keine Musterlösung — die Antwort hängt davon ab, was du erlebt hast.
