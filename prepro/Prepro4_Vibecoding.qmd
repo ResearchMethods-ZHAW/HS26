@@ -31,45 +31,12 @@ Der einfachste Einstieg: Aufgabe in einem Web-KI-Tool formulieren, Code kopieren
 
 > *«Ich habe einen Dataframe `wetter` mit den Spalten `stn` (factor), `time` (POSIXct, Stundenwerte), `tre200h0` (numeric, Lufttemperatur in °C) sowie convenience-Variablen `jahr` (integer) und `monat` (integer, aus `lubridate::month()`). Berechne mit `dplyr` die mittlere Monatstemperatur pro Jahr (`group_by`, `summarise`) und visualisiere das Resultat als Linienplot mit `ggplot2`, farblich nach Jahr unterschieden.»*
 
-Ein typischer Output der KI — gelesen, verstanden, dann ausgeführt:
-
-```{r}
-library("readr")
-library("dplyr")
-library("lubridate")
-library("ggplot2")
-
-wetter <- read_delim("datasets/prepro/weather.csv", delim = ",")
-wetter$stn  <- as.factor(wetter$stn)
-wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
-
-wetter <- wetter |>
-  mutate(
-    jahr  = year(time),
-    monat = month(time)
-  )
-
-wetter_monat <- wetter |>
-  group_by(jahr, monat) |>
-  summarise(temp_mean = mean(tre200h0, na.rm = TRUE), .groups = "drop")
-```
-
-```{r}
-#| output: true
-ggplot(wetter_monat, aes(x = monat, y = temp_mean, colour = as.factor(jahr))) +
-  geom_line() +
-  labs(
-    x      = "Monat",
-    y      = "Mittlere Temperatur (°C)",
-    colour = "Jahr"
-  )
-```
-
 Einige Punkte, die man nach dem Copy-Paste prüfen sollte:
 
-- Stimmen die **Spaltennamen** mit dem eigenen Datensatz überein?
-- Verwendet die KI `.groups = "drop"` in `summarise()`? Ohne dieses Argument gibt `dplyr` eine Warnung.
-- Stimmt das **Datumsformat** in `as.POSIXct()`? Die KI rät, wenn kein Beispielwert mitgeliefert wurde.
+- **Erwartungshaltung formulieren**: Bevor der Code ausgeführt wird — wie soll der Output aussehen? Wie viele Zeilen, welche Spalten, welcher Wertebereich?
+- **Code lesen und plausibilisieren**: Stimmen die **Spaltennamen** mit dem eigenen Datensatz überein? Verwendet die KI `.groups = "drop"` in `summarise()`? Stimmt das **Datumsformat** in `as.POSIXct()`? Die KI rät, wenn kein Beispielwert mitgeliefert wurde.
+- **Code ausführen** — läuft er fehlerfrei durch?
+- **Output prüfen**: Stimmt das Ergebnis mit der Erwartung überein — Struktur, Werte, Plot?
 
 
 ### Werkzeug 2: RStudio Copilot
