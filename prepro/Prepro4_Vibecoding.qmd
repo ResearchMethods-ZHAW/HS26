@@ -61,11 +61,11 @@ Danach schlägt RStudio beim Tippen automatisch Code vor — grau hinterlegt, mi
 # Mittlere Temperatur pro Monat und Jahr berechnen
 ```
 
-:::{.callout-important}
-Für die Nutzung von GitHub Copilot wird ein GitHub-Account sowie ein aktives Abonnement (Copilot for Individuals oder Copilot for Business) benötigt.
-:::
+
 
 :::{.callout-note}
+Für die Nutzung von GitHub Copilot wird ein GitHub-Account sowie ein aktives Abonnement (Copilot for Individuals oder Copilot for Business) benötigt.
+
 Studierende und Lehrpersonen können GitHub Copilot kostenlos über das [GitHub Education-Programm](https://education.github.com) nutzen.
 :::
 
@@ -120,6 +120,3 @@ Stelle den informierten Prompt aus Aufgabe 1 bei zwei verschiedenen KI-Tools (z.
 - Unterscheiden sich die generierten Codes?
 - Sind beide korrekt und direkt ausführbar?
 - Gibt es Unterschiede im Stil — z.B. Base R vs. tidyverse, mit oder ohne Piping?
-- Was sagt das über die Verlässlichkeit von KI-generiertem Code aus?
-
-Es gibt keine Musterlösung — die Antwort hängt davon ab, was du erlebt hast.
