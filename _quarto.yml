@@ -115,11 +115,11 @@ book:
       - --
       - fallstudie_s/1_Einführung.qmd
       - fallstudie_s/2_Besuchermonitoring.qmd
-    #   - --
-    #   - fallstudie_s/3_Aufgabenstellung_WPZ.qmd
-    #   - --
-    #   - fallstudie_s/4_Projektierung.qmd
-    #   - fallstudie_s/5_Datenverarbeitung.qmd
+      - --
+      - fallstudie_s/3_Aufgabenstellung_WPZ.qmd
+      - --
+      - fallstudie_s/4_Projektierung.qmd
+      - fallstudie_s/5_Datenverarbeitung.qmd
     #   - fallstudie_s/6_Deskriptive_Analysen.qmd
     #   - fallstudie_s/7_Multivariate_Modelle.qmd
     - part: "Fallstudie N"
