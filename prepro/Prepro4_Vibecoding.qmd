@@ -41,7 +41,19 @@ Einige Punkte, die man nach dem Copy-Paste prüfen sollte:
 
 ### Werkzeug 2: RStudio Copilot
 
-GitHub Copilot lässt sich direkt in RStudio aktivieren (*Tools → Global Options → Copilot*). Danach schlägt RStudio beim Tippen automatisch Code vor — grau hinterlegt, mit `Tab` übernehmen.
+GitHub Copilot lässt sich direkt in RStudio aktivieren:
+
+1. *Tools → Global Options → Assistant*
+2. Im Dropdown «Use code assistant» die Option **GitHub Copilot** auswählen.
+3. Die Copilot Agent-Komponenten herunterladen und installieren.
+4. Auf **Sign In** klicken.
+5. Im Dialog «GitHub Copilot: Sign in» den angezeigten Verification Code kopieren.
+6. Auf <https://github.com/login/device> navigieren, den Code einfügen und auf **Continue** klicken.
+7. GitHub fragt nach den notwendigen Berechtigungen — mit **Authorize GitHub Copilot Plugin** bestätigen.
+8. Nach der Freigabe zeigt RStudio den angemeldeten GitHub-Account an.
+9. Dialog schliessen, eine Quelldatei (`.R`, `.py`, `.qmd` …) öffnen und loscoden!
+
+Danach schlägt RStudio beim Tippen automatisch Code vor — grau hinterlegt, mit `Tab` übernehmen.
 
 → Demonstration: Kommentar als Beschreibung, Vorschlag annehmen.
 
@@ -49,8 +61,12 @@ GitHub Copilot lässt sich direkt in RStudio aktivieren (*Tools → Global Optio
 # Mittlere Temperatur pro Monat und Jahr berechnen
 ```
 
+:::{.callout-important}
+Für die Nutzung von GitHub Copilot wird ein GitHub-Account sowie ein aktives Abonnement (Copilot for Individuals oder Copilot for Business) benötigt.
+:::
+
 :::{.callout-note}
-GitHub Copilot ist für Studierende über das [GitHub Education Pack](https://education.github.com/pack) kostenlos erhältlich.
+Studierende und Lehrpersonen können GitHub Copilot kostenlos über das [GitHub Education-Programm](https://education.github.com) nutzen.
 :::
 
 
