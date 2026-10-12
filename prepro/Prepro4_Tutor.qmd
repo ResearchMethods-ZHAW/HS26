@@ -179,7 +179,6 @@ Vergleiche die Antworten:
 
 - Unterscheiden sie sich in Stil, Detailgrad oder Verständlichkeit?
 - Sind beide korrekt? Gibt es Unterschiede in den Code-Beispielen?
-- Welche Antwort findest du für dein Lernen hilfreicher — und warum?
 
 
 ### Aufgabe 4: KI-Antwort verifizieren
@@ -189,11 +188,6 @@ Stelle einer KI folgende Frage:
 > *«Ein Wert aus meiner Datumsspalte sieht so aus: `03/04/2020 14:00`. Welche Formatschablone brauche ich für `as.POSIXct()` in R?»*
 
 Notiere die Antwort der KI, und überprüfe sie dann:
-
-```{r}
-#| output: true
-as.POSIXct("03/04/2020 14:00", format = "___")
-```
 
 Hat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?
 
@@ -213,11 +207,9 @@ Die typische Stolperfalle: KIs interpretieren `03/04` häufig als europäisches 
 
 ### Aufgabe 5: Energieverbrauch
 
-Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Laut einer Schätzung der Internationalen Energieagentur (IEA, 2024) verbraucht eine Anfrage an ein grosses Sprachmodell wie ChatGPT rund **10× mehr Energie als eine Google-Suche** — ungefähr 0.003 kWh pro Query. Ein Aufruf von `?read_delim` hingegen ist ein lokaler Dateizugriff: die CPU arbeitet für wenige Millisekunden, der Energieverbrauch liegt bei schätzungsweise **0.000004 kWh** — ein Faktor von etwa 1000.
+Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage **um Grössenordnungen mehr Energie und CO₂-Emissionen** als aufgabenspezifische Modelle [@luccioni2024]. Lokale Abfragen wie `?read_delim` oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.
 
 Schaue dir nochmals die Aufgaben 1–4 an und überlege:
 
 - Bei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das `?` oder die Paketdokumentation nicht ebenso gut gekonnt hätte?
 - Bei welchen Aufgaben wäre `?` oder eine Suche in der Dokumentation die energieeffizientere und gleichwertige Alternative gewesen?
-
-Es gibt keine Musterlösung — die Antwort hängt davon ab, was du in den Aufgaben erlebt hast.
