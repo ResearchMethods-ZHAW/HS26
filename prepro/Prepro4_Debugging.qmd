@@ -2,8 +2,10 @@
 lesson: PrePro4
 thema: Debugging Uebung
 execute: 
+  echo: true
   output: false
   warning: false
+  error: true
 knitr:
   opts_chunk: 
     collapse: true
@@ -12,8 +14,237 @@ path:
     metadata: false # set true to show Musterlösung
 ---
 
+# Prepro 4: Debugging 
 
-# Prepro 4: Debugging Übung
+## Demo
+
+### Was ist Debugging?
+
+Bevor wir näher darauf eingehen, was Debugging ist, müssen wir zuerst erklären, was ein **Bug** ist.
+
+Was also ist ein Bug beim Programmieren?
+
+Darunter versteht man einen Fehler in einem Computercode, Syntaxfehler, Laufzeitfehler und logische Fehler.
+
+Wer mehr wissen möchte, wie ein Insekt sich in die Computersprache eingeschlichen hat, kann sich [hier](https://www.si.edu/object/log-book-computer-bug%3Anmah_334663) informieren:
+
+Welche Fehler kann es geben? 
+
+- "Gute" Fehler: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, den Fehler zu erkennen → Der Fehler macht sich bemerkbar. 
+- "Schlechte" Fehler: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis → Wir müssen den Fehler selbst erkennen. 
+- Die gefährlichsten Fehler: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
+
+Die letzten beide Punkte zeigen, dass ein funktionierender Code nicht zwingend auch ein korrekter Code ist.
+
+Was ist jetzt **Debugging**? Damit meint man das Entfernen von Code-Fehlern.
+
+
+### Debugging in R/RStudio
+
+Aber wie werden Bugs entfernt? Dafür gibt es eine ganze Reihe von verschiedenen Methoden. In diesem Block zeigen wir, welche Methoden in R/RStudio für diesen Kurs hilfreich sind.
+
+Wir werden diese anhand von Beispielen in dieser Demo durchgehen.
+
+Zuerst laden wir den Datensatz ein und kreieren die Convenience Variable `monat`.
+
+
+```{r}
+library("readr")
+library("lubridate")
+
+wetter <- read_delim("datasets/prepro/weather_prepro4.csv", ",")
+wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
+wetter$monat <- month(wetter$time)
+```
+
+### Beispiel 1: Base R
+
+```{r}
+#| eval: false
+
+mean(wetter$tre200h0[wetter$monat == "Januar"])
+mean(wetter$tre200h0[wetter$monat == "Februar])
+mean(wetter$tre200h0[wetter$monat == "März"])
+
+```
+
+Bevor der Code ausgeführt wird, machen wir uns einige Gedanken:
+
+Was wird in RStudio angezeigt?
+
+- Rote Kreuze erscheinen, einen Teil ist grün eingefärbt.
+
+Was könnte dazu führen?
+
+- Vermutung: nicht geschlossene Klammern, Strings.
+
+Wo liegt vermutlich der Fehler?
+
+- Kreuze erscheinen immer in dieser Zeile, wo der Fehler beginnt
+
+Wie löse ich diesen Fehler?
+
+- Bei `"Februar` String schliessen
+
+
+Jetzt lassen wir den Code laufen.
+
+```{r}
+#| output: true
+
+mean(wetter$tre200h0[wetter$monat == "Januar"])
+mean(wetter$tre200h0[wetter$monat == "Februar"])
+mean(wetter$tre200h0[wetter$monat == "März"])
+
+```
+
+Was ist der Output dieses Codes?
+
+- NaN als Ergebnis
+
+Wo liegt vermutlich der Fehler?
+
+- noch nicht eindeutig, vieles könnte dazu führen.
+
+Wie löse ich diesen Fehler?
+
+- einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
+
+Welche Werte sind in der Spalte `monat` enthalten?
+
+```{r}
+#| output: true
+
+wetter$monat[1:10]
+
+```
+
+Das Problem ist, dass `monat` als Integer codiert ist und nicht mit Namen. Wir haben somit unseren Fehler lokalisiert und können in debuggen.
+
+
+```{r}
+wetter$monat == 1
+wetter$monat == 2
+wetter$monat == 3
+```
+
+Jetzt lassen wir den Code noch einmal laufen, damit wir den Output begutachten können.
+
+```{r}
+#| output: true
+
+mean(wetter$tre200h0[wetter$monat == 1])
+mean(wetter$tre200h0[wetter$monat == 2])
+mean(wetter$tre200h0[wetter$monat == 3])
+
+```
+
+Jetzt sieht der Output gut sein.
+
+
+### Beispiel 2: Piping
+
+Wir verwenden den gleichen Datensatz von oben und wollen die monatliche Durchschnittstemperatur berechnen.
+
+```{r}
+library(dplyr)
+
+wetter_summary <- wetter |>
+  group_by(monate) |>
+  summarise(
+    temp_mean = mean(tre200h0)
+  )
+
+```
+Was ist der Output dieses Codes?
+
+- Es erscheint die Fehlermeldung: *Error in `group_by()`:
+! Must group by variables found in `.data`.
+✖ Column `monate` is not found.
+Run `rlang::last_trace()` to see where the error occurred.*
+
+Wo liegt das Problem?
+
+- Die Spalte `monate` ist nicht im Datensatz enthalten.
+
+Wie löse ich dieses Problem?
+
+- Autocomplete von RStudio verwenden und/oder Überprüfung der Spaltennamen, damit der richtige Spaltenname verwendet werden kann.
+
+
+```{r}
+colnames(wetter)
+```
+
+Wir bereinigen den Code und lassen den gefixten Code laufen:
+
+```{r}
+wetter_summary <- wetter |>
+  group_by(monat) |>
+  summarise(
+    temp_mean = mean(tre200h0)
+  )
+
+```
+
+Was ist der Output dieses Codes?
+
+- Der Code läuft ohne Fehlermeldung durch, dafür ist der Output nicht zufriedenstellend, da im Monat April NA als Durchschnittstemperatur erscheint.
+
+Wo liegt vermutlich das Problem?
+
+- Werte im April
+
+Wie löse ich diesen Fehler?
+
+- Temperaturwerte im April anschauen
+
+
+```{r}
+wetter |> 
+  filter(monat == 4 & is.na(tre200h0))
+
+```
+
+Wie es schein, fiel an einem Tag im April 2000 der Sensor aus.
+ 
+Wie löse ich dieses Problem?
+
+- `mean(tre200h0, na.rm = T)` definieren
+
+ 
+```{r}
+wetter_summary <- wetter |>
+  group_by(monat) |>
+  summarise(
+    temp_mean = mean(tre200h0, na.rm = T)
+  )
+```
+
+### Zusammenfassung
+
+Welche Methoden sind nun in RStudio/R hilfreich?
+
+- Error-Messages lesen und versuchen, zu entschlüsseln.
+- R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
+- R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
+
+
+### Wie kann nun KI helfen?
+
+Um nicht jedes Mal den ganzen Code einer KI zu geben, ist es wichtig, den Bug im eigenen Code lokalisieren zu können, d.h. wo stoppt der Code oder wo ist der Output nicht zufriedenstellend. Nach Lokalisation des Bugs kann KI uns helfen, den Bug zu fixen, indem wir den fehlerhafte Code, evtl. den Output und, wenn vorhanden, die Fehlermeldung. 
+
+Unser Lösungsvorschlag:
+
+1. Fehler selbst lesen
+2. Fehler lokalisieren
+3. KI um Erklärung/Hinweis bitten, sehr gut in Diagnoseschritte vorzuschlagen
+4. Lösung testen
+5. Lösung verstehen.
+
+Trotzdem gilt: aus Fehlern lernt man
+
+## Übungen
 
 Lade die folgenden Libraries:
 
