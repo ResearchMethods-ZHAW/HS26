@@ -17,7 +17,7 @@ path:
 # Prepro 4: KI als Tutor
 
 
-Wir skripten, um aus Daten Erkenntnisse zu gewinnen, und R ist das Werkzeug dafür. Der Prozess, den Code zu entwicklen besteht aus dem lösen vieler kleiner Teilproblemen. Wenn man bei der Lösung eines Teilproblems Hilfe benötigt, gibt es dafür unterschiedliche Ressourcen, KI ist nur eine davon. In dieser Demo und den Übungen wollen wir einige dieser Ressourcen anschauen und vergleichen:
+Wir skripten, um aus Daten Erkenntnisse zu gewinnen, und R ist das Werkzeug dafür. Der Prozess, den Code zu entwicklen, besteht aus dem Lösen vieler kleiner Teilproblemen. Wenn man bei der Lösung eines Teilproblems Hilfe benötigt, gibt es dafür unterschiedliche Ressourcen, KI ist nur eine davon. In dieser Demo und den Übungen wollen wir einige dieser Ressourcen anschauen und vergleichen:
 
 - **R-Hilfe** (`?funktionsname`, Autocomplete-Tooltips): schnell, präzise, direkt im Editor
 - **Paketdokumentation / Recherche / Cheatsheets**: gut, wenn man nicht weiss, wonach man suchen soll

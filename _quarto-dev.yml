@@ -9,7 +9,6 @@ book:
     - part: ⚠ PREPRO4 VORSCHAU ⚠
       chapters:
       - prepro/Prepro4_Tutor.qmd
-      - prepro/Prepro4_Debugging_Demo.qmd
-      - prepro/Prepro4_Debugging_Uebung.qmd
+      - prepro/Prepro4_Debugging.qmd
       - prepro/Prepro4_Vibecoding.qmd
     - "References.qmd"

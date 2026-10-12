@@ -1,9 +1,6 @@
+# Research Methods HS26 — Uebungsunterlagen
 
-# Research Methods HS26 - Dokumentation
-
-## Überblick
-
-Im Kurs Research Methods verwenden wir seit einigen Jahren RMarkdown um die R Unterlagen für die Studenten bereit zu stellen. Seit HS2020 arbeiten wir mit Quarto, dem Nachfolger von RMarkdown.
+Quarto-Book mit Demos und Übungen für den Kurs Research Methods (Umweltingenieurwesen, ZHAW).
 
 ## 1. Erste Schritte
 
@@ -41,9 +38,6 @@ Wir empfehlen folgende Konfiguration in RStudio (Tools → `Global Options`):
 - Mit folgendem Befehl wird das **GitHub** Repo als *upstream* gesetzt: `git branch -u origin/main`
 
 
-
-
-
 ## 2. Datensätze (Submodule)
 
 Damit die Datensätze nicht öffentlich einsehbar sind, befinden sie sich in einem eigenen git-Verzeichnis *innerhalb dieses Ordners*. Dieses Verschachteln von zwei git-Verzeichnissen funktioniert über sogenannte *submodules*: Der Ordner `datasets` ist ein *submodule* dieses Repos `HS26`.
@@ -59,6 +53,7 @@ git submodule update --init --recursive
 ### Submodule Workflow
 
 Wenn eine Änderung im Ordner `datasets` gemacht wurde, sind diese im HS26-repo sichtbar: Der Ordner `datasets` ist beispielsweise im *git Pane* in RStudio sichtbar, und `git status` zeigt folgende Meldung:
+
 
 ```bash
 Changes not staged for commit:
@@ -136,17 +131,38 @@ Um die Änderungen an den Source Files zu veröffentlichen, müsst ihr diese via
 Diese entstehen beim Rendern der Source Files und müssen auf die gleiche Art und Weise wie die Source Files auf das Respository gepusht werden.
 
 
-### Änderungen auf Webseite veröffentlichen
+## 4. Rendern und Publizieren
 
-Um Änderungen an den Output Files (html) zu veröffentlichen, muss folgender Befehl ausgeführt werden:
+### Hauptseite
 
-```sh
-quarto publish gh-pages --no-prompt 
+```bash
+quarto render        # rendert nach _site/
+quarto publish       # publiziert Hauptseite (Destination in _publish.yml)
 ```
 
-## 4. FAQ - Häufige Probleme
+### Entwicklungsvorschau (Profil `dev`)
 
-### 4.1 Quarto JSON Error
+Das Profil `dev` (`_quarto-dev.yml`) rendert nur die Prepro-4-Inhalte nach `_dev/` und eignet sich für Vorschauen vor der Aufschaltung auf die Hauptseite.
+
+```bash
+quarto render --profile dev               # rendert nach _dev/
+quarto preview --profile dev              # lokale Vorschau
+
+# Publizieren (erstes Mal: Quarto fragt nach Destination und URL)
+quarto publish quarto-pub --profile dev
+
+# Erneut publizieren ohne Re-Render
+quarto publish posit-cloud --no-render --profile dev
+```
+
+Die Publish-Konfiguration (URL, Site-ID) wird automatisch in `_publish.yml` gespeichert.
+
+Aktuelle Vorschau-URL: https://connect.posit.cloud/ratnanil/content/01a116ee-12a8-9ed3-f523-667a943814c0
+
+
+## 5. FAQ - Häufige Probleme
+
+### 5.1 Quarto JSON Error
 
 **Problem:** `ERROR: SyntaxError: Unexpected token < in JSON at position 2`
 
@@ -165,7 +181,7 @@ ERROR: SyntaxError: Unexpected token < in JSON at position 2
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
 
-### 4.2 Git Pull Conflicts
+### 5.2 Git Pull Conflicts
 
 **Problem:** `error: Your local changes to the following files would be overwritten by merge:`
 
@@ -187,7 +203,7 @@ git commit -m "meine message"
 git pull                       # lädt die Änderungen von Github herunter
 ```
 
-### 4.3 Merge Conflict in _freeze Ordner
+### 5.3 Merge Conflict in _freeze Ordner
 
 **Problem:** Merge conflicts im _freeze Ordner verursachen Arbeit, obwohl diese eigentlich nicht behoben werden müssen (es handelt sich ja schliesslich lediglich um output / target-Files).
 
@@ -197,6 +213,6 @@ git pull                       # lädt die Änderungen von Github herunter
 
 Dies soll bewirken, dass bei allen Files im Ordner _freeze bei merge conflicts die jeweils eigene (ours) gegenüber der incoming (theirs) Version gültig ist.
 
-### 4.4 Merge-Conflict lösen
+### 5.4 Merge-Conflict lösen
 
 Siehe [happywithgitr: 22.4 Dealing with conflicts](https://happygitwithr.com/git-branches.html?q=merge%20conflicts#dealing-with-conflicts)
