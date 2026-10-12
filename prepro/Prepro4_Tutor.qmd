@@ -43,7 +43,7 @@ wetter$stn <- as.factor(wetter$stn)
 
 ### Schritt 2: KI — Nachschlagen und prüfen
 
-Die Spalte `time` muss als `POSIXct` eingelesen werden. Dafür braucht `as.POSIXct()` eine Formatschablone. Die R-Hilfe `?strptime` listet alle Codes auf — aber als Nachschlagewerk für ein konkretes Format ist sie mühsam. Auch eine Google-Suche führt hier selten direkt ans Ziel. Hier drängt sich die nutzung von KI auf, indem  ein Beispielwert aus der Spalte gezeigt und nach der passenden Schablone gefragt wird
+Die Spalte `time` muss als `POSIXct` eingelesen werden. Dafür braucht `as.POSIXct()` eine Formatschablone. Die R-Hilfe `?strptime` listet alle Codes auf — aber als Nachschlagewerk für ein konkretes Format ist sie mühsam. Auch eine Google-Suche führt hier selten direkt ans Ziel. Hier drängt sich die Nutzung von KI auf, indem  ein Beispielwert aus der Spalte gezeigt und nach der passenden Schablone gefragt wird
 
 → Schau dir zuerst an, wie die Werte in `time` aussehen:
 
@@ -64,7 +64,7 @@ Eine typische Antwort könnte so aussehen:
 
 Das klingt überzeugend — aber stimmt es? Hier lohnt es sich, die Antwort kritisch zu prüfen:
 
-- Die Reihenfolge der Felder im Beispielwert (`2000 01 01 00`) stimmt mit `%Y%m%d%H` überein - aber das muss mittels überprüfung der Metadaten kontrolliert werden.
+- Die Reihenfolge der Felder im Beispielwert (`2000 01 01 00`) stimmt mit `%Y%m%d%H` überein - aber das muss mittels Überprüfung der Metadaten kontrolliert werden.
 - Die Zeitzone (UTC, aus der Datei `meta.txt`) hat die KI nicht erwähnt — das Argument `tz = "UTC"` muss man selbst ergänzen.
 - Die Formatcodes sind es wert, einmal kurz nachzuschlagen und die häufigsten zu notieren.
 
@@ -151,7 +151,7 @@ Schlag die Funktion `read_delim()` auf zwei Wegen nach:
 
 Vergleiche die beiden Antworten:
 
-- Was erfährst du aus `?read_delim`, das die KI nicht erwähnt?
+- Was erfährst du aus `?read_delim`, was die KI nicht erwähnt?
 - Was erklärt die KI besser als die Dokumentation?
 - Für welche Situation würdest du künftig welche Ressource bevorzugen?
 
@@ -179,45 +179,37 @@ Vergleiche die Antworten:
 
 - Unterscheiden sie sich in Stil, Detailgrad oder Verständlichkeit?
 - Sind beide korrekt? Gibt es Unterschiede in den Code-Beispielen?
-- Welche Antwort findest du für dein Lernen hilfreicher — und warum?
 
 
 ### Aufgabe 4: KI-Antwort verifizieren
 
 Stelle einer KI folgende Frage:
 
-> *«Ein Wert aus meiner Datumsspalte sieht so aus: `15.03.2001 14:00`. Welche Formatschablone brauche ich für `as.POSIXct()` in R?»*
+> *«Ein Wert aus meiner Datumsspalte sieht so aus: `03/04/2020 14:00`. Welche Formatschablone brauche ich für `as.POSIXct()` in R?»*
 
 Notiere die Antwort der KI, und überprüfe sie dann:
-
-```{r}
-#| output: true
-as.POSIXct("15.03.2001 14:00", format = "___")
-```
 
 Hat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?
 
 :::{.content-hidden unless-meta="path.to.metadata"}
 ::: {.callout-tip collapse="true" title="Musterlösung"}
-Die korrekte Schablone ist `"%d.%m.%Y %H:%M"`. Der Output sollte `"2001-03-15 14:00:00"` (mit der Systemzeitzone) ergeben.
+Die korrekte Schablone ist `"%m/%d/%Y %H:%M"` — `03/04/2020` steht im US-amerikanischen Format für den **4. März 2020** (Monat/Tag/Jahr). Der Output sollte `"2020-03-04 14:00:00"` (mit der Systemzeitzone) ergeben.
 
 ```{r}
 #| output: true
-as.POSIXct("15.03.2001 14:00", format = "%d.%m.%Y %H:%M")
+as.POSIXct("03/04/2020 14:00", format = "%m/%d/%Y %H:%M")
 ```
 
-Was KIs hier häufig vergessen oder falsch machen: die Reihenfolge von Tag/Monat verwechseln (`%m.%d` statt `%d.%m`), oder — wenn eine Zeitzone relevant wäre — das Argument `tz` nicht erwähnen.
+Die typische Stolperfalle: KIs interpretieren `03/04` häufig als europäisches Format (Tag/Monat) und liefern `%d/%m/%Y` — was den 3. April als 4. März ausgibt. Entscheidend ist, ob man das Format kennt oder nachfragt.
 :::
 :::
 
 
 ### Aufgabe 5: Energieverbrauch
 
-Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Laut einer Schätzung der Internationalen Energieagentur (IEA, 2024) verbraucht eine Anfrage an ein grosses Sprachmodell wie ChatGPT rund **10× mehr Energie als eine Google-Suche** — ungefähr 0.003 kWh pro Query. Ein Aufruf von `?read_delim` hingegen ist ein lokaler Dateizugriff: die CPU arbeitet für wenige Millisekunden, der Energieverbrauch liegt bei schätzungsweise **0.000004 kWh** — ein Faktor von etwa 1000.
+Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage **um Grössenordnungen mehr Energie und CO₂-Emissionen** als aufgabenspezifische Modelle [@luccioni2024]. Lokale Abfragen wie `?read_delim` oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.
 
 Schaue dir nochmals die Aufgaben 1–4 an und überlege:
 
 - Bei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das `?` oder die Paketdokumentation nicht ebenso gut gekonnt hätte?
 - Bei welchen Aufgaben wäre `?` oder eine Suche in der Dokumentation die energieeffizientere und gleichwertige Alternative gewesen?
-
-Es gibt keine Musterlösung — die Antwort hängt davon ab, was du in den Aufgaben erlebt hast.
