@@ -236,7 +236,7 @@ library("dplyr")
 ```
 
 
-## Aufgabe 1
+### Aufgabe 1
 
 Führe diesen Code aus und schau dir den Output an:
 
@@ -269,7 +269,7 @@ wetter_prec <- read_delim("datasets/prepro/weather_prepro4_precipitation.csv", d
 :::
 
 
-## Aufgabe 2
+### Aufgabe 2
 
 Verwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:
 
@@ -306,7 +306,7 @@ Lösung: `year()` aus lubridate erwartet, dass die Eingabe ein Datum/Zeit-Objekt
 :::
 
 
-## Aufgabe 3
+### Aufgabe 3
 
 Welche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.
 
@@ -354,7 +354,7 @@ wetter |>
 
 
 
-## Aufgabe 4
+### Aufgabe 4
 
 Nun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. 
 Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. 
@@ -443,7 +443,7 @@ wetter_max <- wetter |>
 :::
 
 
-## Aufgabe 5
+### Aufgabe 5
 
 Die beiden Datensätze `wetter` und `wetter_max` sollen nun über einen geeigneten Join miteinader 
 verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. 
