@@ -1,6 +1,6 @@
 ---
 lesson: PrePro4
-thema: Debugging Uebung
+thema: Debugging
 execute: 
   echo: true
   output: false
@@ -30,9 +30,9 @@ Wer mehr wissen möchte, wie ein Insekt sich in die Computersprache eingeschlich
 
 Welche Fehler kann es geben? 
 
-- "Gute" Fehler: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, den Fehler zu erkennen → Der Fehler macht sich bemerkbar. 
-- "Schlechte" Fehler: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis → Wir müssen den Fehler selbst erkennen. 
-- Die gefährlichsten Fehler: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
+- **"Gute" Fehler**: Der Code läuft nicht. R gibt eine Fehlermeldung aus und zwingt uns, den Fehler zu erkennen → Der Fehler macht sich bemerkbar. 
+- **"Schlechte" Fehler**: Der Code läuft ohne Fehlermeldung, liefert aber ein falsches oder unerwartetes Ergebnis → Wir müssen den Fehler selbst erkennen. 
+- **Die gefährlichsten Fehler**: Der Code läuft und liefert ein plausibel aussehendes falsches Ergebnis → Ohne fachliches und methodisches Verständnis bleibt der Fehler möglicherweise unentdeckt.
 
 Die letzten beide Punkte zeigen, dass ein funktionierender Code nicht zwingend auch ein korrekter Code ist.
 
@@ -70,21 +70,13 @@ mean(wetter$tre200h0[wetter$monat == "März"])
 
 Bevor der Code ausgeführt wird, machen wir uns einige Gedanken:
 
-Was wird in RStudio angezeigt?
+- **Was wird in RStudio angezeigt?** → Rote Kreuze erscheinen, einen Teil ist grün eingefärbt.
 
-- Rote Kreuze erscheinen, einen Teil ist grün eingefärbt.
+- **Was könnte dazu führen?** → Vermutung: nicht geschlossene Klammern, Strings.
 
-Was könnte dazu führen?
+- **Wo liegt vermutlich der Fehler?** → Kreuze erscheinen immer in dieser Zeile, wo der Fehler beginnt
 
-- Vermutung: nicht geschlossene Klammern, Strings.
-
-Wo liegt vermutlich der Fehler?
-
-- Kreuze erscheinen immer in dieser Zeile, wo der Fehler beginnt
-
-Wie löse ich diesen Fehler?
-
-- Bei `"Februar` String schliessen
+- **Wie löse ich diesen Fehler?** → Bei `"Februar` String schliessen
 
 
 Jetzt lassen wir den Code laufen.
@@ -98,17 +90,11 @@ mean(wetter$tre200h0[wetter$monat == "März"])
 
 ```
 
-Was ist der Output dieses Codes?
+- **Was ist der Output dieses Codes?** → NaN als Ergebnis
 
-- NaN als Ergebnis
+- **Wo liegt vermutlich der Fehler?** → noch nicht eindeutig, vieles könnte dazu führen.
 
-Wo liegt vermutlich der Fehler?
-
-- noch nicht eindeutig, vieles könnte dazu führen.
-
-Wie löse ich diesen Fehler?
-
-- einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
+- **Wie löse ich diesen Fehler?** → einzelne Codeteile analysieren, damit Problem im Code lokalisiert werden kann
 
 Welche Werte sind in der Spalte `monat` enthalten?
 
@@ -119,7 +105,7 @@ wetter$monat[1:10]
 
 ```
 
-Das Problem ist, dass `monat` als Integer codiert ist und nicht mit Namen. Wir haben somit unseren Fehler lokalisiert und können in debuggen.
+Das Problem ist, dass `monat` als Integer codiert ist und nicht mit Namen. Wir haben somit unseren Fehler lokalisiert und können ihn debuggen.
 
 
 ```{r}
@@ -156,20 +142,14 @@ wetter_summary <- wetter |>
   )
 
 ```
-Was ist der Output dieses Codes?
 
-- Es erscheint die Fehlermeldung: *Error in `group_by()`:
+- **Was ist der Output dieses Codes?** → Es erscheint die Fehlermeldung: *Error in `group_by()`:
 ! Must group by variables found in `.data`.
-✖ Column `monate` is not found.
-Run `rlang::last_trace()` to see where the error occurred.*
+✖ Column `monate` is not found.*
 
-Wo liegt das Problem?
+- **Wo liegt das Problem?** → Die Spalte `monate` ist nicht im Datensatz enthalten.
 
-- Die Spalte `monate` ist nicht im Datensatz enthalten.
-
-Wie löse ich dieses Problem?
-
-- Autocomplete von RStudio verwenden und/oder Überprüfung der Spaltennamen, damit der richtige Spaltenname verwendet werden kann.
+- **Wie löse ich dieses Problem?** → Autocomplete von RStudio verwenden und/oder Überprüfung der Spaltennamen, damit der richtige Spaltenname verwendet werden kann.
 
 
 ```{r}
@@ -187,17 +167,11 @@ wetter_summary <- wetter |>
 
 ```
 
-Was ist der Output dieses Codes?
+- **Was ist der Output dieses Codes?** → Der Code läuft ohne Fehlermeldung durch, dafür ist der Output nicht zufriedenstellend, da im Monat April NA als Durchschnittstemperatur erscheint.
 
-- Der Code läuft ohne Fehlermeldung durch, dafür ist der Output nicht zufriedenstellend, da im Monat April NA als Durchschnittstemperatur erscheint.
+- **Wo liegt vermutlich das Problem?** → Werte im April
 
-Wo liegt vermutlich das Problem?
-
-- Werte im April
-
-Wie löse ich diesen Fehler?
-
-- Temperaturwerte im April anschauen
+- **Wie löse ich diesen Fehler?** → Temperaturwerte im April anschauen
 
 
 ```{r}
@@ -206,11 +180,9 @@ wetter |>
 
 ```
 
-Wie es schein, fiel an einem Tag im April 2000 der Sensor aus.
+Wie es scheint, fiel an einem Tag im April 2000 der Sensor aus.
  
-Wie löse ich dieses Problem?
-
-- `mean(tre200h0, na.rm = T)` definieren
+- **Wie löse ich dieses Problem?** → `mean(tre200h0, na.rm = T)` definieren
 
  
 ```{r}
@@ -226,23 +198,31 @@ wetter_summary <- wetter |>
 Welche Methoden sind nun in RStudio/R hilfreich?
 
 - Error-Messages lesen und versuchen, zu entschlüsseln.
-- R Studio: Hilfe nützen! z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
-- R Studio ist eine Software, welche es uns ermöglicht, nur Teile eines Codes auszuführen (nicht mit allen Programmiersprachen und Umgebungen möglich).
+- Hilfe nutzen, z.B. rotes Kreuz bei nicht geschlossenen Klammern, grüne Einfärbung von Text bei nicht geschlossenen Strings
+- nur Teile eines Codes ausführen
 
 
 ### Wie kann nun KI helfen?
 
-Um nicht jedes Mal den ganzen Code einer KI zu geben, ist es wichtig, den Bug im eigenen Code lokalisieren zu können, d.h. wo stoppt der Code oder wo ist der Output nicht zufriedenstellend. Nach Lokalisation des Bugs kann KI uns helfen, den Bug zu fixen, indem wir den fehlerhafte Code, evtl. den Output und, wenn vorhanden, die Fehlermeldung. 
+Um nicht jedes Mal den ganzen Code einer KI zu geben, ist es wichtig, den Bug im eigenen Code lokalisieren zu können, d.h. wo stoppt der Code oder wo ist der Output nicht zufriedenstellend. Nach Lokalisation des Bugs kann KI uns helfen, den Bug zu fixen, indem wir den fehlerhafte Code, evtl. den Output und, wenn vorhanden, die Fehlermeldung prompten, z.B. so:
 
-Unser Lösungsvorschlag:
 
-1. Fehler selbst lesen
-2. Fehler lokalisieren
-3. KI um Erklärung/Hinweis bitten, sehr gut in Diagnoseschritte vorzuschlagen
-4. Lösung testen
-5. Lösung verstehen.
+> *«Aus einer as.Posix-Spalte `time` habe ich vorhängig die Spalte `monat` mit `month(wetter$time)` konstruiert. `mean(wetter$tre200h0[wetter$monat == "Januar"])` liefert nun `NA`.»*
 
-Trotzdem gilt: aus Fehlern lernt man
+Eine mögliche Antwort wäre:
+
+> *«Wenn du `monat` mit `wetter$monat <- month(wetter$time)` erzeugt hast (aus dem Paket lubridate), dann liefert `month()` standardmässig die Zahlen 1–12. Dann gibt es gar keine Werte "Januar"*.»
+
+::: {.callout-note}
+
+Unser Lösungsvorschlag zum Debuggen:
+
+1. Fehler lokalisieren und versuchen, diesen selber zu beheben
+2. KI um Erklärung/Hinweis bitten
+3. Lösung testen und Output kontrollieren!
+4. Lösung verstehen, denn es gilt: aus Fehlern lernt man
+
+:::
 
 ## Übungen
 
@@ -267,7 +247,7 @@ wetter <- read.csv("datasets/prepro/weather_prepro4.csv")
 wetter_prec <- read.csv("datasets/prepro/weather_prepro4_precipitation.csv")
 ```
 
-Welcher Output sieht falsch aus und warum? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach **zwei** verschiedene Lösungen.
+Welcher Output sieht falsch aus und warum? Welchen Output hättest du erwartet? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach **zwei** verschiedene Lösungen.
 
 Gibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast? 
 
@@ -328,7 +308,7 @@ Lösung: `year()` aus lubridate erwartet, dass die Eingabe ein Datum/Zeit-Objekt
 
 ## Aufgabe 3
 
-Welche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen und frage eine KI deiner Wahl nach Debugging-Strategien.
+Welche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.
 
 ```{r}
 #| eval: false
@@ -374,11 +354,10 @@ wetter |>
 
 
 
-
 ## Aufgabe 4
 
 Nun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. 
-Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage eine KI, was das Problem sein könnte. 
+Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. 
 Tipp: Geb der KI auch den Code aus Aufgabe 3.
 
 
@@ -430,7 +409,7 @@ wetter <- wetter |>
 :::
 
 
-Schau dir `wetter_max` genau an und überlege dir, ob die Werte in `min_temp` und `min_temp_F` stimmen können. Frage zur Sicherheit die KI, indem du den
+Schau dir `wetter_max` genau an und überlege dir, ob die Werte in `min_temp` und `min_temp_F` stimmen können. Frage zur Sicherheit eine KI, indem du den
 Code in einen Prompt verpackst.
 
 
@@ -466,7 +445,7 @@ wetter_max <- wetter |>
 
 ## Aufgabe 5
 
-Die beiden Datensätze `wetter` und `wetter_max` sollen nun verbundenüber einen geeignete Join miteinader 
+Die beiden Datensätze `wetter` und `wetter_max` sollen nun über einen geeigneten Join miteinader 
 verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. 
 Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.
 
