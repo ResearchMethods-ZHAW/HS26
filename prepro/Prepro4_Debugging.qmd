@@ -82,8 +82,6 @@ Bevor der Code ausgeführt wird, machen wir uns einige Gedanken:
 Jetzt lassen wir den Code laufen.
 
 ```{r}
-#| output: true
-
 mean(wetter$tre200h0[wetter$monat == "Januar"])
 mean(wetter$tre200h0[wetter$monat == "Februar"])
 mean(wetter$tre200h0[wetter$monat == "März"])
@@ -102,7 +100,6 @@ Welche Werte sind in der Spalte `monat` enthalten?
 #| output: true
 
 wetter$monat[1:10]
-
 ```
 
 Das Problem ist, dass `monat` als Integer codiert ist und nicht mit Namen. Wir haben somit unseren Fehler lokalisiert und können ihn debuggen.
@@ -153,6 +150,8 @@ wetter_summary <- wetter |>
 
 
 ```{r}
+#| output: true
+
 colnames(wetter)
 ```
 
