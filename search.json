@@ -476,62 +476,7 @@
     "href": "prepro/Prepro4_Debugging.html#übungen",
     "title": "Prepro 4: Debugging",
     "section": "Übungen",
-    "text": "Übungen\nLade die folgenden Libraries:\n\nlibrary(\"readr\")\nlibrary(\"lubridate\")\nlibrary(\"dplyr\")",
-    "crumbs": [
-      "Pre-Processing",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
-    ]
-  },
-  {
-    "objectID": "prepro/Prepro4_Debugging.html#aufgabe-1",
-    "href": "prepro/Prepro4_Debugging.html#aufgabe-1",
-    "title": "Prepro 4: Debugging",
-    "section": "Aufgabe 1",
-    "text": "Aufgabe 1\nFühre diesen Code aus und schau dir den Output an:\n\nwetter &lt;- read.csv(\"datasets/prepro/weather_prepro4.csv\")\nwetter_prec &lt;- read.csv(\"datasets/prepro/weather_prepro4_precipitation.csv\")\n\nWelcher Output sieht falsch aus und warum? Welchen Output hättest du erwartet? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach zwei verschiedene Lösungen.\nGibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?\nFixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.",
-    "crumbs": [
-      "Pre-Processing",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
-    ]
-  },
-  {
-    "objectID": "prepro/Prepro4_Debugging.html#aufgabe-2",
-    "href": "prepro/Prepro4_Debugging.html#aufgabe-2",
-    "title": "Prepro 4: Debugging",
-    "section": "Aufgabe 2",
-    "text": "Aufgabe 2\nVerwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:\n\nwetter |&gt; \n  mutate(jahr = year(time))\n\nErkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.",
-    "crumbs": [
-      "Pre-Processing",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
-    ]
-  },
-  {
-    "objectID": "prepro/Prepro4_Debugging.html#aufgabe-3",
-    "href": "prepro/Prepro4_Debugging.html#aufgabe-3",
-    "title": "Prepro 4: Debugging",
-    "section": "Aufgabe 3",
-    "text": "Aufgabe 3\nWelche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.\n\nweather |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\nStimmt die Format-Schablone für as.POSIXct()? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte time mit. Passe den Code an und überprüfe den Output.",
-    "crumbs": [
-      "Pre-Processing",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
-    ]
-  },
-  {
-    "objectID": "prepro/Prepro4_Debugging.html#aufgabe-4",
-    "href": "prepro/Prepro4_Debugging.html#aufgabe-4",
-    "title": "Prepro 4: Debugging",
-    "section": "Aufgabe 4",
-    "text": "Aufgabe 4\nNun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.\n\nwetter_max &lt;- wetter |&gt; \n group_by(jahr) |&gt; \n  summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; \n  mutate(min_temp_F = 5/9 * min_temp + 32)\n\nSchau dir wetter_max genau an und überlege dir, ob die Werte in min_temp und min_temp_F stimmen können. Frage zur Sicherheit eine KI, indem du den Code in einen Prompt verpackst.",
-    "crumbs": [
-      "Pre-Processing",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
-    ]
-  },
-  {
-    "objectID": "prepro/Prepro4_Debugging.html#aufgabe-5",
-    "href": "prepro/Prepro4_Debugging.html#aufgabe-5",
-    "title": "Prepro 4: Debugging",
-    "section": "Aufgabe 5",
-    "text": "Aufgabe 5\nDie beiden Datensätze wetter und wetter_max sollen nun über einen geeigneten Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.\n\nleft_join(wetter_max, wetter_prec, by = \"jahr\")",
+    "text": "Übungen\nLade die folgenden Libraries:\n\nlibrary(\"readr\")\nlibrary(\"lubridate\")\nlibrary(\"dplyr\")\n\n\nAufgabe 1\nFühre diesen Code aus und schau dir den Output an:\n\nwetter &lt;- read.csv(\"datasets/prepro/weather_prepro4.csv\")\nwetter_prec &lt;- read.csv(\"datasets/prepro/weather_prepro4_precipitation.csv\")\n\nWelcher Output sieht falsch aus und warum? Welchen Output hättest du erwartet? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach zwei verschiedene Lösungen.\nGibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?\nFixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.\n\n\nAufgabe 2\nVerwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:\n\nwetter |&gt; \n  mutate(jahr = year(time))\n\nErkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.\n\n\nAufgabe 3\nWelche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.\n\nweather |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\nStimmt die Format-Schablone für as.POSIXct()? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte time mit. Passe den Code an und überprüfe den Output.\n\n\nAufgabe 4\nNun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.\n\nwetter_max &lt;- wetter |&gt; \n group_by(jahr) |&gt; \n  summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; \n  mutate(min_temp_F = 5/9 * min_temp + 32)\n\nSchau dir wetter_max genau an und überlege dir, ob die Werte in min_temp und min_temp_F stimmen können. Frage zur Sicherheit eine KI, indem du den Code in einen Prompt verpackst.\n\n\nAufgabe 5\nDie beiden Datensätze wetter und wetter_max sollen nun über einen geeigneten Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.\n\nleft_join(wetter_max, wetter_prec, by = \"jahr\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
