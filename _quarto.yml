@@ -57,7 +57,10 @@ book:
       - --
       - prepro/Prepro3_Demo.qmd
       - prepro/Prepro3_Uebung.qmd
-
+      - --
+      - prepro/Prepro4_Tutor.qmd
+      - prepro/Prepro4_Debugging.qmd
+      - prepro/Prepro4_Vibecoding.qmd
 
 
     # - part: InfoVis.qmd
