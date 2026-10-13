@@ -11,7 +11,7 @@ knitr:
     collapse: true
 path:
   to:
-    metadata: false # set true to show Musterlösung
+    metadata: true # set true to show Musterlösung
 ---
 
 # Prepro 4: Debugging 

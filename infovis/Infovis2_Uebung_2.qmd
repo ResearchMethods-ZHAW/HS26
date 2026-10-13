@@ -12,7 +12,7 @@ knitr:
 ---
 
 
-# Infovis 2: Übung
+# Infovis 2: Übung optional
 
 Für die optionale Übung brauchst du den Datensatz *temperature_2005.csv*. Dabei handelt es sich wieder um Temperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (insbesondere `read_delim`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 

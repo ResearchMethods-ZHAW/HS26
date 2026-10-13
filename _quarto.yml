@@ -61,20 +61,18 @@ book:
       - prepro/Prepro4_Tutor.qmd
       - prepro/Prepro4_Debugging.qmd
       - prepro/Prepro4_Vibecoding.qmd
-
-
-    # - part: InfoVis.qmd
-    #   chapters:
-    #   - infovis/Infovis1_Vorbereitung.qmd
-    #   - --
-    #   - infovis/Infovis1_Demo.qmd
-    #   - infovis/Infovis1_Uebung.qmd
-    #   - infovis/Infovis1_Script_eda.qmd
-    #   - infovis/Infovis1_Kovic_2014.qmd
-    #   - --
-    # - infovis/Infovis2_Demo.qmd
-    # - infovis/Infovis2_Uebung_1.qmd
-    # - infovis/Infovis2_Uebung_2.qmd
+    - part: InfoVis.qmd
+      chapters:
+      - infovis/Infovis1_Vorbereitung.qmd
+      - --
+      - infovis/Infovis1_Demo.qmd
+      - infovis/Infovis1_Uebung.qmd
+      - infovis/Infovis1_Script_eda.qmd
+      - infovis/Infovis1_Kovic_2014.qmd
+      - --
+      - infovis/Infovis2_Demo.qmd
+      - infovis/Infovis2_Uebung_1.qmd
+      - infovis/Infovis2_Uebung_2.qmd
     # - part: Statistik.qmd
     #   chapters:
     #   - statistik/Statistik0_Vorbereitung.qmd
