@@ -311,7 +311,7 @@
     "href": "prepro/Prepro3_Uebung.html",
     "title": "Prepro 3: Übung",
     "section": "",
-    "text": "Aufgabe 1\nGegeben sei ein Datensatz sensors_combined.csv mit den Temperaturwerten von drei verschiedenen Sensoren. Importiere ihn als csv in R (als sensors_combined).\nFormatiere die Datetime Spalte in POSIXct um. Verwende dazu die Funktion as.POSIXct (lies mit ?strftime() nochmal nach, wie du das spezifische Format (die “Schablone”) festlegen kannst).",
+    "text": "Aufgabe 1\nGegeben sei ein Datensatz sensors_combined.csv mit den Temperaturwerten von drei verschiedenen Sensoren. Importiere ihn als csv in R (als sensors_combined).\nFormatiere die Datetime Spalte in POSIXct um. Verwende dazu die Funktion as.POSIXct (lies mit ?strftime() nochmal nach, wie du das spezifische Format (die “Schablone”) festlegen kannst).\nMusterlösung\nlibrary(\"readr\")\n\nsensors_combined &lt;- read_delim(\"datasets/prepro/sensors_combined.csv\", \",\")\n\nsensors_combined$Datetime &lt;- as.POSIXct(sensors_combined$Datetime, format = \"%d%m%Y_%H%M\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -322,7 +322,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-2",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 2",
-    "text": "Aufgabe 2\nÜberführe die Tabelle in ein langes Format (verwende dazu die Funktion pivot_longer aus tidyr) und speichere den output als sensors_long.\nTipp:\n\nim Argument cols kannst du entweder die Spalten auflisten, die “pivotiert” werden sollen.\nAlternativ kannst du (mit vorangestelltem Minuszeichen, -) die Spalte bezeichnen, die nicht pivotiert werden soll.\nIn beiden Fällen musst du die Spalten weder mit Anführungs- und Schlusszeichen noch mit dem $-Zeichen versehen.",
+    "text": "Aufgabe 2\nÜberführe die Tabelle in ein langes Format (verwende dazu die Funktion pivot_longer aus tidyr) und speichere den output als sensors_long.\nTipp:\n\nim Argument cols kannst du entweder die Spalten auflisten, die “pivotiert” werden sollen.\nAlternativ kannst du (mit vorangestelltem Minuszeichen, -) die Spalte bezeichnen, die nicht pivotiert werden soll.\nIn beiden Fällen musst du die Spalten weder mit Anführungs- und Schlusszeichen noch mit dem $-Zeichen versehen.\n\n\n\nMusterlösung\nlibrary(\"tidyr\")\n\n# Variante 1 (Spalten abwählen)\nsensors_long &lt;- pivot_longer(sensors_combined, -Datetime) \n\n# Variante 2 (Spalten anwählen)\nsensors_long &lt;- pivot_longer(sensors_combined, c(sensor1:sensor3))",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -333,7 +333,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-3",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 3",
-    "text": "Aufgabe 3\nGruppiere sensors_long nach der neuen Spalte, wo die Sensor-Information enthalten ist (default: name) mit group_by und berechne den Mittelwert der Temperatur pro Sensor (summarise). Hinweis: Beide Funktionen sind Teil des Packages dplyr.\nDer Output sieht folgendermassen aus:\n\n## # A tibble: 3 × 2\n##   name    temp_mean\n##   &lt;chr&gt;       &lt;dbl&gt;\n## 1 sensor1      14.7\n## 2 sensor2      12.0\n## 3 sensor3      14.4",
+    "text": "Aufgabe 3\nGruppiere sensors_long nach der neuen Spalte, wo die Sensor-Information enthalten ist (default: name) mit group_by und berechne den Mittelwert der Temperatur pro Sensor (summarise). Hinweis: Beide Funktionen sind Teil des Packages dplyr.\nDer Output sieht folgendermassen aus:\n\n\nMusterlösung\nlibrary(\"dplyr\")\n\nsensors_long |&gt;\n  group_by(name) |&gt;\n  summarise(temp_mean = mean(value, na.rm = TRUE))\n## # A tibble: 3 × 2\n##   name    temp_mean\n##   &lt;chr&gt;       &lt;dbl&gt;\n## 1 sensor1      14.7\n## 2 sensor2      12.0\n## 3 sensor3      14.4",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -344,7 +344,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-4",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 4",
-    "text": "Aufgabe 4\nErstelle für sensors_long eine neue convenience Variabel month, welche den Monat beinhaltet (Tipp: verwende dazu die Funktion month aus lubridate). Gruppiere nun nach month und Sensor und berechne den Mittelwert der Temperatur.",
+    "text": "Aufgabe 4\nErstelle für sensors_long eine neue convenience Variabel month, welche den Monat beinhaltet (Tipp: verwende dazu die Funktion month aus lubridate). Gruppiere nun nach month und Sensor und berechne den Mittelwert der Temperatur.\n\n\nMusterlösung\nlibrary(\"lubridate\")\n\nsensors_long |&gt;\n  mutate(month = month(Datetime)) |&gt;\n  group_by(month, name) |&gt;\n  summarise(temp_mean = mean(value, na.rm = TRUE))",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -355,7 +355,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-5",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 5",
-    "text": "Aufgabe 5\nImportiere die Datei sensor_fail.csv in R.\nsensor_fail.csv hat eine Variabel SensorStatus: 1 bedeutet der Sensor misst, 0 bedeutet der Sensor misst nicht. Fälschlicherweise wurde auch dann der Messwert Temp = 0 erfasst, wenn Sensorstatus = 0. Richtig wäre hier NA (not available). Korrigiere den Datensatz entsprechend.\n\n\n\n\n\nSensor\nTemp\nHum_%\nDatetime\nSensorStatus\nTemp_correct\n\n\n\n\nSen102\n0.6\n98\n16102017_1800\n1\n0.6\n\n\nSen102\n0.3\n96\n17102017_1800\n1\n0.3\n\n\nSen102\n0.0\n87\n18102017_1800\n1\n0.0\n\n\nSen102\n0.0\n86\n19102017_1800\n0\nNA\n\n\nSen102\n0.0\n98\n23102017_1800\n0\nNA\n\n\nSen102\n0.0\n98\n24102017_1800\n0\nNA\n\n\nSen102\n0.0\n96\n25102017_1800\n1\n0.0\n\n\nSen103\n-0.3\n87\n26102017_1800\n1\n-0.3\n\n\nSen103\n-0.7\n98\n27102017_1800\n1\n-0.7\n\n\nSen103\n-1.2\n98\n28102017_1800\n1\n-1.2",
+    "text": "Aufgabe 5\nImportiere die Datei sensor_fail.csv in R.\nsensor_fail.csv hat eine Variabel SensorStatus: 1 bedeutet der Sensor misst, 0 bedeutet der Sensor misst nicht. Fälschlicherweise wurde auch dann der Messwert Temp = 0 erfasst, wenn Sensorstatus = 0. Richtig wäre hier NA (not available). Korrigiere den Datensatz entsprechend.\n\n\nMusterlösung\nsensor_fail &lt;- read_delim(\"datasets/prepro/sensor_fail.csv\")\n\n# mit base-R:\nsensor_fail$Temp_correct[sensor_fail$SensorStatus == 0] &lt;- NA\nsensor_fail$Temp_correct[sensor_fail$SensorStatus != 0] &lt;- sensor_fail$Temp #Warnmeldung kann ignoriert werden.\n\n# das gleiche mit dplyr:\nsensor_fail &lt;- sensor_fail |&gt;\n  mutate(Temp_correct = ifelse(SensorStatus == 0, NA, Temp))\n\n\n\n\n\n\n\nSensor\nTemp\nHum_%\nDatetime\nSensorStatus\nTemp_correct\n\n\n\n\nSen102\n0.6\n98\n16102017_1800\n1\n0.6\n\n\nSen102\n0.3\n96\n17102017_1800\n1\n0.3\n\n\nSen102\n0.0\n87\n18102017_1800\n1\n0.0\n\n\nSen102\n0.0\n86\n19102017_1800\n0\nNA\n\n\nSen102\n0.0\n98\n23102017_1800\n0\nNA\n\n\nSen102\n0.0\n98\n24102017_1800\n0\nNA\n\n\nSen102\n0.0\n96\n25102017_1800\n1\n0.0\n\n\nSen103\n-0.3\n87\n26102017_1800\n1\n-0.3\n\n\nSen103\n-0.7\n98\n27102017_1800\n1\n-0.7\n\n\nSen103\n-1.2\n98\n28102017_1800\n1\n-1.2",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -366,7 +366,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-6",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 6",
-    "text": "Aufgabe 6\nWarum spielt es eine Rolle, ob 0 oder NA erfasst wird? Berechne den Mittelwert der Temperatur / Feuchtigkeit nach der Korrektur.",
+    "text": "Aufgabe 6\nWarum spielt es eine Rolle, ob 0 oder NA erfasst wird? Berechne den Mittelwert der Temperatur / Feuchtigkeit nach der Korrektur.\n\n\nMusterlösung\n# Mittelwerte der falschen Sensordaten: 0 fliesst in die Berechnung\n# ein und verfälscht den Mittelwert\nmean(sensor_fail$Temp)\n\n# Mittelwerte der korrigierten Sensordaten: mit na.rm = TRUE werden\n# NA-Werte aus der Berechnung entfernt.\nmean(sensor_fail$Temp_correct, na.rm = TRUE)",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -377,7 +377,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-7",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 7",
-    "text": "Aufgabe 7\nLade jetzt nochmal den Datensatz weather.csv (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (stn als factor, time als POSIXct, tre200h0 als double).",
+    "text": "Aufgabe 7\nLade jetzt nochmal den Datensatz weather.csv (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (stn als factor, time als POSIXct, tre200h0 als double).\n\n\nMusterlösung\nweather &lt;- read_delim(\"datasets/prepro/weather.csv\")\n\nweather$stn &lt;- as.factor(weather$stn)\n\nweather$time &lt;- as.POSIXct(as.character(weather$time), format = \"%Y%m%d%H\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -388,7 +388,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-8",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 8",
-    "text": "Aufgabe 8\nErstelle nun eine convenience Variable für die Kalenderwoche pro Messung (lubridate::week). Berechne im Anschluss den Mittelwert der Temperatur pro Kalenderwoche.\nVisualisiere im Anschluss das Resultat:",
+    "text": "Aufgabe 8\nErstelle nun eine convenience Variable für die Kalenderwoche pro Messung (lubridate::week). Berechne im Anschluss den Mittelwert der Temperatur pro Kalenderwoche.\n\n\nMusterlösung\nweather_summary &lt;- weather |&gt;\n  mutate(week = week(time)) |&gt;\n  group_by(week) |&gt;\n  summarise(\n    temp_mean = mean(tre200h0, na.rm = TRUE)\n  )\n\n\nVisualisiere im Anschluss das Resultat:\n\nMusterlösung\nplot(weather_summary$week, weather_summary$temp_mean, type = \"l\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -399,7 +399,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-9",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 9",
-    "text": "Aufgabe 9\nIn der vorherigen Aufgabe haben wir den Mittelwert der Temperatur pro Kalenderwoche über alle Jahre (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir zuerst nach Jahr, dann nach Woche gruppieren und die Daten aggregieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.\n\n\n\n\n\n\n\n\nAbbildung 7.1: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie",
+    "text": "Aufgabe 9\nIn der vorherigen Aufgabe haben wir den Mittelwert der Temperatur pro Kalenderwoche über alle Jahre (2000 und 2001) berechnet. Wenn wir die Jahre aber miteinander vergleichen wollen, müssen wir zuerst nach Jahr, dann nach Woche gruppieren und die Daten aggregieren. Versuche dies mit den Wetterdaten und visualisiere den Output anschliessend.\n\n\nMusterlösung\nweather_summary2 &lt;- weather |&gt;\n  mutate(\n    year = year(time),\n    week = week(time),\n    ) |&gt;\n  group_by(year, week) |&gt;\n  summarise(\n    temp_mean = mean(tre200h0, na.rm = TRUE)\n  )\n\n\n\n\nMusterlösung\nplot(weather_summary2$week, weather_summary2$temp_mean, type = \"l\")\n\n\n\n\n\n\n\n\nAbbildung 7.1: baseplot mag keine long tables und macht aus den beiden Jahren eine kontinuierliche Linie",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -410,7 +410,7 @@
     "href": "prepro/Prepro3_Uebung.html#aufgabe-10",
     "title": "Prepro 3: Übung",
     "section": "Aufgabe 10",
-    "text": "Aufgabe 10\nÜberführe den Output aus der letzten Übung in eine wide table. Nun lassen sich die beiden Jahre viel besser miteinander vergleichen.",
+    "text": "Aufgabe 10\nÜberführe den Output aus der letzten Übung in eine wide table. Nun lassen sich die beiden Jahre viel besser miteinander vergleichen.\n\n\nMusterlösung\nweather_summary2 &lt;- weather_summary2 |&gt;\n  pivot_wider(names_from = year, values_from = temp_mean)\n\n\n\n\nMusterlösung\nplot(weather_summary2$week, weather_summary2$`2000`, type = \"l\",col = \"blue\")\nlines(weather_summary2$week, weather_summary2$`2001`, type = \"l\",col = \"red\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Prepro 3: Übung</span>"
@@ -443,7 +443,7 @@
     "href": "prepro/Prepro4_Tutor.html#übung",
     "title": "Prepro 4: KI als Tutor",
     "section": "Übung",
-    "text": "Übung\n\nAufgabe 1: R-Hilfe vs. KI\nSchlag die Funktion read_delim() auf zwei Wegen nach:\n\nFühre ?read_delim in der Konsole aus.\nStelle einer KI die Frage: «Was macht die Funktion read_delim() in R, und welche Argumente sind besonders wichtig?»\n\nVergleiche die beiden Antworten:\n\nWas erfährst du aus ?read_delim, was die KI nicht erwähnt?\nWas erklärt die KI besser als die Dokumentation?\nFür welche Situation würdest du künftig welche Ressource bevorzugen?\n\n\n\nAufgabe 2: Prompt-Qualität\nStelle einer KI zweimal dieselbe inhaltliche Frage — einmal so, wie jemand ohne R-Kenntnisse fragen würde, einmal mit dem Vokabular aus Prepro 1–3.\nOhne R-Kenntnisse: &gt; «Wie berechne ich in einer Tabelle den Durchschnitt einer Spalte, aufgeteilt nach Gruppen?»\nMit R-Kenntnissen: &gt; «Erkläre mir, wie group_by() und summarise() in dplyr zusammenarbeiten, um den Mittelwert einer Spalte pro Gruppe zu berechnen.»\nVergleiche die Antworten: Wie unterscheiden sie sich in Präzision und Nützlichkeit? Was sagt das darüber aus, wozu R-Grundkenntnisse gut sind — auch im Zeitalter von KI?\n\n\nAufgabe 3: Zwei Anbieter vergleichen\nStelle dieselbe Frage bei zwei verschiedenen KI-Tools (z.B. Le Chat und ChatGPT, oder zwei beliebige andere):\n\n«Erkläre mir den Unterschied zwischen left_join und inner_join in R anhand eines kurzen, konkreten Beispiels.»\n\nVergleiche die Antworten:\n\nUnterscheiden sie sich in Stil, Detailgrad oder Verständlichkeit?\nSind beide korrekt? Gibt es Unterschiede in den Code-Beispielen?\n\n\n\nAufgabe 4: KI-Antwort verifizieren\nStelle einer KI folgende Frage:\n\n«Ein Wert aus meiner Datumsspalte sieht so aus: 03/04/2020 14:00. Welche Formatschablone brauche ich für as.POSIXct() in R?»\n\nNotiere die Antwort der KI, und überprüfe sie dann:\nHat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?\n\n\nAufgabe 5: Energieverbrauch\nEin KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage um Grössenordnungen mehr Energie und CO₂-Emissionen als aufgabenspezifische Modelle (Luccioni u. a. 2024). Lokale Abfragen wie ?read_delim oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.\nSchaue dir nochmals die Aufgaben 1–4 an und überlege:\n\nBei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das ? oder die Paketdokumentation nicht ebenso gut gekonnt hätte?\nBei welchen Aufgaben wäre ? oder eine Suche in der Dokumentation die energieeffizientere und gleichwertige Alternative gewesen?\n\n\n\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, und Emma Strubell. 2024. „Power Hungry Processing: Watts Driving the Cost of AI Deployment?“ Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.",
+    "text": "Übung\n\nAufgabe 1: R-Hilfe vs. KI\nSchlag die Funktion read_delim() auf zwei Wegen nach:\n\nFühre ?read_delim in der Konsole aus.\nStelle einer KI die Frage: «Was macht die Funktion read_delim() in R, und welche Argumente sind besonders wichtig?»\n\nVergleiche die beiden Antworten:\n\nWas erfährst du aus ?read_delim, was die KI nicht erwähnt?\nWas erklärt die KI besser als die Dokumentation?\nFür welche Situation würdest du künftig welche Ressource bevorzugen?\n\n\n\nAufgabe 2: Prompt-Qualität\nStelle einer KI zweimal dieselbe inhaltliche Frage — einmal so, wie jemand ohne R-Kenntnisse fragen würde, einmal mit dem Vokabular aus Prepro 1–3.\nOhne R-Kenntnisse: &gt; «Wie berechne ich in einer Tabelle den Durchschnitt einer Spalte, aufgeteilt nach Gruppen?»\nMit R-Kenntnissen: &gt; «Erkläre mir, wie group_by() und summarise() in dplyr zusammenarbeiten, um den Mittelwert einer Spalte pro Gruppe zu berechnen.»\nVergleiche die Antworten: Wie unterscheiden sie sich in Präzision und Nützlichkeit? Was sagt das darüber aus, wozu R-Grundkenntnisse gut sind — auch im Zeitalter von KI?\n\n\nAufgabe 3: Zwei Anbieter vergleichen\nStelle dieselbe Frage bei zwei verschiedenen KI-Tools (z.B. Le Chat und ChatGPT, oder zwei beliebige andere):\n\n«Erkläre mir den Unterschied zwischen left_join und inner_join in R anhand eines kurzen, konkreten Beispiels.»\n\nVergleiche die Antworten:\n\nUnterscheiden sie sich in Stil, Detailgrad oder Verständlichkeit?\nSind beide korrekt? Gibt es Unterschiede in den Code-Beispielen?\n\n\n\nAufgabe 4: KI-Antwort verifizieren\nStelle einer KI folgende Frage:\n\n«Ein Wert aus meiner Datumsspalte sieht so aus: 03/04/2020 14:00. Welche Formatschablone brauche ich für as.POSIXct() in R?»\n\nNotiere die Antwort der KI, und überprüfe sie dann:\nHat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nDie korrekte Schablone ist \"%m/%d/%Y %H:%M\" — 03/04/2020 steht im US-amerikanischen Format für den 4. März 2020 (Monat/Tag/Jahr). Der Output sollte \"2020-03-04 14:00:00\" (mit der Systemzeitzone) ergeben.\n\nas.POSIXct(\"03/04/2020 14:00\", format = \"%m/%d/%Y %H:%M\")\n## [1] \"2020-03-04 14:00:00 CET\"\n\nDie typische Stolperfalle: KIs interpretieren 03/04 häufig als europäisches Format (Tag/Monat) und liefern %d/%m/%Y — was den 3. April als 4. März ausgibt. Entscheidend ist, ob man das Format kennt oder nachfragt.\n\n\n\n\n\nAufgabe 5: Energieverbrauch\nEin KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage um Grössenordnungen mehr Energie und CO₂-Emissionen als aufgabenspezifische Modelle (Luccioni u. a. 2024). Lokale Abfragen wie ?read_delim oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.\nSchaue dir nochmals die Aufgaben 1–4 an und überlege:\n\nBei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das ? oder die Paketdokumentation nicht ebenso gut gekonnt hätte?\nBei welchen Aufgaben wäre ? oder eine Suche in der Dokumentation die energieeffizientere und gleichwertige Alternative gewesen?\n\n\n\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, und Emma Strubell. 2024. „Power Hungry Processing: Watts Driving the Cost of AI Deployment?“ Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Prepro 4: KI als Tutor</span>"
@@ -476,7 +476,7 @@
     "href": "prepro/Prepro4_Debugging.html#übungen",
     "title": "Prepro 4: Debugging",
     "section": "Übungen",
-    "text": "Übungen\nLade die folgenden Libraries:\n\nlibrary(\"readr\")\nlibrary(\"lubridate\")\nlibrary(\"dplyr\")\n\n\nAufgabe 1\nFühre diesen Code aus und schau dir den Output an:\n\nwetter &lt;- read.csv(\"datasets/prepro/weather_prepro4.csv\")\nwetter_prec &lt;- read.csv(\"datasets/prepro/weather_prepro4_precipitation.csv\")\n\nWelcher Output sieht falsch aus und warum? Welchen Output hättest du erwartet? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach zwei verschiedene Lösungen.\nGibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?\nFixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.\n\n\nAufgabe 2\nVerwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:\n\nwetter |&gt; \n  mutate(jahr = year(time))\n\nErkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.\n\n\nAufgabe 3\nWelche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.\n\nweather |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\nStimmt die Format-Schablone für as.POSIXct()? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte time mit. Passe den Code an und überprüfe den Output.\n\n\nAufgabe 4\nNun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.\n\nwetter_max &lt;- wetter |&gt; \n group_by(jahr) |&gt; \n  summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; \n  mutate(min_temp_F = 5/9 * min_temp + 32)\n\nSchau dir wetter_max genau an und überlege dir, ob die Werte in min_temp und min_temp_F stimmen können. Frage zur Sicherheit eine KI, indem du den Code in einen Prompt verpackst.\n\n\nAufgabe 5\nDie beiden Datensätze wetter und wetter_max sollen nun über einen geeigneten Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.\n\nleft_join(wetter_max, wetter_prec, by = \"jahr\")",
+    "text": "Übungen\nLade die folgenden Libraries:\n\nlibrary(\"readr\")\nlibrary(\"lubridate\")\nlibrary(\"dplyr\")\n\n\nAufgabe 1\nFühre diesen Code aus und schau dir den Output an:\n\nwetter &lt;- read.csv(\"datasets/prepro/weather_prepro4.csv\")\nwetter_prec &lt;- read.csv(\"datasets/prepro/weather_prepro4_precipitation.csv\")\n\nWelcher Output sieht falsch aus und warum? Welchen Output hättest du erwartet? Lokalisiere das Problem. Frage danach eine KI deiner Wahl nach zwei verschiedene Lösungen.\nGibt die KI dieselben Funktionen aus wie du sie bereits im Unterricht gesehen hast?\nFixe den Bug mit dem Code deiner Wahl, lasse den Code noch einmal laufen und kontrolliere den Output.\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nPrompt: Ich möchte ein csv file in RStudio mit read.csv hineinladen, jedoch werden die Spalten nicht erkannt. Kannst du mir zwei Lösungsvorschläge machen?\n\nwetter &lt;- read_delim(\"datasets/prepro/weather_prepro4.csv\")\nwetter_prec &lt;- read_delim(\"datasets/prepro/weather_prepro4_precipitation.csv\", delim = \";\")\n\n\n\n\n\n\nAufgabe 2\nVerwende die Datensätze von Aufgabe 1, welche nun richtig eingelesen sein sollten. Führe folgenden Code aus:\n\nwetter |&gt; \n  mutate(jahr = year(time))\n\nErkennst du den Fehler direkt anhand des Wissens, welches du dir in den vorhergehenden Übungen erlernt hast? Kannst du den Fehler lokalisieren? Formuliere ansonsten einen Prompt und lokalisiere so den Bug.\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nPrompt:\nIch versuche, in einem Datensatz eine neue Spalte ‘jahr’ aus der bereits vorhandenen Spalte ‘time’ (erste Zeile z.B. 2000010100) zu berechnen. Mein Code lautet wetter |&gt; mutate(jahr = year(time)). Es erscheint jedoch die Fehlermeldung:\nWarnung: There was 1 warning in mutate(). ℹ In argument: jahr = year(time). Caused by warning: ! tz(): Don’t know how to compute timezone for object of class numeric; returning “UTC”.\nWie muss der Code angepasst werden?\nLösung: year() aus lubridate erwartet, dass die Eingabe ein Datum/Zeit-Objekt ist. Daher muss die Spalte time zuerst umgewandelt werden.\n\n\n\n\n\nAufgabe 3\nWelche Error-Meldung erscheint zuerst beim Ausführen dieses Codes? Versuche sie zu verstehen, löse den Fehler direkt und/oder frage eine KI deiner Wahl nach Debugging-Strategien.\n\nweather |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nZuerst erscheint die Fehlermeldung Fehler: Objekt 'weather' nicht gefunden. Die Variable müsste jedoch wetter heissen.\n\n\n\nStimmt die Format-Schablone für as.POSIXct()? Schau dir den Output an. Frage wenn nötig eine KI um eine passende Schablone. Gibt dazu ein Wert-Beispiel aus der Spalte time mit. Passe den Code an und überprüfe den Output.\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nPrompt: Ein Wert aus der Spalte time sieht so aus: 2000010100. Kannst du mir die passende Formatschablone für as.POSIXct geben?\n\nwetter |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d%H\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\n\n\n\n\n\nAufgabe 4\nNun sollst du mit untenstehendem die Minimaltemperatur in Grad Celsius und in Grad Fahrenheit pro Jahr berechnen. Läuft der Code bei dir durch? Wenn nein, lokalisiere das Problem, indem du den Code teilweise laufen lässt. Frage wenn nötig eine KI, was das Problem sein könnte. Tipp: Geb der KI auch den Code aus Aufgabe 3.\n\nwetter_max &lt;- wetter |&gt; \n group_by(jahr) |&gt; \n  summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; \n  mutate(min_temp_F = 5/9 * min_temp + 32)\n\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nPrompt:\nIch habe in meinem R Code hier das Problem: wetter |&gt; group_by(jahr)\nError in group_by(): ! Must group by variables found in .data. ✖ Column jahr is not found. Run rlang::last_trace() to see where the error occurred.\nEtwas vorher mache ich das:\nwetter |&gt; mutate(time = as.POSIXct(as.character(time), format = “%Y%m%d%H”, tz = “UTC”), jahr = year(time) )\nLösung:\nBeim Kreieren der Convenience Variable ‘jahr’ wurde das Ganze nicht als Variable abgespeichert und somit steht die Spalte nicht zur Verfügung.\n\nwetter &lt;- wetter |&gt; \n  mutate(time = as.POSIXct(as.character(time), format = \"%Y%m%d%H\", tz = \"UTC\"),\n    jahr = year(time)\n    )\n\n\n\n\nSchau dir wetter_max genau an und überlege dir, ob die Werte in min_temp und min_temp_F stimmen können. Frage zur Sicherheit eine KI, indem du den Code in einen Prompt verpackst.\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nPrompt:\nIch bin mir nicht sicher, ob dieser Code stimmt:\nwetter |&gt; group_by(jahr) |&gt; summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; mutate(min_temp_F = 5/9 * min_temp + 32)\nEs handelt sich hier um einen gefährlichen Fehler! Die Werte in Grad Fahrenheit scheinen plausibel, jedoch ist die Formel falsch.\n\nwetter_max &lt;- wetter |&gt; \n group_by(jahr) |&gt; \n  summarise(min_temp = min(tre200h0, na.rm = T)) |&gt; \n  mutate(min_temp_F = 9/5 * min_temp + 32)\n\n\n\n\n\n\nAufgabe 5\nDie beiden Datensätze wetter und wetter_max sollen nun über einen geeigneten Join miteinader verbunden werden. Der Code läuft jedoch nicht durch. Löse den folgenden Bug, entweder selbständig oder mit Anwendung von KI. Lasse dir, falls nötig, einen Code für die Lösung des Bugs von der KI generieren.\n\nleft_join(wetter_max, wetter_prec, by = \"jahr\")\n\n\n\n\n\n\n\nTippMusterlösung\n\n\n\n\n\nJeweils anderer Datentyp in den Spalten ‘jahr’, character bzw. double.\nLösung:\nIn wetter_prec muss die Spalte von character in double bzw. integer umgewandelt werden.\n\nwetter_prec &lt;- wetter_prec |&gt;\n  mutate(jahr = as.integer(gsub(\"'\", \"\", jahr)))\n\nleft_join(wetter_max, wetter_prec, by = \"jahr\")",
     "crumbs": [
       "Pre-Processing",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Prepro 4: Debugging</span>"
@@ -516,6 +516,501 @@
     ]
   },
   {
+    "objectID": "infovis/Infovis1_Vorbereitung.html",
+    "href": "infovis/Infovis1_Vorbereitung.html",
+    "title": "Vorbereitung",
+    "section": "",
+    "text": "Im Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog Vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten Packages automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\"dplyr\", \"ggplot2\", \"lubridate\", \"readr\", \n  \"scales\", \"tidyr\")\n\nipak(packages)\n\nZudem könnt ihr die Daten für die Übungen auf Moodle herunterladen.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Vorbereitung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html",
+    "href": "infovis/Infovis1_Demo.html",
+    "title": "Infovis 1: Demo",
+    "section": "",
+    "text": "Ggplot2\nAls erstes laden wir den Datensatz temperature_SHA_ZER.csv ein. Es handelt sich dabei um eine leicht modifizierte Variante der Daten aus PrePro1 und PrePro2.\nEin ggplot wird mit dem Befehl ggplot() initiiert. Hier wird einerseits der Datensatz festgelegt, auf dem der Plot beruht (data =), sowie die Variablen innerhalb des Datensatzes, die Einfluss auf den Plot ausüben (mapping = aes()).\n# Datensatz: \"temperature\" | Beeinflussende Variablen: \"time\" und \"temp\"\nggplot(data = temperature, mapping = aes(time, SHA))\nWeiter braucht es mindestens ein “Layer”, der beschreibt, wie die Daten dargestellt werden sollen (z.B. geom_point()). Anders als bei “Piping” (|&gt;) wird ein Layer mit + hinzugefügt.\nggplot(data = temperature, mapping = aes(time, SHA)) +\n  # Layer: \"geom_point\" entspricht Punkten in einem Scatterplot\n  geom_point()\nDa ggplot die Eingaben in der Reihenfolge data = und dann mapping = erwartet, können wir diese Spezifizierungen auch weglassen.\nggplot(temperature, aes(time, SHA)) +\n  geom_point()",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#long-vs.-wide",
+    "href": "infovis/Infovis1_Demo.html#long-vs.-wide",
+    "title": "Infovis 1: Demo",
+    "section": "Long vs. wide",
+    "text": "Long vs. wide\nWie wir in PrePro 2 bereits erwähnt haben, ist ggplot2 auf long tables ausgelegt. Wir überführen deshalb an dieser Stelle die breite in eine lange Tabelle:\n\ntemperature_long &lt;- pivot_longer(temperature, -time, names_to = \"station\", values_to = \"temp\")\n\nNun wollen wir die Stationen unterschiedlich einfärben. Da wir Variablen definieren wollen, welche Einfluss auf die Grafik haben sollen, gehört diese Information in aes().\n\nggplot(temperature_long, aes(time, temp, colour = station)) +\n  geom_point()\n\n\n\n\n\n\n\n\nWir können noch einen Layer mit Linien hinzufügen:\n\nggplot(temperature_long, aes(time, temp, colour = station)) +\n  geom_point() +\n  geom_line()",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#beschriftungen-labels",
+    "href": "infovis/Infovis1_Demo.html#beschriftungen-labels",
+    "title": "Infovis 1: Demo",
+    "section": "Beschriftungen (labels)",
+    "text": "Beschriftungen (labels)\nWeiter können wir die Achsen beschriften und einen Titel hinzufügen. Zudem lasse ich die Punkte (geom_point()) nun weg, da mir diese nicht gefallen.\n\nggplot(temperature_long, aes(time, temp, colour = station)) +\n  geom_line() +\n  labs(\n    x = \"Zeit\",\n    y = \"Temperatur in °C\",\n    title = \"Temperaturdaten Schweiz\",\n    subtitle = \"2001 bis 2002\",\n    color = \"Station\"\n  )",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#split-apply-combine",
+    "href": "infovis/Infovis1_Demo.html#split-apply-combine",
+    "title": "Infovis 1: Demo",
+    "section": "Split Apply Combine",
+    "text": "Split Apply Combine\nIm obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung haben, wenn wir die Daten über 2 Jahre visualisieren. Mit Split Apply Combine (PrePro 3) können wir die Auflösung unserer Daten verändern:\n\ntemperature_day &lt;- temperature_long |&gt;\n  mutate(time = as.Date(time))\n\ntemperature_day\n## # A tibble: 35,088 × 3\n##    time       station  temp\n##    &lt;date&gt;     &lt;chr&gt;   &lt;dbl&gt;\n##  1 2000-01-01 SHA       0.2\n##  2 2000-01-01 ZER      -8.8\n##  3 2000-01-01 SHA       0.3\n##  4 2000-01-01 ZER      -8.7\n##  5 2000-01-01 SHA       0.3\n##  6 2000-01-01 ZER      -9  \n##  7 2000-01-01 SHA       0.3\n##  8 2000-01-01 ZER      -8.7\n##  9 2000-01-01 SHA       0.4\n## 10 2000-01-01 ZER      -8.5\n## # ℹ 35,078 more rows\n\ntemperature_day &lt;- temperature_day |&gt;\n  group_by(station, time) |&gt;\n  summarise(temp = mean(temp))\n\ntemperature_day\n## # A tibble: 1,462 × 3\n## # Groups:   station [2]\n##    station time        temp\n##    &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt;\n##  1 SHA     2000-01-01  1.25\n##  2 SHA     2000-01-02  1.73\n##  3 SHA     2000-01-03  1.59\n##  4 SHA     2000-01-04  1.78\n##  5 SHA     2000-01-05  4.66\n##  6 SHA     2000-01-06  3.49\n##  7 SHA     2000-01-07  3.87\n##  8 SHA     2000-01-08  3.28\n##  9 SHA     2000-01-09  3.24\n## 10 SHA     2000-01-10  3.24\n## # ℹ 1,452 more rows",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#xy-achse-anpassen",
+    "href": "infovis/Infovis1_Demo.html#xy-achse-anpassen",
+    "title": "Infovis 1: Demo",
+    "section": "X/Y-Achse anpassen",
+    "text": "X/Y-Achse anpassen\nMan kann auch Einfluss auf die x-/y-Achsen nehmen. Dabei muss man zuerst festlegen, was für ein Achsentyp der Plot hat (vorher hat ggplot eine Annahme auf der Basis der Daten getroffen).\nBei unserer y-Achse handelt es sich um numerische Daten, ggplot nennt diese: scale_y_continuous(). Unter ggplot2.tidyverse.org findet man noch andere x/y-Achsentypen (scale_x_irgendetwas bzw. scale_y_irgendetwas).\n\nggplot(temperature_day, aes(time, temp, colour = station)) +\n  geom_line() +\n  labs(\n    x = \"Zeit\",\n    y = \"Temperatur in °C\",\n    title = \"Temperaturdaten Schweiz\",\n    subtitle = \"2001 bis 2002\",\n    color = \"Station\"\n  ) +\n  scale_y_continuous(limits = c(-30, 30)) # y-Achsenabschnitt bestimmen\n\n\n\n\n\n\n\n\nDas gleiche Spiel kann man für die x-Achse betreiben. Bei unserer x-Achse handelt es sich ja um Datumsangaben. ggplot nennt diese: scale_x_date().\n\nggplot(temperature_day, aes(time, temp, colour = station)) +\n  geom_line() +\n  labs(\n    x = \"Zeit\",\n    y = \"Temperatur in °C\",\n    title = \"Temperaturdaten Schweiz\",\n    subtitle = \"2001 bis 2002\",\n    color = \"Station\"\n  ) +\n  scale_y_continuous(limits = c(-30, 30)) +\n  scale_x_date(\n    date_breaks = \"3 months\",\n    date_labels = \"%b\"\n  )",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#facets-small-multiples",
+    "href": "infovis/Infovis1_Demo.html#facets-small-multiples",
+    "title": "Infovis 1: Demo",
+    "section": "Facets / Small Multiples",
+    "text": "Facets / Small Multiples\nSehr praktisch sind auch die Funktionen für “Small multiples”. Dies erreicht man mit facet_wrap() (oder facet_grid(), mehr dazu später). Man muss mit einem Tilde-Symbol “~” nur festlegen, welche Variable für das Aufteilen des Plots in kleinere Subplots verantwortlich sein soll.\n\nggplot(temperature_day, aes(time, temp, colour = station)) +\n  geom_line() +\n  labs(\n    x = \"Zeit\",\n    y = \"Temperatur in °C\",\n    title = \"Temperaturdaten Schweiz\",\n    subtitle = \"2001 bis 2002\",\n    color = \"Station\"\n  ) +\n  scale_y_continuous(limits = c(-30, 30)) +\n  scale_x_date(\n    date_breaks = \"3 months\",\n    date_labels = \"%b\"\n  ) +\n  facet_wrap(~station)\n\n\n\n\n\n\n\n\nAuch facet_wrap kann man auf seine Bedürfnisse anpassen: Beispielweise kann man mit ncol = die Anzahl Facets pro Zeile bestimmen.\nZudem brauchen wir die Legende nicht mehr, da der Stationsname über jedem Facet steht. Ich setze deshalb theme(legend.position=\"none\")\n\np &lt;- ggplot(temperature_day, aes(time, temp, colour = station)) +\n  geom_line() +\n  labs(\n    x = \"Zeit\",\n    y = \"Temperatur in °C\",\n    title = \"Temperaturdaten Schweiz\",\n    subtitle = \"2001 bis 2002\"\n  ) +\n  scale_y_continuous(limits = c(-30, 30)) +\n  scale_x_date(\n    date_breaks = \"3 months\",\n    date_labels = \"%b\"\n  ) +\n  facet_wrap(~station, ncol = 1) +\n  theme(legend.position = \"none\")\n\n\np",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#themes",
+    "href": "infovis/Infovis1_Demo.html#themes",
+    "title": "Infovis 1: Demo",
+    "section": "Themes",
+    "text": "Themes\nBisher haben wir die Standardeinstellung für das Kreieren der Plots genutzt. In diesem Abschnitt zeigen wir, wie du Plots individuell mit sogenannten Themes anpassen kannst.\nNun wollen wir mit einer von ggplot2 zur Verfügung gestellten Theme unseren Plot anpassen. Wir benutzen hier theme_classic(), weitere Themes findet ihr hier.\n\np + theme_classic()\n\n\n\n\n\n\n\n\nFast alle Aspekte eines Plots können auch individuell angepasst werden. Jürgen Dengler und sein Team empfehlen folgende Anpassungen:\n\nmytheme &lt;- \n  theme_classic()  +\n  theme(axis.line = element_line(linewidth = 0.6, color = \"black\"), \n        axis.text = element_text(size = 11, color = \"black\"), \n        axis.title = element_text(size = 13, color = \"black\"), \n        axis.ticks = element_line(linewidth = 0.6, color = \"black\"), \n        axis.ticks.length = unit(0.2, \"cm\"),\n        axis.title.y = element_text(vjust = +2),\n        axis.title.x = element_text(vjust = -2),\n        plot.title = element_text(hjust = 0.5, size = 13),\n        plot.subtitle = element_text(hjust = 0.5, size = 10),\n        plot.margin = margin(t = 4, r = 6, b = 6, l = 8, unit = \"pt\") \n        \n  )\n\n\np + mytheme",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Demo.html#plot-exportieren",
+    "href": "infovis/Infovis1_Demo.html#plot-exportieren",
+    "title": "Infovis 1: Demo",
+    "section": "Plot exportieren",
+    "text": "Plot exportieren\nFolgendermassen könnt ihr den letzten Plot als PNG-Datei abspeichern:\n\nggsave(filename = \"plot.png\")",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Infovis 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html",
+    "href": "infovis/Infovis1_Uebung.html",
+    "title": "Infovis 1: Übung",
+    "section": "",
+    "text": "Aufgabe 1\nIn dieser Übung geht es darum, die Grafiken aus dem Blogpost von Kovic (2014) zu rekonstruieren. Der ursprüngliche Blogpost ist nicht mehr verfügbar, wir haben deshalb eine Kopie hier gehostet:\nJe weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?\nSchau dir die Grafiken in dem Blogpost durch. Freundlicherweise wurden im Blogbeitrag die ggplot2-Standardeinstellungen benutzt, was die Rekonstruktion relativ einfach macht.\nRekonstruiere Abbildung 17.1 aus Kovic (2014) mithilfe von ggplot und dem Datensatz kanton:\nTipp:",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#sec-infovis1-aufgabe-1",
+    "href": "infovis/Infovis1_Uebung.html#sec-infovis1-aufgabe-1",
+    "title": "Infovis 1: Übung",
+    "section": "",
+    "text": "Nutze ggplot(kanton, aes(auslanderanteil, ja_anteil)), um den ggplot zu initiieren. Füge danach einen Punkte-Layer hinzu (geom_point())\nNutze coord_fixed(), um die beiden Achsen in ein festes Verhältnis zu setzen (1:1).\nOptional:\n\nSetze die Achsen Start- und Endwerte mittels scale_y_continuous bzw. scale_x_continuous.\nSetze analog zu Kovic (2014) die breaks (0.0, 0.1…0.7) manuell (innerhalb scale_*_continuous)\nNutze labs() für die Beschriftung der Achsen",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-2",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-2",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nRekonstruiere Abbildung 17.2 aus Kovic (2014) mithilfe von ggplot:\nTipp: Nutze geom_smooth()",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-3",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-3",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nRekonstruiere Abbildung 17.3 mithilfe des Datensatzes gemeinde.\nTipp: geom_point(), labs() und coord_fixed()",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-4",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-4",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nRekonstruiere Abbildung 17.4 mit dem Datensatz gemeinde.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-5",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-5",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nRekonstruiere Abbildung 17.5 mithilfe des Datensatzes gemeinde:\nTipp: Nutze facet_wrap() um einen Plot pro Kanton darzustellen.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-6",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-6",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\nRekonstruiere Abbildung 17.6 mithilfe von ggplot und dem Datensatz gemeinde:\nTipp: Nutze geom_smooth()",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-7",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-7",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 7",
+    "text": "Aufgabe 7\nRekonstruiere Abbildung 17.7 des Datensatzes gemeinde:\nTipp: Nutze facet_wrap",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Uebung.html#aufgabe-8",
+    "href": "infovis/Infovis1_Uebung.html#aufgabe-8",
+    "title": "Infovis 1: Übung",
+    "section": "Aufgabe 8",
+    "text": "Aufgabe 8\nRekonstruiere Abbildung 17.8 mithilfe des Datensatzes gemeinde:\nTipp: Nutze geom_smooth()\n\n\n\n\nKovic, Marko. 2014. „Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“ Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Script_eda.html",
+    "href": "infovis/Infovis1_Script_eda.html",
+    "title": "Infovis 1: Script EDA",
+    "section": "",
+    "text": "library(\"ggplot2\")\nlibrary(\"dplyr\")\nlibrary(\"scales\")\n\n# create some data about age and height of people\npeople &lt;- data.frame(\n  ID = c(1:30),\n  age = c(\n    5.0, 7.0, 6.5, 9.0, 8.0, 5.0, 8.6, 7.5, 9.0, 6.0,\n    63.5, 65.7, 57.6, 98.6, 76.5, 78.0, 93.4, 77.5, 256.6, 512.3,\n    15.5, 18.6, 18.5, 22.8, 28.5, 39.5, 55.9, 50.3, 31.9, 41.3\n  ),\n  height = c(\n    0.85, 0.93, 1.1, 1.25, 1.33, 1.17, 1.32, 0.82, 0.89, 1.13,\n    1.62, 1.87, 1.67, 1.76, 1.56, 1.71, 1.65, 1.55, 1.87, 1.69,\n    1.49, 1.68, 1.41, 1.55, 1.84, 1.69, 0.85, 1.65, 1.94, 1.80\n  ),\n  weight = c(\n    45.5, 54.3, 76.5, 60.4, 43.4, 36.4, 50.3, 27.8, 34.7, 47.6,\n    84.3, 90.4, 76.5, 55.6, 54.3, 83.2, 80.7, 55.6, 87.6, 69.5,\n    48.0, 55.6, 47.6, 60.5, 54.3, 59.5, 34.5, 55.4, 100.4, 110.3\n  )\n)\n\n# build a scatterplot for a first inspection\nggplot(people, aes(x = age, y = height)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nggplot(people, aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0.75, 2))\n\n\n\n\n\n\n\n# Go to help page: http://docs.ggplot2.org/current/ -&gt; Search for icon of fit-line\n# http://docs.ggplot2.org/current/geom_smooth.html\n\n\n# build a scatterplot for a first inspection, with regression line\nggplot(people, aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth()\n\n\n\n\n\n\n\n\n\n# stem and leaf plot\nstem(people$height)\n## \n##   The decimal point is 1 digit(s) to the left of the |\n## \n##    8 | 25593\n##   10 | 037\n##   12 | 523\n##   14 | 19556\n##   16 | 255789916\n##   18 | 04774\nstem(people$height, scale = 2)\n## \n##   The decimal point is 1 digit(s) to the left of the |\n## \n##    8 | 2559\n##    9 | 3\n##   10 | \n##   11 | 037\n##   12 | 5\n##   13 | 23\n##   14 | 19\n##   15 | 556\n##   16 | 2557899\n##   17 | 16\n##   18 | 0477\n##   19 | 4\n\n\n# explore the two variables with box-whiskerplots\nsummary(people$age)\n##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n##    5.00    8.70   30.20   59.14   65.15  512.30\nboxplot(people$age)\n\n\n\n\n\n\n\n\n\nsummary(people$height)\n##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n##   0.820   1.190   1.555   1.455   1.690   1.940\nboxplot(people$height)\n\n\n\n\n\n\n\n\n\n# explore data with a histgram\nggplot(people, aes(x = age)) +\n  geom_histogram(binwidth = 20)\n\n\n\n\n\n\n\n\n\ndensity(x = people$height)\n## \n## Call:\n##  density.default(x = people$height)\n## \n## Data: people$height (30 obs.);   Bandwidth 'bw' = 0.1576\n## \n##        x                y           \n##  Min.   :0.3472   Min.   :0.001577  \n##  1st Qu.:0.8636   1st Qu.:0.102659  \n##  Median :1.3800   Median :0.510260  \n##  Mean   :1.3800   Mean   :0.483081  \n##  3rd Qu.:1.8964   3rd Qu.:0.721733  \n##  Max.   :2.4128   Max.   :1.215724\n\n# re-expression: use log or sqrt axes\n#\n# Find here guideline about scaling axes\n# http://www.cookbook-r.com/Graphs/Axes_(ggplot2)/\n# http://docs.ggplot2.org/0.9.3.1/scale_continuous.html\n\n\n# logarithmic axis: respond to skewness in the data, e.g. log10\nggplot(people, aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth() +\n  scale_x_log10()\n\n\n\n\n\n\n\n\n\n# outliers: Remove very small and very old people\n\npeopleClean &lt;- people |&gt;\n  filter(ID != 27) |&gt; # Diese Person war zu klein.\n  filter(age &lt; 100) # Fehler in der Erhebung des Alters\n\n\nggplot(peopleClean, aes(x = age)) +\n  geom_histogram(binwidth = 10)\n\n\n\n\n\n\n\n\n\nggplot(peopleClean, aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth()\n\n\n\n\n\n\n\n\n\n# with custom binwidth\nggplot(peopleClean, aes(x = age)) +\n  geom_histogram(binwidth = 10) +\n  theme_bw() # specifying the theme\n\n\n\n\n\n\n\n\n\n# quadratic axis\nggplot(peopleClean, aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth(method = \"lm\", fill = \"lightblue\", size = 0.5, alpha = 0.5) +\n  scale_x_sqrt()\n\n\n\n\n\n\n\n\n\n# filter \"teenies\": No trend\nfilter(peopleClean, age &lt; 15) |&gt;\n  ggplot(aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth(method = \"lm\", fill = \"lightblue\", size = 0.5, alpha = 0.5)\n\n\n\n\n\n\n\n\n\n# filter \"teenies\": No trend\npeopleClean |&gt;\n  filter(age &gt; 55) |&gt;\n  ggplot(aes(x = age, y = height)) +\n  geom_point() +\n  scale_y_continuous(limits = c(0, 2.0)) +\n  geom_smooth(method = \"lm\", fill = \"lightblue\", size = 0.5, alpha = 0.5)\n\n\n\n\n\n\n\n\n\n# Onwards towards multidimensional data\n\n# Finally, make a scatterplot matrix\npairs(peopleClean[, 2:4], panel = panel.smooth)\n\n\n\n\n\n\n\n\n\npairs(peopleClean[, 2:4], panel = panel.smooth)",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Infovis 1: Script EDA</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html",
+    "href": "infovis/Infovis1_Kovic_2014.html",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "",
+    "text": "Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#kantonsebene",
+    "href": "infovis/Infovis1_Kovic_2014.html#kantonsebene",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "1 - Kantonsebene",
+    "text": "1 - Kantonsebene\nAls erste Annäherung bietet sich ein Blick auf das Verhältnis von Ausländer- und Ja-Anteil auf Ebene der Kantone an:\n\n\n\n\n\n\nAbbildung 17.1\n\n\n\nDie X-Achse bildet den Ausländeranteil in Prozent (0,3 = 30%), die Y-Achse den Anteil der Ja-Stimmen in Prozent (0,5 = 50%) ab. Von blossem Auge scheint die vermutete Tendenz gegeben: Weniger Ausländer bedeuten mehr Ja-Stimmen. Etwas besser interpretierbar ist das Bild mit einer Trendlinie:\n\n\n\n\n\n\nAbbildung 17.2\n\n\n\nDer Zusammenhang scheint in die vermutete Richtung zu gehen, aber er ist nur annähernd linear. Der Graubereich über und unter der blauen Trendlinie sind die 95%-Konfidenzintervalle. Das bedeutet, dass der wahre Trend mit 95%-iger Wahrscheinlichkeit innerhalb dieser grauen Fläche liegt. Weil die Fläche sehr breit ist, ist die Unsicherheit zu gross, um hier schon Aussagen über Zusammenhänge zu machen.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#gemeindeebene",
+    "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "2 - Gemeindeebene",
+    "text": "2 - Gemeindeebene\nDie Daten auf Kantonsebene sind zu grob. Es lohnt sich darum, die Daten einzelner Gemeinden zu vergleichen:\n\n\n\n\n\n\nAbbildung 17.3\n\n\n\nOben links scheint es eine Sammlung von Gemeinden zu geben, wo sehr wenige Ausländer vorhanden sind und der Anteil an Ja-Stimmen hoch ist. Von blossem Auge ist es aber schwierig, mehr aus dieser Grafik herauszulesen. Auch hier hilft eine Trendlinie.\n\n\n\n\n\n\nAbbildung 17.4\n\n\n\nDer Verlauf der Trendlinie ist interessant: Sie ist nicht wie vermutet linear, sondern leicht kurvenförmig. Was bedeutet das?\nEs gibt scheinbar einen Bereich der Punktwolke, wo ein Mehr an Ausländern mit weniger Ja-Stimmen einhergeht. Ab knapp 35% Ausländeranteil ist dieser Zusammenhang aber nicht mehr gegeben. Wiederum ist die graue Fläche der Konfidenzintervalle wichtig. In jenem Bereich, wo der vermutete Zusammenhang nicht mehr gegeben ist, fächert der Graubereich deutlich auf. Der Grund dafür ist, dass in diesem Bereich die Anzahl Gemeinden gering ist und die Berechnung eines Trends entsprechend unsicher.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-kantonen",
+    "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-kantonen",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "3 - Gemeindeebene, nach Kantonen",
+    "text": "3 - Gemeindeebene, nach Kantonen\nWas passiert, wenn wir die Zusammenhänge auf Gemeindeebene betrachten, aber separat nach Kantonen?\n\n\n\n\n\n\nAbbildung 17.5\n\n\n\nIn erster Linie ist in dieser Grafik die unterschiedliche Streuung innerhalb der Kantone zu sehen. In welche Richtung allfällige Zusammenhänge gehen, zeigen auch hier Trendlinien:\n\n\n\n\n\n\nAbbildung 17.6\n\n\n\nDer Nutzen der Trendlinien ist beschränkt, weil jene Kantone mit nur wenigen Gemeinden keine sinnvolle Berechnung solcher Linien zulassen. Definitive Schlüsse können auch hier nicht gezogen werden, aber innerhalb einiger Kantone (Schwyz, Thurgau, Bern, Freiburg) ist der vermutete negative Zusammenhang einigermassen deutlich abgebildet.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-gemeindegrösse",
+    "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-gemeindegrösse",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "4 - Gemeindeebene, nach Gemeindegrösse",
+    "text": "4 - Gemeindeebene, nach Gemeindegrösse\nKönnte es vielleicht sein, dass weder alle Gemeinden zusammen noch die Gemeinden nach Kantonen die Antwort liefern, sondern zusätzlich noch die Gemeindegrösse eine Rolle spielt?\nIn der folgenden Grafik sind die Gemeinden in Gruppen gemäss ihrer Grösse eingeteilt. Dabei handelt es sich nicht um fixe Gruppengrössen, z.B. mit Gemeinden von 500 bis 5000 Einwohnern. Stattdessen sind die Gruppen anhand sogenannter Quantile eingeteilt:\n\n\n\n\n\n\nAbbildung 17.7\n\n\n\nDie Gruppe “0% - 25%” bedeutet, dass diese Gruppe die 25% kleinsten Gemeinden umfasst. Konkret, dass aus den Einwohnerzahlen der Gemeinden hervorgeht, dass 25% aller Gemeinden weniger als 591 Einwohner haben. Die nächsten 25% umfassen Gemeinden zwischen 591 und 1345.5 Einwohnern. Das nächste Viertel, von 50% - 75%, umfasst alle Gemeinden zwischen 1345.5 und 3284.25 Einwohnern. Das letzte Viertel von 75% bis 100% ist nochmals aufgeteilt in drei Untergruppen, weil die Anzahl Einwohner in diesem Bereich rasant zunimmt. Die Gruppe von 75% bis 90% umfasst Gemeinden in der Grösse von 3284.25 bis 7048.6 Einwohner; die Gruppe von 90% bis 99% Gemeindegrössen von 7048.6 bis 27214.74, und das Top-1% alle Gemeinden über 27214.74 Einwohner.\nMit steigender Einwohnerzahl sind die Punkte weniger dicht beieinander. Was bedeutet das für den Zusammenhang zwischen Ausländer- und Ja-Anteil? Wiederum helfen Trendlinien weiter:\n\n\n\n\n\n\nAbbildung 17.8\n\n\n\nEinen deutlichen Zusammenhang in die vermutete Richtung zeigt nur die Gruppe von 50% bis 75%. In kleinen Gemeinden mit zwischen c1400 und 3300 Einwohnern ist der Anteil an Ja-Stimmen umso höher, je weniger Ausländer dort wohnen. In den Gruppen mit noch kleineren Gemeinden ist diese Tendenz dort zu sehen, wo die Punktwolke dicht ist. Sobald die Punktwolke weniger dicht ist, wechselt die Trendlinie die Richtung.\nKönnte es vielleicht sein, dass in Kleinstgemeinden ab einem gewissen Schwellenwert beim Ausländeranteil ein Gefühl von Entfremdung eintritt?",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#korrelationen",
+    "href": "infovis/Infovis1_Kovic_2014.html#korrelationen",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "5 - Korrelationen",
+    "text": "5 - Korrelationen\nEin Herantasten an die Daten über Grafiken kann ergänzt werden mit einer Berechnung von Korrelationen, einem einfachen Zusammenhangsmass, welches angibt, wie stark (Korrelationskoeffizient), wie zufällig (höhere Signifikanz = Zufall unwahrscheinlicher), und in welche Richtung (positiv oder negativ) Werte zusammenhängen.\n\n\n\nGruppe\nKorr.-Koeffizient\nSignifikanz\n\n\n\n\nAG\n-0.192\n**\n\n\nAI\n-0.783\n-\n\n\nAR\n-0.089\n-\n\n\nBE\n-0.4\n***\n\n\nBL\n-0.214\n*\n\n\nBS\n0.592\n-\n\n\nFR\n-0.338\n**\n\n\nGE\n0.236\n-\n\n\nGL\n-0.407\n-\n\n\nGR\n-0.029\n-\n\n\nJU\n-0.148\n-\n\n\nLU\n-0.305\n-\n\n\nNE\n-0.044\n-\n\n\nNW\n-0.202\n-\n\n\nOW\n-0.406\n-\n\n\nSG\n-0.223\n-\n\n\nSH\n-0.261\n-\n\n\nSO\n-0.041\n-\n\n\nSZ\n-0.589\n***\n\n\nTG\n-0.518\n**\n\n\nTI\n0.102\n-\n\n\nUR\n-0.385\n-\n\n\nVD\n-0.158\n**\n\n\nVS\n-0.05\n-\n\n\nZG\n0.041\n-\n\n\nZH\n-0.281\n***\n\n\n0% - 25%\n-0.182\n***\n\n\n25% - 50%\n-0.249\n***\n\n\n50% - 75%\n-0.303\n***\n\n\n75% - 90%\n-0.106\n*\n\n\n90% - 99%\n-0.094\n-\n\n\n99% - 100%\n0.202\n-\n\n\nSchweiz\n-0.222\n**\n\n\n\nDie Tabelle zeigt mindestens vier Dinge:\n\nDer Zusammenhang ist nicht universal. Nicht jede Gruppe weist einen signifikanten, d.h., wahrscheinlich nicht-zufälligen Zusammenhang zwischen Ausländer- und Ja-Anteil auf.\nDer Zusammenhang ist, wenn signifikant, dann fast immer negativ. Der Kanton Genf bildet die einzige Ausnahme.\nDer Zusammenhang ist in kleinen Gemeinden deutlicher vorhanden als in grösseren. Dies äussert sich darin, dass der Effekt bei den drei Gruppen bis 25%, bis 50% und bis 75% stark und signifikant ist.\nDer Zusammenhang ist insgesamt schwach. Auf gesamtschweizerischer Ebene beträgt der Korrelationskoeffizient lediglich -0.25.\n\nDie Schwäche des Zusammenhanges äussert sich auch darin, dass das sogenannte Bestimmtheitsmass (in diesem Fall einfach der Korrelationskoeffizient im Quadrat), welches angibt, welcher Teil der Verteilung durch den Zusammenhang erklärt wird, auf gesamtschweizerischer Ebene nur 0.067 beträgt. Das bedeutet, dass nur knapp 6.7% des Abstimmungsergebnisses durch den Ausländeranteil “erklärt” werden. Bei jener Gruppe aus der Tabelle, in der der Korrelationskoeffizient am stärksten ist (Kanton Schwyz), beträgt das Bestimmtheitsmass immerhin 0.527. D.h., im Kanton Schwyz “erklärt” der Ausländeranteil 53% des Abstimmungsergebnisses.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis1_Kovic_2014.html#fazit-vermutlich-ja-aber",
+    "href": "infovis/Infovis1_Kovic_2014.html#fazit-vermutlich-ja-aber",
+    "title": "Infovis 1: Blogbeitrag Kovic",
+    "section": "Fazit: (Vermutlich) Ja, aber …",
+    "text": "Fazit: (Vermutlich) Ja, aber …\nSo umfangreich die hier durchkämmten Daten sein mögen, sie sind immer noch zu grob, um Abstimmungsverhalten wirklich erklären zu können. Menschliches Handeln ist ein komplexes Geflecht von individuellen und sozialen, rationalen und irrationalen Vorgängen, und diese Vorgänge können in Statistiken nur sehr blass abgebildet werden.\nDie Analyse zeigt aber dennoch einige Tendenzen auf. Es scheint, dass in der Tat ein Zusammenhang besteht zwischen dem Ausländeranteil und dem Anteil an Ja-Stimmen. Dieser Zusammenhang ist aber eher schwach und je nach Gruppierungsart der Daten deutlicher oder weniger deutlich oder gar nicht vorhanden. Darum gilt auch hier die goldene Regel: Korrelation darf nicht vorschnell mit Kausalität gleichgesetzt werden.\nDie in diesem Blogeintrag verwendeten Daten stammen vom Bundesamt für Statistik. Die Angaben über die Anteile der ständigen ausländischen Bevölkerung stammen aus dem Jahr 2012. Die Rohdaten sind hier verfügbar.\nAnmerkung: In den ursprünglich verwendeten Rohdaten, wie sie diesem Blogeintrag am 2. März zugrunde lagen, war ein Fehler enthalten. Das hat zu einer leichten Verzerrung geführt, sodass der Zusammenhang zwischen Ausländer- und Ja-Anteil weniger ausgeprägt war als in den korrigierten Grafiken und Berechnungen. Dem aufmerksamen Leser, welcher auf den Fehler hingewiesen hat, danke ich, und entschuldige mich für die mangelnde Sorgfalt.\n\n\n\n\n\n\nMarko Kovic hat an der Universität Zürich Politikwissenschaft, Publizistik- und Kommunikationswissenschaft sowie Filmwissenschaft studiert. Schwerpunktmässig interessiert er sich für unkritischen Umgang der klassischen Massenmedien mit (pseudo-)wissenschaftlichen Themen, nicht zuletzt bei “weichen” Disziplinen wie den Sozialwissenschaften. Er ist Präsident des Vereins “Skeptiker Schweiz - Verein für kritisches Denken”. Zum Skeptiker-Blog.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Demo.html",
+    "href": "infovis/Infovis2_Demo.html",
+    "title": "Infovis 2: Demo",
+    "section": "",
+    "text": "Basics\nIn Infovis 1: Übung habt ihr die Grafiken aus dem Beitrag von Kovic (2014) rekonstruiert. Stellt euch nun vor, ihr wärt Marco Kovic und würdet den Bericht schreiben. Der klassische Weg wäre hier:\nSo weit, so gut. Allerdings gibt es auch die Möglichkeit, Grafiken innerhalb von R mit Prosa zu versehen und so die Schritte 2-4 zu vermeiden. Diese Herangehensweise ist unter dem Begriff Computational Notebook bekannt und wird in R mit dem Tool Quarto (Nachfolger von RMarkdown) umgesetzt.\nIn einem Quarto-Dokument kann Computer Code (z.B. R-Code) mit menschlicher Sprache (Fliesstext) verbunden werden. Am Beispiel von Kovic (2014) sieht das folgendermassen aus:\nZu beachten gilt:\nSobald das Quarto-Dokument kompiliert wird, wird der Text und der Code-Output beispielsweise in einem PDF zusammengeführt.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Infovis 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Demo.html#basics",
+    "href": "infovis/Infovis2_Demo.html#basics",
+    "title": "Infovis 2: Demo",
+    "section": "",
+    "text": "Als erste Annäherung bietet sich ein Blick auf das Verhältnis von Ausländer- \nund Ja-Anteil auf Ebene der Kantone an:\n\n```{r}\nggplot(kanton, aes(auslanderanteil, ja_anteil)) +\n  geom_point() +\n  coord_fixed(1) +\n  labs(y = \"Anteil Ja-Stimmen\", x = \"Ausländeranteil\")\n\n```\n\n\nR-Code muss sich innerhalb von einem sogenannten Chunk befinden…\n\n…, welcher durch jeweils drei Backticks (vor und nach dem Chunk) begrenzt wird und…\n… wo die Programmiersprache innerhalb von geschweiften Klammern festgehalten wird.\n\nFliesstext wird ausserhalb des Code-Chunks platziert und muss nicht speziell gekennzeichnet werden.\n\n\n\n\n\n\n\n\nWichtig\n\n\n\nR-Scripts bilden die Basis von Programmieren mit R. Diese werden meist iterativ entwickelt und nach Abschluss der Entwicklung sollten diese von der ersten bis zur letzten Zeile ohne Fehler ausführbar sein.\nDas Kompilieren von einem Quarto-Dokument funktioniert genau so: Der Code wird von der ersten bis zur letzten Zeile in einer neuen Session (Libraries müssen in einem Quarto-Dokument also explizit geladen werden!) ausgeführt. Dies bildet den perfekten Test für die Lauffähigkeit des Codes.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Infovis 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Demo.html#yaml-header",
+    "href": "infovis/Infovis2_Demo.html#yaml-header",
+    "title": "Infovis 2: Demo",
+    "section": "YAML Header",
+    "text": "YAML Header\nEin Quarto-Dokument verfügt meistens über einen sogenannten YAML header, wo Metadaten über das Script gespeichert werden. Dieser Header ist fakultativ, aber sehr sinnvoll. Im Blogbeitrag Kovic (2014) könnte der Header folgendermassen ausgesehen haben:\n---\ntitle: \"Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?\"\nformat: html\nexecute: \n  echo: false\n---\nHier eine Erklärung zu den YAML-Einträgen:\n\ntitle: Der Titel des Dokuments\nformat: Das Output Format. html produziert eine Website. Es sind viele verschiedene Outputs möglich, wie beispielsweise PDF, docx oder Powerpoint.\nexecute: Hier werden Optionen zum Code festgehalten\necho: Soll der R-Code im Output dargestellt werden?",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Infovis 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Demo.html#rstudio-einstellungen",
+    "href": "infovis/Infovis2_Demo.html#rstudio-einstellungen",
+    "title": "Infovis 2: Demo",
+    "section": "RStudio Einstellungen",
+    "text": "RStudio Einstellungen\nWir empfehlen folgende Einstellungen, um die Verwendung von Quarto zu vereinfachen:\nUnter Tools → Global Options → Abschnitt RMarkdown\n\nShow Output Preview in: Viewer Pane\nShow equation and image previews: Never\n\n\n\n\n\n\nKovic, Marko. 2014. „Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“ Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Infovis 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html",
+    "href": "infovis/Infovis2_Uebung_1.html",
+    "title": "Infovis 2: Übung",
+    "section": "",
+    "text": "Aufgabe 1\nIn der Übung von Infovis 1: Übung habt ihr bereits die Grafiken aus dem Blogbeitrag von Kovic (2014) rekonstruiert. Nun werden wir die Grafiken mit dem Fliesstext aus dem Beitrag ergänzen und daraus einen PDF-Bericht machen.\nÖffne das RStudio-Projekt von Infovis 1 (Infovis 1: Übung) und erstelle ein neues Quarto-File (File → New File → Quarto Document).\nErsetze den Standard YAML Header mit folgendem Header (achte auf die drei Minuszeichen -):",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-1",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-1",
+    "title": "Infovis 2: Übung",
+    "section": "",
+    "text": "Wichtig\n\n\n\nEntferne dabei das Häkchen bei Use visual markdown editor.\n\n\n\n---\ntitle: \"Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?\"\nformat: typst\nexecute: \n  error: true\n  echo: false\n  warning: false\n---\n\nformat: typst: Dies erstellt ein PDF mit der Software typst.\nexecute:\n\nerror: true: Falls der R Code einen Error produziert, wird diese Meldung ins Dokument integriert (mit false würde der Kompilierungsprozess abgebrochen werden)\necho: false: Der Code wird im PDF nicht sichtbar sein\nwarning: false: Warnmeldungen werden im PDF nicht sichtbar sein",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-2",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-2",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nFüge dem Dokument etwas Fliesstext hinzu. Beispielsweise den Einleitungstext aus dem Blogbeitrag:\nKurz nach der Abstimmung zur Zuwanderungsinitiative hiess es: Bezirke mit \ngeringem Ausländeranteil stimmten dem SVP-Begehren eher zu. Hält der Befund \neiner tieferen Analyse stand? Marco Kovic vom IPMZ der Uni Zürich hat genau \nhingeschaut.\nKlicke nun auf Render (Abbildung 17.1). Schau dir das erstellte PDF an. Falls kein PDF erstellt wurde: Versuche mal im YAML Header typst mit pdf zu ersetzen. Wenn das Problem damit gelöst ist, wären wir froh um eine entsprechende Info.\n\n\n\n\n\n\nAbbildung 17.1",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-3",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-3",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nFüge nun in deinem Quarto-File mit Ctrl+Alt+I einen neuen Code-Chunk ein. Kopiere nun die ersten paar Zeilen Code aus der Übung Infovis 1 in diesen Code-Chunk. Rendere das Dokument erneut. Wird nach wie vor ein PDF produziert? Wenn ja, kannst du die restlichen Code-Zeilen aus der letzten Übung aus dem R-Skript in das Quarto Dokument kopieren.\nRendere das Dokument erneut und schau dir den Output an.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-4",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-4",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nStelle sicher, dass nach jedem Plot ein neuer Chunk beginnt. Am einfachsten positionierst du dafür deinen Cursor zur Stelle, wo du einen neuen Chunk beginnen möchtest, und führst erneut die Tastenkombination Ctrl+Alt+I aus.\nRendere das Dokument erneut und schau dir den Output an. Er sollte sich nicht verändert haben.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-5",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-5",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nErgänze das Quarto-Dokument nun mit dem restlichen Fliesstext aus Kovic (2014). Stelle sicher, dass an folgenden Stellen immer eine leere Zeile besteht:\n\nzwischen Absätzen\nvor und nach Überschriften\nvor und nach Code-Chunks\n\nRendere das Dokument erneut und schau dir den Output an.\n\n\n\n\n\n\nHinweis\n\n\n\nStatt das Dokument immer wieder manuell zu rendern, kann auch die Option Render on Save (siehe Abbildung 17.1) aktiviert werden.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-6",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-6",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\nNun formatieren wir den Fliesstext mit etwas Markdown-Syntax. Stelle zu diesem Zweck jeder Überschrift (Kantonsebene, Gemeindeebene etc.) zwei # Zeichen voran. Also so:\n## Kantonsebene\n\n...text\n\n## Gemeindeebene\n\n... text",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-7-optional",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-7-optional",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 7 (Optional)",
+    "text": "Aufgabe 7 (Optional)\nMarkdown-Syntax ermöglicht das Formatieren von Fliesstext mit einer sogenannten Markup Sprache. Du kannst beispielsweise Text kursiv oder fett rendern lassen. Versuche ein paar Varianten aus, die Syntax ist hier gut beschrieben.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_1.html#aufgabe-8",
+    "href": "infovis/Infovis2_Uebung_1.html#aufgabe-8",
+    "title": "Infovis 2: Übung",
+    "section": "Aufgabe 8",
+    "text": "Aufgabe 8\nUm die Nützlichkeit von Quarto zu illustrieren, ändern wir jetzt den Theme aller Plots mit einer einzigen Zeile Code. Füge folgende Zeile vor dem ersten Plot hinzu:\ntheme_set(theme_classic())\nRendere das Dokument erneut und schau dir den Output an.\n\n\n\n\n\nKovic, Marko. 2014. „Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“ Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Infovis 2: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html",
+    "href": "infovis/Infovis2_Uebung_2.html",
+    "title": "Infovis 2: Übung optional",
+    "section": "",
+    "text": "Aufgabe 1\nFür die optionale Übung brauchst du den Datensatz temperature_2005.csv. Dabei handelt es sich wieder um Temperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass R (insbesondere read_delim) es korrekt als datetime erkennen und als POSIXct einlesen sollte.\nMache aus der wide table eine long table, die wie folgt aussieht.\ntime\nstation\ntemperature\n\n\n\n\n2005-01-01\nALT\n1.3\n\n\n2005-01-01\nBUS\n1.5\n\n\n2005-01-01\nGVE\n1.1\n\n\n2005-01-01\nINT\n0.2\n\n\n2005-01-01\nOTL\n2.2\n\n\n2005-01-01\nLUG\n1.7\nImportiere anschliessend den Datensatz temperature_2005_metadata.csv und verbinde die beiden Datensätze mit einem left_join via station (bzw. stn).",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html#sec-infovis2-scatterplot",
+    "href": "infovis/Infovis2_Uebung_2.html#sec-infovis2-scatterplot",
+    "title": "Infovis 2: Übung optional",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nErstelle ein Scatterplot (time vs. temperature), wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (scale_color_gradient). Verkleinere die Punkte, um übermässiges Überplotten der Punkte zu vermeiden (size =). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (date_breaks bzw. date_labels von scale_x_datetime()).",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html#sec-infovis2-aggregate",
+    "href": "infovis/Infovis2_Uebung_2.html#sec-infovis2-aggregate",
+    "title": "Infovis 2: Übung optional",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nErstelle eine Zusatzvariable Date mit dem Datum der jeweiligen Messung ( mit as.Date). Nutze diese Spalte, um die Tagesmitteltemperatur pro Station zu berechnen (mit summarise()).\nUm die Metadaten (Name, Meereshoehe, x, y) nicht zu verlieren, kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber weniger intuitiv) kannst du diese Variablen innerhalb deines group_by verwenden.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html#aufgabe-4",
+    "href": "infovis/Infovis2_Uebung_2.html#aufgabe-4",
+    "title": "Infovis 2: Übung optional",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nWiederhole nun den Plot aus Aufgabe 2 mit den aggregierten Daten aus Aufgabe 3. Um die labels korrekt zu setzen, musst du scale_x_datetime mit scale_x_date ersetzen.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html#aufgabe-5",
+    "href": "infovis/Infovis2_Uebung_2.html#aufgabe-5",
+    "title": "Infovis 2: Übung optional",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nFüge zum obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
+    "objectID": "infovis/Infovis2_Uebung_2.html#aufgabe-6",
+    "href": "infovis/Infovis2_Uebung_2.html#aufgabe-6",
+    "title": "Infovis 2: Übung optional",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\nPositioniere die Legende oberhalb des Plots (nutze dazu theme() mit legend.position).",
+    "crumbs": [
+      "InfoVis",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Infovis 2: Übung optional</span>"
+    ]
+  },
+  {
     "objectID": "fallstudie_s/0_Vorbereitung.html",
     "href": "fallstudie_s/0_Vorbereitung.html",
     "title": "Vorbereitung",
@@ -523,7 +1018,7 @@
     "text": "Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten Bibliotheken automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"readr\", \"ggplot2\", \"dplyr\", \"lubridate\", \"ggpubr\", \"PerformanceAnalytics\",\n  \"MuMIn\", \"AICcmodavg\", \"fitdistrplus\", \"lme4\", \"DHARMa\", \"blmeco\", \"sjPlot\", \"lattice\",\n   \"suncalc\", \"glmmTMB\"\n)\n\nipak(packages)\n\nZudem könnt ihr alle für die Fallstudie Profil S benötigten Daten unter auf Moodle im Abschnitt Fallstudie “Ecosystems & Biodiversity” herunterladen.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Vorbereitung</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Vorbereitung</span>"
     ]
   },
   {
@@ -534,7 +1029,7 @@
     "text": "Hintergrund\nDas rund 1100 ha grosse Naturschutzgebiet Wildnispark Zürich Sihlwald, welches im periurbanen Raum südlich von Zürich liegt, gilt seit dem 1. Januar 2010 als erster national anerkannter Naturerlebnispark. Er ist Teil des Wildnisparks Zürich (WPZ) und wichtiges Naherholungsgebiet für die Stadt Zürich.\nDas Schutzgebiet befindet sich im Spannungsfeld zwischen Schutz und Nutzen, denn einerseits sollen die Besuchenden den Wald erleben dürfen, andererseits soll sich dieser, in der Kernzone, frei entwickeln dürfen. Im Perimeter gelten darum verschiedene Regeln. So darf z. B. nur auf bestimmten Wegen mit den Fahrrad gefahren werden.\nDas Management des Parks braucht solide, empirisch erhobene Daten zur Natur und zu den Besuchenden damit die Ziele von Nutzen und Schürzen erreicht werden können. Das Besuchermonitoring deckt den zweiten Teil dieser notwendigen Daten ab. Im WPZ sind mehrere automatische Zählstellen zur Erfassung der Besuchenden in Betrieb. Die Zählstellen erfassen diese stundenweise auf den untersuchten Wegabschnitten. Einige Zählstellen erfassen richtungsgetrennt und / oder können zwischen verschiedenen Nutzergruppen wie Personen, die zu Fuss gehen, und Fahrradfahrenden unterscheiden.\nIm Rahmen des Moduls Research Methods werden in dieser Fallstudie Daten von mehreren dieser automatischen Zählstellen untersucht. Die Daten, welche im Besitz des WPZ sind, wurden bereits kalibriert. Das heisst, Zählungen während Wartungsarbeiten, bei Fehlbetrieb o.ä. wurden bereits ausgeschlossen. Dies ist eine zeitintensive Arbeit und wir dürfen hier mit einem sauber aufbereiteten “Datenschatz” arbeiten.\nPerimeter des Wildnispark Zürichs mit den ungefähren Standorten von zwei ausgewählten automatischen Zählstellen. Hinweis: die Zählstellen erfassen die Besuchenden an einem Punkt / auf einem Querschnitt des Wegabschnittes. Hier ist aus Gründen der Vertraulichkeit nur der Wegabschnitt dargestellt, auf welchem sich dieser QUerschnitt befindet.\nDie beiden zur Verfügung stehenden Zähler 211 und 502 erfassen sowohl Fussgänger:innen als auch Fahrräder. Die Erfassung erfolgt bei beiden richtungsgetrennt.\nDer Wildnispark wertet die Zahlen routinemässig aus. So sind z. B. Jahresgänge (an welchen Monaten herrscht besonders viel Betrieb?) und die absoluten Nutzungszahlen bekannt. Vertiefte Auswertungen, die beispielsweise den Zusammenhang zwischen Besuchszahlen und dem Wetter untersuchen, werden aber nicht gemacht.\nUnsere Analysen in diesem Modul helfen dem WPZ, ein besseres Verständnis zum Verhalten der Besuchenden zu erlangen und bilden Grundlagen für verschiedene Managemententscheide in der Praxis.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -545,7 +1040,7 @@
     "text": "Ziel\n\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl der Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan).\nIn unsere Analysen ziehen wir erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.\nDa Wildtiere, wie z. B. Rehe, besonders Dämmerungs- und Nachtaktiv sind, liegt diese Tageszeit bei unseren Auswertungen speziell im Fokus.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -556,7 +1051,7 @@
     "text": "Grundlagen\nZur Verfügung stehen:\n\ndie stündlichen Zählungen von Fussgänger:innen und Fahrrädern an den beiden Zählstellen 211 und 502\nMeteodaten (Temperatur, Sonnenscheindauer, Niederschlagssumme)\nAnleitungen und Code mit Hinweisen zur Auswertung (hier auf dieser Seite)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -567,7 +1062,7 @@
     "text": "Aufbau der Fallstudie\nIn dieser Fallstudie erheben wir zuerst selber Daten auf dem Grüntal, welche wir dann deskriptiv auswerten. Dies, um ein “Gefühl” für die Daten zu bekommen.\nAnschliessend beschäftigen wir uns mit den Daten aus dem WPZ, welche wir zuerst ebenfalls deskriptiv auswerten. Anschliessend schreiben wir auch statistisch schliessende Modelle. Die Erkentnnisse, welche wir aus den Daten des WPZs ableiten, werden dann im Abschlussbericht dokumentiert.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -578,7 +1073,7 @@
     "text": "Einführung\nEs gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Automatische Zählgeräte bieten die Möglichkeit, lange und durchgehende Zeitreihen zu erfassen. Inputs dazu, wie diese ausgewertet werden können, erhält ihr in dieser Aufgabe.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -589,7 +1084,7 @@
     "text": "Ziele\n\nIhr könnt das eingesetzte Zählgerät installieren und kennt die Vor- und Nachteile verschiedener Methoden.\nIhr könnt die generierten Daten explorativ und deskriptiv auswerten.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -600,7 +1095,7 @@
     "text": "Grundlagen\nDie Geräte werden gemeinsam auf dem Campus Grüntal besichtigt.\nDatenschutz ist ein wichtiges Thema. Die eingesetzten Geräte erfassen keine Personendaten, sondern nur Bewegungen. Es handelt sich um Pyroelektrische Infrarotsensoren, welche auf den Temperaturunterschied reagieren, wenn sich eine Person vor der Linse bewegt. Insofern handelt es sich, vereinfacht gesagt, um Bewegungsmelder.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -611,7 +1106,7 @@
     "text": "Ziele\nIhr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind abgeschlossen und wir beschäftigen uns ab jetzt ausschliesslich mit dem WPZ.\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besuchenden auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele).\nFür meine Analysen habe ich untenstehende Fragestellungen formuliert. Ihr könnt aber auch eure Fragestellungen aus eurem Forschungsplan übernehmen, falls ihr das möchtet und falls diese mit den zur Verügung stehenden Daten bearbeitet werden können.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -622,7 +1117,7 @@
     "text": "Welchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ?\nWie stark sind die jeweiligen Einflüsse, welche Effektrichtungen sind beobachtbar und welche der untersuchten Parameter sind signifikant?\nGibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?\nWelches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?\n\n\n\nJede Gruppe wertet Daten von einem Zählgerät aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Die Daten von jeder Zählstelle sollen nur von einer Gruppe ausgewertet werden!\nBezieht in eure Auswertungen den gesamten zur Verfügung stehenden Zeitraum ein.\nFür euren Zähler stehen Zahlen zu Fussgänger:innen und Fahrrädern zur Verfügung (siehe [Einführung], Hinweis). Entscheidet euch selbst, ob ihr Fussgänger:innen ODER Fahrräder auswerten wollt. Die anderen Daten dürft ihr vernachlässigen.\nIm Bericht sollen die Informationen und Erfahrungen aus dem gesamten Verlauf der Fallstudie in geeigneter Weise einfliessen. Bezüglich der Felderhebung Grüental erwarten wir keine Angaben.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -633,7 +1128,7 @@
     "text": "Erwartungen\n\nStruktur / Aufbau\n\n\nAbstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch). Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.\nEinleitung (hier können allenfalls Elemente / Teile aus den Forschungsplänen übernommen werden)\nFragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)\nMethoden (aufschlussreiches Kapitel mit den statistischen Analysen)\nResultate (deskriptive Statistik, multivariates Modell; kurzer Fliesstext sowie die notwendigen Tabellen und eine Auswahl möglichst informativer Grafiken)\nDiskussion (Diskussion der deskriptiven Analysen und der Modellergebnisse; dieser Abschnitt sollte die eigenen Resultate auch im Zusammenhang mit aktueller Fachliteratur reflektieren.)\nLiteraturverzeichnis (Tipp: Das Literaturverzeichnis sollte vollständig sein, sowie formal korrekt und einheitlich daherkommen. Wir erwarten speziell in der Diskussion eine Abstützung auf aktuelle Fachliteratur. Auf Moodle haben wir euch eine Auswahl relevanter Studien bereitgestellt.)\nAnhang (für alle Auswertungen relevanter R-Code in geeigneter Form)\n\n\nGesamtumfang max. 12’000 Zeichen (inkl. Leerzeichen; exkl. Tabellen, Literaturverzeichnis und Anhang)\nAbgabe per Mail an hoce@zhaw.ch (Datum siehe Stundenplan)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -644,7 +1139,7 @@
     "text": "Bewertungskriterien\n\nIst die Methode klar und verständlich formuliert?\nSind die deskriptiven Analysen klar beschrieben und geeignet visualisiert?\nIst die Variablenselektion klar beschrieben, plausibel und nachvollziehbar?\nSind die Modellresultate in Text- und Tabellenform korrekt beschrieben und geeignet visualisiert?\nIst die Diskussion klar formuliert und inhaltlich schlüssig?\nWie gut ist die Diskussion auf relevante und aktuelle Fachliteratur abgestützt?\nZusätzliche bewerten wir die inhaltliche Dichte der Arbeit und die formale Qualität (Sprache, Struktur, Aufbau, Darstellung, Literaturverzeichnis, Umgang mit Literatur im Text)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -655,7 +1150,7 @@
     "text": "Zusammensetzung Note Fallstudie:\n\nFallstudie-Leistungsnachweis 1 - Forschungsplan: Testatplichtig\nFallstudie-Leistungsnachweis 2 - Multivariate Analyse: 100 %\n\nDie Note der Fallstudie fliesst in die Gesamtbewertung des Moduls Research Methods mit ein.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -666,7 +1161,7 @@
     "text": "Vorbereitung\nVor den eigentlichen Auswertungen müssen einige Vorbereitungen unternommen werden. Die Zeit, die man hier investiert, wird in den späteren Phasen um ein Mehrfaches eingespart.\nWie im Unterricht am Morgen empfehle auch ich mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. –&gt; Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: Link).\n–&gt; File / New Project",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -677,7 +1172,7 @@
     "text": "Erstellt an einem passenden Speicherort (evtl. onedrive für das gemeinsame Arbeiten an einem Projekt) ein neues Projekt mit einem treffenden Namen:",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -688,7 +1183,7 @@
     "text": "Aufgabe 1: Projektaufbau\nHinweise:\nNutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, können vor dem Wort “#” und nach dem Wort “####” eingefügt werden.\n\n# Texte, vor denen ein # und nach denen #### stehen, sind Überschriften\n\n# Ich bin eine first level Überschrift ####\n\n## Ich bin eine second level Überschrift ####\n\n# Texte, vor denen ein # steht, erklaeren den Ablauf (nicht was, sondern warum)\n\n# Dann folgen die Arbeitsschritte\n1 + 1\n\n# Wenn man auf \"Outline\" klickt (oder CTRL + SHIFT + O),\n# öffnet sich die Übersicht zu den Überschriften\n\nTipps:\n\nAlt + - = &lt;-\nCtrl + Shift + C = # vor der ausgewählten Zeile / den ausgewählten Zeilen hinzufügen oder wieder löschen\n\nAufbau eines Skripts\nZuerst immer den Titel des Projekts sowie den Autor/ die Autorin des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer Dateneigentümer ist (WPZ und Meteo Schweiz).\nIm Skript soll immer die Ordnerstruktur des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __scripts, data, results).\nBeschreibt zudem kurz die verwendeten Meteodaten (siehe dazu Metadata Meteodaten, –&gt; order_XXX_legend.txt)\nEin Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthält bei uns folgende Kapitel:\n\nMetadaten und Definitionen\nDatenimport\nVorbereitung\nDeskriptive Analyse und Visualisierung\nMultifaktorielle Analyse und Visualisierung\n\nBereitet euer Skript mit diesen Kapitel vor.\n\n# .###########################################################################################\n# TITEL ####\n# Fallstudie Modul Research Methods, HS24. Autor/in ####\n# .##########################################################################################\n\n# .##########################################################################################\n# METADATA UND DEFINITIONEN ####\n# .##########################################################################################\n\n# Datenherkunft ####\n# ...\n\n# .##########################################################################################\n# 1. DATENIMPORT #####\n# .##########################################################################################\n\nIn einem professionellen Bericht ist es angebracht, wenn alle Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable “mycolors” abrufen kann.\n\nmycolors &lt;- c(\"orangered\", \"gold\", \"mediumvioletred\", \"darkblue\")",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -699,7 +1194,7 @@
     "text": "Aufgabe 2: Laden der Bibliotheken\n\nLädt nun die nachfolgenden, benötigten Bibliotheken.\nDiese habt ihr, falls nötig, im Kapitel Vorbereitung installiert.\n\n\n# Benoetigte Bibliotheken ####\nlibrary(\"readr\") # read data into r\nlibrary(\"ggplot2\") # plot nice graphs\nlibrary(\"dplyr\") # select data\nlibrary(\"lubridate\") # Arbeiten mit Datumsformaten\nlibrary(\"suncalc\") # berechne Tageszeiten abhaengig vom Sonnenstand\nlibrary(\"ggpubr\") # to arrange multiple plots in one graph\nlibrary(\"PerformanceAnalytics\") # Plotte Korrelationsmatrix\nlibrary(\"MuMIn\") # Multi-Model Inference\nlibrary(\"AICcmodavg\") # Modellaverageing\nlibrary(\"fitdistrplus\") # Prueft die Verteilung in Daten\nlibrary(\"lme4\") # Multivariate Modelle\nlibrary(\"DHARMa\") # Modeldiagnostik\nlibrary(\"blmeco\") # Bayesian data analysis using linear models\nlibrary(\"sjPlot\") # Plotten von Modellergebnissen (tab_model)\nlibrary(\"lattice\") # einfaches plotten von Zusammenhängen zwischen Variablen\nlibrary(\"glmmTMB\")# zero-inflated model",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -710,7 +1205,7 @@
     "text": "Aufgabe 3: Zeitliche Definitionen\nWir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag gemäss den bei euch vorhandenen Zähldaten (das unterscheidet sich von Gruppe zu Gruppe).\n\ndepo_start &lt;- as.Date(\"2017-01-01\")\ndepo_end &lt;- as.Date(\"2023-12-31\")\n\nEin Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuchsverhalten.\n-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:\n\nlock_1_start_2020 &lt;- as.Date(\"2020-03-16\")\nlock_1_end_2020 &lt;- as.Date(\"2020-05-11\")\n\nlock_2_start_2021 &lt;- as.Date(\"2020-12-22\")\nlock_2_end_2021 &lt;- as.Date(\"2021-03-01\")\n\nEbenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl isoweek() liefert euch die Kalenderwoche, im standartisierten ISO-Format.\n\nKW_start &lt;- isoweek(depo_start)\nKW_end &lt;- isoweek(depo_end)\n\nFerienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/).\nLest das bereitgestellte .csv mit den Ferienzeiträumen ein und speichert es unter schulferien.\n\nschulferien &lt;- read_delim(\"datasets/fallstudie_s/ferien.csv\", \",\")\n\nNun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann im nächsten Schritt beginnen.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -721,7 +1216,7 @@
     "text": "Aufgabe 1: Zähldaten",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -732,7 +1227,7 @@
     "text": "1a)\nDie Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden.\nLädt die Daten zuerst von Moodle herunter:\n\nZähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2024.csv, 502_sihluferweg_2016_2024.csv) -&gt; wählt einen aus\nMeteodaten und Legende\n\nHinweis: Siehe [einfuehrung] für den Standort der Zähler 211 und 502.\nDie Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.\n\nLest die Zählaten ein, speichert ihn unter der Variable depo und sichtet den Datensatz (z.B. str(), head(), view() usw.). Ihr könnt den Datensatz in R auch anders benennen. WIchtig sind kurze, “sprechende” Namen für die Variablen.\n\n\n\nMusterlösung\n# Speicherort sowie Dateiname anpassen\ndepo &lt;- read_delim(\"./HIER RELATIVEN DATEIPFAD EINGEBEN\", \"HIER SEPERATOR EINGEBEN\")\n\n\nHinweis: Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.\n\n\n1b)\n\nNun muss das Datum als solches definiert werden. Ich nutze dazu as.POSIXct(), wie schon für die Aufgabe zum Besuchermonitoring Grüntal. Welches Format hat das Datum im csv? Das muss im Code angepasst werden.\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n  mutate(\n    Datetime = as.POSIXct(DatumUhrzeit, format = \"HIER STEHT DAS DATUMSFORMAT\", tz = \"CET\"),\n    # nun schreiben wir uns das Datum in eine seperate Spalte\n    Datum = as.Date(Datetime)\n  )\n\n\n\n\n1c)\nIhr könnt selbst wählen, ob ihr Fussgänger:innen oder Fahrräder untersuchen wollt.\n\nEntfernt die überflüssigen Spalten aus dem Datensatz. Ich schlage vor, dass ihr dafür den Befehl dplyr::select() verwendet.\nDamit kann man entweder Spalten behalten oder eben auch Spalten entfernen (-c(SPALTENNAMEN)).\n\nHinweis: mit select() können Spalten gewählt werden, mit filter() Zeilen.\n\n\n1d)\n\nBerechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist.\n\nTipp: Wenn man R sagt: “addiere mir Spalte x mit Spalte y”, dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: “speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens Total”, dann hat man die Aufgabe bereits gelöst. Arbeitet mit mutate()).\n\nEntfernt nun alle NA-Werte mit na.omit().",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -743,7 +1238,7 @@
     "text": "Aufgabe 2: Meteodaten\n\n2a)\n\nLest die Meteodaten ein und speichert sie unter meteo.\n\n\n\n2b)\n\nAuch hier müssen die Datentypen manuell gesetzt werden.\n\nTipps: - Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code. - ich nutze hier as.Date() und nicht as.POSIXct. Ersteres ist praktisch nur für das Datum, letzeres für Datetime Objekte.\n\n\nMusterlösung\nmeteo &lt;- mutate(meteo, time = as.Date(as.character(time), \"%Y%m%d\"))\n\n\nHinweise:\nDie Zeitangaben bei den Meteodaten sind in UTC: 00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit, Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00\nDa wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht mit den Daten der Zählstellen übereinstimmt. Learning: es ist zentral immer die Metadaten zu checken.\nWas ist eigentlich Niederschlag:\nLink Meteo Schweiz\n\nWerden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.\nNun schneiden wir den Datensatz auf die Untersuchungsdauer zu.\n\n\n\nMusterlösung\n    ... |&gt;\n    filter(time &gt;= depo_start, time &lt;= depo_end)\n\n\n\nDann müssen auch hier alle nicht verfügbare Werte (NA’s) herausgefiltert werden. Macht das wieder mit na.omit()\nPrüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden:\n\n\n\nMusterlösung\nsum(is.na(df$Variable))\n\n\n\nStimmen alle Datentypen? str()",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -754,7 +1249,7 @@
     "text": "Aufgabe 3: Datenvorverarbeitung (Mutationen)\n\n3a)\nJetzt fügen wir viele Convenience Variablen hinzu. Wir brauchen:\n\nWochentag; der Befehl dazu ist wday(). Danach als Faktor speichern.\nWerktag oder Wochenende, ebenfalls als Faktor.\n\nDer Code dazu könnte in Teilen so aussehen:\n\n\nMusterlösung\n  ...|&gt;\n  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), \"Wochenende\", \"Werktag\")) |&gt;\n  # 1 means Monday and 7 means Sunday (default)\n  mutate(Wochenende = as.factor(Wochenende)) |&gt;\n  ...\n\n\nje als Faktor:\n\nKalenderwoche: isoweek()\nMonat: month()\nJahr: year()\n\nDies machen wir auch mit dem “meteo” Datensatz. Wiederum bitte Wochentag, Werktag oder Wochenende, Kalenderwoche, Monat und Jahr. Ebenfalls alles als Faktor speichern.\nWieder zurück zum depo-Datensazt.\nIch mache den folgenden Punkt nachgelagert zu den vorherigen Convenience Variablen, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.\nPhasen der Covid-Pandemie (Code untenstehend). Wir definieren 5 Phasen:\n\nvon Anfang Untersuchungsperiode bis vor Lockdown 1\nLockdown 1\nzwischen den Lockdowns\nLockdown 2\nEnde 2. Lockdown bis Ende Untersuchungsperiode\nWir packen alle Phasen in eine Spalte –&gt; long-format ist praktischer für das plotten als wide-format.\nSpäter im multivariaten Modell werden die Levels der Variablen per “default” alphabetisch geordnet und die Effektstärken der einzelnen Levels gegenüber dem ersten Level gerechnet. Das macht wenig Sinn, den die Levels sind nicht alphabetisch, sondern gemäss der Liste oben (später mehr dazu). Das passen wir ebenfalls an.\nHier der fertige Code dazu:\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n    mutate(Phase = case_when(\n        Datetime &lt; lock_1_start ~ \"Pre\",\n        Datetime &gt;= lock_1_start & Datetime &lt;= lock_1_end ~ \"Lockdown_1\",\n        Datetime &gt; lock_1_end & Datetime &lt; lock_2_start ~ \"Inter\",\n        Datetime &gt;= lock_2_start & Datetime &lt;= lock_2_end ~ \"Lockdown_2\",\n        Datetime &gt; lock_2_end ~ \"Post\"\n    ))\n\n# hat das gepklappt?!\nunique(depo$Phase)\n\ndepo &lt;- depo |&gt;\n    # mit factor() koennen die levels direkt einfach selbst definiert werden.\n    # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem\n    # mix-up mit anderen packages\n    mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nstr(depo)\n\n\nNeben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchszahlen haben. Wir haben die Schulferien bereits als .csv eingelesen. Allerdings können wir die Schulferien nicht mit der case_when()-Funktion zuweisen, da diese mit dieser Funktion alle Vektoren im Datensatz “schulferien” verglichen werden, und nicht elementweise für jede Zeile im “depo”-Datensatz. Dies führt dazu, dass die Bedingungen nur einmal überprüft werden und dann auf den gesamten Vektor angewendet werden, anstatt Zeile für Zeile.\n\nWeil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:\n\n\n\nMusterlösung\n# schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als\n# ende, DANN schreibe ein 1\nfor (i in 1:nrow(schulferien)) {\n  depo$Ferien[depo$Datum &gt;= schulferien[i, \"Start\"] & depo$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo$Ferien[is.na(depo$Ferien)] &lt;- 0\n\n# als faktor speichern\ndepo$Ferien &lt;- factor(depo$Ferien)\n\n\n\n\n3b)\n\nNun soll noch die volle Stunde als Integer im Datensatz stehen. Macht das mit dem Befehl hour()\n\n\n\n3c)\nDie Daten wurden durch den WPZ kalibriert (Nachkommastellen). Unser späteres Modell kann nicht mit Nachkommastellen in der abhängigen Variable umgehen (später dazu mehr).\n\nRundet die Zähldaten in der Spalte “Total” auf 0 Nachkommastellen. Der Befehl lautet round()\nDefiniert sie sicherheitshalber als Integer (= Ganzzahl)\nMacht das nun noch für IN und OUT.\n\n\n\n3d) Tageszeit\nWir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie hinaus geht, liefere ich euch hier den Code dazu, den ihr kopieren könnt. Beschreibt in eurem Bericht später, dass ihr die Einteilung der Tageszeit gemäss den Dämmerungszeiten in Zürich und gemäss meinem Code gemacht habt.\nDie wichtigsten Punkte:\n\nDie Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package “suncalc” berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.\nDie Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert.\n\nHinweis: damit case_when() funktioniert, müsst ihr dplyr Version als 1.1.1 oder neuer haben. Das könnt ihr unter “Packages” (neben dem Reiter “Plots”, unten rechts) prüfen.\n\n\nMusterlösung\n# Einteilung Standort Zuerich\nLatitude &lt;- 47.38598\nLongitude &lt;- 8.50806\n\n# Start und das Ende der Sommerzeit:\n# https://www.schulferien.org/schweiz/zeit/zeitumstellung/\n\n\n# Welche Zeitzone haben wir eigentlich?\n# Switzerland uses Central European Time (CET) during the winter as standard time,\n# which is one hour ahead of Coordinated Universal Time (UTC+01:00), and\n# Central European Summer Time (CEST) during the summer as daylight saving time,\n# which is two hours ahead of Coordinated Universal Time (UTC+02:00).\n# https://en.wikipedia.org/wiki/Time_in_Switzerland\n\n# Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?\n# https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/\n# https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes\n\n# Wir arbeiten mit folgenden Variablen:\n# \"nightEnd\" : night ends (morning astronomical twilight starts)\n# \"goldenHourEnd\" : morning golden hour (soft light, best time for photography) ends\n# \"goldenHour\" : evening golden hour starts\n# \"night\" : night starts (dark enough for astronomical observations)\n\nlumidata &lt;-\n    getSunlightTimes(\n        date = seq.Date(depo_start, depo_end, by = 1),\n        keep = c(\"nightEnd\", \"goldenHourEnd\", \"goldenHour\", \"night\"),\n        lat = Latitude,\n        lon = Longitude,\n        tz = \"CET\"\n    ) |&gt;\n    as_tibble()\n\n# jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw.\n# diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:\ndepo &lt;- depo |&gt;\n    left_join(lumidata, by = c(Datum = \"date\"))\n\ndepo &lt;- depo |&gt;\n    mutate(Tageszeit = case_when(\n        Datetime &gt;= nightEnd & Datetime &lt;= goldenHourEnd ~ \"Morgen\",\n        Datetime &gt; goldenHourEnd & Datetime &lt; goldenHour ~ \"Tag\",\n        Datetime &gt;= goldenHour & Datetime &lt;= night ~ \"Abend\",\n        .default = \"Nacht\"\n    )) |&gt;\n    mutate(Tageszeit = factor(Tageszeit, levels = c(\"Morgen\", \"Tag\", \"Abend\", \"Nacht\"), ordered = TRUE))\n\n# behalte die relevanten Var\ndepo &lt;- depo |&gt; dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)\n\n# Plotte zum pruefn ob das funktioniert hat\nggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +\n    geom_jitter() +\n    scale_color_manual(values = mycolors)\n\nsum(is.na(depo))\n\n# bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht.\n# Diese loesche ich einfach:\ndepo &lt;- na.omit(depo)\n# hat das funktioniert?\nsum(is.na(depo))",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -765,7 +1260,7 @@
     "text": "Aufgabe 4: Aggregierung der Stundendaten\n\n4a)\nUnsere Daten liegen, wie ihr wisst, im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen.\n\nDie Stundendaten werden zu ganzen Tagen aggregiert. Bezieht nur die Gruppierung (group_by()) Datum mit ein und speichert das Resultat unter depo_d (“_d” für “day”).\n\nHinweis: Wir gruppieren nur nach Datum, da ich mit den vielen weiteren Gruppierungen hier Probleme hatte, eine korrekte Summe zu erhalten.\n\n\nMusterlösung\ndepo_d &lt;- depo |&gt; \n  group_by(Datum) |&gt;   # Gruppieren nach der Variable Datum\n  summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte\n            Fuss_IN = sum(Fuss_IN),\n            ...\n\n\n\nBerechne die Anzahl Tage bis Neujahr, wir brauchen sie später in den Modellen\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt; \n  mutate(Tage_bis_Neujahr = as.numeric(difftime(ymd(paste0(year(Datum), \"-12-31\")), Datum, units = \"days\")))\n\n\n\nund füge nochmals alle Convenience Variablen gemäss oben ein (ihr solltet den Code einfach kopieren können):\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt;\n  mutate(\n  Wochentag = wday(Datum, week_start = 1),\n  Wochentag = factor(Wochentag),\n  # Werktag oder Wochenende hinzufuegen\n  Wochenende = ifelse(Wochentag %in% c(6, 7), \"Wochenende\", \"Werktag\"),\n  Wochenende = as.factor(Wochenende),\n  # Kalenderwoche hinzufuegen\n  KW = isoweek(Datum),\n  KW = factor(KW),\n  # monat und Jahr\n  Monat = month(Datum),\n  Monat = factor(Monat),\n  Jahr = year(Datum),\n  Jahr = factor(Jahr))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = case_when(\n    Datum &lt; lock_1_start ~ \"Pre\",\n    Datum &gt;= lock_1_start & Datum &lt;= lock_1_end ~ \"Lockdown_1\",\n    Datum &gt; lock_1_end & Datum &lt; lock_2_start ~ \"Inter\",\n    Datum &gt;= lock_2_start & Datum &lt;= lock_2_end ~ \"Lockdown_2\",\n    Datum &gt; lock_2_end ~ \"Post\"\n  ))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nfor (i in 1:nrow(schulferien)) {\n  depo_d$Ferien[depo_d$Datum &gt;= schulferien[i, \"Start\"] & depo_d$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo_d$Ferien[is.na(depo_d$Ferien)] &lt;- 0\n\ndepo_d$Ferien &lt;- factor(depo_d$Ferien)\n\n# pruefe das df\nhead(depo_d)\n\n\n\nErstellt nun. ähnlich wie oben, einen Datensatz depo_daytime, in welchem ihr gruppiert nach:\n\n\nJahr\nMonat\nKalenderwoche\nPhase\nFerien\nWochenende oder Werktag\nTageszeit\n\n\nWeiter benötigen wir für das Aufzeigen der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), aufgeteilt nach Tageszeit und Phase (group_by Tageszeit, Phase). Speichert das unter “mean_phase_d”.\n\n\n\n4b)\n\nAggregiere die Stundenwerte nach dem Monat (group_by Monat, Jahr). Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr. Speichert das neue df unter depo_m (“_m” für “Monat”).\n\nTipp: Braucht wiederum group_by() und summarise().\n\nFügt dem neu erstellten df depo_m eine Spalte mit Jahr + Monat hinzu.\n\nHier der fertige Code dazu (da etwas umständlich):\n\n\nMusterlösung\ndepo_m &lt;- depo_m |&gt;\n    mutate(\n        Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und Monat sind\n        Ym = lubridate::ym(Ym)\n    ) # formatiere als Datum\n\n\n\nWiederholt diesen Schritt, diesmal aber mit der Gruppierung “Tageszeit” neben “Jahr” und “Monat” (wiederum sollen Jahr und Monat auch in einer Spalte stehen).\nSpeichert das Resultat unter “depo_m_daytime”.\n\n\n\n4c)\nMacht euch mit den Daten vertraut. Plottet sie, seht euch die df’s an, versteht, was sie repräsentieren.\nZ.B. sind folgende Befehle und Plots wichtig:\n\nstr()\nsummarize()\nhead()\nScatterplot, x = Datum, y = Anzahl pro Zeiteinheit\nHistrogram\nusw.\n\nHinweis: Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine “analysierenden” Plots erstellt.\nNachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -776,7 +1271,7 @@
     "text": "Aktuell dient diese Plattform für die BiEc Fallstudie - Profil N einzig der Bereitstellung von Aufgaben die von euch im Rahmen dieses Fallstudienprojekts erarbeitet werden sollen. Die Aufgaben werden in den meisten Fällen mit Code-Beispielen erläutert oder benötigten Code-snippets resp. Funktionen werden mitgeliefert. Im Laufe des Semesters werden hier ausserdem häppchenweise (mögliche) Lösungen zu den Aufgaben aufgeschaltet. Alles grundlegende Material und alle Unterlagen zu den theoretischen Inputs sind weiterhin und ausschliesslich im Moodlekurs Research Methods - Fallstudie BiEc zu finden. Die für die Aufgaben benötigten Datengrundlagen sind ebenfalls im entsprechenden Abschnitt auf Moodle zu finden. Frohes Schaffen!\n\nIm Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"adehabitatHR\", \"bbmle\", \"car\", \"cowplot\", \"DHARMa\", \"dplyr\",\n  \"ggeffects\", \"ggplot2\", \"ggspatial\", \"glmmTMB\", \"gstat\", \"kableExtra\", \"lme4\",\n  \"MASS\", \"MuMIn\", \"pastecs\", \"performance\", \"PerformanceAnalytics\", \"psych\",\n  \"readr\", \"rms\", \"ROCR\", \"sf\", \"sjPlot\", \"sjstats\", \"terra\"\n)\n\nipak(packages)",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Vorbereitung</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Vorbereitung</span>"
     ]
   },
   {
@@ -787,7 +1282,7 @@
     "text": "Projektaufbau RStudio-Projekte\nVor den eigentlichen Auswertungen müssen einige vorbereitende Arbeiten unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein vielfaches eingespart. Im Skript soll die Ordnerstruktur des Projekts genannt werden, damit der Arbeitsvorgang auf verschiedenen Rechnern reproduzierbar ist.\nArbeitet mit Projekten, da diese sehr einfach untereinander ausgetauscht und somit auch reproduziert werden können; es gibt keine absoluten Arbeitspfade sondern nur relative. Der Datenimport (und auch der Export) kann mithilfe dieser relativen Pfaden stark vereinfacht werden. Projekte helfen alles am richtigen Ort zu behalten. (mehr zur Arbeit mit Projekten: Link)",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -798,7 +1293,7 @@
     "text": "Aufbau von R-Skripten\nIm Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).\n\n# .##################################################################################\n# Daten(vor)verarbeitung Fallstudie WPZ  ####\n# Modul Research Methods, HS26. Autor/in ####\n# .##################################################################################\n\nBeschreibt zudem folgendes:\n\nOrdnerstruktur; ich verwende hier den Projektordner mit den Unterordnern:\n\nSkripts\nData\nResults\nPlots\n\nVerwendete Daten\n\nEin Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel:\n\nDatenimport\nDatenvorverarbeitung\nAnalyse\nVisualisierung\n\nBereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:\n\n# .###################################################################################\n# METADATA ####\n# .###################################################################################\n# Datenherkunft ####\n# ...\n\n# .###################################################################################\n# 1. DATENIMPORT ####\n# .###################################################################################",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -809,7 +1304,7 @@
     "text": "Libraries laden\n\nlibrary(\"readr\")\nlibrary(\"dplyr\")\nlibrary(\"ggplot2\")\nlibrary(\"purrr\")",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -820,7 +1315,7 @@
     "text": "Daten laden\n\nHerunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip)\nEinlesen, Sichtung der Datensätze und der Datentypen.\n\nVerschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -831,7 +1326,7 @@
     "text": "Aufgabe 1\n\nEinfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6)\nSpaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann.\n\n→ Zb. mit den befehlen mutate und rename & mit pipes (alt: %&gt;%, neu: |&gt;) in einem Schritt möglich\nBeim Erfassen und Dokumentieren von Daten aus verschiedenen Quellen sollte darauf geachtet werden, dass dies möglichst einheitlich passiert (Dateiformate, Spalten, Bezeichnungen, Datentypen, usw.), damit kann man sich einiges an Arbeit ersparen. Hilfreich ist in diesem Zusammenhang immer ein klares und sauberes Feldprotokoll resp. eine Vorlage für die Erfassung der Daten zu erstellen.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -842,7 +1337,7 @@
     "text": "Aufgabe 2\nZusammenführen der Teildatensätze aller Gruppen zu einem Gesamtdatensatz mit einheitlichen Spaltennamen",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -853,7 +1348,7 @@
     "text": "Aufgabe 3\nVerbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der LIDAR Variablen in den Reh-Kreisen (Reh_Kreise_LIDAR_Waldstruktur_261013.csv).\n→ Welche Art von join? → Welche Spalten zum Verbinden (join_by()) der beiden Datensätze?\nZiel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us_2022, DG_os_2022) aus dem LIDAR-Waldstruktur-Datensatz.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -864,7 +1359,7 @@
     "text": "Aufgabe 4\nScatterplot der Waldstrukturvariablen aus den Felderhebungen gegen die entsprechenden Waldstrukturvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen).\n→ Wie gut korrelieren die Daten der Feldaufnahmen mit der LiDAR basierten Waldstruktur?\nIm LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung 2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -872,9 +1367,9 @@
     "href": "References.html",
     "title": "Literaturverzeichnis",
     "section": "",
-    "text": "Luccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
+    "text": "Kovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
     "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
     ]
   }
 ]
