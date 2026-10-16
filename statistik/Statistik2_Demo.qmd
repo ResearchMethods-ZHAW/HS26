@@ -165,19 +165,11 @@ par(mfrow = c(2, 2))
 plot(aov_4b)
 ```
 
-## Nicht-parametrische Alternativen, wenn Modellannahmen massiv verletzt sind
-
-```{r}
-# Nicht-parametrische Alternative zu t-Test
-
-library(coin)
-wilcox_test(size ~ cultivar, data = blume) 
-```
+## Nicht-parametrische Alternativen zur ANOVA
 
 ### Kruskal-Wallis-Test bei starken Abweichungen von der Normalverteilung, aber ähnlichen Varianzen
 
 ```{r}
-
 # Zum Vergleich normale ANOVA noch mal
 summary(aov_2)
 
@@ -189,9 +181,9 @@ library("FSA")
 dunnTest(size ~ cultivar, method = "bh", data = blume2)
 ```
 
-### Welch-Test bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen
+### Welch Anova bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen
 
 ```{r}
-# Welch-Test
+# Welch Anova 
 oneway.test(size ~ cultivar, var.equal = F, data = blume2)
 ```
