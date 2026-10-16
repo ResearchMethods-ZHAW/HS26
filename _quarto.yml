@@ -73,13 +73,13 @@ book:
       - infovis/Infovis2_Demo.qmd
       - infovis/Infovis2_Uebung_1.qmd
       - infovis/Infovis2_Uebung_2.qmd
-    # - part: Statistik.qmd
-    #   chapters:
-    #   - statistik/Statistik0_Vorbereitung.qmd
-    #   - statistik/Statistik1_Demo.qmd
-    #   - statistik/Statistik1_Uebung.qmd
-    #   - statistik/Statistik2_Demo.qmd
-    #   - statistik/Statistik2_Uebung.qmd
+    - part: Statistik.qmd
+      chapters:
+      - statistik/Statistik0_Vorbereitung.qmd
+      - statistik/Statistik1_Demo.qmd
+      - statistik/Statistik1_Uebung.qmd
+      - statistik/Statistik2_Demo.qmd
+      - statistik/Statistik2_Uebung.qmd
     #   - statistik/Statistik3_Demo.qmd
     #   - statistik/Statistik3_Uebung.qmd
     #   - statistik/Statistik4_Demo.qmd

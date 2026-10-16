@@ -37,7 +37,7 @@ library(ggplot2)
 
 ggplot(blume, aes(x = cultivar, y = size)) +
   geom_boxplot() +
-    stat_summary(fun = mean, geom = "point") # Mittelwerte hinzufügen
+  stat_summary(fun = mean, geom = "point") # Mittelwerte hinzufügen
 ```
 
 ```{r}

@@ -11,7 +11,7 @@ musterloesung: false
 
 ### Aufgabe ANOVA mit Kormoran-Daten
 
-**Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
+**Übungsaufgabe**
 
 
 - Lesen Sie den Datensatz kormoran.csv ein, Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: *Phalacrocorax carbo carbo* (C) und *Phalacrocorax carbo sinensis* (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.
