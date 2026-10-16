@@ -1011,6 +1011,229 @@
     ]
   },
   {
+    "objectID": "Statistik.html",
+    "href": "Statistik.html",
+    "title": "Statistik",
+    "section": "",
+    "text": "Statistik 1\nIn Statistik 1 lernen die Studierenden, was (Inferenz-) Statistik im Kern leistet und warum sie für wissenschaftliche Erkenntnis (in den meisten Disziplinen) unentbehrlich ist. Nach einer Wiederholung der Rolle von Hypothesen wird erläutert, wie Hypothesentests in der frequentist-Statistik umgesetzt werden, einschliesslich p-Werten und Signifikanz-Levels. Die praktische Statistik beginnt mit den beiden einfachsten Fällen, dem Chi-Quadrat-Test für die Assoziation zwischen zwei kategorialen Variablen und dem t-Test auf Unterschiede in Mittelwerten zwischen zwei Gruppen. Abschliessend beschäftigen wir uns damit, wie man Ergebnisse statistischer Analysen am besten in Abbildungen, Tabellen und Text darstellt.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-2",
+    "href": "Statistik.html#statistik-2",
+    "title": "Statistik",
+    "section": "Statistik 2",
+    "text": "Statistik 2\nIn Statistik 2 lernen die Studierenden die Voraussetzungen und die praktische Anwendung “einfacher” linearer Modelle in R (sowie teilweise ihrer”nicht-parametrischen” bzw. “robusten” Äquivalente). Am Anfang steht die Varianzanalyse (ANOVA) als Verallgemeinerung des t-Tests, einschliesslich post-hoc-Tests und mehrfaktorieller ANOVA. Dann geht es um die Voraussetzungen parametrischer (und nicht-parametrischer) Tests und Optionen, wenn diese verletzt sind.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-3",
+    "href": "Statistik.html#statistik-3",
+    "title": "Statistik",
+    "section": "Statistik 3",
+    "text": "Statistik 3\nIn Statistik 3 beschäftigen wir uns mit Korrelationen, die auf einen linearen Zusammenhang zwischen zwei metrischen Variablen testen, ohne Annahme einer Kausalität. Es folgen einfache lineare Regressionen, die im Prinzip das Gleiche bei klarer Kausalität leisten. Dann wird die ANCOVA als eine Technik vorgestellt, die eine ANOVA mit einer linearen Regression verbindet. Danach geht es um komplexere Versionen linearer Regressionen. Hier betrachten wir polynomiale Regressionen, die z. B. einen Test auf unimodale Beziehungen erlauben, indem man dieselbe Prädiktorvariable linear und quadriert einspeist. Dann besprechen wir, was die grosse Gruppe linearer Modelle (Befehl lm in R) auszeichnet. Abschliessend fassen wir zu Beginn den generellen Ablauf inferenzstatistischer Analysen in einem Flussdiagramm zusammen.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-4",
+    "href": "Statistik.html#statistik-4",
+    "title": "Statistik",
+    "section": "Statistik 4",
+    "text": "Statistik 4\nIn Statistik 4 geht es um multiple Regressionen, die versuchen, eine abhängige Variable durch zwei oder mehr verschieden Prädiktorvariablen zu erklären. Wir thematisieren verschiedene dabei auftretende Probleme und ihre Lösung, insbesondere den Umgang mit korrelierten Prädiktoren und das Aufspüren des besten unter mehreren möglichen statistischen Modellen. Hieran wird auch der informatian theoretician-Ansatz der Statistik und die multimodel inference eingeführt.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-5",
+    "href": "Statistik.html#statistik-5",
+    "title": "Statistik",
+    "section": "Statistik 5",
+    "text": "Statistik 5\nIn Statistik 5 geht es um generalized linear models (GLMs), die einige wesentliche Limitierungen von linearen Modellen überwinden. Indem sie Fehler- und Varianzstrukturen explizit modellieren, ist man nicht mehr an Normalverteilung der Residuen und Varianzhomogenität gebunden. Bei generalized linear regressions muss man sich zwischen verschiedenen Verteilungen und link-Strukturen entscheiden.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-6",
+    "href": "Statistik.html#statistik-6",
+    "title": "Statistik",
+    "section": "Statistik 6",
+    "text": "Statistik 6\nIn Statistik 6 lernen die Studierenden Lösungen kennen, welche die diversen Limitierungen von linearen Modellen überwinden. Während generalized linear models (GLMs) aus Statistik 4 bekannt sind, geht es jetzt um linear mixed effect models (LMMs) und generalized linear mixed effect models (GLMMs). Dabei bezeichnet generalized die explizite Modellierung anderer Fehler- und Varianzstrukturen und mixed die Berücksichtigung von Abhängigkeiten bzw. Schachtelungen unter den Beobachtungen. Einfachere Fälle von LMMs, wie split-plot und repeated-measures ANOVAs, lassen sich noch mit dem aov-Befehl in Base R bewältigen, für komplexere Versuchsdesigns/Analysen gibt es spezielle R packages. Abschliessend gibt es eine kurze Einführung in GLMMs, die eine Analyse komplexerer Beobachtungsdaten z. B. mit räumlichen Abhängigkeiten, erlauben.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-7",
+    "href": "Statistik.html#statistik-7",
+    "title": "Statistik",
+    "section": "Statistik 7",
+    "text": "Statistik 7\nStatistik 7 führt in multivariat-deskriptive Methoden ein, die dazu dienen Datensätze mit mehreren abhängigen und mehrenen unabhängigen Variablen zu analysieren. Dabei betonen Ordinationen kontinuierliche Gradienten und fokussieren auf zusammengehörende Variablen, während Cluster-Analysen Diskontinuitäten betonen und auf zusammengehörende Beobachtungen fokussieren. Ordinationen dienen dazu, die Strukturen in multivariaten Datensätzen via Dimensionsreduktion zu visualisieren. Das Prinzip und die praktische Implementierung wird detailliert am Beispiel der Hauptkomponentenanalyse (PCA) erklärt. Neben der Beschreibung der Datenstruktur in komplexen Datensätzen kann eine PCA auch dazu dienen, aus diesen unabhängie Variablen zu generieren, die anschliessend in einer multiplen Regression als Prädiktoren genutzt werden können.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "Statistik.html#statistik-8",
+    "href": "Statistik.html#statistik-8",
+    "title": "Statistik",
+    "section": "Statistik 8",
+    "text": "Statistik 8\nIn Statistik 8 lernen die Studierenden Clusteranalysen/Klassifikationen als eine den Ordinationen komplementäre Technik der deskriptiven Statistik multivariater Datensätze kennen. Es gibt Partitionierungen (ohne Hierarchie), divisive und agglomerative Clusteranalysen (die jeweils eine Hierarchie produzieren). Etwas genauer gehen wir auf die k-means Clusteranalyse (eine Partitionierung) ein.\nIm Abschluss von Statistik 8 werden wir dann die an den acht Statistiktagen behandelten Verfahren noch einmal rückblickend betrachten und thematisieren, welches Verfahren wann gewählt werden sollte. Ebenfalls ist Platz, um den adäquaten Ablauf statistischer Analysen vom Einlesen der Daten bis zur Verschriftlichung der Ergebnisse, einschliesslich der verschiedenen zu treffenden Entscheidungen, zu thematisieren.",
+    "crumbs": [
+      "Statistik"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik0_Vorbereitung.html",
+    "href": "statistik/Statistik0_Vorbereitung.html",
+    "title": "Vorbereitung",
+    "section": "",
+    "text": "Im Rahmen von Statistik 1 - 8 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog Vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\"cclust\", \"car\", \"coin\", \"corrplot\", \"DHARMa\", \n              \"doBy\", \"factoextra\",\"FSA\", \"glmmTMB\", \"ggeffects\", \"HSAUR3\",\n              \"lme4\", \"MASS\", \"multcomp\",\"MuMIn\", \"patchwork\", \"performance\", \n              \"relaimpo\", \"tidyverse\", \"vegan\")\n\nipak(packages)",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Vorbereitung</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Demo.html",
+    "href": "statistik/Statistik1_Demo.html",
+    "title": "Statistik 1: Demo",
+    "section": "",
+    "text": "t-Test\nDemoscript herunterladen (.R)\nDemoscript herunterladen (.qmd)",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Statistik 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Demo.html#t-test",
+    "href": "statistik/Statistik1_Demo.html#t-test",
+    "title": "Statistik 1: Demo",
+    "section": "",
+    "text": "Daten generieren und anschauen\n\n# Je 10 Messwerte für die Sorten Andro und Bulli zu einem Data Frame im long-Format verbinden \n\n# Messwerte von der Sorte Andro\na &lt;- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14) \n\n# Messwerte von der Sorte Bulli\nb &lt;- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10) \n\n# Bezeichnug der Sorten in der Tabelle\ncultivar &lt;- factor(rep( c(\"Andro\", \"Bulli\"), each = 10))\n\n# Data frame erstellen \nblume &lt;- data.frame(\"cultivar\" = cultivar, \"size\" = c(a, b) ) \n\n\n# Boxplots\nlibrary(ggplot2)\n\nggplot(blume, aes(x = cultivar, y = size)) +\n  geom_boxplot() +\n  stat_summary(fun = mean, geom = \"point\") # Mittelwerte hinzufügen\n\n\n\n\n\n\n\n\n\n# Histogramme\nggplot(blume, aes(x = size)) +\n  geom_histogram(binwidth = 2) +\n  facet_wrap(~ cultivar)\n\n\n\n\n\n\n\n\n\n\nZweiseitiger t-Test\nLinks der Tilde (“~”) steht immer die abhängige Variable, rechts die erklärende(n) Variable(n)\n\n# Alternativ kann man die Werte auch direkt in die t.test()-Funktion eingeben:\n# t.test(a, b)\n\n# Zweiseitig \"Test auf Andro ≠ Bullie\" (default)\nt.test(size ~ cultivar, data = blume) \n\n\n    Welch Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means between group Andro and group Bulli is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n\n\n\nEinseitiger t-Test\n\n# Reihenfolge factor level Cultivar\nlevels(blume$cultivar)\n\n[1] \"Andro\" \"Bulli\"\n\n# Einseitig \"Test auf Andro &gt; Bulli\"\nt.test(size ~ cultivar, alternative = \"greater\",  data = blume)\n\n\n    Welch Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 13.907, p-value = 0.02827\nalternative hypothesis: true difference in means between group Andro and group Bulli is greater than 0\n95 percent confidence interval:\n 0.5954947       Inf\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n# Einseitig \"Test auf Andro &lt; Bulli\"\nt.test(size ~ cultivar, alternative = \"less\",  data = blume) \n\n\n    Welch Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 13.907, p-value = 0.9717\nalternative hypothesis: true difference in means between group Andro and group Bulli is less than 0\n95 percent confidence interval:\n     -Inf 7.204505\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n\n\n\nKlassischer t-Test vs. Welch Test\n\n# Varianzen gleich: klassischer t-Test\nt.test(size ~ cultivar, var.equal = TRUE, data = blume)\n\n\n    Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means between group Andro and group Bulli is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n# Varianzen ungleich: Welch's t-Test (siehe Titelzeile des R-Outputs!)\nt.test(size ~ cultivar, data = blume) # dasselbe wie var.equal = FALSE\n\n\n    Welch Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 13.907, p-value = 0.05654\nalternative hypothesis: true difference in means between group Andro and group Bulli is not equal to 0\n95 percent confidence interval:\n -0.1245926  7.9245926\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n\n\n\nGepaarter t-Test\nGepaarter t-Test: erster Wert von Andro wird mit erstem Wert von Bullie gepaart, zweiter Wert von Andro mit zweitem von Bullie ect.\n\n# für gepaarten t-Test funktioniert Notation \"size ~ cultivar\" nicht (mehr)\nt.test(blume$size[blume$cultivar == \"Andro\"], \n       blume$size[blume$cultivar == \"Bulli\"], \n       paired = TRUE)\n\n\n    Paired t-test\n\ndata:  blume$size[blume$cultivar == \"Andro\"] and blume$size[blume$cultivar == \"Bulli\"]\nt = 3.4821, df = 9, p-value = 0.006916\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n 1.366339 6.433661\nsample estimates:\nmean difference \n            3.9 \n\n\n\n\nNicht-parametrische Alternative zum t-Test\n\nwilcox.test(size ~ cultivar, data = blume) \n\n\n    Wilcoxon rank sum exact test\n\ndata:  size by cultivar\nW = 73, p-value = 0.08441\nalternative hypothesis: true location shift is not equal to 0",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Statistik 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Demo.html#binomialtest",
+    "href": "statistik/Statistik1_Demo.html#binomialtest",
+    "title": "Statistik 1: Demo",
+    "section": "Binomialtest",
+    "text": "Binomialtest\nIn Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse\n\n# Anzahl gewählte Frauen im Nationalrat (≙ 38.5 %; Stand 2023)\nbinom.test(77, 200, p = 0.5) \n\n\n    Exact binomial test\n\ndata:  77 and 200\nnumber of successes = 77, number of trials = 200, p-value = 0.001402\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.3172245 0.4562387\nsample estimates:\nprobability of success \n                 0.385 \n\n# Anzahl gewählte Männer im Nationalrat (≙ 61.5 %; Stand 2023)\nbinom.test(123, 200, p = 0.5) \n\n\n    Exact binomial test\n\ndata:  123 and 200\nnumber of successes = 123, number of trials = 200, p-value = 0.001402\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.5437613 0.6827755\nsample estimates:\nprobability of success \n                 0.615 \n\n\nAlternativ können auch die Anzahl gewählter Manner und Frauen übergeben werden. Die erste Zahl wird als Anzahl der Erfolge definiert die Stichprobengrösse wird autmoatisch ausgerechnet\n\nbinom.test( c(123, 77), p = 0.5) \n\n\n    Exact binomial test\n\ndata:  c(123, 77)\nnumber of successes = 123, number of trials = 200, p-value = 0.001402\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.5437613 0.6827755\nsample estimates:\nprobability of success \n                 0.615 \n\n# Entspricht die Anzahl Kandidatinnen (≙ 41 %; Stand 2023) dem Anteil Frauen \n# in der Bevölkerung ?\nbinom.test( c(2399, 3500), p = 0.5) \n\n\n    Exact binomial test\n\ndata:  c(2399, 3500)\nnumber of successes = 2399, number of trials = 5899, p-value &lt; 2.2e-16\nalternative hypothesis: true probability of success is not equal to 0.5\n95 percent confidence interval:\n 0.3941079 0.4193426\nsample estimates:\nprobability of success \n             0.4066791 \n\n# Entspricht der Anteil gewählter Frauen dem Anteil kandidierender Frauen ?\nbinom.test(77, 200, p = 0.407) \n\n\n    Exact binomial test\n\ndata:  77 and 200\nnumber of successes = 77, number of trials = 200, p-value = 0.565\nalternative hypothesis: true probability of success is not equal to 0.407\n95 percent confidence interval:\n 0.3172245 0.4562387\nsample estimates:\nprobability of success \n                 0.385",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Statistik 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Demo.html#chi-quadrat-test-fishers-test",
+    "href": "statistik/Statistik1_Demo.html#chi-quadrat-test-fishers-test",
+    "title": "Statistik 1: Demo",
+    "section": "Chi-Quadrat-Test & Fishers Test",
+    "text": "Chi-Quadrat-Test & Fishers Test\n\nDirekter Test in R (dazu Werte als Matrix nötig)\n\n# Matrix mit Haarfarbe&Augenfarbe-Kombinationen erstellen\n# 38 blond & blau, 14 dunkel & blau, 11 blond & braun, 51 dunkel & braun\ncount &lt;- matrix( c(38, 14, 11, 51), nrow = 2)\ncount \n\n     [,1] [,2]\n[1,]   38   11\n[2,]   14   51\n\n# Benennen für Übersicht\nrownames(count) &lt;- c(\"blond\", \"dunkel\") \ncolnames(count) &lt;- c(\"blau\", \"braun\")\n\ncount\n\n       blau braun\nblond    38    11\ndunkel   14    51\n\n# Tests durchführen\nchisq.test(count)\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  count\nX-squared = 33.112, df = 1, p-value = 8.7e-09\n\nfisher.test(count)\n\n\n    Fisher's Exact Test for Count Data\n\ndata:  count\np-value = 2.099e-09\nalternative hypothesis: true odds ratio is not equal to 1\n95 percent confidence interval:\n  4.746351 34.118920\nsample estimates:\nodds ratio \n  12.22697",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Statistik 1: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Uebung.html",
+    "href": "statistik/Statistik1_Uebung.html",
+    "title": "Statistik 1: Übung",
+    "section": "",
+    "text": "Anleitung zu den Übungen\nZu erstellen sind:\nWichtige Hinweise zur Ausgestaltung:",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistik 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Uebung.html#aufgabe-1.1-assoziationstest",
+    "href": "statistik/Statistik1_Uebung.html#aufgabe-1.1-assoziationstest",
+    "title": "Statistik 1: Übung",
+    "section": "Aufgabe 1.1: Assoziationstest",
+    "text": "Aufgabe 1.1: Assoziationstest\nFührt einen Assoziationstest zweier kategorialer Variablen (mit je zwei Ausprägungen) durch. Dazu erhebt ihr selbst die Daten (wozu ihr euch auch in Teams zusammenschliessen könnt). Ihr könnt z.B. eine Datenerhebung unter Mitstudierenden durchführen (etwa Nutzung Mac/Windows vs. männlich/weiblich). Bitte formuliert vor der Datenerhebung eine Hypothese, d.h. eine Erwartungshaltung, ob und welche Assoziation vorliegt und wenn ja warum. Beachtet, dass ihr für diese Form des Assoziationstests genau zwei binäre Variablen benötigt. Wenn ihr also kategoriale Variablen mit mehr als zwei Ausprägungen habt, so könnt ihr entweder Ausprägungen sinnvoll zusammenfassen oder seltene Ausprägungen im Test unberücksichtigt lassen.",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistik 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik1_Uebung.html#aufgabe-1.2-t-test",
+    "href": "statistik/Statistik1_Uebung.html#aufgabe-1.2-t-test",
+    "title": "Statistik 1: Übung",
+    "section": "Aufgabe 1.2: t-Test",
+    "text": "Aufgabe 1.2: t-Test\nt-Test mit Datensatz Novanimal_Weeks.csv\nIm Forschungsprojekt NOVANIMAL wurde u.a. in der ZHAW-Mensa untersucht, was es braucht, damit Menschen freiwillig weniger tierische Produkte konsumieren. Dazu wurden in sogenannten Interventionswochen mehr vegane und vegetarische Gerichte (zu Lasten kleinerer Fleischgerichtsauswahl) angeboten. Eine erste grundsätzliche Frage war, ob die unterschiedliche Gerichtsauswahl zu unterschiedlichen Verkaufszahlen führten. Beantwortet dazu mit dem Datensatz und geeigneten Tests folgende Frage:\nWurden in den Basis- und Interventionswochen unterschiedlich viele Gerichte verkauft?\n\nSchau die Daten an: Verstehen und ggf. plotten.\nDefiniere die Null- (\\(H_0\\)) und die Alternativhypothese (\\(H_1\\)).\nWelche Form von t-Test musst Du anwenden: einseitig/zweiseitig resp. gepaart/ungepaart?\nFühre einen t-Test durch.\nWie gut sind die Voraussetzungen für einen t-Test erfüllt (z.B. Normalverteilung der Residuen und Varianzhomogenität)?\nStelle deine Ergebnisse angemessen dar, d.h. Text mit Abbildung und/oder Tabelle",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Statistik 1: Übung</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik2_Demo.html",
+    "href": "statistik/Statistik2_Demo.html",
+    "title": "Statistik 2: Demo",
+    "section": "",
+    "text": "ANOVA\nDemoscript herunterladen (.R)\nDemoscript herunterladen (.qmd)",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Statistik 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik2_Demo.html#anova",
+    "href": "statistik/Statistik2_Demo.html#anova",
+    "title": "Statistik 2: Demo",
+    "section": "",
+    "text": "t-test als ANOVA\n\n# Dieselben Daten wie für die t-Tests in Statistik 1\nMesswerte_a &lt;- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14) \nMesswerte_b &lt;- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10) \ncultivar &lt;- factor(rep( c(\"Andro\", \"Bulli\"), each = 10))\nblume &lt;- data.frame(\"cultivar\" = cultivar, \"size\" = c(Messwerte_a, Messwerte_b) ) \n\n# Daten anschauen\nlibrary(ggplot2)\n\nggplot(blume, aes(cultivar, size)) +\n  geom_boxplot() +\n  stat_summary(fun = mean, geom = \"point\")\n\n\n\n\n\n\n\n# Klassischer t-Test ausführen\nt.test(size ~ cultivar, var.equal = TRUE, data = blume)\n\n\n    Two Sample t-test\n\ndata:  size by cultivar\nt = 2.0797, df = 18, p-value = 0.05212\nalternative hypothesis: true difference in means between group Andro and group Bulli is not equal to 0\n95 percent confidence interval:\n -0.03981237  7.83981237\nsample estimates:\nmean in group Andro mean in group Bulli \n               15.3                11.4 \n\n# ANOVA ausführen\naov_1 &lt;- aov(size ~ cultivar, data = blume)\naov_1\n\nCall:\n   aov(formula = size ~ cultivar, data = blume)\n\nTerms:\n                cultivar Residuals\nSum of Squares     76.05    316.50\nDeg. of Freedom        1        18\n\nResidual standard error: 4.193249\nEstimated effects may be unbalanced\n\nsummary(aov_1)\n\n            Df Sum Sq Mean Sq F value Pr(&gt;F)  \ncultivar     1   76.0   76.05   4.325 0.0521 .\nResiduals   18  316.5   17.58                 \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nsummary.lm(aov_1)\n\n\nCall:\naov(formula = size ~ cultivar, data = blume)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-7.300 -2.575 -0.350  2.925  9.700 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)     15.300      1.326   11.54 9.47e-10 ***\ncultivarBulli   -3.900      1.875   -2.08   0.0521 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.193 on 18 degrees of freedom\nMultiple R-squared:  0.1937,    Adjusted R-squared:  0.1489 \nF-statistic: 4.325 on 1 and 18 DF,  p-value: 0.05212\n\n\n\n\nEchte ANOVA\n\n# Ein weiterer Cultivar hinzufügen\nMesswerte_c &lt;- c(30, 19, 31, 23, 18, 25, 26, 24, 17, 20)\ncultivar &lt;- factor( rep( c(\"Andro\", \"Bulli\", \"Chroma\"), each = 10))\nblume2 &lt;- data.frame(\"cultivar\" = cultivar, \n                      \"size\" = c(Messwerte_a, Messwerte_b, Messwerte_c)) \n\n\n# Daten als Boxplots anschauen\nggplot(blume2, aes(cultivar, size)) +\n  geom_boxplot() +\n  stat_summary(fun = mean, geom = \"point\")",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Statistik 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik2_Demo.html#modelldiagnostik",
+    "href": "statistik/Statistik2_Demo.html#modelldiagnostik",
+    "title": "Statistik 2: Demo",
+    "section": "Modelldiagnostik",
+    "text": "Modelldiagnostik\n\nBeispiel Modelldiagnostik\n\n# 4 Plots in einem Fenster\npar(mfrow = c(2, 2))\n\nplot(aov_4b)",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Statistik 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik2_Demo.html#nicht-parametrische-alternativen-wenn-modellannahmen-massiv-verletzt-sind",
+    "href": "statistik/Statistik2_Demo.html#nicht-parametrische-alternativen-wenn-modellannahmen-massiv-verletzt-sind",
+    "title": "Statistik 2: Demo",
+    "section": "Nicht-parametrische Alternativen, wenn Modellannahmen massiv verletzt sind",
+    "text": "Nicht-parametrische Alternativen, wenn Modellannahmen massiv verletzt sind\n\n# Nicht-parametrische Alternative zu t-Test\n\nlibrary(coin)\nwilcox_test(size ~ cultivar, data = blume) \n\n\n    Asymptotic Wilcoxon-Mann-Whitney Test\n\ndata:  size by cultivar (Andro, Bulli)\nZ = 1.7445, p-value = 0.08106\nalternative hypothesis: true mu is not equal to 0\n\n\n\nKruskal-Wallis-Test bei starken Abweichungen von der Normalverteilung, aber ähnlichen Varianzen\n\n# Zum Vergleich normale ANOVA noch mal\nsummary(aov_2)\n\n            Df Sum Sq Mean Sq F value   Pr(&gt;F)    \ncultivar     2  736.1   368.0    18.8 7.68e-06 ***\nResiduals   27  528.6    19.6                     \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n# Kruskal-Wallis-Test\nkruskal_test(size ~ cultivar, data = blume2)\n\n\n    Asymptotic Kruskal-Wallis Test\n\ndata:  size by cultivar (Andro, Bulli, Chroma)\nchi-squared = 16.686, df = 2, p-value = 0.0002381\n\nlibrary(\"FSA\")\n# Post-Hoc mit korrigierten p-Werte nach Bejamini-Hochberg\ndunnTest(size ~ cultivar, method = \"bh\", data = blume2)\n\n      Comparison         Z      P.unadj        P.adj\n1  Andro - Bulli  1.526210 1.269575e-01 0.1269575490\n2 Andro - Chroma -2.518247 1.179407e-02 0.0176911039\n3 Bulli - Chroma -4.044457 5.244459e-05 0.0001573338\n\n\n\n\nWelch-Test bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen\n\n# Welch-Test\noneway.test(size ~ cultivar, var.equal = F, data = blume2)\n\n\n    One-way analysis of means (not assuming equal variances)\n\ndata:  size and cultivar\nF = 21.642, num df = 2.000, denom df = 16.564, p-value = 2.397e-05",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Statistik 2: Demo</span>"
+    ]
+  },
+  {
+    "objectID": "statistik/Statistik2_Uebung.html",
+    "href": "statistik/Statistik2_Uebung.html",
+    "title": "Statistik 2: Übung",
+    "section": "",
+    "text": "Aufgabe ANOVA mit Kormoran-Daten\nÜbungsaufgabe\n\nLesen Sie den Datensatz kormoran.csv ein, Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: Phalacrocorax carbo carbo (C) und Phalacrocorax carbo sinensis (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.\nIhre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu ermitteln, das dies Abhängikeit der Tauchzeit von der Jahreszeit und Unterart beschreibt.\nBitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein mit Quarto generiertes html-Dokument, in das Sie Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere Vorgehen dokumentieren.\nDieser Ablauf sollte insbesondere beinhalten:\n\nÜberprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen, welches statistische Verfahren wenden Sie an?\nExplorative Datenanalyse, um ein Eindruck der Daten zu bekommen und zu kontrollieren ob es NAs in den Daten hat\nDefinition eines vollen Modelles, das nach statistischen Kritierien zum minimal adäquaten Modell reduziert wird\nDurchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen korrekt war oder ggf. angepasst werden muss\nGenerieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden\n\nFormulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.\nZu erstellen sind (1) Ein quarto generiertes pdf-Dokument mit begründetem Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (2) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).",
+    "crumbs": [
+      "Statistik",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Statistik 2: Übung</span>"
+    ]
+  },
+  {
     "objectID": "fallstudie_s/0_Vorbereitung.html",
     "href": "fallstudie_s/0_Vorbereitung.html",
     "title": "Vorbereitung",
@@ -1018,7 +1241,7 @@
     "text": "Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten Bibliotheken automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"readr\", \"ggplot2\", \"dplyr\", \"lubridate\", \"ggpubr\", \"PerformanceAnalytics\",\n  \"MuMIn\", \"AICcmodavg\", \"fitdistrplus\", \"lme4\", \"DHARMa\", \"blmeco\", \"sjPlot\", \"lattice\",\n   \"suncalc\", \"glmmTMB\"\n)\n\nipak(packages)\n\nZudem könnt ihr alle für die Fallstudie Profil S benötigten Daten unter auf Moodle im Abschnitt Fallstudie “Ecosystems & Biodiversity” herunterladen.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Vorbereitung</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Vorbereitung</span>"
     ]
   },
   {
@@ -1029,7 +1252,7 @@
     "text": "Hintergrund\nDas rund 1100 ha grosse Naturschutzgebiet Wildnispark Zürich Sihlwald, welches im periurbanen Raum südlich von Zürich liegt, gilt seit dem 1. Januar 2010 als erster national anerkannter Naturerlebnispark. Er ist Teil des Wildnisparks Zürich (WPZ) und wichtiges Naherholungsgebiet für die Stadt Zürich.\nDas Schutzgebiet befindet sich im Spannungsfeld zwischen Schutz und Nutzen, denn einerseits sollen die Besuchenden den Wald erleben dürfen, andererseits soll sich dieser, in der Kernzone, frei entwickeln dürfen. Im Perimeter gelten darum verschiedene Regeln. So darf z. B. nur auf bestimmten Wegen mit den Fahrrad gefahren werden.\nDas Management des Parks braucht solide, empirisch erhobene Daten zur Natur und zu den Besuchenden damit die Ziele von Nutzen und Schürzen erreicht werden können. Das Besuchermonitoring deckt den zweiten Teil dieser notwendigen Daten ab. Im WPZ sind mehrere automatische Zählstellen zur Erfassung der Besuchenden in Betrieb. Die Zählstellen erfassen diese stundenweise auf den untersuchten Wegabschnitten. Einige Zählstellen erfassen richtungsgetrennt und / oder können zwischen verschiedenen Nutzergruppen wie Personen, die zu Fuss gehen, und Fahrradfahrenden unterscheiden.\nIm Rahmen des Moduls Research Methods werden in dieser Fallstudie Daten von mehreren dieser automatischen Zählstellen untersucht. Die Daten, welche im Besitz des WPZ sind, wurden bereits kalibriert. Das heisst, Zählungen während Wartungsarbeiten, bei Fehlbetrieb o.ä. wurden bereits ausgeschlossen. Dies ist eine zeitintensive Arbeit und wir dürfen hier mit einem sauber aufbereiteten “Datenschatz” arbeiten.\nPerimeter des Wildnispark Zürichs mit den ungefähren Standorten von zwei ausgewählten automatischen Zählstellen. Hinweis: die Zählstellen erfassen die Besuchenden an einem Punkt / auf einem Querschnitt des Wegabschnittes. Hier ist aus Gründen der Vertraulichkeit nur der Wegabschnitt dargestellt, auf welchem sich dieser QUerschnitt befindet.\nDie beiden zur Verfügung stehenden Zähler 211 und 502 erfassen sowohl Fussgänger:innen als auch Fahrräder. Die Erfassung erfolgt bei beiden richtungsgetrennt.\nDer Wildnispark wertet die Zahlen routinemässig aus. So sind z. B. Jahresgänge (an welchen Monaten herrscht besonders viel Betrieb?) und die absoluten Nutzungszahlen bekannt. Vertiefte Auswertungen, die beispielsweise den Zusammenhang zwischen Besuchszahlen und dem Wetter untersuchen, werden aber nicht gemacht.\nUnsere Analysen in diesem Modul helfen dem WPZ, ein besseres Verständnis zum Verhalten der Besuchenden zu erlangen und bilden Grundlagen für verschiedene Managemententscheide in der Praxis.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -1040,7 +1263,7 @@
     "text": "Ziel\n\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl der Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan).\nIn unsere Analysen ziehen wir erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.\nDa Wildtiere, wie z. B. Rehe, besonders Dämmerungs- und Nachtaktiv sind, liegt diese Tageszeit bei unseren Auswertungen speziell im Fokus.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -1051,7 +1274,7 @@
     "text": "Grundlagen\nZur Verfügung stehen:\n\ndie stündlichen Zählungen von Fussgänger:innen und Fahrrädern an den beiden Zählstellen 211 und 502\nMeteodaten (Temperatur, Sonnenscheindauer, Niederschlagssumme)\nAnleitungen und Code mit Hinweisen zur Auswertung (hier auf dieser Seite)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -1062,7 +1285,7 @@
     "text": "Aufbau der Fallstudie\nIn dieser Fallstudie erheben wir zuerst selber Daten auf dem Grüntal, welche wir dann deskriptiv auswerten. Dies, um ein “Gefühl” für die Daten zu bekommen.\nAnschliessend beschäftigen wir uns mit den Daten aus dem WPZ, welche wir zuerst ebenfalls deskriptiv auswerten. Anschliessend schreiben wir auch statistisch schliessende Modelle. Die Erkentnnisse, welche wir aus den Daten des WPZs ableiten, werden dann im Abschlussbericht dokumentiert.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Einführung</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Einführung</span>"
     ]
   },
   {
@@ -1073,7 +1296,7 @@
     "text": "Einführung\nEs gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Automatische Zählgeräte bieten die Möglichkeit, lange und durchgehende Zeitreihen zu erfassen. Inputs dazu, wie diese ausgewertet werden können, erhält ihr in dieser Aufgabe.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -1084,7 +1307,7 @@
     "text": "Ziele\n\nIhr könnt das eingesetzte Zählgerät installieren und kennt die Vor- und Nachteile verschiedener Methoden.\nIhr könnt die generierten Daten explorativ und deskriptiv auswerten.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -1095,7 +1318,7 @@
     "text": "Grundlagen\nDie Geräte werden gemeinsam auf dem Campus Grüntal besichtigt.\nDatenschutz ist ein wichtiges Thema. Die eingesetzten Geräte erfassen keine Personendaten, sondern nur Bewegungen. Es handelt sich um Pyroelektrische Infrarotsensoren, welche auf den Temperaturunterschied reagieren, wenn sich eine Person vor der Linse bewegt. Insofern handelt es sich, vereinfacht gesagt, um Bewegungsmelder.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Monitoring</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Monitoring</span>"
     ]
   },
   {
@@ -1106,7 +1329,7 @@
     "text": "Ziele\nIhr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind abgeschlossen und wir beschäftigen uns ab jetzt ausschliesslich mit dem WPZ.\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besuchenden auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele).\nFür meine Analysen habe ich untenstehende Fragestellungen formuliert. Ihr könnt aber auch eure Fragestellungen aus eurem Forschungsplan übernehmen, falls ihr das möchtet und falls diese mit den zur Verügung stehenden Daten bearbeitet werden können.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -1117,7 +1340,7 @@
     "text": "Welchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ?\nWie stark sind die jeweiligen Einflüsse, welche Effektrichtungen sind beobachtbar und welche der untersuchten Parameter sind signifikant?\nGibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?\nWelches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?\n\n\n\nJede Gruppe wertet Daten von einem Zählgerät aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Die Daten von jeder Zählstelle sollen nur von einer Gruppe ausgewertet werden!\nBezieht in eure Auswertungen den gesamten zur Verfügung stehenden Zeitraum ein.\nFür euren Zähler stehen Zahlen zu Fussgänger:innen und Fahrrädern zur Verfügung (siehe [Einführung], Hinweis). Entscheidet euch selbst, ob ihr Fussgänger:innen ODER Fahrräder auswerten wollt. Die anderen Daten dürft ihr vernachlässigen.\nIm Bericht sollen die Informationen und Erfahrungen aus dem gesamten Verlauf der Fallstudie in geeigneter Weise einfliessen. Bezüglich der Felderhebung Grüental erwarten wir keine Angaben.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -1128,7 +1351,7 @@
     "text": "Erwartungen\n\nStruktur / Aufbau\n\n\nAbstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch). Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.\nEinleitung (hier können allenfalls Elemente / Teile aus den Forschungsplänen übernommen werden)\nFragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)\nMethoden (aufschlussreiches Kapitel mit den statistischen Analysen)\nResultate (deskriptive Statistik, multivariates Modell; kurzer Fliesstext sowie die notwendigen Tabellen und eine Auswahl möglichst informativer Grafiken)\nDiskussion (Diskussion der deskriptiven Analysen und der Modellergebnisse; dieser Abschnitt sollte die eigenen Resultate auch im Zusammenhang mit aktueller Fachliteratur reflektieren.)\nLiteraturverzeichnis (Tipp: Das Literaturverzeichnis sollte vollständig sein, sowie formal korrekt und einheitlich daherkommen. Wir erwarten speziell in der Diskussion eine Abstützung auf aktuelle Fachliteratur. Auf Moodle haben wir euch eine Auswahl relevanter Studien bereitgestellt.)\nAnhang (für alle Auswertungen relevanter R-Code in geeigneter Form)\n\n\nGesamtumfang max. 12’000 Zeichen (inkl. Leerzeichen; exkl. Tabellen, Literaturverzeichnis und Anhang)\nAbgabe per Mail an hoce@zhaw.ch (Datum siehe Stundenplan)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -1139,7 +1362,7 @@
     "text": "Bewertungskriterien\n\nIst die Methode klar und verständlich formuliert?\nSind die deskriptiven Analysen klar beschrieben und geeignet visualisiert?\nIst die Variablenselektion klar beschrieben, plausibel und nachvollziehbar?\nSind die Modellresultate in Text- und Tabellenform korrekt beschrieben und geeignet visualisiert?\nIst die Diskussion klar formuliert und inhaltlich schlüssig?\nWie gut ist die Diskussion auf relevante und aktuelle Fachliteratur abgestützt?\nZusätzliche bewerten wir die inhaltliche Dichte der Arbeit und die formale Qualität (Sprache, Struktur, Aufbau, Darstellung, Literaturverzeichnis, Umgang mit Literatur im Text)",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -1150,7 +1373,7 @@
     "text": "Zusammensetzung Note Fallstudie:\n\nFallstudie-Leistungsnachweis 1 - Forschungsplan: Testatplichtig\nFallstudie-Leistungsnachweis 2 - Multivariate Analyse: 100 %\n\nDie Note der Fallstudie fliesst in die Gesamtbewertung des Moduls Research Methods mit ein.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Aufgabenstellung Abschlussbericht</span>"
     ]
   },
   {
@@ -1161,7 +1384,7 @@
     "text": "Vorbereitung\nVor den eigentlichen Auswertungen müssen einige Vorbereitungen unternommen werden. Die Zeit, die man hier investiert, wird in den späteren Phasen um ein Mehrfaches eingespart.\nWie im Unterricht am Morgen empfehle auch ich mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. –&gt; Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: Link).\n–&gt; File / New Project",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -1172,7 +1395,7 @@
     "text": "Erstellt an einem passenden Speicherort (evtl. onedrive für das gemeinsame Arbeiten an einem Projekt) ein neues Projekt mit einem treffenden Namen:",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -1183,7 +1406,7 @@
     "text": "Aufgabe 1: Projektaufbau\nHinweise:\nNutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, können vor dem Wort “#” und nach dem Wort “####” eingefügt werden.\n\n# Texte, vor denen ein # und nach denen #### stehen, sind Überschriften\n\n# Ich bin eine first level Überschrift ####\n\n## Ich bin eine second level Überschrift ####\n\n# Texte, vor denen ein # steht, erklaeren den Ablauf (nicht was, sondern warum)\n\n# Dann folgen die Arbeitsschritte\n1 + 1\n\n# Wenn man auf \"Outline\" klickt (oder CTRL + SHIFT + O),\n# öffnet sich die Übersicht zu den Überschriften\n\nTipps:\n\nAlt + - = &lt;-\nCtrl + Shift + C = # vor der ausgewählten Zeile / den ausgewählten Zeilen hinzufügen oder wieder löschen\n\nAufbau eines Skripts\nZuerst immer den Titel des Projekts sowie den Autor/ die Autorin des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer Dateneigentümer ist (WPZ und Meteo Schweiz).\nIm Skript soll immer die Ordnerstruktur des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __scripts, data, results).\nBeschreibt zudem kurz die verwendeten Meteodaten (siehe dazu Metadata Meteodaten, –&gt; order_XXX_legend.txt)\nEin Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthält bei uns folgende Kapitel:\n\nMetadaten und Definitionen\nDatenimport\nVorbereitung\nDeskriptive Analyse und Visualisierung\nMultifaktorielle Analyse und Visualisierung\n\nBereitet euer Skript mit diesen Kapitel vor.\n\n# .###########################################################################################\n# TITEL ####\n# Fallstudie Modul Research Methods, HS24. Autor/in ####\n# .##########################################################################################\n\n# .##########################################################################################\n# METADATA UND DEFINITIONEN ####\n# .##########################################################################################\n\n# Datenherkunft ####\n# ...\n\n# .##########################################################################################\n# 1. DATENIMPORT #####\n# .##########################################################################################\n\nIn einem professionellen Bericht ist es angebracht, wenn alle Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable “mycolors” abrufen kann.\n\nmycolors &lt;- c(\"orangered\", \"gold\", \"mediumvioletred\", \"darkblue\")",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -1194,7 +1417,7 @@
     "text": "Aufgabe 2: Laden der Bibliotheken\n\nLädt nun die nachfolgenden, benötigten Bibliotheken.\nDiese habt ihr, falls nötig, im Kapitel Vorbereitung installiert.\n\n\n# Benoetigte Bibliotheken ####\nlibrary(\"readr\") # read data into r\nlibrary(\"ggplot2\") # plot nice graphs\nlibrary(\"dplyr\") # select data\nlibrary(\"lubridate\") # Arbeiten mit Datumsformaten\nlibrary(\"suncalc\") # berechne Tageszeiten abhaengig vom Sonnenstand\nlibrary(\"ggpubr\") # to arrange multiple plots in one graph\nlibrary(\"PerformanceAnalytics\") # Plotte Korrelationsmatrix\nlibrary(\"MuMIn\") # Multi-Model Inference\nlibrary(\"AICcmodavg\") # Modellaverageing\nlibrary(\"fitdistrplus\") # Prueft die Verteilung in Daten\nlibrary(\"lme4\") # Multivariate Modelle\nlibrary(\"DHARMa\") # Modeldiagnostik\nlibrary(\"blmeco\") # Bayesian data analysis using linear models\nlibrary(\"sjPlot\") # Plotten von Modellergebnissen (tab_model)\nlibrary(\"lattice\") # einfaches plotten von Zusammenhängen zwischen Variablen\nlibrary(\"glmmTMB\")# zero-inflated model",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -1205,7 +1428,7 @@
     "text": "Aufgabe 3: Zeitliche Definitionen\nWir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag gemäss den bei euch vorhandenen Zähldaten (das unterscheidet sich von Gruppe zu Gruppe).\n\ndepo_start &lt;- as.Date(\"2017-01-01\")\ndepo_end &lt;- as.Date(\"2023-12-31\")\n\nEin Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuchsverhalten.\n-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:\n\nlock_1_start_2020 &lt;- as.Date(\"2020-03-16\")\nlock_1_end_2020 &lt;- as.Date(\"2020-05-11\")\n\nlock_2_start_2021 &lt;- as.Date(\"2020-12-22\")\nlock_2_end_2021 &lt;- as.Date(\"2021-03-01\")\n\nEbenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl isoweek() liefert euch die Kalenderwoche, im standartisierten ISO-Format.\n\nKW_start &lt;- isoweek(depo_start)\nKW_end &lt;- isoweek(depo_end)\n\nFerienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/).\nLest das bereitgestellte .csv mit den Ferienzeiträumen ein und speichert es unter schulferien.\n\nschulferien &lt;- read_delim(\"datasets/fallstudie_s/ferien.csv\", \",\")\n\nNun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann im nächsten Schritt beginnen.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Projekt erstellen</span>"
+      "<span class='chapter-number'>28</span>  <span class='chapter-title'>Projekt erstellen</span>"
     ]
   },
   {
@@ -1216,7 +1439,7 @@
     "text": "Aufgabe 1: Zähldaten",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -1227,7 +1450,7 @@
     "text": "1a)\nDie Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden.\nLädt die Daten zuerst von Moodle herunter:\n\nZähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2024.csv, 502_sihluferweg_2016_2024.csv) -&gt; wählt einen aus\nMeteodaten und Legende\n\nHinweis: Siehe [einfuehrung] für den Standort der Zähler 211 und 502.\nDie Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.\n\nLest die Zählaten ein, speichert ihn unter der Variable depo und sichtet den Datensatz (z.B. str(), head(), view() usw.). Ihr könnt den Datensatz in R auch anders benennen. WIchtig sind kurze, “sprechende” Namen für die Variablen.\n\n\n\nMusterlösung\n# Speicherort sowie Dateiname anpassen\ndepo &lt;- read_delim(\"./HIER RELATIVEN DATEIPFAD EINGEBEN\", \"HIER SEPERATOR EINGEBEN\")\n\n\nHinweis: Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.\n\n\n1b)\n\nNun muss das Datum als solches definiert werden. Ich nutze dazu as.POSIXct(), wie schon für die Aufgabe zum Besuchermonitoring Grüntal. Welches Format hat das Datum im csv? Das muss im Code angepasst werden.\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n  mutate(\n    Datetime = as.POSIXct(DatumUhrzeit, format = \"HIER STEHT DAS DATUMSFORMAT\", tz = \"CET\"),\n    # nun schreiben wir uns das Datum in eine seperate Spalte\n    Datum = as.Date(Datetime)\n  )\n\n\n\n\n1c)\nIhr könnt selbst wählen, ob ihr Fussgänger:innen oder Fahrräder untersuchen wollt.\n\nEntfernt die überflüssigen Spalten aus dem Datensatz. Ich schlage vor, dass ihr dafür den Befehl dplyr::select() verwendet.\nDamit kann man entweder Spalten behalten oder eben auch Spalten entfernen (-c(SPALTENNAMEN)).\n\nHinweis: mit select() können Spalten gewählt werden, mit filter() Zeilen.\n\n\n1d)\n\nBerechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist.\n\nTipp: Wenn man R sagt: “addiere mir Spalte x mit Spalte y”, dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: “speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens Total”, dann hat man die Aufgabe bereits gelöst. Arbeitet mit mutate()).\n\nEntfernt nun alle NA-Werte mit na.omit().",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -1238,7 +1461,7 @@
     "text": "Aufgabe 2: Meteodaten\n\n2a)\n\nLest die Meteodaten ein und speichert sie unter meteo.\n\n\n\n2b)\n\nAuch hier müssen die Datentypen manuell gesetzt werden.\n\nTipps: - Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code. - ich nutze hier as.Date() und nicht as.POSIXct. Ersteres ist praktisch nur für das Datum, letzeres für Datetime Objekte.\n\n\nMusterlösung\nmeteo &lt;- mutate(meteo, time = as.Date(as.character(time), \"%Y%m%d\"))\n\n\nHinweise:\nDie Zeitangaben bei den Meteodaten sind in UTC: 00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit, Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00\nDa wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht mit den Daten der Zählstellen übereinstimmt. Learning: es ist zentral immer die Metadaten zu checken.\nWas ist eigentlich Niederschlag:\nLink Meteo Schweiz\n\nWerden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.\nNun schneiden wir den Datensatz auf die Untersuchungsdauer zu.\n\n\n\nMusterlösung\n    ... |&gt;\n    filter(time &gt;= depo_start, time &lt;= depo_end)\n\n\n\nDann müssen auch hier alle nicht verfügbare Werte (NA’s) herausgefiltert werden. Macht das wieder mit na.omit()\nPrüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden:\n\n\n\nMusterlösung\nsum(is.na(df$Variable))\n\n\n\nStimmen alle Datentypen? str()",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -1249,7 +1472,7 @@
     "text": "Aufgabe 3: Datenvorverarbeitung (Mutationen)\n\n3a)\nJetzt fügen wir viele Convenience Variablen hinzu. Wir brauchen:\n\nWochentag; der Befehl dazu ist wday(). Danach als Faktor speichern.\nWerktag oder Wochenende, ebenfalls als Faktor.\n\nDer Code dazu könnte in Teilen so aussehen:\n\n\nMusterlösung\n  ...|&gt;\n  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), \"Wochenende\", \"Werktag\")) |&gt;\n  # 1 means Monday and 7 means Sunday (default)\n  mutate(Wochenende = as.factor(Wochenende)) |&gt;\n  ...\n\n\nje als Faktor:\n\nKalenderwoche: isoweek()\nMonat: month()\nJahr: year()\n\nDies machen wir auch mit dem “meteo” Datensatz. Wiederum bitte Wochentag, Werktag oder Wochenende, Kalenderwoche, Monat und Jahr. Ebenfalls alles als Faktor speichern.\nWieder zurück zum depo-Datensazt.\nIch mache den folgenden Punkt nachgelagert zu den vorherigen Convenience Variablen, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.\nPhasen der Covid-Pandemie (Code untenstehend). Wir definieren 5 Phasen:\n\nvon Anfang Untersuchungsperiode bis vor Lockdown 1\nLockdown 1\nzwischen den Lockdowns\nLockdown 2\nEnde 2. Lockdown bis Ende Untersuchungsperiode\nWir packen alle Phasen in eine Spalte –&gt; long-format ist praktischer für das plotten als wide-format.\nSpäter im multivariaten Modell werden die Levels der Variablen per “default” alphabetisch geordnet und die Effektstärken der einzelnen Levels gegenüber dem ersten Level gerechnet. Das macht wenig Sinn, den die Levels sind nicht alphabetisch, sondern gemäss der Liste oben (später mehr dazu). Das passen wir ebenfalls an.\nHier der fertige Code dazu:\n\n\n\nMusterlösung\ndepo &lt;- depo |&gt;\n    mutate(Phase = case_when(\n        Datetime &lt; lock_1_start ~ \"Pre\",\n        Datetime &gt;= lock_1_start & Datetime &lt;= lock_1_end ~ \"Lockdown_1\",\n        Datetime &gt; lock_1_end & Datetime &lt; lock_2_start ~ \"Inter\",\n        Datetime &gt;= lock_2_start & Datetime &lt;= lock_2_end ~ \"Lockdown_2\",\n        Datetime &gt; lock_2_end ~ \"Post\"\n    ))\n\n# hat das gepklappt?!\nunique(depo$Phase)\n\ndepo &lt;- depo |&gt;\n    # mit factor() koennen die levels direkt einfach selbst definiert werden.\n    # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem\n    # mix-up mit anderen packages\n    mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nstr(depo)\n\n\nNeben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchszahlen haben. Wir haben die Schulferien bereits als .csv eingelesen. Allerdings können wir die Schulferien nicht mit der case_when()-Funktion zuweisen, da diese mit dieser Funktion alle Vektoren im Datensatz “schulferien” verglichen werden, und nicht elementweise für jede Zeile im “depo”-Datensatz. Dies führt dazu, dass die Bedingungen nur einmal überprüft werden und dann auf den gesamten Vektor angewendet werden, anstatt Zeile für Zeile.\n\nWeil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:\n\n\n\nMusterlösung\n# schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als\n# ende, DANN schreibe ein 1\nfor (i in 1:nrow(schulferien)) {\n  depo$Ferien[depo$Datum &gt;= schulferien[i, \"Start\"] & depo$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo$Ferien[is.na(depo$Ferien)] &lt;- 0\n\n# als faktor speichern\ndepo$Ferien &lt;- factor(depo$Ferien)\n\n\n\n\n3b)\n\nNun soll noch die volle Stunde als Integer im Datensatz stehen. Macht das mit dem Befehl hour()\n\n\n\n3c)\nDie Daten wurden durch den WPZ kalibriert (Nachkommastellen). Unser späteres Modell kann nicht mit Nachkommastellen in der abhängigen Variable umgehen (später dazu mehr).\n\nRundet die Zähldaten in der Spalte “Total” auf 0 Nachkommastellen. Der Befehl lautet round()\nDefiniert sie sicherheitshalber als Integer (= Ganzzahl)\nMacht das nun noch für IN und OUT.\n\n\n\n3d) Tageszeit\nWir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie hinaus geht, liefere ich euch hier den Code dazu, den ihr kopieren könnt. Beschreibt in eurem Bericht später, dass ihr die Einteilung der Tageszeit gemäss den Dämmerungszeiten in Zürich und gemäss meinem Code gemacht habt.\nDie wichtigsten Punkte:\n\nDie Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package “suncalc” berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.\nDie Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert.\n\nHinweis: damit case_when() funktioniert, müsst ihr dplyr Version als 1.1.1 oder neuer haben. Das könnt ihr unter “Packages” (neben dem Reiter “Plots”, unten rechts) prüfen.\n\n\nMusterlösung\n# Einteilung Standort Zuerich\nLatitude &lt;- 47.38598\nLongitude &lt;- 8.50806\n\n# Start und das Ende der Sommerzeit:\n# https://www.schulferien.org/schweiz/zeit/zeitumstellung/\n\n\n# Welche Zeitzone haben wir eigentlich?\n# Switzerland uses Central European Time (CET) during the winter as standard time,\n# which is one hour ahead of Coordinated Universal Time (UTC+01:00), and\n# Central European Summer Time (CEST) during the summer as daylight saving time,\n# which is two hours ahead of Coordinated Universal Time (UTC+02:00).\n# https://en.wikipedia.org/wiki/Time_in_Switzerland\n\n# Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?\n# https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/\n# https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes\n\n# Wir arbeiten mit folgenden Variablen:\n# \"nightEnd\" : night ends (morning astronomical twilight starts)\n# \"goldenHourEnd\" : morning golden hour (soft light, best time for photography) ends\n# \"goldenHour\" : evening golden hour starts\n# \"night\" : night starts (dark enough for astronomical observations)\n\nlumidata &lt;-\n    getSunlightTimes(\n        date = seq.Date(depo_start, depo_end, by = 1),\n        keep = c(\"nightEnd\", \"goldenHourEnd\", \"goldenHour\", \"night\"),\n        lat = Latitude,\n        lon = Longitude,\n        tz = \"CET\"\n    ) |&gt;\n    as_tibble()\n\n# jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw.\n# diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:\ndepo &lt;- depo |&gt;\n    left_join(lumidata, by = c(Datum = \"date\"))\n\ndepo &lt;- depo |&gt;\n    mutate(Tageszeit = case_when(\n        Datetime &gt;= nightEnd & Datetime &lt;= goldenHourEnd ~ \"Morgen\",\n        Datetime &gt; goldenHourEnd & Datetime &lt; goldenHour ~ \"Tag\",\n        Datetime &gt;= goldenHour & Datetime &lt;= night ~ \"Abend\",\n        .default = \"Nacht\"\n    )) |&gt;\n    mutate(Tageszeit = factor(Tageszeit, levels = c(\"Morgen\", \"Tag\", \"Abend\", \"Nacht\"), ordered = TRUE))\n\n# behalte die relevanten Var\ndepo &lt;- depo |&gt; dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)\n\n# Plotte zum pruefn ob das funktioniert hat\nggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +\n    geom_jitter() +\n    scale_color_manual(values = mycolors)\n\nsum(is.na(depo))\n\n# bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht.\n# Diese loesche ich einfach:\ndepo &lt;- na.omit(depo)\n# hat das funktioniert?\nsum(is.na(depo))",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -1260,7 +1483,7 @@
     "text": "Aufgabe 4: Aggregierung der Stundendaten\n\n4a)\nUnsere Daten liegen, wie ihr wisst, im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen.\n\nDie Stundendaten werden zu ganzen Tagen aggregiert. Bezieht nur die Gruppierung (group_by()) Datum mit ein und speichert das Resultat unter depo_d (“_d” für “day”).\n\nHinweis: Wir gruppieren nur nach Datum, da ich mit den vielen weiteren Gruppierungen hier Probleme hatte, eine korrekte Summe zu erhalten.\n\n\nMusterlösung\ndepo_d &lt;- depo |&gt; \n  group_by(Datum) |&gt;   # Gruppieren nach der Variable Datum\n  summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte\n            Fuss_IN = sum(Fuss_IN),\n            ...\n\n\n\nBerechne die Anzahl Tage bis Neujahr, wir brauchen sie später in den Modellen\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt; \n  mutate(Tage_bis_Neujahr = as.numeric(difftime(ymd(paste0(year(Datum), \"-12-31\")), Datum, units = \"days\")))\n\n\n\nund füge nochmals alle Convenience Variablen gemäss oben ein (ihr solltet den Code einfach kopieren können):\n\n\n\nMusterlösung\ndepo_d &lt;- depo_d |&gt;\n  mutate(\n  Wochentag = wday(Datum, week_start = 1),\n  Wochentag = factor(Wochentag),\n  # Werktag oder Wochenende hinzufuegen\n  Wochenende = ifelse(Wochentag %in% c(6, 7), \"Wochenende\", \"Werktag\"),\n  Wochenende = as.factor(Wochenende),\n  # Kalenderwoche hinzufuegen\n  KW = isoweek(Datum),\n  KW = factor(KW),\n  # monat und Jahr\n  Monat = month(Datum),\n  Monat = factor(Monat),\n  Jahr = year(Datum),\n  Jahr = factor(Jahr))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = case_when(\n    Datum &lt; lock_1_start ~ \"Pre\",\n    Datum &gt;= lock_1_start & Datum &lt;= lock_1_end ~ \"Lockdown_1\",\n    Datum &gt; lock_1_end & Datum &lt; lock_2_start ~ \"Inter\",\n    Datum &gt;= lock_2_start & Datum &lt;= lock_2_end ~ \"Lockdown_2\",\n    Datum &gt; lock_2_end ~ \"Post\"\n  ))\n\ndepo_d &lt;- depo_d |&gt;\n  mutate(Phase = base::factor(Phase, levels = c(\"Pre\", \"Lockdown_1\", \"Inter\", \"Lockdown_2\", \"Post\")))\n\nfor (i in 1:nrow(schulferien)) {\n  depo_d$Ferien[depo_d$Datum &gt;= schulferien[i, \"Start\"] & depo_d$Datum &lt;= schulferien[i, \"Ende\"]] &lt;- 1\n}\ndepo_d$Ferien[is.na(depo_d$Ferien)] &lt;- 0\n\ndepo_d$Ferien &lt;- factor(depo_d$Ferien)\n\n# pruefe das df\nhead(depo_d)\n\n\n\nErstellt nun. ähnlich wie oben, einen Datensatz depo_daytime, in welchem ihr gruppiert nach:\n\n\nJahr\nMonat\nKalenderwoche\nPhase\nFerien\nWochenende oder Werktag\nTageszeit\n\n\nWeiter benötigen wir für das Aufzeigen der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), aufgeteilt nach Tageszeit und Phase (group_by Tageszeit, Phase). Speichert das unter “mean_phase_d”.\n\n\n\n4b)\n\nAggregiere die Stundenwerte nach dem Monat (group_by Monat, Jahr). Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr. Speichert das neue df unter depo_m (“_m” für “Monat”).\n\nTipp: Braucht wiederum group_by() und summarise().\n\nFügt dem neu erstellten df depo_m eine Spalte mit Jahr + Monat hinzu.\n\nHier der fertige Code dazu (da etwas umständlich):\n\n\nMusterlösung\ndepo_m &lt;- depo_m |&gt;\n    mutate(\n        Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und Monat sind\n        Ym = lubridate::ym(Ym)\n    ) # formatiere als Datum\n\n\n\nWiederholt diesen Schritt, diesmal aber mit der Gruppierung “Tageszeit” neben “Jahr” und “Monat” (wiederum sollen Jahr und Monat auch in einer Spalte stehen).\nSpeichert das Resultat unter “depo_m_daytime”.\n\n\n\n4c)\nMacht euch mit den Daten vertraut. Plottet sie, seht euch die df’s an, versteht, was sie repräsentieren.\nZ.B. sind folgende Befehle und Plots wichtig:\n\nstr()\nsummarize()\nhead()\nScatterplot, x = Datum, y = Anzahl pro Zeiteinheit\nHistrogram\nusw.\n\nHinweis: Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine “analysierenden” Plots erstellt.\nNachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.",
     "crumbs": [
       "Fallstudie S",
-      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
+      "<span class='chapter-number'>29</span>  <span class='chapter-title'>Daten(vor)verarbeitung</span>"
     ]
   },
   {
@@ -1271,7 +1494,7 @@
     "text": "Aktuell dient diese Plattform für die BiEc Fallstudie - Profil N einzig der Bereitstellung von Aufgaben die von euch im Rahmen dieses Fallstudienprojekts erarbeitet werden sollen. Die Aufgaben werden in den meisten Fällen mit Code-Beispielen erläutert oder benötigten Code-snippets resp. Funktionen werden mitgeliefert. Im Laufe des Semesters werden hier ausserdem häppchenweise (mögliche) Lösungen zu den Aufgaben aufgeschaltet. Alles grundlegende Material und alle Unterlagen zu den theoretischen Inputs sind weiterhin und ausschliesslich im Moodlekurs Research Methods - Fallstudie BiEc zu finden. Die für die Aufgaben benötigten Datengrundlagen sind ebenfalls im entsprechenden Abschnitt auf Moodle zu finden. Frohes Schaffen!\n\nIm Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits vor der ersten Lektion zu installieren. Analog der Vorbereitungsübung in Prepro1 könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\nipak &lt;- function(pkg) {\n  new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages &lt;- c(\n  \"adehabitatHR\", \"bbmle\", \"car\", \"cowplot\", \"DHARMa\", \"dplyr\",\n  \"ggeffects\", \"ggplot2\", \"ggspatial\", \"glmmTMB\", \"gstat\", \"kableExtra\", \"lme4\",\n  \"MASS\", \"MuMIn\", \"pastecs\", \"performance\", \"PerformanceAnalytics\", \"psych\",\n  \"readr\", \"rms\", \"ROCR\", \"sf\", \"sjPlot\", \"sjstats\", \"terra\"\n)\n\nipak(packages)",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Vorbereitung</span>"
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Vorbereitung</span>"
     ]
   },
   {
@@ -1282,7 +1505,7 @@
     "text": "Projektaufbau RStudio-Projekte\nVor den eigentlichen Auswertungen müssen einige vorbereitende Arbeiten unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein vielfaches eingespart. Im Skript soll die Ordnerstruktur des Projekts genannt werden, damit der Arbeitsvorgang auf verschiedenen Rechnern reproduzierbar ist.\nArbeitet mit Projekten, da diese sehr einfach untereinander ausgetauscht und somit auch reproduziert werden können; es gibt keine absoluten Arbeitspfade sondern nur relative. Der Datenimport (und auch der Export) kann mithilfe dieser relativen Pfaden stark vereinfacht werden. Projekte helfen alles am richtigen Ort zu behalten. (mehr zur Arbeit mit Projekten: Link)",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1293,7 +1516,7 @@
     "text": "Aufbau von R-Skripten\nIm Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen des Skripts nennen. Hier soll auch die Herkunft der Daten ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer die Datenherrschaft hat (Rehdaten: Forschungsgruppe WILMA).\n\n# .##################################################################################\n# Daten(vor)verarbeitung Fallstudie WPZ  ####\n# Modul Research Methods, HS26. Autor/in ####\n# .##################################################################################\n\nBeschreibt zudem folgendes:\n\nOrdnerstruktur; ich verwende hier den Projektordner mit den Unterordnern:\n\nSkripts\nData\nResults\nPlots\n\nVerwendete Daten\n\nEin Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein. Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel:\n\nDatenimport\nDatenvorverarbeitung\nAnalyse\nVisualisierung\n\nBereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher nicht Code ist, vor dem Text das Symbol #. Wenn ihr den Text als Titel definieren wollt, der die grobe Struktur des Skripts absteckt, baut in wie in folgendem Beispiel auf:\n\n# .###################################################################################\n# METADATA ####\n# .###################################################################################\n# Datenherkunft ####\n# ...\n\n# .###################################################################################\n# 1. DATENIMPORT ####\n# .###################################################################################",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1304,7 +1527,7 @@
     "text": "Libraries laden\n\nlibrary(\"readr\")\nlibrary(\"dplyr\")\nlibrary(\"ggplot2\")\nlibrary(\"purrr\")",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1315,7 +1538,7 @@
     "text": "Daten laden\n\nHerunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip)\nEinlesen, Sichtung der Datensätze und der Datentypen.\n\nVerschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1326,7 +1549,7 @@
     "text": "Aufgabe 1\n\nEinfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6)\nSpaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz ohne Probleme zusammengefügt werden kann.\n\n→ Zb. mit den befehlen mutate und rename & mit pipes (alt: %&gt;%, neu: |&gt;) in einem Schritt möglich\nBeim Erfassen und Dokumentieren von Daten aus verschiedenen Quellen sollte darauf geachtet werden, dass dies möglichst einheitlich passiert (Dateiformate, Spalten, Bezeichnungen, Datentypen, usw.), damit kann man sich einiges an Arbeit ersparen. Hilfreich ist in diesem Zusammenhang immer ein klares und sauberes Feldprotokoll resp. eine Vorlage für die Erfassung der Daten zu erstellen.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1337,7 +1560,7 @@
     "text": "Aufgabe 2\nZusammenführen der Teildatensätze aller Gruppen zu einem Gesamtdatensatz mit einheitlichen Spaltennamen",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1348,7 +1571,7 @@
     "text": "Aufgabe 3\nVerbinden (join) des Datensatzes der Felderhebungen mit dem Datensatz der LIDAR Variablen in den Reh-Kreisen (Reh_Kreise_LIDAR_Waldstruktur_261013.csv).\n→ Welche Art von join? → Welche Spalten zum Verbinden (join_by()) der beiden Datensätze?\nZiel: ein Datensatz mit allen Kreisen der Felderhebung, angereichert mit den Umweltvariablen Understory und Overstory aus den LIDAR-Daten (DG_us_2022, DG_os_2022) aus dem LIDAR-Waldstruktur-Datensatz.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1359,7 +1582,7 @@
     "text": "Aufgabe 4\nScatterplot der Waldstrukturvariablen aus den Felderhebungen gegen die entsprechenden Waldstrukturvariablen aus den LiDAR-Daten (DG_xy_2022) erstellen (zusätzlich Einfärben der Gruppen und Regressionslinie darüberlegen).\n→ Wie gut korrelieren die Daten der Feldaufnahmen mit der LiDAR basierten Waldstruktur?\nIm LiDAR Datensatz gibt es dieselben Variablen der Waldstruktur aus der LiDAR-Befliegung 2014. Ihr könnt untersuchen wie sich diese verändert haben und wie gut oder eben auch nicht sie mit euren Feldaufnahmen übereinstimmen.",
     "crumbs": [
       "Fallstudie N",
-      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
+      "<span class='chapter-number'>31</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
     ]
   },
   {
@@ -1369,7 +1592,7 @@
     "section": "",
     "text": "Kovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
     "crumbs": [
-      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
     ]
   }
 ]
