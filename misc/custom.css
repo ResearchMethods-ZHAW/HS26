@@ -38,3 +38,11 @@ details > summary{
   content: " (rechtsclick→speichern unter)";
   font-size: smaller;
 }
+
+/* Hosted/external article pages */
+.kovic2014 {
+    font-family: Georgia, "Times New Roman", serif;
+    background-color:rgb(224, 227, 227);
+    padding: 20px;
+}
+
