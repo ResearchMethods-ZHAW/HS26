@@ -619,7 +619,7 @@
     "href": "infovis/Infovis1_Uebung.html",
     "title": "Infovis 1: Übung",
     "section": "",
-    "text": "Aufgabe 1\nIn dieser Übung geht es darum, die Grafiken aus dem Blogpost von Kovic (2014) zu rekonstruieren. Der ursprüngliche Blogpost ist nicht mehr verfügbar, wir haben deshalb eine Kopie hier gehostet:\nJe weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?\nSchau dir die Grafiken in dem Blogpost durch. Freundlicherweise wurden im Blogbeitrag die ggplot2-Standardeinstellungen benutzt, was die Rekonstruktion relativ einfach macht.\nRekonstruiere Abbildung 17.1 aus Kovic (2014) mithilfe von ggplot und dem Datensatz kanton:\nTipp:",
+    "text": "Aufgabe 1\nIn dieser Übung geht es darum, die Grafiken aus dem Blogpost von Kovic (2014) zu rekonstruieren. Der ursprüngliche Blogpost ist nicht mehr verfügbar, wir haben deshalb eine Kopie hier gehostet:\n?sec-kovic2014\nSchau dir die Grafiken in dem Blogpost durch. Freundlicherweise wurden im Blogbeitrag die ggplot2-Standardeinstellungen benutzt, was die Rekonstruktion relativ einfach macht.\nRekonstruiere Abbildung 16.1 aus Kovic (2014) mithilfe von ggplot und dem Datensatz kanton:\nTipp:",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -641,7 +641,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-2",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 2",
-    "text": "Aufgabe 2\nRekonstruiere Abbildung 17.2 aus Kovic (2014) mithilfe von ggplot:\nTipp: Nutze geom_smooth()",
+    "text": "Aufgabe 2\nRekonstruiere Abbildung 16.2 aus Kovic (2014) mithilfe von ggplot:\nTipp: Nutze geom_smooth()",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -652,7 +652,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-3",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 3",
-    "text": "Aufgabe 3\nRekonstruiere Abbildung 17.3 mithilfe des Datensatzes gemeinde.\nTipp: geom_point(), labs() und coord_fixed()",
+    "text": "Aufgabe 3\nRekonstruiere Abbildung 16.3 mithilfe des Datensatzes gemeinde.\nTipp: geom_point(), labs() und coord_fixed()",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -663,7 +663,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-4",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 4",
-    "text": "Aufgabe 4\nRekonstruiere Abbildung 17.4 mit dem Datensatz gemeinde.",
+    "text": "Aufgabe 4\nRekonstruiere Abbildung 16.4 mit dem Datensatz gemeinde.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -674,7 +674,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-5",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 5",
-    "text": "Aufgabe 5\nRekonstruiere Abbildung 17.5 mithilfe des Datensatzes gemeinde:\nTipp: Nutze facet_wrap() um einen Plot pro Kanton darzustellen.",
+    "text": "Aufgabe 5\nRekonstruiere Abbildung 16.5 mithilfe des Datensatzes gemeinde:\nTipp: Nutze facet_wrap() um einen Plot pro Kanton darzustellen.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -685,7 +685,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-6",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 6",
-    "text": "Aufgabe 6\nRekonstruiere Abbildung 17.6 mithilfe von ggplot und dem Datensatz gemeinde:\nTipp: Nutze geom_smooth()",
+    "text": "Aufgabe 6\nRekonstruiere Abbildung 16.6 mithilfe von ggplot und dem Datensatz gemeinde:\nTipp: Nutze geom_smooth()",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -696,7 +696,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-7",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 7",
-    "text": "Aufgabe 7\nRekonstruiere Abbildung 17.7 des Datensatzes gemeinde:\nTipp: Nutze facet_wrap",
+    "text": "Aufgabe 7\nRekonstruiere Abbildung 16.7 des Datensatzes gemeinde:\nTipp: Nutze facet_wrap",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -707,7 +707,7 @@
     "href": "infovis/Infovis1_Uebung.html#aufgabe-8",
     "title": "Infovis 1: Übung",
     "section": "Aufgabe 8",
-    "text": "Aufgabe 8\nRekonstruiere Abbildung 17.8 mithilfe des Datensatzes gemeinde:\nTipp: Nutze geom_smooth()\n\n\n\n\nKovic, Marko. 2014. „Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“ Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.",
+    "text": "Aufgabe 8\nRekonstruiere Abbildung 16.8 mithilfe des Datensatzes gemeinde:\nTipp: Nutze geom_smooth()\n\n\n\n\nKovic, Marko. 2014. „Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?“ Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Infovis 1: Übung</span>"
@@ -725,22 +725,11 @@
     ]
   },
   {
-    "objectID": "infovis/Infovis1_Kovic_2014.html",
-    "href": "infovis/Infovis1_Kovic_2014.html",
-    "title": "Infovis 1: Blogbeitrag Kovic",
-    "section": "",
-    "text": "Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?",
-    "crumbs": [
-      "InfoVis",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
-    ]
-  },
-  {
     "objectID": "infovis/Infovis1_Kovic_2014.html#kantonsebene",
     "href": "infovis/Infovis1_Kovic_2014.html#kantonsebene",
     "title": "Infovis 1: Blogbeitrag Kovic",
     "section": "1 - Kantonsebene",
-    "text": "1 - Kantonsebene\nAls erste Annäherung bietet sich ein Blick auf das Verhältnis von Ausländer- und Ja-Anteil auf Ebene der Kantone an:\n\n\n\n\n\n\nAbbildung 17.1\n\n\n\nDie X-Achse bildet den Ausländeranteil in Prozent (0,3 = 30%), die Y-Achse den Anteil der Ja-Stimmen in Prozent (0,5 = 50%) ab. Von blossem Auge scheint die vermutete Tendenz gegeben: Weniger Ausländer bedeuten mehr Ja-Stimmen. Etwas besser interpretierbar ist das Bild mit einer Trendlinie:\n\n\n\n\n\n\nAbbildung 17.2\n\n\n\nDer Zusammenhang scheint in die vermutete Richtung zu gehen, aber er ist nur annähernd linear. Der Graubereich über und unter der blauen Trendlinie sind die 95%-Konfidenzintervalle. Das bedeutet, dass der wahre Trend mit 95%-iger Wahrscheinlichkeit innerhalb dieser grauen Fläche liegt. Weil die Fläche sehr breit ist, ist die Unsicherheit zu gross, um hier schon Aussagen über Zusammenhänge zu machen.",
+    "text": "1 - Kantonsebene\nAls erste Annäherung bietet sich ein Blick auf das Verhältnis von Ausländer- und Ja-Anteil auf Ebene der Kantone an:\n\n\n\n\n\n\nAbbildung 16.1\n\n\n\nDie X-Achse bildet den Ausländeranteil in Prozent (0,3 = 30%), die Y-Achse den Anteil der Ja-Stimmen in Prozent (0,5 = 50%) ab. Von blossem Auge scheint die vermutete Tendenz gegeben: Weniger Ausländer bedeuten mehr Ja-Stimmen. Etwas besser interpretierbar ist das Bild mit einer Trendlinie:\n\n\n\n\n\n\nAbbildung 16.2\n\n\n\nDer Zusammenhang scheint in die vermutete Richtung zu gehen, aber er ist nur annähernd linear. Der Graubereich über und unter der blauen Trendlinie sind die 95%-Konfidenzintervalle. Das bedeutet, dass der wahre Trend mit 95%-iger Wahrscheinlichkeit innerhalb dieser grauen Fläche liegt. Weil die Fläche sehr breit ist, ist die Unsicherheit zu gross, um hier schon Aussagen über Zusammenhänge zu machen.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
@@ -751,7 +740,7 @@
     "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene",
     "title": "Infovis 1: Blogbeitrag Kovic",
     "section": "2 - Gemeindeebene",
-    "text": "2 - Gemeindeebene\nDie Daten auf Kantonsebene sind zu grob. Es lohnt sich darum, die Daten einzelner Gemeinden zu vergleichen:\n\n\n\n\n\n\nAbbildung 17.3\n\n\n\nOben links scheint es eine Sammlung von Gemeinden zu geben, wo sehr wenige Ausländer vorhanden sind und der Anteil an Ja-Stimmen hoch ist. Von blossem Auge ist es aber schwierig, mehr aus dieser Grafik herauszulesen. Auch hier hilft eine Trendlinie.\n\n\n\n\n\n\nAbbildung 17.4\n\n\n\nDer Verlauf der Trendlinie ist interessant: Sie ist nicht wie vermutet linear, sondern leicht kurvenförmig. Was bedeutet das?\nEs gibt scheinbar einen Bereich der Punktwolke, wo ein Mehr an Ausländern mit weniger Ja-Stimmen einhergeht. Ab knapp 35% Ausländeranteil ist dieser Zusammenhang aber nicht mehr gegeben. Wiederum ist die graue Fläche der Konfidenzintervalle wichtig. In jenem Bereich, wo der vermutete Zusammenhang nicht mehr gegeben ist, fächert der Graubereich deutlich auf. Der Grund dafür ist, dass in diesem Bereich die Anzahl Gemeinden gering ist und die Berechnung eines Trends entsprechend unsicher.",
+    "text": "2 - Gemeindeebene\nDie Daten auf Kantonsebene sind zu grob. Es lohnt sich darum, die Daten einzelner Gemeinden zu vergleichen:\n\n\n\n\n\n\nAbbildung 16.3\n\n\n\nOben links scheint es eine Sammlung von Gemeinden zu geben, wo sehr wenige Ausländer vorhanden sind und der Anteil an Ja-Stimmen hoch ist. Von blossem Auge ist es aber schwierig, mehr aus dieser Grafik herauszulesen. Auch hier hilft eine Trendlinie.\n\n\n\n\n\n\nAbbildung 16.4\n\n\n\nDer Verlauf der Trendlinie ist interessant: Sie ist nicht wie vermutet linear, sondern leicht kurvenförmig. Was bedeutet das?\nEs gibt scheinbar einen Bereich der Punktwolke, wo ein Mehr an Ausländern mit weniger Ja-Stimmen einhergeht. Ab knapp 35% Ausländeranteil ist dieser Zusammenhang aber nicht mehr gegeben. Wiederum ist die graue Fläche der Konfidenzintervalle wichtig. In jenem Bereich, wo der vermutete Zusammenhang nicht mehr gegeben ist, fächert der Graubereich deutlich auf. Der Grund dafür ist, dass in diesem Bereich die Anzahl Gemeinden gering ist und die Berechnung eines Trends entsprechend unsicher.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
@@ -762,7 +751,7 @@
     "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-kantonen",
     "title": "Infovis 1: Blogbeitrag Kovic",
     "section": "3 - Gemeindeebene, nach Kantonen",
-    "text": "3 - Gemeindeebene, nach Kantonen\nWas passiert, wenn wir die Zusammenhänge auf Gemeindeebene betrachten, aber separat nach Kantonen?\n\n\n\n\n\n\nAbbildung 17.5\n\n\n\nIn erster Linie ist in dieser Grafik die unterschiedliche Streuung innerhalb der Kantone zu sehen. In welche Richtung allfällige Zusammenhänge gehen, zeigen auch hier Trendlinien:\n\n\n\n\n\n\nAbbildung 17.6\n\n\n\nDer Nutzen der Trendlinien ist beschränkt, weil jene Kantone mit nur wenigen Gemeinden keine sinnvolle Berechnung solcher Linien zulassen. Definitive Schlüsse können auch hier nicht gezogen werden, aber innerhalb einiger Kantone (Schwyz, Thurgau, Bern, Freiburg) ist der vermutete negative Zusammenhang einigermassen deutlich abgebildet.",
+    "text": "3 - Gemeindeebene, nach Kantonen\nWas passiert, wenn wir die Zusammenhänge auf Gemeindeebene betrachten, aber separat nach Kantonen?\n\n\n\n\n\n\nAbbildung 16.5\n\n\n\nIn erster Linie ist in dieser Grafik die unterschiedliche Streuung innerhalb der Kantone zu sehen. In welche Richtung allfällige Zusammenhänge gehen, zeigen auch hier Trendlinien:\n\n\n\n\n\n\nAbbildung 16.6\n\n\n\nDer Nutzen der Trendlinien ist beschränkt, weil jene Kantone mit nur wenigen Gemeinden keine sinnvolle Berechnung solcher Linien zulassen. Definitive Schlüsse können auch hier nicht gezogen werden, aber innerhalb einiger Kantone (Schwyz, Thurgau, Bern, Freiburg) ist der vermutete negative Zusammenhang einigermassen deutlich abgebildet.",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
@@ -773,7 +762,7 @@
     "href": "infovis/Infovis1_Kovic_2014.html#gemeindeebene-nach-gemeindegrösse",
     "title": "Infovis 1: Blogbeitrag Kovic",
     "section": "4 - Gemeindeebene, nach Gemeindegrösse",
-    "text": "4 - Gemeindeebene, nach Gemeindegrösse\nKönnte es vielleicht sein, dass weder alle Gemeinden zusammen noch die Gemeinden nach Kantonen die Antwort liefern, sondern zusätzlich noch die Gemeindegrösse eine Rolle spielt?\nIn der folgenden Grafik sind die Gemeinden in Gruppen gemäss ihrer Grösse eingeteilt. Dabei handelt es sich nicht um fixe Gruppengrössen, z.B. mit Gemeinden von 500 bis 5000 Einwohnern. Stattdessen sind die Gruppen anhand sogenannter Quantile eingeteilt:\n\n\n\n\n\n\nAbbildung 17.7\n\n\n\nDie Gruppe “0% - 25%” bedeutet, dass diese Gruppe die 25% kleinsten Gemeinden umfasst. Konkret, dass aus den Einwohnerzahlen der Gemeinden hervorgeht, dass 25% aller Gemeinden weniger als 591 Einwohner haben. Die nächsten 25% umfassen Gemeinden zwischen 591 und 1345.5 Einwohnern. Das nächste Viertel, von 50% - 75%, umfasst alle Gemeinden zwischen 1345.5 und 3284.25 Einwohnern. Das letzte Viertel von 75% bis 100% ist nochmals aufgeteilt in drei Untergruppen, weil die Anzahl Einwohner in diesem Bereich rasant zunimmt. Die Gruppe von 75% bis 90% umfasst Gemeinden in der Grösse von 3284.25 bis 7048.6 Einwohner; die Gruppe von 90% bis 99% Gemeindegrössen von 7048.6 bis 27214.74, und das Top-1% alle Gemeinden über 27214.74 Einwohner.\nMit steigender Einwohnerzahl sind die Punkte weniger dicht beieinander. Was bedeutet das für den Zusammenhang zwischen Ausländer- und Ja-Anteil? Wiederum helfen Trendlinien weiter:\n\n\n\n\n\n\nAbbildung 17.8\n\n\n\nEinen deutlichen Zusammenhang in die vermutete Richtung zeigt nur die Gruppe von 50% bis 75%. In kleinen Gemeinden mit zwischen c1400 und 3300 Einwohnern ist der Anteil an Ja-Stimmen umso höher, je weniger Ausländer dort wohnen. In den Gruppen mit noch kleineren Gemeinden ist diese Tendenz dort zu sehen, wo die Punktwolke dicht ist. Sobald die Punktwolke weniger dicht ist, wechselt die Trendlinie die Richtung.\nKönnte es vielleicht sein, dass in Kleinstgemeinden ab einem gewissen Schwellenwert beim Ausländeranteil ein Gefühl von Entfremdung eintritt?",
+    "text": "4 - Gemeindeebene, nach Gemeindegrösse\nKönnte es vielleicht sein, dass weder alle Gemeinden zusammen noch die Gemeinden nach Kantonen die Antwort liefern, sondern zusätzlich noch die Gemeindegrösse eine Rolle spielt?\nIn der folgenden Grafik sind die Gemeinden in Gruppen gemäss ihrer Grösse eingeteilt. Dabei handelt es sich nicht um fixe Gruppengrössen, z.B. mit Gemeinden von 500 bis 5000 Einwohnern. Stattdessen sind die Gruppen anhand sogenannter Quantile eingeteilt:\n\n\n\n\n\n\nAbbildung 16.7\n\n\n\nDie Gruppe “0% - 25%” bedeutet, dass diese Gruppe die 25% kleinsten Gemeinden umfasst. Konkret, dass aus den Einwohnerzahlen der Gemeinden hervorgeht, dass 25% aller Gemeinden weniger als 591 Einwohner haben. Die nächsten 25% umfassen Gemeinden zwischen 591 und 1345.5 Einwohnern. Das nächste Viertel, von 50% - 75%, umfasst alle Gemeinden zwischen 1345.5 und 3284.25 Einwohnern. Das letzte Viertel von 75% bis 100% ist nochmals aufgeteilt in drei Untergruppen, weil die Anzahl Einwohner in diesem Bereich rasant zunimmt. Die Gruppe von 75% bis 90% umfasst Gemeinden in der Grösse von 3284.25 bis 7048.6 Einwohner; die Gruppe von 90% bis 99% Gemeindegrössen von 7048.6 bis 27214.74, und das Top-1% alle Gemeinden über 27214.74 Einwohner.\nMit steigender Einwohnerzahl sind die Punkte weniger dicht beieinander. Was bedeutet das für den Zusammenhang zwischen Ausländer- und Ja-Anteil? Wiederum helfen Trendlinien weiter:\n\n\n\n\n\n\nAbbildung 16.8\n\n\n\nEinen deutlichen Zusammenhang in die vermutete Richtung zeigt nur die Gruppe von 50% bis 75%. In kleinen Gemeinden mit zwischen c1400 und 3300 Einwohnern ist der Anteil an Ja-Stimmen umso höher, je weniger Ausländer dort wohnen. In den Gruppen mit noch kleineren Gemeinden ist diese Tendenz dort zu sehen, wo die Punktwolke dicht ist. Sobald die Punktwolke weniger dicht ist, wechselt die Trendlinie die Richtung.\nKönnte es vielleicht sein, dass in Kleinstgemeinden ab einem gewissen Schwellenwert beim Ausländeranteil ein Gefühl von Entfremdung eintritt?",
     "crumbs": [
       "InfoVis",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Infovis 1: Blogbeitrag Kovic</span>"
