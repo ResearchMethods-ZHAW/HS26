@@ -37,14 +37,16 @@ Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Date
 #| output: false
 
 
-Rehe <- read_delim("datasets/fallstudie_n/Aufgabe3_Homeranges_Rehe_landforst_251021.csv", delim = ";")
+Rehe <- read_delim("datasets/fallstudie_n/Homeranges_Rehe_landforst_261019.csv", delim = ";")
 
 str(Rehe)
 ```
 
 ## Aufgabe 1
 
-Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. Beim Format hat sich ein Fehler eingeschlichen. Findet ihr ihn?
+Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in der gleichen Spalte generieren. 
+
+Finde den Fehler: Beim Format hat sich ein Fehler eingeschlichen.
 
 ```{r}
 #| echo: true
@@ -58,25 +60,28 @@ Rehe <- Rehe |>
 
 ## Aufgabe 2
 
-Mit den folgenden Zeilen können die GPS-Punkte visualisiert werden
+*In dieser Aufgabe geht es insbesondere darum, die Daten räumlich zu visualisieren und das Sampling Design nachzuvollziehen und das Systemverständnis zu schärfen. Ausserdem soll im Rahmen der Arbeiten die Verwendung von R als GIS-Software nähergebracht werden. Für einzelne Arbeitsschritte finden sich im Folgenden verschiedene Code-snipptes* 
+
+Mit den folgenden Zeilen können die GPS-Punkte der Rehe/eines bestimmten Rehs visualisiert werden:
 
 ```{r}
 #| echo: true
 #| code-fold: false
 
-
 Rehe_sf <- st_as_sf(Rehe, coords = c("X", "Y"), crs = 21781)
+
+plot(Rehe_sf["TierID"])
+
 
 RE13 <- filter(Rehe_sf, TierID == "RE13")
 
 plot(RE13["TierID"])
+
 ```
 
-Hier einige Zeilen Code, um eine HomeRange zu berechnen.
+Aus diesen Punktdaten können nun Homeranges der Rehe berechnet werden. Um ein Gefühl zu entwickeln,j lohnt sich das Herumschrauben an der Ausdehnung, resp. am prozentualen Anteil Punkte in der HR (Funktion getverticeshr) 
 
-Herumschrauben an der Ausdehnung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
-
-**→ Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
+**Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
 ```{r}
 #| echo: true
@@ -187,18 +192,3 @@ ggplot(grid_plot, color = "black", fill = NA) +
   )
 ```
 
-## Aufgabe 3
-
-Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linearen Zusammenhang (Korrelation; Funktion cor.test). DG_Baumschicht vs. DG_os / DG_Strauchschicht vs. DG_us aus dem Datensatz df_with_lidar_2025 den wir letzte Woche erstellt haben
-
-**Die Theorie in den Vormittagslektionen zu Korrelation folgt erst ab 03.11.**
-
-```{r}
-#| code-fold: false
-#| eval: false
-
-
-df_with_lidar <- read_delim("datasets/fallstudie_n/df_with_lidar_2025.csv", delim = ";")
-
-cor.test(~ DG_Strauchschicht + DG_us_2022, data = df_with_lidar, method = "pearson")
-```

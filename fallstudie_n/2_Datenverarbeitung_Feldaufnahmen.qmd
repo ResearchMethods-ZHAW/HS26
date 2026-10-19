@@ -244,5 +244,10 @@ ggplot(df_with_LIDAR, aes(DG_us_2022, DG_Strauchschicht, color = team)) +
 
 
 write_delim(df_with_LIDAR, "datasets/fallstudie_n/df_with_lidar_2026.csv", delim = ";")
+
+# Der lineare Zusammenhang der Variablen der Vegetationsschichten kann auch statistisch getestet werden (Korrelation; Funktion cor.test). *Die Theorie dazu in den Vormittagslektionen zu Korrelation folgt allerdings erst ab 26.10.*
+
+cor.test(~ DG_Strauchschicht + DG_us_2022, data = df_with_LIDAR, method = "pearson")
+
 ```
 
