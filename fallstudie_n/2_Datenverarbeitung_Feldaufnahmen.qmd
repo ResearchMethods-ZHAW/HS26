@@ -85,8 +85,7 @@ library("purrr")
 *Verschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.*
 
 ```{r}
-#| echo: false
-#| code-fold: false
+#| eval: true
 
 df_team1 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/gruppe1_felderhebungen.csv", delim = ";") 
 

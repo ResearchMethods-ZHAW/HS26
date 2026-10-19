@@ -79,7 +79,7 @@ plot(RE13["TierID"])
 
 ```
 
-Aus diesen Punktdaten können nun Homeranges der Rehe berechnet werden. Um ein Gefühl zu entwickeln,j lohnt sich das Herumschrauben an der Ausdehnung, resp. am prozentualen Anteil Punkte in der HR (Funktion getverticeshr) 
+Aus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben  am prozentualen Anteil Punkte (=Ausdehnung der Homerange) in der HR (Funktion getverticeshr). 
 
 **Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
@@ -100,23 +100,23 @@ kud <- kernelUD(RE13_sp, h = href, grid = 25)
 
 homerange <- getverticeshr(kud, percent = 95) # Berechnung der Home Range (95% Isopleth)
 
-# Schreibt HR in den oben beschriebenen Ordner (als Shapefile)
+# Schreibt HR in den Results-Ordner (als Shapefile)
 
 hr <- st_as_sf(homerange)
 
 st_write(
   hr,
-  dsn = "results",
+  dsn = "datasets/fallstudie_n/Results",
   layer = "HR_RE13",
   driver = "ESRI Shapefile",
   delete_layer = TRUE
 )
 ```
+Die Homerange kann zB. mit ggplot2 visualisiert und die dafür verwendeten Punkte darübergelegt werden. 
 
 ```{r}
 #| echo: true
 #| code-fold: false
-
 
 # mit diesem Befehl kann die HR geplottet werden
 
@@ -144,14 +144,19 @@ ggplot(hr) +
   )
 ```    
 
-Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden.
-
 ```{r}
 #| echo: true
-#| code-fold: false
-
 
 pk25_wpz <- rast("datasets/fallstudie_n/pk25_wpz.tif")
+
+```
+
+Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000) im Hintergrund zu plotten.
+
+```{r}
+#| echo: false
+#| code-fold: false
+#| eval: false
 
 ggplot(hr, aes(color = "red", fill = "red")) +
   annotation_spatial(pk25_wpz) +
@@ -166,7 +171,9 @@ ggplot(hr, aes(color = "red", fill = "red")) +
   )
 ```
 
-Nachbauen des Sampling Grids mit den Kreisen (Wurde als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges benötigt)
+## Aufgabe 3
+
+Hier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet
 
 - Ausdehnung des Grids basiert auf `hr`
 - Cellsize des Grids: 25m
@@ -175,14 +182,16 @@ Nachbauen des Sampling Grids mit den Kreisen (Wurde als Grundlage für die Extra
 #| echo: true
 #| code-fold: false
 
+x25 <- st_as_sf(st_make_grid(hr, 25, what = "centers")) # Mittelpunkte in einem Raster mit 25m Auflösung generieren
 
-x25 <- st_make_grid(hr, 25, what = "centers")
-grid_plot <- st_buffer(x25, 12.5)
+#x25 <- st_filter(x25, hr, .predicate = st_within) # Falls nur Zentren innerhalb der Homerange behalten werden sollen
 
-ggplot(grid_plot, color = "black", fill = NA) +
-  geom_sf() +
-  geom_sf(data = RE13, color = "blue", ) +
-  geom_sf(data = hr, color = "red", fill = NA, size = 2) +
+grid_plot <- st_buffer(x25, 12.5) # Kreise mit Radius 12.5 m erzeugen
+
+ggplot() +
+  geom_sf(data = grid_plot, color = "black", fill = NA) +
+  geom_sf(data = RE13, color = "blue") +
+  geom_sf(data = hr, color = "red", fill = NA, linewidth = 2) +
   coord_sf(datum = 21781) +
   theme(
     axis.title = element_blank(),
