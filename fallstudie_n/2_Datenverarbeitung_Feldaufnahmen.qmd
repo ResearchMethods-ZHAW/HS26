@@ -1,7 +1,7 @@
 ---
 execute:
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -88,32 +88,23 @@ library("purrr")
 #| echo: false
 #| code-fold: false
 
-df_team1 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebungen_GruppeTürkis.csv", delim = ";") 
+df_team1 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/gruppe1_felderhebungen.csv", delim = ";") 
 
-df_team2 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/ReMe_Gr_trh_Gr_2.csv", delim = ";")
+df_team2 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebung_Waldstruktur_Team_Gelb.csv", delim = ";")
 
-df_team3 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebung Gruppe 3 pink.csv", delim = ";")
+df_team3 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/ground_truth_Gruppe_3_pink.csv", delim = ";")
 
-df_team4 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/2025_10_07_Felderhebung_Waldstuktur_Team_4_blau.csv", delim = ";")
-str(df_team4)
+df_team4 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebungen_Waldstruktur_Team4.csv", delim = ";")
 
-df_team4 <- df_team4 %>% { setNames(.[-1, ], as.character(unlist(.[1, ], use.names = FALSE))) }
+df_team5 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/felderhebungen_waldstruktur_team5.csv", delim = ",")
 
-df_team4 <- df_team4 %>% 
-  dplyr::mutate(across(everything(), as.numeric))
+df_team6 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Gruppe_6.csv", delim = ";")
 
-df_team5 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/reme_felderhebung_team_5_violett_20251007.csv", delim = ";")
-str(df_team5)
-
-df_team5 <- df_team5 %>% { setNames(.[-1, ], as.character(unlist(.[1, ], use.names = FALSE))) }
-
-df_team5 <- df_team5 %>% 
-  dplyr::mutate(across(everything(), as.numeric))
 
 # Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz
 # verbinden. Ist der Output zufriedenstellend?
 
-df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)
+df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
 str(df_gesamt)
 
 ```
@@ -136,23 +127,14 @@ str(df_gesamt)
 df_team1 <- df_team1 |>
   mutate(team = "team1") |>
   rename(
-    KreisID = "Kreis (r 12.5m)",
-    DG_Rubus = "Deckungsgrad Rubus sp. %",
-    DG_Strauchschicht = "DG Strauchschicht % (0.5-3m)",
-    DG_Baumschicht = "DG Baumschicht % (ab 3m)"
+    KreisID = "kreis",
+    DG_Rubus = "dg_rubus",
+    DG_Strauchschicht = "dg_strauchschicht",
+    DG_Baumschicht = "dg_baumschicht"
   )
 
 df_team2 <- df_team2 |>
   mutate(team = "team2") |>
-  rename(
-    KreisID = "Kreis",
-    DG_Rubus = "DG_Rub",
-    DG_Strauchschicht = "DG_Str",
-    DG_Baumschicht = "DG_Bau"
-  )
-
-df_team3 <- df_team3 |>
-  mutate(team = "team3") |>
   rename(
     KreisID = "Kreis (r 12.5m)",
     DG_Rubus = "Deckungsgrad Rubus sp. [%]",
@@ -160,12 +142,22 @@ df_team3 <- df_team3 |>
     DG_Baumschicht = "DG Baumschicht [%] (ab 3m)"
   )
 
+df_team3 <- df_team3 |>
+  dplyr::select(-c(farbe, gruppe)) |>
+  mutate(team = "team3") |>
+  rename(
+    KreisID = "fid",
+    X = "x",
+    Y = "y",
+    DG_Rubus = "dg_rubus_s",
+    DG_Strauchschicht = "dg_strauch",
+    DG_Baumschicht = "dg_baumsch"
+  )
+
 df_team4 <- df_team4 |>
   mutate(team = "team4") |>
   rename(
-    KreisID = "Kreis (r 12.5)",
-    X = "x",
-    Y = "y",
+    KreisID = "Kreis (r 12.5m)",
     DG_Rubus = "Deckungsgrad Rubus sp. [%]",
     DG_Strauchschicht = "DG Strauchschicht [%] (0.5-3m)",
     DG_Baumschicht = "DG Baumschicht [%] (ab 3m)"
@@ -173,6 +165,17 @@ df_team4 <- df_team4 |>
 
 df_team5 <- df_team5 |>
   mutate(team = "team5") |>
+  rename(
+    KreisID = "kreis",
+    X = "x",
+    Y = "y",
+    DG_Rubus = "deckungsgrad_rubus",
+    DG_Strauchschicht = "deckungsgrad_strauchschicht",
+    DG_Baumschicht = " deckungsgrad_baumschicht"
+  )
+
+df_team6 <- df_team6 |>
+  mutate(team = "team6") |>
   rename(
     KreisID = "Kreis (r 12.5m)",
     DG_Rubus = "Deckungsgrad Rubus sp. [%]",
@@ -192,7 +195,7 @@ Zusammenführen der Teildatensätze aller Gruppen zu einem Gesamtdatensatz mit e
 
 ```{r}
 #| eval: true
-df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5)
+df_gesamt <- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)
 ```
 
 ## Aufgabe 3
@@ -214,6 +217,7 @@ df_lidar <- read_delim("datasets/fallstudie_n/Reh_Kreise_LIDAR_Waldstruktur_2610
 str(df_lidar)
 
 df_with_LIDAR <- left_join(df_gesamt, df_lidar, join_by(X == x, Y == y))
+
 ```
 
 ## Aufgabe 4
