@@ -33,7 +33,7 @@ Wir empfehlen folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 - [happygitwithr: New RStudio Project via RStudio IDE](https://happygitwithr.com/new-github-first#rstudio-ide)
 - Happywithgitr (s.o.) empfiehlt die Verwendung von `https` (statt `ssh`). Hier die beiden URLS für unser Repo:
-  - `https` URL: https://github.com/ResearchMethods-ZHAW/HS26.git 
+  - `https` URL: https://github.com/ResearchMethods-ZHAW/HS26.git
   - `ssh` URL: git@github.com:ResearchMethods-ZHAW/HS26.git
 - Mit folgendem Befehl wird das **GitHub** Repo als *upstream* gesetzt: `git branch -u origin/main`
 
@@ -90,12 +90,12 @@ git push
 
 ### Submodule Remote
 
-Kleine Sidenote: bei der Einführung von datasets als submodule (HS23) hatte Nils den Fehler gemacht, das Einbinden mit dem `ssh` URL zu machen. Die anderen Kollegen arbeiteten aber mit `https`, was wir auch empfehlen (analog der [kurzen Einleitung in happywithgitr](https://happygitwithr.com/connect-intro). 
+Kleine Sidenote: bei der Einführung von datasets als submodule (HS23) hatte Nils den Fehler gemacht, das Einbinden mit dem `ssh` URL zu machen. Die anderen Kollegen arbeiteten aber mit `https`, was wir auch empfehlen (analog der [kurzen Einleitung in happywithgitr](https://happygitwithr.com/connect-intro).
 
 Weil Nils aber `ssh` verwendet, hat er mit folgender Configuration sichergestellt, dass das submodule ebenfalls via `ssh` getracked wird. Dies platzieren wir hier für alle, die ebenfalls `ssh` verwenden wollen:
 
 ```
-git config --global url.git@github.com:.insteadOf "https://github.com/"  
+git config --global url.git@github.com:.insteadOf "https://github.com/"
 ```
 
 ## 3. Arbeiten mit Quarto
@@ -139,6 +139,23 @@ Diese entstehen beim Rendern der Source Files und müssen auf die gleiche Art un
 quarto render        # rendert nach _site/
 quarto publish       # publiziert Hauptseite (Destination in _publish.yml)
 ```
+
+### Einzelne Ordner rendern
+
+Um nur einen bestimmten Themenblock neu zu rendern (z.B. nach Änderungen in `infovis/`):
+
+```bash
+quarto render infovis
+```
+
+**Caveat:** Jeder Themenordner hat eine zugehörige "Titelseite" im Wurzelverzeichnis (z.B. `InfoVis.qmd`), die als Part-Einstieg im Buch dient. Diese wird beim Rendern des Ordners *nicht* automatisch mitgerendert und muss separat aktualisiert werden:
+
+```bash
+quarto render InfoVis.qmd
+```
+
+> **TODO:** Die Titelseiten könnten in den jeweiligen Themenordner verschoben werden, damit `quarto render myfolder` alles auf einmal rendert.
+
 
 ### Entwicklungsvorschau (Profil `dev`)
 
@@ -199,7 +216,7 @@ Aborting
 
 ```
 git add "*.qmd"                # staged alle Files mit der Endung .qmd
-git commit -m "meine message" 
+git commit -m "meine message"
 git pull                       # lädt die Änderungen von Github herunter
 ```
 
