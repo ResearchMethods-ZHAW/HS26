@@ -12,7 +12,7 @@ knitr:
 ---
 
 
-# Infovis 2: Übung
+# Infovis 2: Übung A
 
 In der Übung von @sec-infovis1 habt ihr bereits die Grafiken aus dem Blogbeitrag von @kovic2014 rekonstruiert. Nun werden wir die Grafiken mit dem Fliesstext aus dem Beitrag ergänzen und daraus einen PDF-Bericht machen.
 

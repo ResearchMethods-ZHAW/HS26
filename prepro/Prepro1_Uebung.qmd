@@ -87,8 +87,8 @@ Nutze die Spalte `Gewicht`, um die Tiere in 3 Gewichtskategorien einzuteilen:
 
 ```{r}
 df$Gewichtsklasse[df$Gewicht > 100] <- "schwer"
-df$Gewichtsklasse[df$Gewicht <= 100 & df$Gewicht > 5] <- "mittel"
-df$Gewichtsklasse[df$Gewicht <= 5] <- "leicht"
+df$Gewichtsklasse[df$Gewicht <= 100 & df$Gewicht >= 5] <- "mittel"
+df$Gewichtsklasse[df$Gewicht < 5] <- "leicht"
 ```
 
 Das Resultat:
