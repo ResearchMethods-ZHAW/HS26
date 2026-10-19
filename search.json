@@ -1579,7 +1579,7 @@
     "href": "fallstudie_n/2_Datenverarbeitung_Feldaufnahmen.html#daten-laden",
     "title": "Datenverarbeitung Feldaufnahmen",
     "section": "Daten laden",
-    "text": "Daten laden\n\nHerunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip)\nEinlesen, Sichtung der Datensätze und der Datentypen.\n\nVerschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.\n\n## spc_tbl_ [149 × 21] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ kreis                         : num [1:149] 0 1 2 3 4 5 6 7 8 9 ...\n##  $ X                             : num [1:149] 684900 684875 684875 684875 684850 ...\n##  $ Y                             : num [1:149] 237175 237125 237175 237250 237225 ...\n##  $ dg_rubus                      : num [1:149] 12 25 6 35 20 1 20 15 40 65 ...\n##  $ dg_strauchschicht             : num [1:149] 4 13 5 40 55 40 60 60 23 25 ...\n##  $ dg_baumschicht                : num [1:149] 66 70 57 45 40 66 55 45 80 67 ...\n##  $ Kreis (r 12.5m)               : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ Deckungsgrad Rubus sp. [%]    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Strauchschicht [%] (0.5-3m): num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Baumschicht [%] (ab 3m)    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ fid                           : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ x                             : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ y                             : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ gruppe                        : chr [1:149] NA NA NA NA ...\n##  $ farbe                         : chr [1:149] NA NA NA NA ...\n##  $ dg_rubus_s                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ dg_strauch                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ dg_baumsch                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ deckungsgrad_rubus            : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ deckungsgrad_strauchschicht   : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $  deckungsgrad_baumschicht     : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   kreis = col_double(),\n##   ..   X = col_double(),\n##   ..   Y = col_double(),\n##   ..   dg_rubus = col_double(),\n##   ..   dg_strauchschicht = col_double(),\n##   ..   dg_baumschicht = col_double()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;",
+    "text": "Daten laden\n\nHerunterladen der Daten der Feldaufnahmen von Moodle (Feldaufnahmen_alle_Gruppen.zip)\nEinlesen, Sichtung der Datensätze und der Datentypen.\n\nVerschiedene Dinge werden beim Einlesen möglicherweise nicht auf Anhieb funktionieren oder es zeigt sich dann spätestens beim Zusammenfügen zu einem Gesamtdatensatz, dass es Probleme gibt (zB. mit den Datentypen und/oder Spaltenbezeichnungen). Versucht wenn möglich diese Dinge jeweils direkt mit R zu lösen, dies ist vorallem bei grösseren Datensätzen extrem hilfreich, damit die Datensätze zu einem sauberen Gesamtdatensatz zusammengefügt werden können.\n\n\nMusterlösung\ndf_team1 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/gruppe1_felderhebungen.csv\", delim = \";\") \n\ndf_team2 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebung_Waldstruktur_Team_Gelb.csv\", delim = \";\")\n\ndf_team3 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/ground_truth_Gruppe_3_pink.csv\", delim = \";\")\n\ndf_team4 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebungen_Waldstruktur_Team4.csv\", delim = \";\")\n\ndf_team5 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/felderhebungen_waldstruktur_team5.csv\", delim = \",\")\n\ndf_team6 &lt;- read_delim(\"datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Gruppe_6.csv\", delim = \";\")\n\n\n# Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz\n# verbinden. Ist der Output zufriedenstellend?\n\ndf_gesamt &lt;- bind_rows(df_team1, df_team2, df_team3, df_team4, df_team5, df_team6)\nstr(df_gesamt)\n## spc_tbl_ [149 × 21] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n##  $ kreis                         : num [1:149] 0 1 2 3 4 5 6 7 8 9 ...\n##  $ X                             : num [1:149] 684900 684875 684875 684875 684850 ...\n##  $ Y                             : num [1:149] 237175 237125 237175 237250 237225 ...\n##  $ dg_rubus                      : num [1:149] 12 25 6 35 20 1 20 15 40 65 ...\n##  $ dg_strauchschicht             : num [1:149] 4 13 5 40 55 40 60 60 23 25 ...\n##  $ dg_baumschicht                : num [1:149] 66 70 57 45 40 66 55 45 80 67 ...\n##  $ Kreis (r 12.5m)               : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ Deckungsgrad Rubus sp. [%]    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Strauchschicht [%] (0.5-3m): num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ DG Baumschicht [%] (ab 3m)    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ fid                           : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ x                             : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ y                             : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ gruppe                        : chr [1:149] NA NA NA NA ...\n##  $ farbe                         : chr [1:149] NA NA NA NA ...\n##  $ dg_rubus_s                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ dg_strauch                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ dg_baumsch                    : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ deckungsgrad_rubus            : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $ deckungsgrad_strauchschicht   : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  $  deckungsgrad_baumschicht     : num [1:149] NA NA NA NA NA NA NA NA NA NA ...\n##  - attr(*, \"spec\")=\n##   .. cols(\n##   ..   kreis = col_double(),\n##   ..   X = col_double(),\n##   ..   Y = col_double(),\n##   ..   dg_rubus = col_double(),\n##   ..   dg_strauchschicht = col_double(),\n##   ..   dg_baumschicht = col_double()\n##   .. )\n##  - attr(*, \"problems\")=&lt;externalptr&gt;",
     "crumbs": [
       "Fallstudie N",
       "<span class='chapter-number'>32</span>  <span class='chapter-title'>Datenverarbeitung Feldaufnahmen</span>"
@@ -1630,13 +1630,68 @@
     ]
   },
   {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html",
+    "title": "Berechnung Homeranges",
+    "section": "",
+    "text": "Libraries laden\nlibrary(\"sf\")\nlibrary(\"terra\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"terra\")\nlibrary(\"adehabitatHR\")\nlibrary(\"ggspatial\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#daten-einlesen",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#daten-einlesen",
+    "title": "Berechnung Homeranges",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nEinlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Datentypen\n\n\nRehe &lt;- read_delim(\"datasets/fallstudie_n/Homeranges_Rehe_landforst_261019.csv\", delim = \";\")\n\nstr(Rehe)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-1",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-1",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nIm Datensatz Rehe eine neue Spalte mit Datum und Zeit in der gleichen Spalte generieren.\nFinde den Fehler: Beim Format hat sich ein Fehler eingeschlichen.\n\n\nRehe &lt;- Rehe |&gt;\n  mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time),\n                                   format = \"%Y-%m-%d %H:%M:%S\"))",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-2",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-2",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nIn dieser Aufgabe geht es insbesondere darum, die Daten räumlich zu visualisieren und das Sampling Design nachzuvollziehen und das Systemverständnis zu schärfen. Ausserdem soll im Rahmen der Arbeiten die Verwendung von R als GIS-Software nähergebracht werden. Für einzelne Arbeitsschritte finden sich im Folgenden verschiedene Code-snipptes\nMit den folgenden Zeilen können die GPS-Punkte der Rehe/eines bestimmten Rehs visualisiert werden:\n\nRehe_sf &lt;- st_as_sf(Rehe, coords = c(\"X\", \"Y\"), crs = 21781)\n\nplot(Rehe_sf[\"TierID\"])\n\n\nRE13 &lt;- filter(Rehe_sf, TierID == \"RE13\")\n\nplot(RE13[\"TierID\"])\n\nAus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben am prozentualen Anteil Punkte (=Ausdehnung der Homerange) in der HR (Funktion getverticeshr).\nZiel: eine Karte erstellen mit der Visualiserung mindestens einer HR\n\n\nRE13_xy &lt;- st_coordinates(RE13)\n\nRE13_sp &lt;- as(RE13[\"TierID\"], \"Spatial\")\n\nsigma &lt;- 0.5 * (sd(RE13_xy[, 1]) + sd(RE13_xy[, 2]))\nn &lt;- nrow(RE13)\nhref &lt;- sigma * n ^ (-1 / 6) * 0.9 # scaled reference: href * 0.9\n\nkud &lt;- kernelUD(RE13_sp, h = href, grid = 25) \n\nhomerange &lt;- getverticeshr(kud, percent = 95) # Berechnung der Home Range (95% Isopleth)\n\n# Schreibt HR in den Results-Ordner (als Shapefile)\n\nhr &lt;- st_as_sf(homerange)\n\nst_write(\n  hr,\n  dsn = \"datasets/fallstudie_n/Results\",\n  layer = \"HR_RE13\",\n  driver = \"ESRI Shapefile\",\n  delete_layer = TRUE\n)\n\nDie Homerange kann zB. mit ggplot2 visualisiert und die dafür verwendeten Punkte darübergelegt werden.\n\n# mit diesem Befehl kann die HR geplottet werden\n\nggplot(hr) + \n  geom_sf(size = 1, alpha = 0.3, color = \"red\", fill=\"red\") +\n  coord_sf(datum = sf::st_crs(21781))+\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position=\"none\"\n  )\n\n# und die Punkte der GPS-Lokalisationen darüber gelegt werden \n\nggplot(hr) + \n  geom_sf(size = 1, alpha = 0.3, color = \"red\", fill=\"red\") +\n  geom_sf(data = RE13, aes(fill = \"red\")) +\n  coord_sf(datum = sf::st_crs(21781))+\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position=\"none\"\n  )\n\n\n\nMusterlösung\npk25_wpz &lt;- rast(\"datasets/fallstudie_n/pk25_wpz.tif\")\n\n\nDie Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000) im Hintergrund zu plotten.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-3",
+    "href": "fallstudie_n/3_Berechnung_Homeranges.html#aufgabe-3",
+    "title": "Berechnung Homeranges",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nHier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet\n\nAusdehnung des Grids basiert auf hr\nCellsize des Grids: 25m\n\n\nx25 &lt;- st_as_sf(st_make_grid(hr, 25, what = \"centers\")) # Mittelpunkte in einem Raster mit 25m Auflösung generieren\n\n#x25 &lt;- st_filter(x25, hr, .predicate = st_within) # Falls nur Zentren innerhalb der Homerange behalten werden sollen\n\ngrid_plot &lt;- st_buffer(x25, 12.5) # Kreise mit Radius 12.5 m erzeugen\n\nggplot() +\n  geom_sf(data = grid_plot, color = \"black\", fill = NA) +\n  geom_sf(data = RE13, color = \"blue\") +\n  geom_sf(data = hr, color = \"red\", fill = NA, linewidth = 2) +\n  coord_sf(datum = 21781) +\n  theme(\n    axis.title = element_blank(),\n    axis.text = element_blank(),\n    axis.ticks = element_blank(),\n    legend.position = \"none\"\n  )",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Berechnung Homeranges</span>"
+    ]
+  },
+  {
     "objectID": "References.html",
     "href": "References.html",
     "title": "Literaturverzeichnis",
     "section": "",
     "text": "Kovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
     "crumbs": [
-      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
+      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
     ]
   }
 ]
