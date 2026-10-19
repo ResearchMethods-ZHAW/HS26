@@ -156,6 +156,7 @@ quarto render InfoVis.qmd
 
 > **TODO:** Die Titelseiten könnten in den jeweiligen Themenordner verschoben werden, damit `quarto render myfolder` alles auf einmal rendert.
 
+
 ### Entwicklungsvorschau (Profil `dev`)
 
 Das Profil `dev` (`_quarto-dev.yml`) rendert nur die Prepro-4-Inhalte nach `_dev/` und eignet sich für Vorschauen vor der Aufschaltung auf die Hauptseite.
