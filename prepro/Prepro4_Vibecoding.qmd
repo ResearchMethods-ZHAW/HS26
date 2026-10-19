@@ -1,0 +1,122 @@
+---
+lesson: PrePro4
+thema: KI für Codegenerierung
+execute:
+  echo: true
+  output: false
+  error: true
+  warning: false
+knitr:
+  opts_chunk:
+    collapse: true
+---
+
+# Prepro 4: KI für Codegenerierung
+
+*Vibecoding* bezeichnet einen Arbeitsstil, bei dem man Code nicht selbst schreibt, sondern der KI beschreibt, was man erreichen möchte — und den generierten Code dann übernimmt, anpasst oder korrigiert.
+
+Das setzt R-Kenntnisse nicht ausser Kraft — es verschiebt ihre Rolle. Wer weiss, was `group_by()` tut und wie ein Dataframe aufgebaut ist, kann der KI präziser erklären, was sie tun soll. Und wer den generierten Code lesen kann, erkennt, ob er korrekt ist.
+
+In dieser Demo zeigen wir verschiedene Arten, wie sich KI in einen R-Workflow integrieren lässt — von Copy & Paste bis zum lokalen Sprachmodell.
+
+## Demo
+
+**Analyse-Ziel:** Die mittlere Monatstemperatur pro Jahr aus `weather.csv` berechnen und als Linienplot vergleichen — eine Variation der Kalenderwoche-Analyse aus Prepro 4: Tutor.
+
+### Werkzeug 1: Copy & Paste aus dem Web
+
+Der einfachste Einstieg: Aufgabe in einem Web-KI-Tool formulieren, Code kopieren, in RStudio einfügen und ausführen.
+
+→ Prompt an [Le Chat](https://chat.mistral.ai):
+
+> *«Ich habe einen Dataframe `wetter` mit den Spalten `stn` (factor), `time` (POSIXct, Stundenwerte), `tre200h0` (numeric, Lufttemperatur in °C) sowie convenience-Variablen `jahr` (integer) und `monat` (integer, aus `lubridate::month()`). Berechne mit `dplyr` die mittlere Monatstemperatur pro Jahr (`group_by`, `summarise`) und visualisiere das Resultat als Linienplot mit `ggplot2`, farblich nach Jahr unterschieden.»*
+
+Einige Punkte, die man nach dem Copy-Paste prüfen sollte:
+
+- **Erwartungshaltung formulieren**: Bevor der Code ausgeführt wird — wie soll der Output aussehen? Wie viele Zeilen, welche Spalten, welcher Wertebereich?
+- **Code lesen und plausibilisieren**: Stimmen die **Spaltennamen** mit dem eigenen Datensatz überein? Verwendet die KI `.groups = "drop"` in `summarise()`? Stimmt das **Datumsformat** in `as.POSIXct()`? Die KI rät, wenn kein Beispielwert mitgeliefert wurde.
+- **Code ausführen** — läuft er fehlerfrei durch?
+- **Output prüfen**: Stimmt das Ergebnis mit der Erwartung überein — Struktur, Werte, Plot?
+
+
+### Werkzeug 2: RStudio Copilot
+
+GitHub Copilot lässt sich direkt in RStudio aktivieren:
+
+1. *Tools → Global Options → Assistant*
+2. Im Dropdown «Use code assistant» die Option **GitHub Copilot** auswählen.
+3. Die Copilot Agent-Komponenten herunterladen und installieren.
+4. Auf **Sign In** klicken.
+5. Im Dialog «GitHub Copilot: Sign in» den angezeigten Verification Code kopieren.
+6. Auf <https://github.com/login/device> navigieren, den Code einfügen und auf **Continue** klicken.
+7. GitHub fragt nach den notwendigen Berechtigungen — mit **Authorize GitHub Copilot Plugin** bestätigen.
+8. Nach der Freigabe zeigt RStudio den angemeldeten GitHub-Account an.
+9. Dialog schliessen, eine Quelldatei (`.R`, `.py`, `.qmd` …) öffnen und loscoden!
+
+Danach schlägt RStudio beim Tippen automatisch Code vor — grau hinterlegt, mit `Tab` übernehmen.
+
+→ Demonstration: Kommentar als Beschreibung, Vorschlag annehmen.
+
+```{r}
+# Mittlere Temperatur pro Monat und Jahr berechnen
+```
+
+
+
+:::{.callout-note}
+Für die Nutzung von GitHub Copilot wird ein GitHub-Account sowie ein aktives Abonnement (Copilot for Individuals oder Copilot for Business) benötigt.
+
+Studierende und Lehrpersonen können GitHub Copilot kostenlos über das [GitHub Education-Programm](https://education.github.com) nutzen.
+:::
+
+
+### Werkzeug 3: opencode
+
+[opencode](https://opencode.ai/) ist ein Desktop- und Terminal-Tool für KI-gestützte Codegenerierung, das verschiedene Anbieter (z.B. Anthropic Claude, OpenAI) unterstützt. Es ist näher am Entwicklungsworkflow als ein Web-Chat.
+
+→ Demonstration: Gleiche Aufgabe in opencode, mit kommerziellem Anbieter.
+
+
+### Werkzeug 4: Lokales Sprachmodell (optional)
+
+opencode lässt sich auch mit einem lokal laufenden Modell verbinden (z.B. via [Ollama](https://ollama.ai/)). Der Code verlässt dann den eigenen Rechner nicht.
+
+Vorteil: Datenschutz. Nachteil: Qualität und Geschwindigkeit abhängig von der verfügbaren Hardware.
+
+
+## Übung
+
+### Aufgabe 1: Naiv vs. Informiert
+
+Wir stellen dieselbe inhaltliche Frage an eine KI — zuerst ohne R-Kontext, dann mit präzisem R-Vokabular. Verwende [Le Chat](https://chat.mistral.ai) (kein Account erforderlich). **Starte jeweils einen neuen Chat**, damit die Antworten unabhängig voneinander sind.
+
+**Forschungsfrage:** War die mittlere Jahrestemperatur an der Station Basel (BAS) im Jahr 2001 höher als im Jahr 2000?
+
+---
+
+**Runde 1 — ohne R-Kenntnisse:**
+
+> *«Ich habe eine CSV-Datei mit stündlichen Wettermessungen. Wie kann ich in R herausfinden, ob es in einem Jahr wärmer war als in einem anderen?»*
+
+---
+
+**Runde 2 — mit R-Kenntnissen aus Prepro 1–3:**
+
+> *«Ich habe einen Dataframe `wetter` mit den Spalten `stn` (factor, z.B. `"BAS"`), `time` (POSIXct, stündliche Werte), `tre200h0` (numeric, Lufttemperatur in °C) und `jahr` (integer, aus `lubridate::year()`). Filtere den Dataframe auf die Station `"BAS"`, gruppiere nach `jahr` mit `group_by` aus `dplyr` und berechne die mittlere Jahrestemperatur mit `summarise`.»*
+
+---
+
+Vergleiche die beiden Antworten:
+
+- Wie unterscheiden sich die vorgeschlagenen Lösungswege?
+- Welcher Code ist für deinen Datensatz direkt verwendbar — und warum?
+- Was musstest du wissen, um den informierten Prompt zu formulieren?
+
+
+### Aufgabe 2: Zwei Anbieter vergleichen
+
+Stelle den informierten Prompt aus Aufgabe 1 bei zwei verschiedenen KI-Tools (z.B. Le Chat und ChatGPT, oder zwei andere):
+
+- Unterscheiden sich die generierten Codes?
+- Sind beide korrekt und direkt ausführbar?
+- Gibt es Unterschiede im Stil — z.B. Base R vs. tidyverse, mit oder ohne Piping?

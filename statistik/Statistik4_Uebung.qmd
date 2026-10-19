@@ -187,7 +187,7 @@ global_model <- lm(Species_richness ~
 
 Nun gibt es im Prinzip zwei Möglichkeiten, vom globalen (vollen) Modell
 zu einem minimal adäquaten Modell zu kommen. (1) Der Ansatz der
-„frequentist statistic“, in dem man aus dem vollen Modell so lange
+"frequentist statistic", in dem man aus dem vollen Modell so lange
 schrittweise Variablen entfernt, bis nur noch signifikante Variablen
 verbleiben. (2) Den informationstheoretischen Ansatz, bei dem alle
 denkbaren Modelle berechnet und verglichen werden (also alle möglichen
@@ -214,7 +214,7 @@ Grazing.intensity. Heat.index, Litter). Allerdings ist das nächstbeste
 Modell (mit 6 Parametern) nur wenig schlechter (delta AICc = 0.71), was
 sich in fast gleichen (und zudem sehr niedrigen) Akaike weights
 bemerkbar macht. Nach dem Verständnis des Information theoretician
-approach, sollte man in einer solchen Situation nicht das eine „beste“
+approach, sollte man in einer solchen Situation nicht das eine "beste"
 Modell benennen, sondern eine Aussage über die Gruppe der insgesamt
 brauchbaren Modelle treffen. Hierzu kann man (a) Importance der
 Parameter über alle Modelle hinweg berechnen (= Summe der Akaike weights

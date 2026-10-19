@@ -38,7 +38,7 @@ Führt einen Assoziationstest zweier kategorialer Variablen (mit je zwei Ausprä
 
 ## Aufgabe 1.2: t-Test
 
-**T-Test mit Datensatz *Novanimal_Weeks.csv**
+t-Test mit Datensatz *Novanimal_Weeks.csv*
 
 Im Forschungsprojekt [NOVANIMAL](https://www.novanimal.ch) wurde u.a. in der ZHAW-Mensa untersucht, was es braucht, damit Menschen freiwillig weniger tierische Produkte konsumieren. Dazu wurden in sogenannten Interventionswochen mehr vegane und vegetarische Gerichte (zu Lasten kleinerer Fleischgerichtsauswahl) angeboten. Eine erste grundsätzliche Frage war, ob die unterschiedliche Gerichtsauswahl zu unterschiedlichen Verkaufszahlen führten. Beantwortet dazu mit dem Datensatz und geeigneten Tests folgende Frage:
 
@@ -50,7 +50,6 @@ Wurden in den Basis- und Interventionswochen unterschiedlich viele Gerichte verk
 -   Führe einen t-Test durch.
 -   Wie gut sind die Voraussetzungen für einen t-Test erfüllt (z.B. Normalverteilung der Residuen und Varianzhomogenität)?
 -   Stelle deine Ergebnisse angemessen dar, d.h. Text mit Abbildung und/oder Tabelle
-
 
 
 

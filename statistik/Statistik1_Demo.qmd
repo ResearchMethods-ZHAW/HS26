@@ -37,7 +37,7 @@ library(ggplot2)
 
 ggplot(blume, aes(x = cultivar, y = size)) +
   geom_boxplot() +
-    stat_summary(fun = mean, geom = "point") # Mittelwerte hinzufügen
+  stat_summary(fun = mean, geom = "point") # Mittelwerte hinzufügen
 ```
 
 ```{r}
@@ -62,13 +62,14 @@ t.test(size ~ cultivar, data = blume)
 ### Einseitiger t-Test
 
 ```{r}
+# Reihenfolge factor level Cultivar
+levels(blume$cultivar)
+
 # Einseitig "Test auf Andro > Bulli"
 t.test(size ~ cultivar, alternative = "greater",  data = blume)
-t.test(a, b, alternative = "greater",  data = blume)
 
 # Einseitig "Test auf Andro < Bulli"
 t.test(size ~ cultivar, alternative = "less",  data = blume) 
-t.test(a, b, alternative = "less",  data = blume) 
 ```
 
 ### Klassischer t-Test vs. Welch Test
@@ -87,11 +88,17 @@ Gepaarter t-Test: erster Wert von Andro wird mit erstem Wert von Bullie gepaart,
 
 ```{r}
 # für gepaarten t-Test funktioniert Notation "size ~ cultivar" nicht (mehr)
-
 t.test(blume$size[blume$cultivar == "Andro"], 
        blume$size[blume$cultivar == "Bulli"], 
        paired = TRUE)
 ```
+
+### Nicht-parametrische Alternative zum t-Test
+
+```{r}
+wilcox.test(size ~ cultivar, data = blume) 
+```
+
 
 ## Binomialtest
 

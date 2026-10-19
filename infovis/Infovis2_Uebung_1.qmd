@@ -26,7 +26,7 @@ Wie erwähnt werdet ihr in der praktischen Prüfung euren Code ebenfalls mit Qua
 
 ## Aufgabe 1
 
-Öffne das RStudio-Projekt von letzter Woche (@sec-infovis1) und erstelle ein neues Quarto-File (File → New File → Quarto Document).
+Öffne das RStudio-Projekt von Infovis 1 (@sec-infovis1) und erstelle ein neues Quarto-File (File → New File → Quarto Document).
 
 :::{.callout-important}
 Entferne dabei das Häkchen bei *Use visual markdown editor*. 

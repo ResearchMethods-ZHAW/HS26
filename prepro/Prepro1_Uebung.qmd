@@ -1,8 +1,8 @@
 ---
 lesson: PrePro1
 execute: 
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -33,13 +33,14 @@ Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
 
 
 
-:::{#imp-rstudio-projects .callout-important}
+
+<!-- :::{#imp-rstudio-projects .callout-important}
 
 ## Prüfungsrelevant
 
 Die korrekte Verwendung von RStudio Projects und relativen Pfaden wird an der praktischen Prüfung vorausgesetzt!
 
-:::
+::: -->
 
 
 ## Aufgabe 1

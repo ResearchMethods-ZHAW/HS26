@@ -73,7 +73,7 @@ summary(crime)
 crimez <- scale(crime)
 ```
 
-„scale“ führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessend einen Mittelwert von 0 und eine SD von 1 haben. Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
+"scale" führt eine Standardisierung (z-Transformation) durch, so dass alle Variablen anschiessend einen Mittelwert von 0 und eine SD von 1 haben. Anschliessend wird das SSI-Kriterium getestet und zwar für Partitionierungen von 2 bis 6 Gruppen (wie viele Gruppen man maximal haben will, muss man pragmatisch nach der jeweiligen Fragestelltung entscheiden).
 
 ```{r}
 library("vegan")

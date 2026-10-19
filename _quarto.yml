@@ -55,30 +55,31 @@ book:
       - prepro/Prepro2_Demo.qmd
       - prepro/Prepro2_Uebung_A.qmd
       - --
-    # - prepro/Prepro3_Demo.qmd
-    # - prepro/Prepro3_Uebung.qmd
-    # - --
-    # - prepro/Prepro4_Debugging_Demo.qmd
-    # - prepro/Prepro4_Debugging_Uebung.qmd
-    # - part: InfoVis.qmd
-    #   chapters:
-    #   - infovis/Infovis1_Vorbereitung.qmd
-    #   - --
-    #   - infovis/Infovis1_Demo.qmd
-    #   - infovis/Infovis1_Uebung.qmd
-    #   - infovis/Infovis1_Script_eda.qmd
-    #   - infovis/Infovis1_Kovic_2014.qmd
-    #   - --
-    # - infovis/Infovis2_Demo.qmd
-    # - infovis/Infovis2_Uebung_Quarto.qmd
-    # - infovis/Infovis2_Uebung_optional.qmd
-    # - part: Statistik.qmd
-    #   chapters:
-    #   - statistik/Statistik0_Vorbereitung.qmd
-    #   - statistik/Statistik1_Demo.qmd
-    #   - statistik/Statistik1_Uebung.qmd
-    #   - statistik/Statistik2_Demo.qmd
-    #   - statistik/Statistik2_Uebung.qmd
+      - prepro/Prepro3_Demo.qmd
+      - prepro/Prepro3_Uebung.qmd
+      - --
+      - prepro/Prepro4_Tutor.qmd
+      - prepro/Prepro4_Debugging.qmd
+      - prepro/Prepro4_Vibecoding.qmd
+    - part: InfoVis.qmd
+      chapters:
+      - infovis/Infovis1_Vorbereitung.qmd
+      - --
+      - infovis/Infovis1_Demo.qmd
+      - infovis/Infovis1_Uebung.qmd
+      - infovis/Infovis1_Script_eda.qmd
+      - infovis/Infovis1_Kovic_2014.qmd
+      - --
+      - infovis/Infovis2_Demo.qmd
+      - infovis/Infovis2_Uebung_1.qmd
+      - infovis/Infovis2_Uebung_2.qmd
+    - part: Statistik.qmd
+      chapters:
+      - statistik/Statistik0_Vorbereitung.qmd
+      - statistik/Statistik1_Demo.qmd
+      - statistik/Statistik1_Uebung.qmd
+      - statistik/Statistik2_Demo.qmd
+      - statistik/Statistik2_Uebung.qmd
     #   - statistik/Statistik3_Demo.qmd
     #   - statistik/Statistik3_Uebung.qmd
     #   - statistik/Statistik4_Demo.qmd
@@ -115,12 +116,12 @@ book:
       - --
       - fallstudie_s/1_Einführung.qmd
       - fallstudie_s/2_Besuchermonitoring.qmd
-    #   - --
-    #   - fallstudie_s/3_Aufgabenstellung_WPZ.qmd
-    #   - --
-    #   - fallstudie_s/4_Projektierung.qmd
-    #   - fallstudie_s/5_Datenverarbeitung.qmd
-    #   - fallstudie_s/6_Deskriptive_Analysen.qmd
+      - --
+      - fallstudie_s/3_Aufgabenstellung_WPZ.qmd
+      - --
+      - fallstudie_s/4_Projektierung.qmd
+      - fallstudie_s/5_Datenverarbeitung.qmd
+      - fallstudie_s/6_Deskriptive_Analysen.qmd
     #   - fallstudie_s/7_Multivariate_Modelle.qmd
     - part: "Fallstudie N"
       chapters:

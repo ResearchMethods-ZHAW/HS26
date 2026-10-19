@@ -1,17 +1,19 @@
 ---
 title: "Infovis 1: Blogbeitrag Kovic"
+format:
+  html:
+    body-classes: external-article
 ---
 
-# Je weniger Ausländer, desto mehr Ja-Stimmen? Wirklich?{#sec-kovic2014}
+:::{.callout-important}
 
-:::{.callout-important collapse="true"}
+Der nachfolgende Artikel von Marco Kovic wurde auf dem Datenblog des Tagesanzeigers ([blog.tagesanzeiger.ch](https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich)) veröffentlicht. Er ist dort mittlerweile nicht mehr verfügbar, wesshalb wir den Inhalt hier hosten. Der Artikel ist aber noch über die Wayback Machine erreichbar: [web.archive.org](https://web.archive.org/web/20140302151952/https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich).
 
-## Wichtig
-
-Der nachfolgende Artikel von Marco Kovic wurde auf dem Datenblog des Tagesanzeigers (blog.tagesanzeiger.ch) veröffentlicht. Er ist dort mittlerweile nicht mehr verfügbar, wesshalb wir den Inhalt hier hosten.
 
 :::
 
+
+::::{.kovic2014}
 
 ![](blogpost-images/img_header.png)
 
@@ -157,3 +159,4 @@ Marko Kovic hat an der Universität Zürich Politikwissenschaft, Publizistik- un
 
 :::
 
+::::

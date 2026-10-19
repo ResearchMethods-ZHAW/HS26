@@ -8,6 +8,7 @@ execute:
   echo: true
 ---
 
+
 # Prepro 3: Demo
 
 In dieser Demo möchten wir weitere Werkzeuge aus dem Tidyverse vorstellen und mit Beispielen illustrieren. Die tidyverse-Tools erleichtern den Umgang mit Daten erheblich und haben sich mittlerweile zu einem "must have" im Umgang mit Daten in R entwickelt.
@@ -127,7 +128,7 @@ Zu `dplyr` gibt es etliche Tutorials online (siehe^[@wickham2017, Kapitel 10 / <
 
 ```{r}
 #| eval: !expr T
-# Maximal und minimal Temperatur pro Kalenderwoche
+# Maximal und minimal Temperatur pro Tag
 weather_summary <- wetter |>                # 1) nimm den Datensatz "wetter"
   filter(month == 1) |>                     # 2) filter auf den Monat Januar
   mutate(day = day(time)) |>                # 3) erstelle eine neue Spalte "day"
