@@ -578,8 +578,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#libraries-laden" id="toc-libraries-laden" class="nav-link active" data-scroll-target="#libraries-laden">Libraries laden</a></li>
   <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen">Daten einlesen</a></li>
   <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
-  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
-  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a>
+  <ul class="collapse">
+  <li><a href="#aufgabe-2.1" id="toc-aufgabe-2.1" class="nav-link" data-scroll-target="#aufgabe-2.1">Aufgabe 2.1</a></li>
+  <li><a href="#aufgabe-2.2" id="toc-aufgabe-2.2" class="nav-link" data-scroll-target="#aufgabe-2.2">Aufgabe 2.2</a></li>
+  <li><a href="#aufgabe-2.3" id="toc-aufgabe-2.3" class="nav-link" data-scroll-target="#aufgabe-2.3">Aufgabe 2.3</a></li>
+  <li><a href="#aufgabe-2.4" id="toc-aufgabe-2.4" class="nav-link" data-scroll-target="#aufgabe-2.4">Aufgabe 2.4</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -631,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
-<p>Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in der gleichen Spalte generieren.</p>
+<p>Telemetriedaten sind raum-zeitliche Daten. Obwohl in unserer Analyse nicht zentral ist eine der wichtigsten Hilfsvariablen der Zeitstempel der GPS-Lokalisationen, gerade wenn es um Bewegungsanalysen geht. Im Datensatz Rehe soll daher eine neue Spalte mit Datum und Zeit in der gleichen Spalte eingefügt werden.</p>
 <p>Finde den Fehler: Beim Format hat sich ein Fehler eingeschlichen.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -643,6 +648,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="aufgabe-2" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
 <p><em>In dieser Aufgabe geht es insbesondere darum, die Daten räumlich zu visualisieren und das Sampling Design nachzuvollziehen und das Systemverständnis zu schärfen. Ausserdem soll im Rahmen der Arbeiten die Verwendung von R als GIS-Software nähergebracht werden. Für einzelne Arbeitsschritte finden sich im Folgenden verschiedene Code-snipptes</em></p>
+<section id="aufgabe-2.1" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.1">Aufgabe 2.1</h3>
 <p>Mit den folgenden Zeilen können die GPS-Punkte der Rehe/eines bestimmten Rehs visualisiert werden:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Rehe_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(Rehe, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>), <span class="at">crs =</span> <span class="dv">21781</span>)</span>
@@ -654,7 +661,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(RE13[<span class="st">"TierID"</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Aus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben am prozentualen Anteil Punkte (=Ausdehnung der Homerange) in der HR (Funktion getverticeshr).</p>
+</section>
+<section id="aufgabe-2.2" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.2">Aufgabe 2.2</h3>
+<p>Aus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben am prozentualen Anteil Punkte in der Homerange (Funktion getverticeshr). Typischerweise wird mit 95 % (Homerange) oder 50 % (Corearea) der Punkte gearbeitet.</p>
 <p><strong>Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -709,16 +719,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">"none"</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="aufgabe-2.3" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.3">Aufgabe 2.3</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Musterlösung</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pk25_wpz <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/fallstudie_n/pk25_wpz.tif"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000) im Hintergrund zu plotten.</p>
+<p>Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000, auf Moodle) im Hintergrund zu plotten.</p>
 </section>
-<section id="aufgabe-3" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
+<section id="aufgabe-2.4" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.4">Aufgabe 2.4</h3>
 <p>Hier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet</p>
 <ul>
 <li>Ausdehnung des Grids basiert auf <code>hr</code></li>
@@ -745,6 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
