@@ -44,7 +44,7 @@ str(Rehe)
 
 ## Aufgabe 1
 
-Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in der gleichen Spalte generieren. 
+Telemetriedaten sind raum-zeitliche Daten. Obwohl in unserer Analyse nicht zentral ist eine der wichtigsten Hilfsvariablen der Zeitstempel der GPS-Lokalisationen, gerade wenn es um Bewegungsanalysen geht. Im Datensatz Rehe soll daher eine neue Spalte mit Datum und Zeit in der gleichen Spalte eingefügt werden. 
 
 Finde den Fehler: Beim Format hat sich ein Fehler eingeschlichen.
 
@@ -61,6 +61,8 @@ Rehe <- Rehe |>
 ## Aufgabe 2
 
 *In dieser Aufgabe geht es insbesondere darum, die Daten räumlich zu visualisieren und das Sampling Design nachzuvollziehen und das Systemverständnis zu schärfen. Ausserdem soll im Rahmen der Arbeiten die Verwendung von R als GIS-Software nähergebracht werden. Für einzelne Arbeitsschritte finden sich im Folgenden verschiedene Code-snipptes* 
+
+### Aufgabe 2.1
 
 Mit den folgenden Zeilen können die GPS-Punkte der Rehe/eines bestimmten Rehs visualisiert werden:
 
@@ -79,7 +81,9 @@ plot(RE13["TierID"])
 
 ```
 
-Aus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben  am prozentualen Anteil Punkte (=Ausdehnung der Homerange) in der HR (Funktion getverticeshr). 
+### Aufgabe 2.2
+
+Aus diesen Punktdaten können kann nun die Homerange der Rehe berechnet werden. Um ein Gefühl zu entwickeln, lohnt sich das Herumschrauben am prozentualen Anteil Punkte in der Homerange (Funktion getverticeshr). Typischerweise wird mit 95 % (Homerange) oder 50 % (Corearea) der Punkte gearbeitet.
 
 **Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
@@ -144,6 +148,9 @@ ggplot(hr) +
   )
 ```    
 
+### Aufgabe 2.3
+
+
 ```{r}
 #| echo: true
 
@@ -151,7 +158,7 @@ pk25_wpz <- rast("datasets/fallstudie_n/pk25_wpz.tif")
 
 ```
 
-Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000) im Hintergrund zu plotten.
+Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000, auf Moodle) im Hintergrund zu plotten.
 
 ```{r}
 #| echo: false
@@ -171,7 +178,7 @@ ggplot(hr, aes(color = "red", fill = "red")) +
   )
 ```
 
-## Aufgabe 3
+### Aufgabe 2.4
 
 Hier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet
 
