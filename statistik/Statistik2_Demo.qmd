@@ -175,7 +175,7 @@ plot(aov_4b)
 summary(aov_2)
 
 # Kruskal-Wallis-Test
-kruskal_test(size ~ cultivar, data = blume2)
+kruskal.test(size ~ cultivar, data = blume2)
 
 library("FSA")
 # Post-Hoc mit korrigierten p-Werte nach Bejamini-Hochberg

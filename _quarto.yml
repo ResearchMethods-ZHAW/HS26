@@ -80,10 +80,10 @@ book:
       - statistik/Statistik1_Uebung.qmd
       - statistik/Statistik2_Demo.qmd
       - statistik/Statistik2_Uebung.qmd
-    #   - statistik/Statistik3_Demo.qmd
-    #   - statistik/Statistik3_Uebung.qmd
-    #   - statistik/Statistik4_Demo.qmd
-    #   - statistik/Statistik4_Uebung.qmd
+      - statistik/Statistik3_Demo.qmd
+      - statistik/Statistik3_Uebung.qmd
+      - statistik/Statistik4_Demo.qmd
+      - statistik/Statistik4_Uebung.qmd
     #   - statistik/Statistik5_Demo.qmd
     #   - statistik/Statistik5_Uebung.qmd
     #   - statistik/Statistik6_Demo.qmd
