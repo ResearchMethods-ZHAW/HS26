@@ -161,9 +161,8 @@ pk25_wpz <- rast("datasets/fallstudie_n/pk25_wpz.tif")
 Die Grafik kommt noch nicht sehr schön daher, versucht zur besseren Orientierung die Homerange mit dieser Pixelkarte (Landeskarte 1:25000, auf Moodle) im Hintergrund zu plotten.
 
 ```{r}
-#| echo: false
+#| echo: true
 #| code-fold: false
-#| eval: false
 
 ggplot(hr, aes(color = "red", fill = "red")) +
   annotation_spatial(pk25_wpz) +
