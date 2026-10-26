@@ -78,8 +78,12 @@ editor:
             und dessen Interpretation) und (2) ausformulierter Methoden-
             und Ergebnisteil (für eine wiss. Arbeit).**
 
-:::: {.content-hidden unless-meta="musterloesung"}
-::: callout-note
+
+::::{.content-hidden unless-meta="musterloesung"}
+
+:::{.callout-note}
+
+
 ## Lösung Übung 4
 
 [Demoscript herunterladen (.R)](../purl/Statistik4_Uebung.R){.dld}
