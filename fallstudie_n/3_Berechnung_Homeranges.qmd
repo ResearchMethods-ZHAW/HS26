@@ -153,6 +153,7 @@ ggplot(hr) +
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 pk25_wpz <- rast("datasets/fallstudie_n/pk25_wpz.tif")
 
