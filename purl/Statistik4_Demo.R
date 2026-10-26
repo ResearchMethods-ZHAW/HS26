@@ -1,0 +1,192 @@
+#' ---
+#' lesson: Statistik4
+#' knitr:
+#'   opts_chunk: 
+#'     collapse: false 
+#' ---
+#' 
+#' 
+#' # Statistik 4: Demo
+#' 
+#' [Demoscript herunterladen (.R)](../purl/Statistik4_Demo.R){.dld}
+#' 
+#' [Demoscript herunterladen (.qmd)](../purl/Statistik4_Demo.qmd){.dld}
+#' 
+#' -   Datensatz *loyn.csv*
+#' 
+## -----------------------------------------------------------------------------
+library(readr)
+library(ggplot2)
+
+#' 
+#' 
+#' ## Multiple lineare Regression
+#' 
+## -----------------------------------------------------------------------------
+loyn <- read_delim("datasets/stat/loyn.csv", delim = ";")
+
+str(loyn)
+summary(loyn)
+
+#' 
+#' ### Korrelation zwischen den Prädiktoren
+#' 
+## -----------------------------------------------------------------------------
+# Wir setzen die Schwelle bei |0.7|
+# Korrelationen rechnen details siehe: "?cor"
+cor(loyn[, 2:7]) 
+
+# oder mit Namen der columns resp. variablen
+cor1 <- 
+  loyn |>
+  subset(select = AREA:ALT) |>
+  cor()
+
+# Korrelationen Visualisieren
+library("corrplot")
+corrplot.mixed(cor1, lower = "ellipse", upper = "number", order = "AOE")
+
+# Nur Darstellung von variablen über Schwelenwert von |0.7|
+cor1[abs(cor1)<0.7] <- 0
+cor1
+
+#' 
+#' -> Keine Korrelation ist \>\|0.7\|, so können wir alle Prädiktoren "behalten". 
+#' Aber es gilt zu beachten, dass GRAZE ziemlich stark \|\>0.6\| mit AGE korreliert ist
+#' 
+## -----------------------------------------------------------------------------
+# Volles Modell definieren
+names(loyn)
+lm_1 <- lm(ABUND ~ AGE + AREA + DIST + LDIST + GRAZE + ALT, data = loyn)
+
+#' 
+## -----------------------------------------------------------------------------
+# Andere Variante, um korrelierte Prädiktoren zu finden 
+# (üblicher Schwellenwert VIF = 5)
+library("car")
+vif(lm_1)
+
+#' 
+## -----------------------------------------------------------------------------
+# Modeldiagnostik
+par(mfrow = c(2, 2))
+plot(lm_1)
+
+#' 
+#' -> Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|\<60\| Beobachtungen ist das Modell wohl "overfitted"
+#' 
+#' 
+#' ### Modellselektion
+#' 
+## -----------------------------------------------------------------------------
+summary(lm_1)
+
+drop1(lm_1, test = "F")
+# Prädiktor mit grösstem p-Wert entfernen
+lm_2 <- lm(ABUND ~ AGE + AREA + DIST  + GRAZE + ALT, data = loyn)
+# oder
+lm_2 <- update(lm_1, ~. - LDIST) 
+
+# Oben beschriebener Schritt wiederholen bis nur noch signifikante Prädiktoren 
+# im Modell sind
+drop1(lm_2, test = "F") 
+lm_3 <- update(lm_2, ~. - DIST)
+
+drop1(lm_3, test = "F") 
+lm_4 <- update(lm_3, ~. - ALT)
+
+drop1(lm_4, test = "F") 
+lm_5 <- update(lm_4, ~. - AGE)
+
+drop1(lm_5, test = "F")
+
+summary(lm_5) 
+
+par(mfrow = c(2, 2))
+plot(lm_5)
+
+#' 
+#' -> das minimal adäquate Modell enthält noch zwei Prädiktoren (AREA; GRAZE) und dessen Residualplots sehen ok aus.
+#' 
+#' ### Hierarchical partitioning 
+#' 
+#' Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
+#' 
+## -----------------------------------------------------------------------------
+library("relaimpo")
+
+# Berechnen
+metrics <- calc.relimp(lm_1, type = c("lmg", "first"))
+cbind(I = metrics$lmg, 
+      J = metrics$first - metrics$lmg, 
+      Total = metrics$first)
+
+#' 
+#' -> auch hier haben AREA und GRAZE die höchsten Werte (und an dritter Stelle AGE, 
+#' der mit GRAZE am stärksten korreliert ist)
+#' 
+#' 
+#' ### Partial Effect Plot
+#' 
+## -----------------------------------------------------------------------------
+library(ggeffects)
+
+p1 <- predict_response(lm_5, terms = "AREA", margin = "empirical")  |>
+plot()
+
+p2 <- predict_response(lm_5, terms = "GRAZE", margin = "empirical") |>
+plot()
+
+library(patchwork)
+p1 + p2
+
+#' 
+#' margin = "mean_reference" (default): "non-focal" numerische prädiktoren werden gemittelt 
+#' "non-focal" kategoriale prädiktoren (factors) auf das Referenzlevel (erster level des factors) fixiert
+#' 
+#' margin = "empirical": "non-focal" numerische prädiktoren werden gemittelt 
+#' "non-focal" kategoriale prädiktoren (factors) werden proportinal zur Häufigkeit gemittelt
+#' 
+#' Da wir oben nur numerische prädiktoren haben hat die Wahl kein Einfluss auf das Resultat
+#' 
+#' 
+#' ## Multimodel inference
+#' 
+## -----------------------------------------------------------------------------
+library("MuMIn")
+
+global_model <- lm(ABUND ~ AGE + AREA + DIST + LDIST + GRAZE + ALT, data = loyn)
+
+options(na.action = "na.fail")
+allmodels <- dredge(global_model)
+allmodels
+
+#' 
+#' Wir haben mehre Modelle mit einem delta AICc <2, das heisst wir haben nicht 
+#' ein eindeutig bestes Modell (welches wir mit der funktion "get.models" 
+#' selektieren könnten)
+#' 
+## -----------------------------------------------------------------------------
+# Variable importance
+sw(allmodels)
+
+#' -> Auch mit dieser Sichtweise sind AREA und GRAZE die wichtigste Prädiktoren
+#' 
+## -----------------------------------------------------------------------------
+# Model averaging
+avgmodel <- model.avg(allmodels)
+summary(avgmodel)
+
+# Nur Estimates
+summary(avgmodel)$coefficients
+
+# Confindence intervals
+confint(avgmodel)
+
+#' 
+#' 
+## -----------------------------------------------------------------------------
+# Modeldiagnostik
+par(mfrow = c(2, 2))
+plot(global_model)
+
