@@ -136,11 +136,11 @@ Ein Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuc
 -Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:
 
 ```{r}
-lock_1_start_2020 <- as.Date("2020-03-16")
-lock_1_end_2020 <- as.Date("2020-05-11")
+lock_1_start <- as.Date("2020-03-16")
+lock_1_end <- as.Date("2020-05-11")
 
-lock_2_start_2021 <- as.Date("2020-12-22")
-lock_2_end_2021 <- as.Date("2021-03-01")
+lock_2_start <- as.Date("2020-12-22")
+lock_2_end <- as.Date("2021-03-01")
 ```
 
 Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl __isoweek()__ liefert euch die Kalenderwoche, im standartisierten ISO-Format.

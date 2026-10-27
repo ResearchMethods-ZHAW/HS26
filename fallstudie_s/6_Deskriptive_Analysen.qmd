@@ -2,7 +2,7 @@
 lesson: Deskriptive Analysen
 thema: Explorativ / Beschreibend
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"

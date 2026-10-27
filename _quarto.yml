@@ -122,7 +122,7 @@ book:
       - fallstudie_s/4_Projektierung.qmd
       - fallstudie_s/5_Datenverarbeitung.qmd
       - fallstudie_s/6_Deskriptive_Analysen.qmd
-    #   - fallstudie_s/7_Multivariate_Modelle.qmd
+      - fallstudie_s/7_Multivariate_Modelle.qmd
     - part: "Fallstudie N"
       chapters:
       - fallstudie_n/1_Vorbereitung.qmd
