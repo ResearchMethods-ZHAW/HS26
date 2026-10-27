@@ -14,7 +14,7 @@ musterloesung: false
 **Übungsaufgabe**
 
 
-- Lesen Sie den Datensatz kormoran.csv ein, Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: *Phalacrocorax carbo carbo* (C) und *Phalacrocorax carbo sinensis* (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.
+- Lesen Sie den Datensatz *kormoran.csv* ein, Dieser enthält Tauchzeiten (hier ohne Einheit) von Kormoranen in Abhängigkeit von Jahreszeit und Unterart. Unterarten: *Phalacrocorax carbo carbo* (C) und *Phalacrocorax carbo sinensis* (S); Jahreszeiten: F = Frühling, S = Sommer, H = Herbst, W = Winter.
 - **Ihre Gesamtaufgabe ist es, aus diesen Daten ein minimal adäquates Modell zu ermitteln, das dies Abhängikeit der Tauchzeit von der Jahreszeit und Unterart beschreibt.**
 - Bitte erklären und begründen Sie die einzelnen Schritte, die Sie unternehmen, um zu diesem Ergebnis zu kommen. Dazu erstellen Sie bitte ein  mit Quarto generiertes html-Dokument, in das Sie Schritt für Schritt den verwendeten R-Code, die dazu gehörigen Ausgaben von R, Ihre Interpretation derselben und die sich ergebenden Schlussfolgerungen für das weitere Vorgehen dokumentieren.
 - Dieser Ablauf sollte insbesondere beinhalten:
@@ -61,9 +61,16 @@ Die adäquate Analyse (1 metrische Abhängige vs. 2 kategoriale Unabhängige) is
 Die Sortierung der Jahreszeiten (default: alphabetisch) ist inhaltlich aber nicht sinnvoll und sollte angepasst werden.
 
 ```{r}
-# Umsortieren der Faktoren, damit sie in den Boxplots eine sinnvolle Reihung haben
-kormoran$Jahreszeit <- ordered(kormoran$Jahreszeit, levels = c("F", "S", "H", "W"))
-kormoran$Jahreszeit
+levels(kormoran$Jahreszeit)
+```
+Die Jahreszeit hat schon eine sinnvolle Reihenfolge, da bei read_delim (anders
+als bei read.delim) die Reihenfolge der factor levels nach der Reihenfolge des
+Auftretens in den Daten bestimmt wird. Der Code unten zur Anpassung der
+Reihenfolge is deshalb hier nicht nötig
+
+```{r}
+# kormoran$Jahreszeit <- factor(kormoran$Jahreszeit, levels = c("F", "S", "H", "W"))
+# kormoran$Jahreszeit
 ```
 
 
@@ -82,7 +89,7 @@ Wegen der Asymmetrie der Boxen könnte man eine log-Transformation ausprobieren.
 ```{r}
 ggplot(kormoran, aes( interaction(Jahreszeit, Unterart), log10(Tauchzeit) )) +
          geom_boxplot() +
-         theme_classic()
+  theme_bw()
 ```
 
 Da die Transformation keine klare Verbesserung bringt, bleiben wir im Folgenden bei den untransformierten Daten, da diese leichter (direkter) interpretiert werden können. Auch angesichts der sehr gerigen Anzahl an Datenpunkte (5 Tauchgänge pro Art-Jahreszeit-Kombination) sind asymmwetrische Boxplots wenig überraschend.
@@ -154,6 +161,7 @@ Da wir keine Interaktion zwischen Unterart und Jahreszeit festgestellt haben, br
 ```{r}
 ggplot(kormoran, aes(x = Unterart, y = Tauchzeit)) +
   geom_boxplot() +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 2) +
   theme_bw()
 
 library("multcomp")
@@ -161,6 +169,7 @@ letters <- cld( glht(aov_2, linfct = mcp(Jahreszeit = "Tukey")))
 
 ggplot(kormoran, aes(x = Jahreszeit, y = Tauchzeit)) +
   geom_boxplot() +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 2) +
   geom_text(aes(x = Jahreszeit, y = max(kormoran$Tauchzeit) + 1.5,
                 label = letters$mcletters$Letters[Jahreszeit])) +
   theme_bw()
