@@ -703,3 +703,15 @@ Bis hier hin haben wir in diesem Kapitel v.a. visuell gearbeitet. Für den Beric
 
 - Reflektiert, welche Zahlen ihr habt und was für den Bericht spannend sein könnte, resp. eure Abbildungen unterstützen oder ergänzen.
 
+```{r}
+# Mögliche Kennzahlen sind:
+
+# - Anzahl Besuchende Insgesamt (und pro Richtung)
+# - Anzahl Besuchende pro Jahr (und pro Richtung)
+# - Durchschnittliche Anzahl Besuchende pro Monat
+# - Durchschnittliche Anzahl Besuchende am Wochenede und an den Werktagen
+# - Maximale Anzahl Besuchende an einem Tag (inkl. Datum und Wochentag)
+# - Prozentualer Anteil der Besuchenden, aufgeteilt auf die versch. Tageszeiten
+# - ...
+```
+
