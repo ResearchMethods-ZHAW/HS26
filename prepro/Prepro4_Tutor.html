@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Prepro 4: KI als Tutor – Research Methods HS26</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -93,14 +95,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-9b8f6782e2cd455891acfb332edb59df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-8e09b5a8d29acdf93648e7d2cca05993.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -319,7 +321,8 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Research Methods HS26</a> 
@@ -671,10 +674,10 @@ div.csl-indent {
 <p>Wir kennen <code>read_delim</code> aus Prepro 1. Aber was war nochmal das Argument für das Trennzeichen — hiess es <code>sep</code> oder <code>delim</code>?</p>
 <p>→ <code>?read_delim</code> in der R-Konsole ausführen und im Abschnitt <em>Arguments</em> nachschauen. Alternativ: <code>read_delim(</code> tippen und kurz warten — RStudio zeigt per Autocomplete-Tooltip die verfügbaren Argumente direkt im Editor an.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/prepro/weather.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>stn <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(wetter<span class="sc">$</span>stn)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>stn <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(wetter<span class="sc">$</span>stn)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="schritt-2-ki-nachschlagen-und-prüfen" class="level3">
@@ -682,8 +685,8 @@ div.csl-indent {
 <p>Die Spalte <code>time</code> muss als <code>POSIXct</code> eingelesen werden. Dafür braucht <code>as.POSIXct()</code> eine Formatschablone. Die R-Hilfe <code>?strptime</code> listet alle Codes auf — aber als Nachschlagewerk für ein konkretes Format ist sie mühsam. Auch eine Google-Suche führt hier selten direkt ans Ziel. Hier drängt sich die Nutzung von KI auf, indem ein Beispielwert aus der Spalte gezeigt und nach der passenden Schablone gefragt wird</p>
 <p>→ Schau dir zuerst an, wie die Werte in <code>time</code> aussehen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wetter<span class="sc">$</span>time)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2000010100 2000010101 2000010102 2000010103 2000010104 2000010105</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wetter<span class="sc">$</span>time)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2000010100 2000010101 2000010102 2000010103 2000010104 2000010105</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>→ Dann einen gezielten Prompt formulieren:</p>
 <blockquote class="blockquote">
@@ -700,7 +703,7 @@ div.csl-indent {
 <li>Die Formatcodes sind es wert, einmal kurz nachzuschlagen und die häufigsten zu notieren.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(wetter<span class="sc">$</span>time), <span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wetter<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="fu">as.character</span>(wetter<span class="sc">$</span>time), <span class="at">format =</span> <span class="st">"%Y%m%d%H"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -708,7 +711,7 @@ div.csl-indent {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Welche KI verwenden?
+<span class="screen-reader-only">Wichtig</span>Welche KI verwenden?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -721,14 +724,14 @@ Welche KI verwenden?
 <p>Wir brauchen das Jahr und die Kalenderwoche. <code>year()</code> aus <code>lubridate</code> kennen wir. Aber für die Kalenderwoche: war das <code>week()</code> oder <code>isoweek()</code>?</p>
 <p>→ In der <code>lubridate</code>-Paketdokumentation nachschlagen (z.B. <a href="https://duckduckgo.com/?q=lubridate+week+r">DuckDuckGO</a> “lubridate week R”). Dort findet man <code>week()</code>, <code>isoweek()</code> und <code>epiweek()</code>. <code>isoweek()</code> entspricht der ISO-8601-Norm, auf der <a href="https://lubridate.tidyverse.org/reference/week.html?q=week#references">Paketdokumentation</a> wird man zum entsprechenden <a href="https://en.wikipedia.org/wiki/ISO_week_date">Wikipedia Artikel</a> verwiesen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>wetter <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">jahr =</span> <span class="fu">year</span>(time),</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">kw   =</span> <span class="fu">isoweek</span>(time)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="schritt-4-ki-konzept-verstehen" class="level3">
@@ -740,9 +743,9 @@ Welche KI verwenden?
 </blockquote>
 <p>Nach der Erklärung schreiben wir den Code selbst:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wetter_kw <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wetter_kw <span class="ot">&lt;-</span> wetter <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(jahr, kw) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp_mean =</span> <span class="fu">mean</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">temp_mean =</span> <span class="fu">mean</span>(tre200h0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="schritt-5-ki-orientierung" class="level3">
@@ -757,7 +760,7 @@ Welche KI verwenden?
 </blockquote>
 <p>Den vorgeschlagenen Code lesen wir durch, verstehen ihn — und schreiben ihn dann selbst:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(wetter_kw, <span class="fu">aes</span>(<span class="at">x =</span> kw, <span class="at">y =</span> temp_mean, <span class="at">colour =</span> <span class="fu">as.factor</span>(jahr))) <span class="sc">+</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -765,7 +768,7 @@ Welche KI verwenden?
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x      =</span> <span class="st">"Kalenderwoche"</span>,</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y      =</span> <span class="st">"Mittlere Temperatur (°C)"</span>,</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Jahr"</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -820,12 +823,12 @@ Welche KI verwenden?
 <p>Notiere die Antwort der KI, und überprüfe sie dann:</p>
 <p>Hat die KI die richtige Schablone geliefert? Lief der Code fehlerfrei durch? Ergibt der Output Sinn?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Musterlösung">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Musterlösung
+<span class="screen-reader-only">Tipp</span>Musterlösung
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -833,8 +836,8 @@ Musterlösung
 <div class="callout-body-container callout-body">
 <p>Die korrekte Schablone ist <code>"%m/%d/%Y %H:%M"</code> — <code>03/04/2020</code> steht im US-amerikanischen Format für den <strong>4. März 2020</strong> (Monat/Tag/Jahr). Der Output sollte <code>"2020-03-04 14:00:00"</code> (mit der Systemzeitzone) ergeben.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(<span class="st">"03/04/2020 14:00"</span>, <span class="at">format =</span> <span class="st">"%m/%d/%Y %H:%M"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2020-03-04 14:00:00 CET"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(<span class="st">"03/04/2020 14:00"</span>, <span class="at">format =</span> <span class="st">"%m/%d/%Y %H:%M"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "2020-03-04 14:00:00 CET"</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Die typische Stolperfalle: KIs interpretieren <code>03/04</code> häufig als europäisches Format (Tag/Monat) und liefern <code>%d/%m/%Y</code> — was den 3. April als 4. März ausgibt. Entscheidend ist, ob man das Format kennt oder nachfragt.</p>
 </div>
@@ -843,7 +846,7 @@ Musterlösung
 </section>
 <section id="aufgabe-5-energieverbrauch" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-5-energieverbrauch">Aufgabe 5: Energieverbrauch</h3>
-<p>Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage <strong>um Grössenordnungen mehr Energie und CO₂-Emissionen</strong> als aufgabenspezifische Modelle <span class="citation" data-cites="luccioni2024">(<a href="../References.html#ref-luccioni2024" role="doc-biblioref">Luccioni, Jernite, und Strubell 2024</a>)</span>. Lokale Abfragen wie <code>?read_delim</code> oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.</p>
+<p>Ein KI-Query ist kein kostenloser Vorgang — weder finanziell noch energetisch. Generative Sprachmodelle verursachen pro Anfrage <strong>um Grössenordnungen mehr Energie und CO₂-Emissionen</strong> als aufgabenspezifische Modelle <span class="citation" data-cites="luccioni2024">(<a href="../References.html#ref-luccioni2024" role="doc-biblioref">Luccioni u.&nbsp;a. 2024</a>)</span>. Lokale Abfragen wie <code>?read_delim</code> oder einfache Webseitenaufrufe verbrauchen im Vergleich dazu einen verschwindend kleinen Bruchteil der Energie.</p>
 <p>Schaue dir nochmals die Aufgaben 1–4 an und überlege:</p>
 <ul>
 <li>Bei welchen dieser Aufgaben war der Einsatz von KI aus deiner Sicht gerechtfertigt — also hat die KI etwas geleistet, das <code>?</code> oder die Paketdokumentation nicht ebenso gut gekonnt hätte?</li>
@@ -851,9 +854,9 @@ Musterlösung
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-luccioni2024" class="csl-entry" role="listitem">
-Luccioni, Alexandra Sasha, Yacine Jernite, und Emma Strubell. 2024. <span>„Power Hungry Processing: Watts Driving the Cost of <span>AI</span> Deployment?“</span> In <em>Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency</em>. <a href="https://doi.org/10.1145/3630106.3658542">https://doi.org/10.1145/3630106.3658542</a>.
+Luccioni, Alexandra Sasha, Yacine Jernite, und Emma Strubell. 2024. <span>„Power Hungry Processing: Watts Driving the Cost of <span>AI</span> Deployment?“</span> <em>Proceedings of the 2024 ACM Conference on Fairness, Accountability, and Transparency</em>. <a href="https://doi.org/10.1145/3630106.3658542">https://doi.org/10.1145/3630106.3658542</a>.
 </div>
 </div>
 </section>
@@ -924,13 +927,14 @@ Luccioni, Alexandra Sasha, Yacine Jernite, und Emma Strubell. 2024. <span>„Pow
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
