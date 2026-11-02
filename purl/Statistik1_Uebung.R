@@ -6,7 +6,6 @@
 #' musterloesung: true
 #' ---
 #' 
-#' 
 #' # Statistik 1: Übung
 #' 
 #' 
