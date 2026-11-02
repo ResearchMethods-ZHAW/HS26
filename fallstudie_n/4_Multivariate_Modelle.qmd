@@ -72,7 +72,7 @@ Lest die CSV-Datei ein. Passt den Pfad bei Bedarf in **eurem eigenen R-Skript** 
 #| output: true
 #| label: daten-einlesen
 #| code-fold: false
-DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_261102.csv", delim = ";")
+DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv", delim = ";")
 
 vars_umwelt <- c(
   "slope", "topo_pos", "dist_road_trails", "dist_road_only",
