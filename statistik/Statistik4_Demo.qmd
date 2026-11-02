@@ -37,10 +37,11 @@ summary(loyn)
 cor(loyn[, 2:7]) 
 
 # oder mit Namen der columns resp. variablen
+library("dplyr")
 cor1 <- 
   loyn |>
-  subset(select = AREA:ALT) |>
-  cor()
+  select(AREA:ALT) |>
+  cor() 
 
 # Korrelationen Visualisieren
 library("corrplot")
