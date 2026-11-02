@@ -1,169 +1,292 @@
 ---
+title: "Multivariate Modelle – Vorbereitung der Modellierung"
+
+# EINZIGE UMSCHALTSTELLE FÜR DIE VERÖFFENTLICHUNG:
+# Bei Freigabe der Musterlösungen beide Schalter auf true setzen und neu rendern.
 execute:
-  echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false    # true = Musterlösungs-Code anzeigen
+  output: false  # true = Ergebnis / Grafik der Musterlösung anzeigen
+  warning: false
+  message: false
+
+# Lösungscode im HTML standardmässig eingeklappt (nicht mit Geheimhaltung verwechseln).
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
+    fig.width: 9
+    fig.height: 5
 ---
 
-# Multivariate Modelle 
+<!--
+RENDER-HINWEIS FÜR DIE LEHRPERSON (nur im QMD-Quelltext):
+Aufgabenversion: execute.echo=false und execute.output=false.
+Musterlösungen: execute.echo=true und execute.output=true.
+Die vorgegebenen Beispiel-Chunks haben feste echo/output: true und sind stets sichtbar.
+Antworten zu Textfragen stehen am Schluss in einem R-Chunk; sie sind im HTML nur
+mit output=true sichtbar. Bei echo=true ist dieser Chunk unter "Musterlösung" eingeklappt.
+ACHTUNG: QMD-Quelldateien mit Musterlösungen NICHT öffentlich auf GitHub veröffentlichen;
+      Quellcode kann trotz unterdrückter HTML-Ausgabe im GitHub-Repository eingesehen werden.
+-->
 
-Einstieg Multivariate Modelle / Habitatselektionsmodell
+## Ziel und Einordnung
 
-## Libraries laden
+Wir untersuchen die Ressourcenselektion von Rehen im Sihlwald und in seiner Umgebung. Grundlage ist ein Datensatz mit Stichprobenkreisen innerhalb der individuellen Streifgebiete. Für jeden Kreis liegen Umweltvariablen sowie eine Kennzeichnung vor, ob der Kreis vom jeweiligen Reh **genutzt** wurde (`pres_abs = 1`, *used*) oder als **verfügbarer Vergleichskreis** (`pres_abs = 0`, *available*) in die Untersuchung eingeht.
+
+**Wichtig:** `pres_abs = 0` bedeutet hier nicht, dass das Reh dort nachweislich nie vorkommt. Die Vergleiche zwischen *used* und *available* beschreiben die relative Nutzung im Verhältnis zum verfügbaren Angebot in der Homerange. Die zugrunde liegenden Daten und Variablendefinitionen findet ihr in der Aufgabenstellung zur Fallstudie.
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Der R-Code ist vorgegeben und wird auf dieser Seite angezeigt. Übernehmt ihn in euer eigenes R-Skript, führt ihn aus, untersucht die Ausgabe und beantwortet die Fragen.
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+Hier entwickelt ihr den Code selbst in eurem R-Skript. Hinweise oder unvollständige Codebeispiele helfen beim Einstieg. Die Musterlösungen werden **eine Woche nach der Übung auf dieser Seite freigeschaltet**.
+:::
+
+## Vorbereitung – Packages und Daten
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
 
 ```{r}
 #| echo: true
+#| output: true
+#| label: setup
 #| code-fold: false
-
-library("sf")
-library("terra")
-library("dplyr")
-library("readr")
-library("ggplot2")
-library("PerformanceAnalytics")
-library("pastecs")
-library("car")
-library("psych")
-library("DHARMa")
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
 options(scipen = 999)
 ```
+:::
 
-## Aufgabe 1
+## Aufgabe 1 – Datensatz und Beobachtungseinheiten kennenlernen
 
-Einlesen der Gesamtdatensätze für die Multivariate Analysen von Moodle
-
-1) Sichtung der Datensätze, der Variablen und der Datentypen
-2) Kontrolle wieviele Rehe/Rothirsche in den Datensätzen enthalten sind
-
-```{r}
-#| output: false
-
-DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv", delim = ";")
-
-str(DF_reh)
-
-class(DF_reh$time_of_day)
-
-table(DF_reh$id)
-
-DF_reh |>
-  group_by(id) |>
-  summarize(anzahl = n())
-
-length(unique(DF_reh$id))
-```
-
-## Aufgabe 2
-
-Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit 
-
-```{r}
-DF_reh_night <- DF_reh |>
-  filter(time_of_day == "night")
-
-DF_reh_day <- DF_reh |>
-  filter(time_of_day == "day")
-
-```
-
-## Aufgabe 3
-
-Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhängigen Variablen. Diese Übung dient einer ersten groben Einschätzung der Wirkung der Umweltvariablen auf die abhängige Variable (Präsenz/Absenz in unserem Fall)
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Lest die CSV-Datei ein. Passt den Pfad bei Bedarf in **eurem eigenen R-Skript** an.
 
 ```{r}
 #| echo: true
+#| output: true
+#| label: daten-einlesen
 #| code-fold: false
+DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_261102.csv", delim = ";")
 
-# Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz
-
-par(mfrow = c(3, 3), mar = c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
-
-# innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
-
-for (i in 5:12) {
-  dp <- DF_reh_day |> filter(pres_abs == 1) |> pull(i)
-  dp <- density(dp)
-  da <- DF_reh_day |> filter(pres_abs == 0) |> pull(i)
-  da <- density(da)
-  plot(0, 0, type = "l",
-    xlim = range(c(dp$x, da$x)),
-    ylim = range(dp$y, da$y),
-    xlab = names(DF_reh_day[i]),
-    ylab = "Density"
-  )
-  lines(dp$x, dp$y, col = "blue")             # Präsenz = used
-  lines(da$x, da$y, col = "red")              # Absenz = available
-}
-```
-
-## Aufgabe 4
-
-Für jede kontinuierliche Variable: ein binomiales GLM fitten (pres_abs ~ x, data = DF_mod_day, family = binomial), Residuen berechnen und ein Histogramm + Q-Q-Plot (Residuen sollen grob "normal" wirken) plotten. Wenn starke Abweichungen auftreten (krummes Histogramm, Q-Q-Punkte weit von der Linie): Transformationen probieren, das Modell neu fitten und die Residuen nochmal überprüfen. 
-
-```{r}
-
-# Definition des zu verarbeitenden Teildatensatzes 
-
-data <- DF_reh_day
-
-# Liste mit den zu verarbeitenden kontinuierlichen Variablen
-
-vars <- c("slope","topo_pos","dist_road_trails","dist_road_only",
-          "dist_sett","forest_prop","us_2014","os_2014")
-
-# Ausgabe-Datei als PDF
-
-out_pdf <- "fallstudie_n/glm_DHARMa_checks_DF_reh_day.pdf"
-
-pdf(out_pdf, width = 7, height = 6)
-on.exit(dev.off(), add = TRUE)
-
-# Loop über die Variablen
-
-for (v in vars) {
-  if (!v %in% names(data)) next
-  x <- data[[v]]
-  if (sum(!is.na(x)) < 30 || length(unique(na.omit(x))) < 3) next
-
-  # GLM fitten
-  m   <- glm(as.formula(paste0("pres_abs ~ ", v)), data = data, family = binomial)
-
-  # DHARMa Standardseite (QQ + Residuen vs Fitted)
-  sim <- simulateResiduals(m, n = 1000, plot = FALSE)
-
-  plot(sim, main = "")                 # Standardtitel ausblenden
-  mtext(v, side = 3, line = 0.5, font = 2)  # eigene Überschrift (nur Variablenname)
-  
-  # Histogramm der Variable
-  par(mfrow = c(1,1), mar = c(4,4,3,1))
-  hist(x, breaks = "FD", main = paste("Histogramm:", v), xlab = v)
-
-}
-
-
-```
-
-## Aufgabe 5
-
-Explorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen 
-
-1) Zu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.
-2) Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)
-
-```{r}
-pairs.panels(DF_reh_day[5:12],
-  method = "pearson", # correlation method
-  hist.col = "#00AFBB",
-  density = TRUE, # show density plots
-  ellipses = TRUE # show correlation ellipses
+vars_umwelt <- c(
+  "slope", "topo_pos", "dist_road_trails", "dist_road_only",
+  "dist_sett", "forest_prop", "us_2014", "os_2014"
 )
 
-# Die Korrelation bei einem Teildatensatz zu testen reicht,
-# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,
-# nur die Nutzung durch das Reh nicht.
+stopifnot(all(c("pres_abs", "id", "time_of_day", vars_umwelt) %in% names(DF_reh)))
+stopifnot(all(vapply(DF_reh[vars_umwelt], is.numeric, logical(1))))
+stopifnot(all(na.omit(DF_reh$pres_abs) %in% c(0, 1)))
+
+str(DF_reh)
+dim(DF_reh)
+
+# Beobachtungen nach Reh und Tageszeit
+table(DF_reh$time_of_day, useNA = "ifany")
+DF_reh |> count(id, time_of_day)
+
+# Wie viele Rehe und wie viele used/available-Kreise?
+n_distinct(DF_reh$id)
+DF_reh |> count(time_of_day, pres_abs)
 ```
+
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Datenkontrolle"}
+Ermittelt, wie viele Rehe der Störungskategorie `gering` beziehungsweise `stark` zugeordnet sind. **Achtung:** Zählt jedes Reh nur einmal, nicht jede Datenzeile. Verwendet dafür `distinct()` und `count()`.
+
+```r
+# Tipp: distinct(id, stoerungskategorie) und danach count()
+```
+:::
+
+```{r}
+#| label: loesung-stoerung
+# Ausgeben, wie viele Individuen jeder Störungskategorie zugeordnet sind:
+DF_reh |>
+  distinct(id, stoerungskategorie) |>
+  count(stoerungskategorie, name = "anzahl_rehe")
+```
+
+
+## Aufgabe 2 – Tag- und Nachtdatensatz bilden
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Datenkontrolle"}
+Wir untersuchen die Habitatnutzung am Tag und in der Nacht getrennt. Die Umweltwerte wurden für Tag und Nacht in den dieselben Stichprobenkreise ermittelt (Ganztages-Homeranges). Überlegt euch in diesem Zusammenhang, warum sich die Verteilungen der Umweltvariablen zwischen Tag und Nacht unterscheiden können, obwohl die Umweltwerte der Stichprobenkreise identisch sind?
+
+```{r}
+#| label: daten-aufteilen
+#| code-fold: false
+DF_reh_day <- DF_reh |>
+  filter(time_of_day == "day")
+
+DF_reh_night <- DF_reh |>
+  filter(time_of_day == "night")
+
+nrow(DF_reh_day)
+nrow(DF_reh_night)
+
+table(DF_reh_day$pres_abs)
+table(DF_reh_night$pres_abs)
+```
+
+:::
+
+## Aufgabe 3 – Used und available vergleichen
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Die Dichtekurven zeigen, welche Werte der Umweltvariablen in den genutzten und verfügbaren Kreisen häufig vorkommen. Die Kurven sind **innerhalb jeder Gruppe** auf eine Gesamtfläche von 1 normiert: Sie zeigen keine absolute Nutzungswahrscheinlichkeit.
+
+```{r}
+#| echo: true
+#| output: false
+#| label: dichteplots-funktion
+#| code-fold: false
+plot_used_available <- function(datensatz, titel) {
+  daten_lang <- datensatz |>
+    mutate(gruppe = factor(
+      pres_abs,
+      levels = c(0, 1),
+      labels = c("available", "used")
+    )) |>
+    select(gruppe, all_of(vars_umwelt)) |>
+    pivot_longer(
+      cols = all_of(vars_umwelt),
+      names_to = "variable",
+      values_to = "wert"
+    )
+
+  ggplot(daten_lang, aes(x = wert, colour = gruppe, fill = gruppe)) +
+    geom_density(alpha = 0.18, na.rm = TRUE) +
+    facet_wrap(~ variable, scales = "free", ncol = 3) +
+    labs(
+      title = titel,
+      x = "Wert der Umweltvariable",
+      y = "Dichte",
+      colour = NULL,
+      fill = NULL
+    ) +
+    theme_bw()
+}
+
+plot_used_available(DF_reh_day, "Umweltvariablen – Tag")
+```
+
+**Diskutiert:** Welche Unterschiede zwischen *used* und *available* fallen euch besonders auf?
+
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Nachtdatensatz"}
+Erstellt denselben Satz von Dichteplots für die Nacht. Vergleicht insbesondere `slope` mit dem Tag.
+
+```r
+# Tipp: plot_used_available(datensatz, titel)
+```
+:::
+
+```{r}
+#| label: loesung-density-nacht
+plot_used_available(DF_reh_night, "Umweltvariablen – Nacht")
+```
+
+
+## Aufgabe 4 – Korrelationen zwischen den Umweltvariablen
+
+In Statistik 3 habt ihr Korrelationen kennengelernt. Bevor wir mehrere Umweltvariablen gemeinsam in einem Modell verwenden, untersuchen wir, welche Prädiktoren miteinander korrelieren. Stark korrelierte Variablen können teilweise dieselben Umweltbedingungen beschreiben und später die Interpretation der Modellkoeffizienten erschweren.
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Korrelationsmatrix"}
+**Recherchiert selbstständig die nötigen R-Befehle und entwickelt den Code.**
+
+1. Berechnet eine **Pearson-Korrelationsmatrix** der acht kontinuierlichen Umweltvariablen (`vars_umwelt`). Verwendet `DF_reh_day`; die Werte sind im Nachtdatensatz dieselben.
+2. Stellt die Korrelationsmatrix in einer übersichtlichen Grafik dar (z. B. als Korrelationsplot oder Heatmap). 
+3. Identifiziert die zwei Variablenpaare mit den stärksten absoluten Korrelationen. Welche Schwierigkeiten könnten solche Zusammenhänge bei einem multiplen Modell verursachen?
+
+Die Entscheidung, welche Variablen in ein gemeinsames Modell aufgenommen werden, treffen wir in der folgenden Übung zur Variablenselektion nächste Woche.
+:::
+
+```{r}
+#| label: loesung-korrelationsmatrix
+# Musterlösung mit Base R und den bereits geladenen Packages.
+korrelationen <- cor(
+  DF_reh_day |> select(all_of(vars_umwelt)),
+  method = "pearson",
+  use = "pairwise.complete.obs"
+)
+
+round(korrelationen, 2)
+
+kor_long <- as.data.frame(as.table(korrelationen))
+names(kor_long) <- c("variable_1", "variable_2", "r")
+
+ggplot(kor_long, aes(x = variable_1, y = variable_2, fill = r)) +
+  geom_tile(colour = "white") +
+  geom_text(aes(label = sprintf("%.2f", r)), size = 3) +
+  scale_fill_gradient2(
+    low = "#3B6EA8", mid = "white", high = "#BD4B43",
+    midpoint = 0, limits = c(-1, 1), name = "Pearson-r"
+  ) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, title = "Korrelationen der Umweltvariablen") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Eindeutige Variablenpaare ohne Diagonale, nach |r| sortiert.
+kor_long |>
+  filter(as.character(variable_1) < as.character(variable_2)) |>
+  mutate(abs_r = abs(r)) |>
+  arrange(desc(abs_r)) |>
+  select(variable_1, variable_2, r) |>
+  head(5)
+```
+
+## Aufgabe 5 – mögliche gekrümmte Zusammenhänge
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN – Hangneigung und Nutzung"}
+In Aufgabe 3 habt ihr die **Verteilungen der Hangneigung (`slope`) für *used* und *available*** verglichen. Jetzt betrachten wir denselben Zusammenhang andersherum: **Wie verändert sich der Anteil genutzter Kreise mit zunehmender Hangneigung?** Dazu teilen wir die Hangneigung in zehn Klassen mit ungefähr gleich vielen Kreisen ein und berechnen für jede Klasse den Anteil *used* – getrennt nach Tag und Nacht.
+
+```{r}
+#| echo: true
+#| output: true
+#| label: nutzungskurve-slope
+#| code-fold: false
+nutzung_slope <- DF_reh |>
+  group_by(time_of_day) |>
+  mutate(klasse = cut(
+    slope,
+    breaks = unique(quantile(slope, probs = seq(0, 1, 0.1), na.rm = TRUE)),
+    include.lowest = TRUE
+  )) |>
+  group_by(time_of_day, klasse) |>
+  summarise(
+    slope_mittel = mean(slope, na.rm = TRUE),
+    anteil_used = 100 * mean(pres_abs == 1, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(nutzung_slope,
+       aes(x = slope_mittel, y = anteil_used,
+           colour = time_of_day, group = time_of_day)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 2) +
+  labs(
+    x = "Mittlere Hangneigung je Klasse (Grad)",
+    y = "Anteil used (%)",
+    colour = "Tageszeit",
+    title = "Hangneigung und Nutzung der Stichprobenkreise"
+  ) +
+  theme_bw()
+```
+
+**Frage:** Wie unterscheidet sich der Verlauf zwischen Tag und Nacht? Ist die Beziehung jeweils ungefähr geradlinig, oder deutet sich eine Krümmung an?
+
+**Einordnung:** Die Verbindungslinien beschreiben die beobachteten Klassenanteile. Eine Krümmung kann Anlass sein, im späteren Modell neben `slope` auch einen quadratischen Term `I(slope^2)` zu prüfen. **Ob dieser Term nötig ist, lässt sich aus der Grafik allein nicht entscheiden.** Das testen wir in der nächsten Übung. Zudem kann bereits ein binomiales Modell mit linearem Prädiktoreffekt wegen der Logit-Linkfunktion auf der Prozent-Skala gekrümmt aussehen (Statistik 5).
+:::
+
+## Abschluss – Ausblick auf die Variablenselektion
+
+Nehmt eure Korrelationsmatrix und die Beobachtung zur Hangneigung in die nächste Übung mit. Dort entscheiden wir, wie mit stark korrelierten Prädiktoren umzugehen ist, und vergleichen für `slope` einen linearen mit einem linearen und quadratischen Term in `glmmTMB`.
