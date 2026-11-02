@@ -180,7 +180,7 @@ ggplot(hr, aes(color = "red", fill = "red")) +
 
 ### Aufgabe 2.4
 
-Hier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet
+Hier geht es darum, nachzuvollziehen wie das Sampling Grid mit den Kreisen im Zusammenhang mit der Homerange gelegt wurde. Die Kreise wurden bekanntlich als Grundlage für die Extraktion der Umweltvariablen innerhalb der Homeranges verwendet.
 
 - Ausdehnung des Grids basiert auf `hr`
 - Cellsize des Grids: 25m
