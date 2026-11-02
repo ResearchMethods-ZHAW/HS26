@@ -3,8 +3,9 @@ lesson: Statistik 1
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: false
+musterloesung: true
 ---
+
 
 # Statistik 1: Übung
 
