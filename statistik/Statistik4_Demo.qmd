@@ -29,6 +29,7 @@ str(loyn)
 summary(loyn)
 ```
 
+
 ### Korrelation zwischen den Prädiktoren
 
 ```{r}
