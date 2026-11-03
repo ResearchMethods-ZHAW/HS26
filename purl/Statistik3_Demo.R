@@ -43,9 +43,6 @@ cor.test(df$N_deposition, df$Species_richness, method = "pearson")
 # Rang-Korrelation Spearman
 cor.test(df$Species_richness, df$N_deposition, method = "spearman")
 
-# Rang-Korrelation Kendall
-cor.test(df$Species_richness, df$N_deposition, method = "kendall")
-
 # Jetzt als Regression
 
 # zuerst Species_richness dann N_deposition
