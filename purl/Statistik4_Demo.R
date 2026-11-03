@@ -39,9 +39,10 @@ cor(loyn[, 2:7])
 
 # oder mit Namen der columns resp. variablen
 library("dplyr")
+
 cor1 <- 
   loyn |>
-  select(AREA:ALT) |>
+  dplyr::select(AREA:ALT) |>
   cor() 
 
 # Korrelationen Visualisieren
@@ -78,7 +79,7 @@ plot(lm_1)
 #' -> Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|\<60\| Beobachtungen ist das Modell wohl "overfitted"
 #' 
 #' 
-#' ### Modellselektion
+#' ### Modellvereinfachung
 #' 
 ## -----------------------------------------------------------------------------
 summary(lm_1)
@@ -167,6 +168,11 @@ allmodels
 #' Wir haben mehre Modelle mit einem delta AICc <2, das heisst wir haben nicht 
 #' ein eindeutig bestes Modell (welches wir mit der funktion "get.models" 
 #' selektieren könnten)
+#' 
+## -----------------------------------------------------------------------------
+# Dredge option um die Anzahl predictoren zu limiteren (hier 4) 
+# dredge(global_model, m.lim = c(0, 4) )
+
 #' 
 ## -----------------------------------------------------------------------------
 # Variable importance
