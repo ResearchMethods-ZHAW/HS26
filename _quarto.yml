@@ -29,7 +29,6 @@ execute:
   warning: false
 
 
-
 knitr:
   opts_chunk: 
     collapse: true
