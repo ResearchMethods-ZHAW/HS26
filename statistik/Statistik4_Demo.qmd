@@ -42,7 +42,7 @@ library("dplyr")
 
 cor1 <- 
   loyn |>
-  select(AREA:ALT) |>
+  dplyr::select(AREA:ALT) |>
   cor() 
 
 # Korrelationen Visualisieren
