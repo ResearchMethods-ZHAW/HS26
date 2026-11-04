@@ -64,7 +64,7 @@
 #' 
 #' [Demoscript herunterladen (.qmd)](../purl/Statistik1_Uebung.qmd){.dld}
 #' 
-#' - [Lösungstexte als Download](Statistik1_Lösung.pdf)
+#' - [Lösungstexte als Download](Statistik1_Loesung.pdf)
 #' 
 #' ## Vorebreitung R-Session
 #' 

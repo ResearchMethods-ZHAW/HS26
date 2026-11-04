@@ -1,0 +1,319 @@
+#' ---
+#' lesson: Statistik6
+#' knitr:
+#'   opts_chunk: 
+#'     collapse: false
+#' editor: 
+#'   markdown: 
+#'     wrap: 72
+#' ---
+#' 
+#' 
+#' # Statistik 6: Demo
+#' 
+#' [Demoscript herunterladen (.R)](../purl/Statistik6_Demo.R){.dld}
+#' 
+#' [Demoscript herunterladen (.qmd)](../purl/Statistik6_Demo.qmd){.dld}
+#' 
+#' -   Datensatz *rm_plants.csv*
+#' -   Datensatz *DeerEcervi.csv*
+#' 
+## -----------------------------------------------------------------------------
+library("readr")
+library("ggplot2")
+library("dplyr")
+
+#' 
+#' ## Repeated measures
+#' 
+#' Es handelt sich um einen Düngeversuch (Daten aus Lepš & Šmilauer 2020).
+#' 18 Pflanzenindividuen wurden zufällig einer von drei Düngevarianten
+#' zugewiesen und dabei zu vier Zeitpunkten ihre Wuchshöhe gemessen.
+#' Abhängigkeiten sind hier in zwei Aspekten vorhanden: einerseits wurde
+#' jedes Pflanzenindividuum mehrfach gemessen, andererseits hat es nur
+#' jeweils eine Düngervariante erhalten.
+#' 
+## -----------------------------------------------------------------------------
+#| message: false
+# Daten laden
+plantf <- read_delim("datasets/stat/rm_plants.csv", delim = ";") |>
+  mutate( across(where(is.character), as.factor))
+
+#' 
+## -----------------------------------------------------------------------------
+str(plantf)
+summary(plantf)
+table(plantf$Treatment, plantf$PlantID)
+
+# Mit aov
+pf_eaov <- aov(PlantHeight ~ Treatment * Time + Error(PlantID), data = plantf)
+summary(pf_eaov)
+
+# Als LMM 
+library("glmmTMB")
+
+pf_lmm <- glmmTMB(PlantHeight ~ Treatment * Time + (1 | PlantID), 
+                 family = gaussian, 
+                 REML = TRUE,
+                 data = plantf)
+
+library("car")
+Anova(pf_lmm)
+summary(pf_lmm)
+
+library("performance")
+r2(pf_lmm)
+
+# Modellvalidierung mit DHARMa
+library("DHARMa")
+
+set.seed(123)
+simulationOutput <- 
+  simulateResiduals(fittedModel = pf_lmm, plot = TRUE, n = 1000)
+# Plot residuals vs. covariates des models
+plotResiduals(simulationOutput, form = plantf$Time)
+plotResiduals(simulationOutput, form = plantf$Treatment) 
+
+#' 
+## -----------------------------------------------------------------------------
+#| message: false
+#| warning: false
+# Darstellung (Interaktions Plot)
+library("ggeffects")
+pred <- predict_response(pf_lmm, terms = c("Time", "Treatment")) 
+pred
+
+plot(pred) +
+  theme_classic() +
+  theme(plot.title = element_blank())
+
+#' 
+#' ## Split-plot & Repeated measures Design
+#' 
+#' Es wurden zufällig fünf Untersuchungsgebiete (sites) ausgewählt, in
+#' denen jeweils der gleiche Versuchsblock implementiert wurde, bestehend
+#' aus dem Management (treatment) und der Frage, ob wilde Grossherbivoren
+#' Zugang zur Fläche hatten (plot type) (Abb. 6.1). Je ein Drittel jeder
+#' Untersuchungsfläche (zufällig zugewiesen) blieb gänzlich ungenutzt(U),
+#' wurde zu Beginn kontrolliert abgebrannt und danach sich selbst
+#' überlassen (B) oder wurde jährlich gemäht (M). Innerhalb jedes Drittels
+#' wiederum wurde (zufällig zugewiesen) die Hälfte eingezäunt (F = fenced
+#' vs. O = open), um die Beweidung durch Grossherbivoren zu verhindern.
+#' 
+## -----------------------------------------------------------------------------
+#| message: false
+# Import Data
+glex <- 
+  read_delim("datasets/stat/Riesch_et_al_2020_grassland.csv", delim = ";") |>
+  mutate(across(where(is.character), as.factor))
+
+#' 
+## -----------------------------------------------------------------------------
+str(glex)
+glex$year <- as.factor(glex$year)
+summary(glex)
+
+table(glex$site_code, glex$treatment, glex$plot_type, glex$year)
+
+#' 
+#' balanced Design (nicht zwingend nötig für LMM)
+#' 
+#' ## LMM with random interecept
+#' 
+#' REML = TRUE : (Restricted maximum likelihood) v.s\
+#' REML = FALSE: Maximum likelihood (ML)
+#' 
+#' Bei REML sind die estimates genauer, aber REML sollte nicht für
+#' Modelvergleiche (z.B mit AIcc oder drop1 funktion) benutzt werden Dies
+#' ist nur relevant für Gaussian mixed models (LMM) nicht für GLMMs
+#' 
+#' 
+## -----------------------------------------------------------------------------
+# 2.1 Model fitten
+lmm_1 <- glmmTMB(SR ~ year * treatment * plot_type + 
+               (1| site_code/treatment/plot_type), 
+               family = gaussian, 
+               REML = FALSE,
+               data = glex)
+
+
+#' 
+## -----------------------------------------------------------------------------
+# Manuelle Modelselektion
+drop1(lmm_1, test = "Chisq")
+
+lmm_2 <- update(lmm_1,~. -year:treatment:plot_type)
+drop1(lmm_2, test = "Chisq")
+
+lmm_3 <- update(lmm_2,~. -treatment:plot_type)
+drop1(lmm_3, test = "Chi")
+
+# Refit with REML
+lmm_4 <- update(lmm_3, REML = TRUE)
+
+# Resultat
+Anova(lmm_4)
+summary(lmm_4)
+r2(lmm_4)
+
+#' 
+#' Modelvalidierung
+#' 
+#' Wenn wir LMM für Zähldaten wie Anzahl Arten verwenden, sollten wir
+#' sicherstellen das keine Werte \<0 predicted werden (ansonsten brauchen
+#' wir GLMM\
+#' mit poisson Verteilung)
+#' 
+## -----------------------------------------------------------------------------
+sum( fitted(lmm_2) < 0)
+
+set.seed(123)
+simulationOutput <- 
+  simulateResiduals(lmm_2, plot = TRUE, n = 1000)
+
+#' 
+## -----------------------------------------------------------------------------
+#| warning: false
+# Darstellung
+library("ggeffects")
+
+pred_2 <- predict_response(lmm_2, terms = c("year", "treatment", "plot_type") ) 
+
+plot(pred_2) +
+  theme_classic() +
+  theme(plot.title = element_blank())
+
+#' 
+#' ## Random slope & random intercept
+#' 
+#' Im folgenden Beispiel wurde bei 18 Versuchspersonen die Wirkung von
+#' zunehmenden Schlafentzug auf die Reaktionszeit (in ms) gemessen. Bei
+#' jeder Versuchsperson wurde der Effekt an den Tagen 2–9 des Versuchs je
+#' einmal gemessen (Tage 0 und 1 sind die Trainingsphase und bleiben daher
+#' unberücksichtigt).
+#' 
+## -----------------------------------------------------------------------------
+# Daten laden
+library(lme4)
+data(sleepstudy)
+?sleepstudy
+
+# Daten ohne Trainingsphase
+sleepstudy_2 <- subset(sleepstudy, Days>=2)
+str(sleepstudy_2)
+summary(sleepstudy_2)
+
+table(sleepstudy_2$Subject)
+
+# Visualisierung
+ggplot(sleepstudy_2, aes(y = Reaction, x = Days)) +
+  geom_point() +
+  xlab("Number of days of sleep deprivation") +
+  ylab("Average reaction time (ms)") +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = F, fullrange = T) +
+  theme_classic() +
+  facet_wrap(~Subject)
+
+
+#' 
+#' Wie man in der Visualisierung sehen kann, unterscheiden sich nicht nur
+#' die Intercepts (Reaktionszeit ohne Schlafmangel), sondern der
+#' Schlafmangel scheint sich auch unterschiedlich stark auf die
+#' Reaktionszeit der Probanden auszuwirken. In diesem Fall ist es daher
+#' sinnvoll, nicht nur einen Random Intercept, sondern auch einen Random
+#' Slope zu fitten.
+#' 
+## -----------------------------------------------------------------------------
+# Fit models
+
+# Random intercept
+lmm_1 <- glmmTMB(Reaction ~ Days + (1 | Subject),
+                 family = gaussian,
+                 data = sleepstudy_2)
+
+# Random slope + random intercept
+lmm_2 <- glmmTMB(Reaction ~ Days + (Days | Subject),
+                 family = gaussian,
+                 data = sleepstudy_2)
+
+# Modelle vergleichen
+anova(lmm_1, lmm_2)
+
+# Modellvalidierung
+set.seed(123)
+simulationOutput <- simulateResiduals(fittedModel = lmm_2, plot = TRUE, n = 1000)
+
+# Model resultat
+summary(lmm_2)
+r2(lmm_2)
+
+# Visualisierung
+plot( predict_response(lmm_2)) +
+  geom_line(color = "blue") +
+  geom_point(data = sleepstudy_2, aes(Days, Reaction), alpha = 0.5) +
+  theme_classic() +
+  theme(plot.title = element_blank())
+
+#' 
+#' ## GLMM
+#' 
+#' Befall von Rothirschen (Cervus elaphus) in spanischen Farmen mit dem
+#' Parasiten Elaphostrongylus cervi. Modelliert wird
+#' Vorkommen/Nichtvorkommen von L1-Larven 130 dieser Nematode in
+#' Abhängigkeit von Körperlänge und Geschlecht der Hirsche. Erhoben wurden
+#' die Daten auf 24 Farmen.
+#' 
+## -----------------------------------------------------------------------------
+#| message: false
+# Daten laden und für GLMM aufbereiten
+DeerEcervi <- read_delim("datasets/stat/DeerEcervi.csv", delim = ";") |>
+  mutate( across(where(is.character), as.factor))
+
+#' 
+## -----------------------------------------------------------------------------
+# Daten anschauen
+str(DeerEcervi)
+summary(DeerEcervi)
+table(DeerEcervi$Farm)
+
+#' 
+## -----------------------------------------------------------------------------
+# Model fitten. Die function "scale" standartisiert die Kontinuierliche variable 
+# Hischlänge:
+# ( DeerEcervi$Length - mean(DeerEcervi$Length)) / sd(DeerEcervi$Length )
+glmm_1 <- glmmTMB(Ecervi ~ scale(Length) * Sex + (1 | Farm), 
+                  family = binomial, 
+                  data = DeerEcervi)
+
+Anova(glmm_1)
+summary(glmm_1)
+
+library("performance")
+r2(glmm_1)
+performance_roc(glmm_1)
+
+#' 
+## -----------------------------------------------------------------------------
+# Modellvalidierung
+set.seed(123)
+simulationOutput <- 
+  simulateResiduals(fittedModel = glmm_1, plot = TRUE, n = 1000)
+plotResiduals(simulationOutput, form = DeerEcervi$Sex)
+plotResiduals(simulationOutput, form = scale(DeerEcervi$Length) )
+
+#' 
+## -----------------------------------------------------------------------------
+#| warning: false
+# Visualisierung
+pred_3 <- predict_response(glmm_1, c("Length[all]", "Sex") )
+
+# mit all werden für mehr Körperlängen Werte predicted was zu smootheren 
+# lines im plot führt
+ggplot(pred_3, aes(x, predicted, color = group)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = DeerEcervi, aes(Length, Ecervi, color = Sex), alpha = 0.5) +
+  labs(x = "\n Dear body length [cm]",
+       y = "Wahrscheinlichkeiten einer Elaphostrongylus cervi infection \n") +
+  theme_classic() +
+  theme(plot.title = element_blank())
+
