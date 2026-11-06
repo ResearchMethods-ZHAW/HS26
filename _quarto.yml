@@ -29,7 +29,6 @@ execute:
   warning: false
 
 
-
 knitr:
   opts_chunk: 
     collapse: true
@@ -84,10 +83,10 @@ book:
       - statistik/Statistik3_Uebung.qmd
       - statistik/Statistik4_Demo.qmd
       - statistik/Statistik4_Uebung.qmd
-    #   - statistik/Statistik5_Demo.qmd
-    #   - statistik/Statistik5_Uebung.qmd
-    #   - statistik/Statistik6_Demo.qmd
-    #   - statistik/Statistik6_Uebung.qmd
+      - statistik/Statistik5_Demo.qmd
+      - statistik/Statistik5_Uebung.qmd
+      - statistik/Statistik6_Demo.qmd
+      - statistik/Statistik6_Uebung.qmd
     #   - statistik/Statistik7_Demo.qmd
     #   - statistik/Statistik7_Uebung.qmd
     #   - statistik/Statistik8_Demo.qmd

@@ -6,7 +6,6 @@ knitr:
 musterloesung: true
 ---
 
-
 # Statistik 1: Übung
 
 
@@ -65,7 +64,7 @@ Wurden in den Basis- und Interventionswochen unterschiedlich viele Gerichte verk
 
 [Demoscript herunterladen (.qmd)](../purl/Statistik1_Uebung.qmd){.dld}
 
-- [Lösungstexte als Download](Statistik1_Lösung.pdf)
+- [Lösungstexte als Download](Statistik1_Loesung.pdf)
 
 ## Vorebreitung R-Session
 
