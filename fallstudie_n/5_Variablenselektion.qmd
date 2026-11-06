@@ -1,276 +1,348 @@
 ---
+title: "Multivariate Modelle – Variablenselektion"
+
+# EINZIGE UMSCHALTSTELLE FÜR DIE VERÖFFENTLICHUNG:
+# Aufgabenversion: beide Schalter false; Musterlösungen: beide true.
 execute:
-  echo: true # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false    # true = Musterlösungs-Code anzeigen
+  output: false  # true = Ergebnisse / Grafiken der Musterlösung anzeigen
+  warning: false
+  message: false
+
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
+    fig.width: 9
+    fig.height: 5
 ---
 
-# Variablenselektion Multivariate Modelle
+<!--
+HINWEIS FÜR DIE LEHRPERSON:
+- Nur die gerenderte HTML-Seite veröffentlichen; die QMD-Datei enthält die
+  Musterlösungen auch bei execute.echo=false im Quelltext.
+- Alle vorgegebenen Beispiel-Chunks haben explizit echo/output: true.
+- Lösungschunks erben die beiden globalen Schalter. Sie werden beim Rendern
+  ausgeführt, aber in der Aufgabenversion weder als Code noch als Ausgabe angezeigt.
+- Wir prüfen bis zu drei quadratische Kandidaten: slope, dist_road_only,
+  forest_prop. Die Hierarchie zum jeweiligen linearen Term wird durch dc()
+  gesichert.
+-->
 
-## Libraries laden
+## Ziel und Einordnung
+
+In den letzten Übungen habt ihr die acht Umweltvariablen explorativ dargestellt und **selbstständig eine Korrelationsmatrix** erstellt. Wir verwenden diese Ergebnisse nun für die Variablenselektion. Ausserdem habt ihr bei der Hangneigung (`slope`) mögliche gekrümmte Zusammenhänge zwischen der Umweltvariable und der Nutzung untersucht.
+
+**Anschluss an Statistik 5:** Am Vormittag habt ihr binomiale GLMs und die Logit-Linkfunktion kennengelernt. Wir verwenden GLMMs, um zusätzlich individuelle Unterschiede zwischen den Rehen zu berücksichtigen. Die Theorie zu gemischten Modellen wird in Statistik 6 vertieft. Modellvergleiche mit AICc knüpfen an Statistik 4 an.
+
+**Zur Dateninterpretation:** `pres_abs = 1` kennzeichnet *Präsenz*, `pres_abs = 0` *Absenz*. Letzteres bedeutet nicht, dass der Kreis sicher nie genutzt wurde. Modellwerte beschreiben die Unterscheidung zwischen *Präsenz* und *Absenz* im gewählten Stichprobendesign; sie sind **keine absoluten Vorkommenswahrscheinlichkeiten**.
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Diesen Code übernehmt ihr in euer eigenes R-Skript und interpretiert die Ausgabe.
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+Hier entwickelt oder ergänzt ihr Code selbst. Die Musterlösungen werden eine Woche später auf der GitHub-Seite freigeschaltet.
+:::
+
+## Vorbereitung – Packages und Daten
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Ladet die Packages und den Datensatz. Der Datenpfad entspricht der aktuellen Übung 4. Wahrscheinlich ist sind die Daten in eurem Projekt noch geladen, falls nötig passt ihn **in eurem eigenen Skript** an. 
 
 ```{r}
+#| label: setup-modelle
 #| echo: true
+#| output: true
 #| code-fold: false
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(glmmTMB)
+library(MuMIn)
 
-library("sf")
-library("terra")
-library("dplyr")
-library("readr")
-library("ggplot2")
-library("PerformanceAnalytics")
-library("pastecs")
-library("lme4")
-library("bbmle")
-library("MuMIn")
-library("MASS")
-```
+vars_umwelt <- c(
+  "slope", "topo_pos", "dist_road_trails", "dist_road_only",
+  "dist_sett", "forest_prop", "us_2014", "os_2014"
+)
 
-## Variablenselektion
+DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv", delim = ";")
 
-→ Vorgehen analog @coppes2017
+stopifnot(all(c("pres_abs", "id", "time_of_day", vars_umwelt) %in% names(DF_reh)))
+stopifnot(all(vapply(DF_reh[vars_umwelt], is.numeric, logical(1))))
+stopifnot(all(na.omit(DF_reh$pres_abs) %in% c(0, 1)))
 
-## Aufgabe 1
+# Reh-ID als Faktor für die späteren GLMMs
+DF_reh$id <- factor(DF_reh$id)
 
-Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden, vergl. Aufgabe 5 vorangehende Woche 
-
-```{r}
-#| echo: true
-#| code-fold: false
-
-DF_reh <- read_delim("datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv", delim = ";")
+# Tagdatensatz erstellen
 
 DF_reh_day <- DF_reh |>
   filter(time_of_day == "day")
 
-round(cor(DF_reh_day[, 5:12], method = "pearson"), 2)
-
-# hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist eher liberal /
-# 0.5 konservativ
-
-cor <- round(cor(DF_reh_day[, 5:12], method = "pearson"), 2)
-cor[abs(cor) < 0.7] <- 0
-cor
 ```
+:::
 
-## Aufgabe 2
+## Aufgabe 1 – Kontinuierliche Variablen skalieren
 
-Skalieren der Variablen, damit ihr Einfluss vergleichbar wird (Befehl scale(); Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern));
-Umwandeln der Reh-ID in einen Faktor, damit dieser als Random Factor ins Model eingespiesen werden kann.
+Die Umweltvariablen haben unterschiedliche Einheiten und Wertebereiche (z. B. Grad, Meter, Anteile von 0 bis 1). Bei komplexeren GLMMs kann dies die numerische Schätzung erschweren. Deshalb **standardisieren** wir die kontinuierlichen Prädiktoren vor der Modellierung: Mittelwert 0, Standardabweichung 1 (z-Transformation). So lassen sich Effekte je Standardabweichung interpretieren. Die Skalierung verändert weder die Rangfolge der Beobachtungen noch beseitigt sie Korrelationen zwischen Prädiktoren. Als Beispiel:
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+```{r}
+#| label: beispiel-skalierung
+#| echo: true
+#| output: true
+#| code-fold: false
+DF_reh_day <- DF_reh_day |>
+  mutate(slope_scaled = as.numeric(scale(slope)))
+
+DF_reh_day |>
+  summarise(mittelwert = mean(slope_scaled),
+            standardabweichung = sd(slope_scaled))
+```
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Skalierung ergänzen"}
+Erstellt für die übrigen sieben Umweltvariablen ebenfalls standardisierte Spalten. Verwendet die später benötigten Namen `topo_pos_scaled`, `us_scaled`, `os_scaled`, `forest_prop_scaled`, `dist_road_trails_scaled`, `dist_road_only_scaled` und `dist_sett_scaled`. 
+:::
 
 ```{r}
+#| label: loesung-skalierung
+DF_reh_day <- DF_reh_day |>
+  mutate(
+    topo_pos_scaled = as.numeric(scale(topo_pos)),
+    us_scaled = as.numeric(scale(us_2014)),
+    os_scaled = as.numeric(scale(os_2014)),
+    forest_prop_scaled = as.numeric(scale(forest_prop)),
+    dist_road_trails_scaled = as.numeric(scale(dist_road_trails)),
+    dist_road_only_scaled = as.numeric(scale(dist_road_only)),
+    dist_sett_scaled = as.numeric(scale(dist_sett))
+  )
+
+```
+
+## Aufgabe 2 – Ein erstes binomiales GLMM: die Modellformel verstehen
+
+Hier lernt ihr die Grundstruktur einer GLMM-Modellformel mit `glmmTMB()` kennen, bevor wir mehrere Prädiktoren kombinieren: Links von `~` steht die Antwortvariable, rechts stehen die erklärenden Variablen und der zufällige Effekt. `family` legt die bedingte Verteilung und den Link fest; `data` bezeichnet den verwendeten Datensatz. Wir starten bewusst mit **einem linearen Effekt von `slope`**.
+
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Bei der binären Antwortvariable `pres_abs` verwenden wir eine **Binomialverteilung** mit Logit-Link. Mit `(1 | id)` darf jedes Reh einen eigenen zufälligen Achsenabschnitt (*random intercept*) haben. Damit berücksichtigen wir, dass Kreise desselben Rehs nicht wie vollständig unabhängige Individuen behandelt werden dürfen.
+
+```{r}
+#| label: erstes-glmm
 #| echo: true
+#| output: true
+#| code-fold: false
+m_slope_linear_day <- glmmTMB(
+  pres_abs ~ slope_scaled + (1 | id),
+  data = DF_reh_day,
+  family = binomial(link = "logit"),
+  na.action = na.fail
+)
+
+summary(m_slope_linear_day)
+```
+
+**Frage:** Wie interpretiert ihr das Vorzeichen von `slope_scaled`? 
+:::
+
+## Aufgabe 3 – Stark korrelierte Variablen gegeneinander abwägen
+
+Nehmt eure **Korrelationsmatrix aus Übung 4** zur Hand. Besonders stark zusammenhängende Prädiktoren können teilweise ähnliche Umweltinformationen liefern. Wir verwenden beispielhaft einen Vergleich von zwei Modellen mit jeweils **nur einer** der hoch korrelierten Variablen. Alle anderen Modellbestandteile bleiben identisch. Die Definition des Korrelations-Schwellenwerts kann konservativer oder liberaler gesetzt werden, üblich ist zwischen 0.5-0.7. Schaut auch wie Coppes et al. (2017) das gemacht haben.
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN – Beispiel Strassen und Wege"}
+Wir vergleichen `dist_road_trails` und `dist_road_only` anhand des AICc. Das Modell mit dem kleineren AICc weist innerhalb dieses Vergleichs die bessere Balance zwischen Modellanpassung und Komplexität auf.
+
+Da wir später die Habitatselektion zwischen verschiedenen Tageszeiten und Störungskategorien vergleichen, sollten wir in allen vier Teildatensätzen dieselben erklärenden Variablen verwenden. Bei der Auswahl berücksichtigen wir deshalb neben dem AICc auch die ökologische Bedeutung der Variablen und ihre Eignung für die Forschungsfrage. Die Entscheidung kann somit zugunsten einer ökologisch besonders relevanten Variable ausfallen, selbst wenn eine stark korrelierte Alternative in einem einzelnen Teildatensatz einen etwas niedrigeren AICc aufweist. Vergleicht diesen Aspekt auch mit dem Vorgehen von Coppes et al. (2017).
+
+```{r}
+#| label: vergleich-strassen
+#| echo: true
+#| output: true
+#| code-fold: false
+m_wege <- glmmTMB(
+  pres_abs ~ dist_road_trails_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+m_strassen <- glmmTMB(
+  pres_abs ~ dist_road_only_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+MuMIn::AICc(m_wege, m_strassen)
+```
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Waldstruktur"}
+Vergleicht analog die weiteren korrellierenden Variablen im **Tagesdatensatz**. Erstellt jeweils zwei binomiale GLMMs mit demselben Random Effect, berechnet den AICc und entscheidet, welche Variable ihr für die weitere Modellierung bevorzugt. 
+:::
+
+```{r}
+#| label: loesung-waldvergleich
+m_waldanteil <- glmmTMB(
+  pres_abs ~ forest_prop_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+m_baumschicht <- glmmTMB(
+  pres_abs ~ os_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+MuMIn::AICc(m_waldanteil, m_baumschicht)
+```
+
+## Aufgabe 4 – Quadratische Terme als Modellkandidaten
+
+In den Übungen von letzter Woche habt ihr für `slope` betrachtet, wie sich der Anteil genutzter Kreise entlang der Hangneigung verändert. Solche Nutzungskurven können auf **nichtlineare Zusammenhänge** hinweisen. Nach eurer **Korrelationsentscheidung aus Aufgabe 3** steht fest, welche stark korrelierten Variablen nicht gemeinsam im globalen Modell verwendet werden. Erst jetzt legen wir fest, für welche der verbleibenden Prädiktoren eine Krümmung geprüft werden soll. Wir beschränken uns auf **maximal drei quadratische Kandidaten**:
+
+- `slope`: Die Nutzungskurven zeigten mögliche Änderungen der Steigung. Ein Abflachen oder ein Optimum ist denkbar.
+- **Eine Strassendistanz** (`dist_road_only` oder `dist_road_trails`): Die Habitatnutzung könnte sich in Weg- oder Strassennähe stark ändern und mit zunehmender Entfernung abflachen.
+- **Eine Waldstrukturvariable** (`forest_prop` oder `os_2014`): Die Nutzung könnte bei mittleren Werten anders ausfallen als bei geringen oder hohen Waldanteilen beziehungsweise Deckungsgraden in der Baumschicht.
+
+Welche Distanz- und Waldstrukturvariable in euer Modell gelangt, richtet sich nach eurer Entscheidung in Aufgabe 3. **Für den gemeinsamen Beispielworkflow** rechnen wir im Folgenden mit `slope`, `dist_road_only` und `forest_prop`. Falls ihr die jeweiligen Alternativen ausgewählt habt, passt die quadratischen Terme und die Modellformel entsprechend an. Ob ein quadratischer Term die Modellanpassung tatsächlich verbessert, prüfen wir anschliessend durch einen Modellvergleich mittels AICc.
+
+::: {.callout-tip title="NACHVOLLZIEHEN – Quadratische Variablen"}
+
+```{r}
+#| label: beispiel-quadratische-kandidaten
+#| echo: true
+#| output: true
 #| code-fold: false
 
 DF_reh_day <- DF_reh_day |>
   mutate(
-    slope_scaled = scale(slope),
-    topo_pos_scaled = scale(topo_pos),
-    us_scaled = scale(us_2014),
-    os_scaled = scale(os_2014),
-    forest_prop_scaled = scale(forest_prop),
-    dist_road_trails_scaled = scale(dist_road_trails),
-    dist_road_only_scaled = scale(dist_road_only),
-    dist_sett_scaled = scale(dist_sett),
-    id = as.factor(id)
+    slope_quadrat = slope_scaled^2,
+    dist_road_only_quadrat = dist_road_only_scaled^2,
+    forest_prop_quadrat = forest_prop_scaled^2
   )
-```
 
-## Aufgabe 3
-
-**Selektion der Variablen in einem univariaten Model**
-
-Ein erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel
-
-> wichtige [Seite](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) auf der man viele Hilfestellungen zu GLMM’s finden kann.
-
-```{r}
-#| echo: true
-#| code-fold: false
-
-# wir werden das package lme4 mit der Funktion glmer verwenden
-
-# die Hilfe von glmer aufrufen: ?glmer
-
-# glmer(formula, data = , family = binomial)
-
-# 1) formula:
-# Abhängige Variable ~ Erklärende Variable + Random Factor
-# In unseren Modellen kontrollieren wir für individuelle Unterschiede bei den Rehen
-# indem wir einen Random Factor definieren => (1 | id)
-
-# 2) data:
-# euer Datensatz
-
-# 3) family:
-# hier binomial
-
-# warum binomial? Verteilung Daten der abhängigen Variable Präsenz/Absenz
-
-ggplot(DF_reh_day, aes(pres_abs)) +
-  geom_histogram()
-
-# --> Binäre Verteilung => Binomiale Verteilung mit n = 1
-
-# und wie schaut die Verteilung der Daten der abhängigen Variable Nutzungsintensität
-# (nmb, werden wir in diesem Kurs aber nicht genauer anschauen) aus?
-```
-
-## Aufgabe 4
-
-Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.
-
-***Als abhängige Variable verwenden wir die Präsenz/Absenz der Rehe in den Kreisen***
-
-```{r}
-#| eval: false
-#| error: true
-#| echo: true
-#| code-fold: false
-
-# Die erklärende Variable in m1 ist die erste Variable der korrelierenden Variablen
-# Die erklärende Variable in m2 ist die zweite Variable der korrelierenden Variablen
-
-modell_1 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),
-  data = DF_reh_day,
-  family = binomial
+m_slope_quadrat_day <- glmmTMB(
+  pres_abs ~ slope_scaled + slope_quadrat + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
 )
 
-modell_2 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),
-  data = DF_reh_day,
-  family = binomial
+MuMIn::AICc(m_slope_linear_day, m_slope_quadrat_day)
+```
+:::
+
+::: {.callout-note title="SELBST PROGRAMMIEREN – Weitere quadratische Modelle"}
+
+Prüft nun analog für `dist_road_only` und `forest_prop`, ob ein zusätzlicher quadratischer Term die Modellanpassung verbessert.
+
+- Erstellt für jede Variable ein lineares und ein quadratisches binomiales GLMM. Verwendet jeweils denselben Random Effect `(1 | id)`.
+- Vergleicht die Modelle mittels AICc.
+- Bei welchen Variablen verbessert der quadratische Term die Modellanpassung?
+
+:::
+
+```{r}
+#| label: loesung-weitere-quadratische-modelle
+#| code-fold: true
+#| code-summary: "Musterlösung"
+
+# Distanz zu Strassen
+m_strassen_linear_day <- glmmTMB(
+  pres_abs ~ dist_road_only_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
 )
 
-# mit dieser Funktion können die Modellergebnisse inspiziert werden
-summary(modell_1)
-summary(modell_2)
+m_strassen_quadrat_day <- glmmTMB(
+  pres_abs ~ dist_road_only_scaled + dist_road_only_quadrat + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
 
-# Mit dieser Funktion kann der Informationgehalt der beiden Modelle gegeneinander
-# abgeschätzt werden
-bbmle::AICtab(modell_1, modell_2)
+MuMIn::AICc(m_strassen_linear_day, m_strassen_quadrat_day)
 
-# tieferer AIC -> besser (AIC = Akaike information criterion)
 
-# ==> dieses Vorgehen muss nun für alle korrelierten Variablen für jeden Teildatensatz
-# (Tag/Nacht) durchgeführt werden, um nur noch nicht (R < 0.7) korrelierte Variablen
-# in das Modell einfliessen zu lassen
+# Waldanteil
+m_wald_linear_day <- glmmTMB(
+  pres_abs ~ forest_prop_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+m_wald_quadrat_day <- glmmTMB(
+  pres_abs ~ forest_prop_scaled + forest_prop_quadrat + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
+
+MuMIn::AICc(m_wald_linear_day, m_wald_quadrat_day)
 ```
+
+
+## Aufgabe 5 – Multivariate Variablenselektion
+
+Wir gehen nun vom Modell mit einer erklärenden Variable zu einem **globalen Modell mit mehreren Prädiktoren** über. Die Variablenauswahl aus Aufgabe 3 bestimmt, welche hoch korrelierten Variablen nicht gleichzeitig ins Modell gehören. Für die gemeinsame Übung verwenden wir zunächst die sechs erklärenden Variablen des bisherigen Beispiels, bei begründeten Abweichungen könnt ihr sie für eure eigene Analyse ersetzen.
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Globales Modell"}
+Fittet für den **Tagesdatensatz** ein globales binomiales GLMM mit `slope_scaled`, `topo_pos_scaled`, `us_scaled`, `forest_prop_scaled`, `dist_road_only_scaled`, `dist_sett_scaled` und dem zufälligen Interzept `(1 | id)`. Ergänzt die drei quadratischen Kandidaten `slope_quadrat`, `dist_road_only_quadrat` und `forest_prop_quadrat`. **Jeder quadratische Term darf nur zusammen mit seinem linearen Term vorkommen.**
+
+Verwendet `na.action = na.fail` und überprüft den Output anschliessend mit `summary()`.
+
+```r
+# m_global_day <- glmmTMB(
+#   pres_abs ~ ... + slope_quadrat + (1 | id),
+#   data = DF_reh_day, family = binomial(), na.action = na.fail
+# )
+```
+:::
 
 ```{r}
+#| label: loesung-globales-modell
+m_global_day <- glmmTMB(
+  pres_abs ~ slope_scaled + slope_quadrat + topo_pos_scaled +
+    us_scaled + forest_prop_scaled + forest_prop_quadrat +
+    dist_road_only_scaled + dist_road_only_quadrat +
+    dist_sett_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
 
-modell_1 <- glmer(pres_abs ~ dist_road_trails_scaled + (1 | id), data = DF_reh_day, family = binomial)
-modell_2 <- glmer(pres_abs ~ dist_road_only_scaled + (1 | id), data = DF_reh_day, family = binomial)
-
-summary(modell_1)
-summary(modell_2)
-
-bbmle::AICtab(modell_1, modell_2)
-
-# tieferer AIC -> besser (AIC = Akaike information criterion) -> als deltaAIC ausgewiesen 
-# Distanz zu Strassen (dist_road_only) = besser
-
-
-modell_3 <- glmer(pres_abs ~ forest_prop_scaled + (1 | id), data = DF_reh_day, family = binomial)
-modell_4 <- glmer(pres_abs ~ os_scaled + (1 | id), data = DF_reh_day, family = binomial)
-
-summary(modell_3)
-summary(modell_4)
-
-bbmle::AICtab(modell_3, modell_4)
-
-# tieferer AIC -> besser (AIC = Akaike information criterion) -> als deltaAIC ausgewiesen 
-# Distanz zu Strassen (dist_road_only) = besser
-
+summary(m_global_day)
 ```
 
-## Aufgabe 5
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN – AICc-Modellselektion"}
+Mit `MuMIn::dredge()` werden Teilmodelle des globalen Modells verglichen. Die Reh-ID bleibt in allen Modellen als zufälliger Effekt erhalten. **Für jeden quadratischen Term wird die Hierarchie über `dc()` gesichert:** Ein quadratischer Term darf nur dann enthalten sein, wenn auch sein zugehöriger linearer Term im Modell vorkommt. Das gilt für `slope`, `dist_road_only` und `forest_prop`.
 
-**Selektion der Variablen in einem multivariaten Model --> Multimodel inference**
+`dredge()` kann viele Modelle fitten. Die Durchläufe dauern je nach Rechenpower eine gewisse Zeit.
 
-Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Multimodel inference aufgebaut werden (siehe auch Stats-Skript von J.Dengler & Team)
-
-```{r }
-#| eval: false
-#| error: true
+```{r}
+#| label: dredge-tag
 #| echo: true
+#| output: true
 #| code-fold: false
+all_m_global_day <- MuMIn::dredge(
+  m_global_day,
+  rank = "AICc",
+  subset = dc(slope_scaled, slope_quadrat) &
+    dc(dist_road_only_scaled, dist_road_only_quadrat) &
+    dc(forest_prop_scaled, forest_prop_quadrat)
+)
 
-# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6
-# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
+# Die Modelle mit dem niedrigsten AICc stehen oben.
+head(all_m_global_day, 10)
 
-f <- pres_abs ~
-  V1 +
-  V2 +
-  V3 +
-  V4 +
-  V5 +
-  V6 
+# Summierte Akaike-Gewichte je Prädiktor:
+MuMIn::sw(all_m_global_day)
 
-# in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
-# daraus gemacht
-
-f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
-
-# Das Modell mit dieser Formel ausführen
-
-m_reh_day <- glmer(f_dredge, data = DF_reh_day, family = binomial, na.action = "na.fail")
-
-# Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)
-
-all_m_reh_day <- dredge(m_reh_day)
-all_m_reh_day
-
-# Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte
-# Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))
-
-sw(all_m_reh_day)
-
-# Schlussendlich kann ein Modelaverage durchgeführt werden (Schwellenwert für das delta-AIC = 2)
-
-avgmodel_m_reh_day <- model.avg(all_m_reh_day, rank = "AICc", subset = delta < 2)
-summary(avgmodel_m_reh_day)
-
+# Das bestplatzierte Einzelmodell für die nächste Übung:
+best_model_day <- MuMIn::get.models(all_m_global_day, subset = 1)[[1]]
+summary(best_model_day)
 ```
 
-```{r}
+Eine kleine ΔAICc in der Liste der Top-Modelle bedeutet, dass mehrere Modelle ähnlich gut gestützt sind. Wir verwenden für die Modelldiagnostik und die Response Curves von nächster Woche ausschliesslich das `best_model` als einzelnes, konkret spezifiziertes Modell.
 
-# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6
-# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
+:::
 
-f <- pres_abs ~
-  slope_scaled +
-  topo_pos_scaled +
-  us_scaled +
-  forest_prop_scaled +
-  dist_road_only_scaled +
-  dist_sett_scaled 
+### Exkurs: Model Averaging
 
-# in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
-# daraus gemacht
+Wenn mehrere Modelle ähnlich gut gestützt sind (beispielsweise ΔAICc < 2), ist die Wahl eines einzigen Modells mit **Modellunsicherheit** verbunden. Beim *Model Averaging* werden Koeffizienten mehrerer Kandidatenmodelle anhand ihrer Akaike-Gewichte gemittelt. Es entsteht damit **kein neues Einzelmodell mit einer eindeutig festgelegten Formel**. Da beim Model Averaging die Ergebnisse mehrerer Modelle kombiniert werden, ist die anschliessende Modelldiagnostik und Visualisierung aufwendiger. Wir arbeiten deshalb in den nachfolgenden Übungen mit dem Modell weiter, das den niedrigsten AICc aufweist.
 
-f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
+In der Studie von Coppes et al. (2017) wurde eine Modellmittelung nur dann angewendet, wenn mehrere Modelle mit ΔAIC < 2 ähnlich gut gestützt waren. Das war für eines der sechs finalen Modelle der Fall. 
 
-# Das Modell mit dieser Formel ausführen
+## Ausblick – Modellgüte und Diagnostik
 
-m_reh_day <- glmer(f_dredge, data = DF_reh_day, family = binomial, na.action = "na.fail")
-
-# Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)
-
-all_m_reh_day <- dredge(m_reh_day)
-
-# Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte
-# Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))
-
-sw(all_m_reh_day)
-
-# Schlussendlich kann ein Modelaverage durchgeführt werden (Schwellenwert für das delta-AIC = 2)
-
-avgmodel_m_reh_day <- model.avg(all_m_reh_day, rank = "AICc", subset = delta < 2)
-summary(avgmodel_m_reh_day)
-```
-
-
+In der nächsten Übung prüfen mit `DHARMa` die Modellannahmen und stellen die Resultate grafisch dar. 

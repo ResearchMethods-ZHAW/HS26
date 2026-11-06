@@ -152,7 +152,7 @@ plot_used_available <- function(datensatz, titel) {
     mutate(gruppe = factor(
       pres_abs,
       levels = c(0, 1),
-      labels = c("available", "used")
+      labels = c("Absenz", "Präsenz")
     )) |>
     select(gruppe, all_of(vars_umwelt)) |>
     pivot_longer(
