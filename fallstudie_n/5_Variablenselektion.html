@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,13 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../fallstudie_n/4_Multivariate_Modelle.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -730,24 +731,26 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>vars_umwelt <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"slope"</span>, <span class="st">"topo_pos"</span>, <span class="st">"dist_road_trails"</span>, <span class="st">"dist_road_only"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dist_sett"</span>, <span class="st">"forest_prop"</span>, <span class="st">"us_2014"</span>, <span class="st">"os_2014"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>DF_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>vars_umwelt <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"slope"</span>, <span class="st">"topo_pos"</span>, <span class="st">"dist_road_trails"</span>, <span class="st">"dist_road_only"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dist_sett"</span>, <span class="st">"forest_prop"</span>, <span class="st">"us_2014"</span>, <span class="st">"os_2014"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">c</span>(<span class="st">"pres_abs"</span>, <span class="st">"id"</span>, <span class="st">"time_of_day"</span>, vars_umwelt) <span class="sc">%in%</span> <span class="fu">names</span>(DF_reh)))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">vapply</span>(DF_reh[vars_umwelt], is.numeric, <span class="fu">logical</span>(<span class="dv">1</span>))))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">na.omit</span>(DF_reh<span class="sc">$</span>pres_abs) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Reh-ID als Faktor für die späteren GLMMs</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>DF_reh<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">factor</span>(DF_reh<span class="sc">$</span>id)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagdatensatz erstellen</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>DF_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">c</span>(<span class="st">"pres_abs"</span>, <span class="st">"id"</span>, <span class="st">"time_of_day"</span>, vars_umwelt) <span class="sc">%in%</span> <span class="fu">names</span>(DF_reh)))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">vapply</span>(DF_reh[vars_umwelt], is.numeric, <span class="fu">logical</span>(<span class="dv">1</span>))))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">na.omit</span>(DF_reh<span class="sc">$</span>pres_abs) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Reh-ID als Faktor für die späteren GLMMs</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>DF_reh<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">factor</span>(DF_reh<span class="sc">$</span>id)</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagdatensatz erstellen</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh <span class="sc">|&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -831,9 +834,9 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of obs: 3964, groups:  id, 12</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Conditional model:</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -0.27012    0.17850  -1.513     0.13    </span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled  0.43490    0.03951  11.007   &lt;2e-16 ***</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error z value            Pr(&gt;|z|)    </span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -0.27012    0.17850  -1.513                0.13    </span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled  0.43490    0.03951  11.007 &lt;0.0000000000000002 ***</span></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -843,7 +846,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 </section>
 <section id="aufgabe-3-stark-korrelierte-variablen-gegeneinander-abwägen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-stark-korrelierte-variablen-gegeneinander-abwägen">Aufgabe 3 – Stark korrelierte Variablen gegeneinander abwägen</h2>
-<p>Nehmt eure <strong>Korrelationsmatrix aus Übung 4</strong> zur Hand. Besonders stark zusammenhängende Prädiktoren können teilweise ähnliche Umweltinformationen liefern. Wir verwenden beispielhaft einen Vergleich von zwei Modellen mit jeweils <strong>nur einer</strong> der hoch korrelierten Variablen. Alle anderen Modellbestandteile bleiben identisch. Die Definition des Korrelations-Schwellenwerts kann konservativer oder liberaler gesetzt werden, üblich ist zwischen 0.5-0.7. Schaut auch wie Coppes et al.&nbsp;(2017) das gemacht haben.</p>
+<p>Nehmt eure <strong>Korrelationsmatrix aus Übung 4 von letzter Woche</strong> zur Hand. Besonders stark zusammenhängende Prädiktoren können teilweise ähnliche Umweltinformationen liefern. Wir verwenden beispielhaft einen Vergleich von zwei Modellen mit jeweils <strong>nur einer</strong> der hoch korrelierten Variablen. Alle anderen Modellbestandteile bleiben identisch. Die Definition des Korrelations-Schwellenwerts kann konservativer oder liberaler gesetzt werden, üblich ist zwischen 0.5-0.7. Schaut auch wie Coppes et al.&nbsp;(2017) das gemacht haben.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN – Beispiel Strassen und Wege">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1073,16 +1076,16 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of obs: 3964, groups:  id, 12</span></span>
 <span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="do">## Conditional model:</span></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="do">##                        Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)             0.18495    0.14995   1.233   0.2174    </span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_quadrat -0.31030    0.02574 -12.056  &lt; 2e-16 ***</span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_scaled   0.97543    0.06641  14.688  &lt; 2e-16 ***</span></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_quadrat    -0.33080    0.05458  -6.061 1.35e-09 ***</span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_scaled      0.91215    0.05610  16.260  &lt; 2e-16 ***</span></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_quadrat          -0.06945    0.03431  -2.024   0.0429 *  </span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled           -0.16009    0.06310  -2.537   0.0112 *  </span></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="do">## topo_pos_scaled        -0.07042    0.03799  -1.854   0.0638 .  </span></span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="do">## us_scaled               0.39713    0.04228   9.393  &lt; 2e-16 ***</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="do">##                        Estimate Std. Error z value             Pr(&gt;|z|)    </span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)             0.18495    0.14995   1.233               0.2174    </span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_quadrat -0.31030    0.02574 -12.056 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_scaled   0.97543    0.06641  14.688 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_quadrat    -0.33080    0.05458  -6.061        0.00000000135 ***</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_scaled      0.91215    0.05610  16.260 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_quadrat          -0.06945    0.03431  -2.024               0.0429 *  </span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled           -0.16009    0.06310  -2.537               0.0112 *  </span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="do">## topo_pos_scaled        -0.07042    0.03799  -1.854               0.0638 .  </span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="do">## us_scaled               0.39713    0.04228   9.393 &lt; 0.0000000000000002 ***</span></span>
 <span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1091,7 +1094,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 </div>
 <section id="exkurs-model-averaging" class="level3">
 <h3 class="anchored" data-anchor-id="exkurs-model-averaging">Exkurs: Model Averaging</h3>
-<p>Wenn mehrere Modelle ähnlich gut gestützt sind (beispielsweise ΔAICc &lt; 2), ist die Wahl eines einzigen Modells mit <strong>Modellunsicherheit</strong> verbunden. Beim <em>Model Averaging</em> werden Koeffizienten mehrerer Kandidatenmodelle anhand ihrer Akaike-Gewichte gemittelt. Es entsteht damit <strong>kein neues Einzelmodell mit einer eindeutig festgelegten Formel</strong>. Da beim Model Averaging die Ergebnisse mehrerer Modelle kombiniert werden, ist die anschliessende Modelldiagnostik und Visualisierung aufwendiger. Wir arbeiten deshalb in den nachfolgenden Übungen mit dem Modell weiter, das den niedrigsten AICc aufweist.</p>
+<p>Wenn mehrere Modelle ähnlich gut gestützt sind (beispielsweise ΔAICc &lt; 2), kann die Wahl eines einzigen Modells mit Modellunsicherheit verbunden sein. Beim <em>Model Averaging</em> werden Koeffizienten mehrerer Kandidatenmodelle anhand ihrer Akaike-Gewichte gemittelt. Es entsteht damit <strong>kein neues Einzelmodell mit einer eindeutig festgelegten Formel</strong>. Da beim Model Averaging die Ergebnisse mehrerer Modelle kombiniert werden, ist die anschliessende Modelldiagnostik und Visualisierung aufwendiger. Wir arbeiten deshalb in den nachfolgenden Übungen mit dem Modell weiter, das den niedrigsten AICc aufweist.</p>
 <p>In der Studie von Coppes et al.&nbsp;(2017) wurde eine Modellmittelung nur dann angewendet, wenn mehrere Modelle mit ΔAIC &lt; 2 ähnlich gut gestützt waren. Das war für eines der sechs finalen Modelle der Fall.</p>
 </section>
 </section>
