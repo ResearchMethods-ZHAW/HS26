@@ -63,6 +63,8 @@ library(ggplot2)
 library(glmmTMB)
 library(MuMIn)
 
+options(scipen = 999)
+
 vars_umwelt <- c(
   "slope", "topo_pos", "dist_road_trails", "dist_road_only",
   "dist_sett", "forest_prop", "us_2014", "os_2014"
@@ -151,7 +153,7 @@ summary(m_slope_linear_day)
 
 ## Aufgabe 3 – Stark korrelierte Variablen gegeneinander abwägen
 
-Nehmt eure **Korrelationsmatrix aus Übung 4** zur Hand. Besonders stark zusammenhängende Prädiktoren können teilweise ähnliche Umweltinformationen liefern. Wir verwenden beispielhaft einen Vergleich von zwei Modellen mit jeweils **nur einer** der hoch korrelierten Variablen. Alle anderen Modellbestandteile bleiben identisch. Die Definition des Korrelations-Schwellenwerts kann konservativer oder liberaler gesetzt werden, üblich ist zwischen 0.5-0.7. Schaut auch wie Coppes et al. (2017) das gemacht haben.
+Nehmt eure **Korrelationsmatrix aus Übung 4 von letzter Woche** zur Hand. Besonders stark zusammenhängende Prädiktoren können teilweise ähnliche Umweltinformationen liefern. Wir verwenden beispielhaft einen Vergleich von zwei Modellen mit jeweils **nur einer** der hoch korrelierten Variablen. Alle anderen Modellbestandteile bleiben identisch. Die Definition des Korrelations-Schwellenwerts kann konservativer oder liberaler gesetzt werden, üblich ist zwischen 0.5-0.7. Schaut auch wie Coppes et al. (2017) das gemacht haben.
 
 ::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN – Beispiel Strassen und Wege"}
 Wir vergleichen `dist_road_trails` und `dist_road_only` anhand des AICc. Das Modell mit dem kleineren AICc weist innerhalb dieses Vergleichs die bessere Balance zwischen Modellanpassung und Komplexität auf.
@@ -339,7 +341,7 @@ Eine kleine ΔAICc in der Liste der Top-Modelle bedeutet, dass mehrere Modelle �
 
 ### Exkurs: Model Averaging
 
-Wenn mehrere Modelle ähnlich gut gestützt sind (beispielsweise ΔAICc < 2), ist die Wahl eines einzigen Modells mit **Modellunsicherheit** verbunden. Beim *Model Averaging* werden Koeffizienten mehrerer Kandidatenmodelle anhand ihrer Akaike-Gewichte gemittelt. Es entsteht damit **kein neues Einzelmodell mit einer eindeutig festgelegten Formel**. Da beim Model Averaging die Ergebnisse mehrerer Modelle kombiniert werden, ist die anschliessende Modelldiagnostik und Visualisierung aufwendiger. Wir arbeiten deshalb in den nachfolgenden Übungen mit dem Modell weiter, das den niedrigsten AICc aufweist.
+Wenn mehrere Modelle ähnlich gut gestützt sind (beispielsweise ΔAICc < 2), kann die Wahl eines einzigen Modells mit Modellunsicherheit verbunden sein. Beim *Model Averaging* werden Koeffizienten mehrerer Kandidatenmodelle anhand ihrer Akaike-Gewichte gemittelt. Es entsteht damit **kein neues Einzelmodell mit einer eindeutig festgelegten Formel**. Da beim Model Averaging die Ergebnisse mehrerer Modelle kombiniert werden, ist die anschliessende Modelldiagnostik und Visualisierung aufwendiger. Wir arbeiten deshalb in den nachfolgenden Übungen mit dem Modell weiter, das den niedrigsten AICc aufweist.
 
 In der Studie von Coppes et al. (2017) wurde eine Modellmittelung nur dann angewendet, wenn mehrere Modelle mit ΔAIC < 2 ähnlich gut gestützt waren. Das war für eines der sechs finalen Modelle der Fall. 
 

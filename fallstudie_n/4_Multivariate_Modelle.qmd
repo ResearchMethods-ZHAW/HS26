@@ -4,8 +4,8 @@ title: "Multivariate Modelle – Vorbereitung der Modellierung"
 # EINZIGE UMSCHALTSTELLE FÜR DIE VERÖFFENTLICHUNG:
 # Bei Freigabe der Musterlösungen beide Schalter auf true setzen und neu rendern.
 execute:
-  echo: false    # true = Musterlösungs-Code anzeigen
-  output: false  # true = Ergebnis / Grafik der Musterlösung anzeigen
+  echo: true    # true = Musterlösungs-Code anzeigen
+  output: true  # true = Ergebnis / Grafik der Musterlösung anzeigen
   warning: false
   message: false
 
