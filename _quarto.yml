@@ -87,10 +87,10 @@ book:
       - statistik/Statistik5_Uebung.qmd
       - statistik/Statistik6_Demo.qmd
       - statistik/Statistik6_Uebung.qmd
-    #   - statistik/Statistik7_Demo.qmd
-    #   - statistik/Statistik7_Uebung.qmd
-    #   - statistik/Statistik8_Demo.qmd
-    #   - statistik/Statistik8_Uebung.qmd
+      - statistik/Statistik7_Demo.qmd
+      - statistik/Statistik7_Uebung.qmd
+      - statistik/Statistik8_Demo.qmd
+      - statistik/Statistik8_Uebung.qmd
     # - part: RaumAn.qmd
     #   chapters:
     #   - rauman/Rauman0_Vorbereitung.qmd

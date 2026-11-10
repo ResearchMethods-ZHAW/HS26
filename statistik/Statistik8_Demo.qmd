@@ -14,7 +14,6 @@ knitr:
 -   Datensatz *Doubs_spe* von  @borcard2011
 
 
-
 ## Cluster-Analyse k-means
 
 ### Datenbeschreibung
@@ -98,21 +97,26 @@ kmeans_2$cluster
 # Anzahl Sites pro Cluster
 kmeans_2$size
 
-# Mittlere Abundance für jede Variable (Fischart) in jedem Cluster (mit untransformierten Daten)
-aggregate(spe, by = list(cluster = kmeans_2$cluster), mean)
-
-# Mittlere Fisch-Artenzahl in jedem Cluster
-aggregate( specnumber(spe), by = list(cluster = kmeans_2$cluster), mean)
-
-
-# Unterschiede Mittlere Fisch-Artenzahl pro Cluster testen
-
-# File für Anova erstellen
+# Data frame mit spe, cluster und Artenzahl erstellen
 spe_2 <- data.frame(spe, 
                     "cluster" = as.factor(kmeans_2$cluster), 
                     "species_richness" = specnumber(spe))
 str(spe_2)
 
+# Mittlere Abundance für jede Variable (Fischart) in jedem Cluster (mit untransformierten Daten)
+library("dplyr")
+spe_2 |>
+  group_by(cluster) |>
+  summarise( across(Cogo:Anan, ~ mean(.x)))
+
+
+# Mittlere Fisch-Artenzahl in jedem Cluster
+spe_2 |>
+  group_by(cluster) |>
+  summarise( mean(species_richness))
+
+
+# Unterschiede Mittlere Fisch-Artenzahl pro Cluster testen
 aov_1 <- aov(species_richness~cluster, data = spe_2)
 summary(aov_1)
 

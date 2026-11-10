@@ -6,6 +6,7 @@ knitr:
 musterloesung: false
 ---
 
+
 # Statistik 8: Übung
 
 - Datensatz *crime.csv*
