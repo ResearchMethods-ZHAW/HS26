@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -37,14 +72,13 @@ ul.task-list li input[type="checkbox"] {
 <link href="../statistik/Statistik4_Demo.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -718,6 +752,262 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>Lösung Übung 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="../purl/Statistik4_Uebung.R" class="dld">Demoscript herunterladen (.R)</a></p>
+<p><a href="../purl/Statistik4_Uebung.qmd" class="dld">Demoscript herunterladen (.qmd)</a></p>
+<ul>
+<li><a href="Statistik4_Loesung.pdf">Lösungstext als Download</a></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stgl <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat/steprasen_ukraine.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(stgl)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [199 × 20] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ PlotID           : chr [1:199] "UA01NW" "UA01SE" "UA02NW" "UA02SE" ...
+ $ Species_richness : num [1:199] 44 53 48 50 53 40 46 56 30 35 ...
+ $ Altitude         : num [1:199] 179 178 188 183 162 165 153 158 192 197 ...
+ $ Inclination      : num [1:199] 24 17 27 33 7 33 30 32 25 18 ...
+ $ Heat_index       : num [1:199] -0.42 -0.3 -0.51 -0.65 -0.09 -0.42 0 -0.59 0.46 0.32 ...
+ $ Microrelief      : num [1:199] 5 2.5 2 2 3 4 16 15 5 3 ...
+ $ Grazing_intensity: num [1:199] 0 0 0 0 0 0 1 1 0 0 ...
+ $ Litter           : num [1:199] 12 10 0 4 15 30 5 6 10 20 ...
+ $ Stones_and_rocks : num [1:199] 0 0 0 0 0 0 40 10 0 0 ...
+ $ Gravel           : num [1:199] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Fine_soil        : num [1:199] 2 5 0 7 0 0 2 5 5 2 ...
+ $ pH               : num [1:199] 7.32 6.91 6.72 6.44 6.1 6.23 6.79 6.43 7.19 7 ...
+ $ Conductivity     : num [1:199] 90 115 126 90 73 76 163 119 151 69 ...
+ $ CaCO3            : num [1:199] 0.0754 0.1271 0.0723 0.0771 0.0829 ...
+ $ N_total          : num [1:199] 0.14 0.17 0.24 0.26 0.29 0.2 0.34 0.29 0.18 0.2 ...
+ $ C_org            : num [1:199] 1.54 1.97 2.99 3.22 3.77 2.5 4.59 3.67 2.16 2.38 ...
+ $ CN_ratio         : num [1:199] 10.8 11.5 12.5 12.6 12.8 ...
+ $ Temperature      : num [1:199] 79 79 80 80 82 82 82 82 79 83 ...
+ $ Temperature_range: num [1:199] 330 330 329 329 328 328 328 328 326 327 ...
+ $ Precipitation    : num [1:199] 608 608 603 603 594 594 594 594 600 586 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   PlotID = col_character(),
+  ..   Species_richness = col_double(),
+  ..   Altitude = col_double(),
+  ..   Inclination = col_double(),
+  ..   Heat_index = col_double(),
+  ..   Microrelief = col_double(),
+  ..   Grazing_intensity = col_double(),
+  ..   Litter = col_double(),
+  ..   Stones_and_rocks = col_double(),
+  ..   Gravel = col_double(),
+  ..   Fine_soil = col_double(),
+  ..   pH = col_double(),
+  ..   Conductivity = col_double(),
+  ..   CaCO3 = col_double(),
+  ..   N_total = col_double(),
+  ..   C_org = col_double(),
+  ..   CN_ratio = col_double(),
+  ..   Temperature = col_double(),
+  ..   Temperature_range = col_double(),
+  ..   Precipitation = col_double()
+  .. )
+ - attr(*, "problems")=&lt;pointer: 0x000001f3a3ff9ee0&gt; </code></pre>
+</div>
+</div>
+<p>Man erkennt, dass alle Spalten bis auf die erste mit der Plot ID numerisch (num) sind. Wir können nun die Variable “PlotID” als rownames setzten</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setze erste Spalte (colum) als rownames</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>stgl <span class="ot">&lt;-</span> stgl <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"PlotID"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nun steht die abhängige Variable in Spalte 1 und die Prediktorvariablen in den Spalten 2 bis 19 stehen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stgl)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Species_richness    Altitude      Inclination      Heat_index      
+ Min.   :14.00    Min.   : 73.0   Min.   : 1.00   Min.   :-0.94000  
+ 1st Qu.:34.00    1st Qu.:140.0   1st Qu.:12.00   1st Qu.:-0.15500  
+ Median :40.00    Median :166.0   Median :19.00   Median : 0.01000  
+ Mean   :40.23    Mean   :161.7   Mean   :19.28   Mean   : 0.01603  
+ 3rd Qu.:47.50    3rd Qu.:188.0   3rd Qu.:25.00   3rd Qu.: 0.21500  
+ Max.   :67.00    Max.   :251.0   Max.   :48.00   Max.   : 0.85000  
+  Microrelief      Grazing_intensity     Litter      Stones_and_rocks
+ Min.   :  0.000   Min.   :0.0000    Min.   : 0.00   Min.   : 0.000  
+ 1st Qu.:  2.500   1st Qu.:0.0000    1st Qu.: 3.50   1st Qu.: 0.000  
+ Median :  5.000   Median :1.0000    Median : 7.00   Median : 0.500  
+ Mean   :  7.126   Mean   :0.9296    Mean   :12.16   Mean   : 3.994  
+ 3rd Qu.:  7.000   3rd Qu.:2.0000    3rd Qu.:13.50   3rd Qu.: 4.000  
+ Max.   :100.000   Max.   :3.0000    Max.   :90.00   Max.   :68.000  
+     Gravel         Fine_soil           pH         Conductivity  
+ Min.   : 0.000   Min.   : 0.00   Min.   :4.890   Min.   : 40.0  
+ 1st Qu.: 0.000   1st Qu.: 2.00   1st Qu.:7.240   1st Qu.:148.5  
+ Median : 0.000   Median : 5.00   Median :7.420   Median :171.0  
+ Mean   : 2.984   Mean   : 7.02   Mean   :7.286   Mean   :162.3  
+ 3rd Qu.: 3.000   3rd Qu.:10.00   3rd Qu.:7.545   3rd Qu.:189.5  
+ Max.   :40.000   Max.   :38.00   Max.   :7.790   Max.   :232.0  
+     CaCO3            N_total           C_org           CN_ratio    
+ Min.   : 0.0042   Min.   :0.0700   Min.   : 1.040   Min.   : 6.04  
+ 1st Qu.: 0.4306   1st Qu.:0.2000   1st Qu.: 2.850   1st Qu.:12.24  
+ Median : 4.6578   Median :0.2700   Median : 3.560   Median :12.95  
+ Mean   : 7.4757   Mean   :0.2788   Mean   : 3.689   Mean   :13.48  
+ 3rd Qu.:13.0002   3rd Qu.:0.3300   3rd Qu.: 4.400   3rd Qu.:14.02  
+ Max.   :35.2992   Max.   :0.9500   Max.   :11.300   Max.   :27.42  
+  Temperature    Temperature_range Precipitation  
+ Min.   :78.00   Min.   :326.0     Min.   :577.0  
+ 1st Qu.:82.00   1st Qu.:328.0     1st Qu.:583.0  
+ Median :84.00   Median :329.0     Median :592.0  
+ Mean   :84.82   Mean   :328.6     Mean   :596.4  
+ 3rd Qu.:88.00   3rd Qu.:330.0     3rd Qu.:602.5  
+ Max.   :92.00   Max.   :331.0     Max.   :630.0  </code></pre>
+</div>
+</div>
+<p>Da es sich bei Artenzahlen um Zähldaten handelt, müsste man theoretisch ein glm mit Poisson-Verteilung rechnen; bei einem Mittelwert, der hinreichend von Null verschieden ist (hier: ca. 40), ist eine Poisson-Verteilung aber praktisch nicht von einer Normalverteilung zu unterscheiden und wir können uns den Aufwand auch sparen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(stgl[, <span class="dv">2</span><span class="sc">:</span><span class="dv">19</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor)<span class="sc">&lt;</span><span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cor</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Die Korrelationsanalyse dient dazu, zu entscheiden, ob die Prädiktorvariablen hinreichend voneinander unabhängig sind, um alle in das globale Modell hinein zu nehmen. Bei Pearson’s Korrelationskoeffizienten r, die betragsmässig grösser als 0.7 sind, würde es problematisch. Alternativ hätten wir auch den VIF (Variance Inflation Factor) als Kriterium für den möglichen Ausschluss von Variablen aus dem globalen Modell nehmen können.</p>
+<p>Wenn man auf die matirx “cor” nun in einem separaten Fenster öffnet, sieht man, wo es problematische Korrelationen zwischen Variablenpaaren gibt. Es sind dies Altitude vs.&nbsp;Temperature und N.total vs.&nbsp;C.org. Wir müssen aus jedem dieser Paare jetzt eine Variable rauswerfen, am besten jene, die weniger gut interpretierbar ist. Ich entscheide mich dafür Temperature statt Altitude (weil das der direktere ökologische Wirkfaktor ist) und C.org statt N.total zu behalten (weil es in der Literatur mehr Daten zum Humusgehalt als zum N-Gehalt gibt, damit eine bessere Vergleichbarkeit erzielt wird). Die Aussagen, die wir für die beibehaltene Variable erzielen, stehen aber +/- auch für die entfernten Variablen.</p>
+<p>Nun können wir das globale Modell definieren, indem wir alle verbleibenden Variablen aufnehmen, das sind 16. (Wenn das nicht eh schon so viele wären, dass es uns an die Grenze der Rechenleistung bringt, hätten wir auch noch darüber nachdenken können, einzelne quadratische Terme oder Interaktionsterme zu berücksichtigen).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>global_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species_richness <span class="sc">~</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                     Inclination <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                     Heat_index <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                     Microrelief <span class="sc">+</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                     Conductivity <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                     Grazing_intensity <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                     Litter <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                     Precipitation <span class="sc">+</span>            </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                     Stones_and_rocks <span class="sc">+</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                     Gravel <span class="sc">+</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                     Fine_soil <span class="sc">+</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                     pH <span class="sc">+</span> </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                     CaCO3 <span class="sc">+</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                     C_org <span class="sc">+</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                     CN_ratio <span class="sc">+</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     Temperature <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                     Temperature_range,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> stgl)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Nun gibt es im Prinzip zwei Möglichkeiten, vom globalen (vollen) Modell zu einem minimal adäquaten Modell zu kommen. (1) Der Ansatz der “frequentist statistic”, in dem man aus dem vollen Modell so lange schrittweise Variablen entfernt, bis nur noch signifikante Variablen verbleiben. (2) Den informationstheoretischen Ansatz, bei dem alle denkbaren Modelle berechnet und verglichen werden (also alle möglichen Kombinationen von 13,12,…, 1, 0 Parametern). Diese Lösung stelle ich im Folgenden vor:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multimodel inference</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global_model)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>allmodels[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Global model call: lm(formula = Species_richness ~ Inclination + Heat_index + Microrelief + 
+    Conductivity + Grazing_intensity + Litter + Precipitation + 
+    Stones_and_rocks + Gravel + Fine_soil + pH + CaCO3 + C_org + 
+    CN_ratio + Temperature + Temperature_range, data = stgl)
+---
+Model selection table 
+       (Int)    CCO  CN_rat     Cnd  Fin_sol Grz_int Het_ind      Ltt     Prc
+711    46.76 0.2287 -0.5878                   1.1870  -13.23 -0.10000        
+21191 -48.97 0.2200 -0.7969                   1.0450  -13.58 -0.09218 0.09409
+21127 -57.17 0.2307 -0.8809                           -13.31 -0.09696 0.10710
+17095  28.08 0.2021 -0.6899                   1.2050  -13.15 -0.10010        
+8903   47.66 0.2482 -0.6332                   1.1200  -13.18 -0.10530        
+647    49.01 0.2373 -0.6716                           -12.84 -0.10690        
+719    44.69 0.2005 -0.5903 0.01487           1.1330  -13.17 -0.10370        
+21207 -49.86 0.2207 -0.8155         -0.08360  1.0940  -13.24 -0.10170 0.09454
+29383 -43.85 0.2361 -0.8256                   0.9964  -13.53 -0.09695 0.08950
+727    47.43 0.2308 -0.5971         -0.07154  1.2290  -12.93 -0.10820        
+      Stn_and_rck    Tmp df   logLik   AICc delta weight
+711                       7 -718.604 1451.8  0.00  0.152
+21191             0.5016  9 -716.461 1451.9  0.08  0.146
+21127             0.5309  8 -717.740 1452.2  0.44  0.122
+17095             0.2387  8 -717.875 1452.5  0.71  0.106
+8903     -0.07648         8 -717.999 1452.8  0.96  0.094
+647                       6 -720.253 1452.9  1.15  0.086
+719                       8 -718.188 1453.1  1.34  0.078
+21207             0.5195 10 -716.031 1453.2  1.44  0.074
+29383    -0.06288 0.4808 10 -716.048 1453.3  1.47  0.073
+727                       8 -718.293 1453.3  1.55  0.070
+Models ranked by AICc(x) </code></pre>
+</div>
+</div>
+<p>Jetzt bekommen wir die besten 10 der insgesamt 65536 möglichen Modelle gelistet mit ihren Parameterschätzungen und ihrem AICc.</p>
+<p>Das beste Modell umfasst 5 Parameter (CaCO3, CN.ratio, Grazing.intensity. Heat.index, Litter). Allerdings ist das nächstbeste Modell (mit 6 Parametern) nur wenig schlechter (delta AICc = 0.71), was sich in fast gleichen (und zudem sehr niedrigen) Akaike weights bemerkbar macht. Nach dem Verständnis des Information theoretician approach, sollte man in einer solchen Situation nicht das eine “beste” Modell benennen, sondern eine Aussage über die Gruppe der insgesamt brauchbaren Modelle treffen. Hierzu kann man (a) Importance der Parameter über alle Modelle hinweg berechnen (= Summe der Akaike weights aller Modelle, die den betreffenden Parameter enthalten) und/oder (b) ein nach Akaike weights gemitteltes Modell berechnen.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importance values der Variablen</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Heat_index Litter CaCO3 CN_ratio Grazing_intensity
+Sum of weights:       1.00       0.91   0.81  0.77     0.63            
+N containing models: 32768      32768  32768 32768    32768            
+                     Temperature Precipitation Stones_and_rocks Conductivity
+Sum of weights:       0.49        0.43          0.40             0.33       
+N containing models: 32768       32768         32768            32768       
+                     Microrelief Fine_soil Gravel pH    C_org Temperature_range
+Sum of weights:       0.32        0.30      0.30   0.28  0.28  0.28            
+N containing models: 32768       32768     32768  32768 32768 32768            
+                     Inclination
+Sum of weights:       0.26      
+N containing models: 32768      </code></pre>
+</div>
+</div>
+<p>Demnach ist Heat.index die wichtigste Variable (in 100% aller relevanten Modelle), während ferner Litter, CaCO3, CN_ratio und Grazing_intensity in mehr als 50% der relevanten Modelle enthalten sind.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelaveraging (Achtung: dauert mit 13 Variablen einige Minuten)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)<span class="sc">$</span>coefficients</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       (Intercept)     CaCO3   CN_ratio Grazing_intensity Heat_index
+full      16.35327 0.1814323 -0.5348808         0.7724891  -12.96429
+subset    16.35327 0.2242980 -0.6981476         1.2198244  -12.96432
+            Litter Precipitation Temperature Stones_and_rocks Conductivity
+full   -0.09900428    0.03134582   0.2028271      -0.03786674  0.005393491
+subset -0.10877370    0.07355793   0.4145035      -0.09379116  0.016472114
+         Fine_soil      Gravel         pH Temperature_range Microrelief
+full   -0.01950678 -0.02149269 -0.1777904       -0.01553740  0.01740667
+subset -0.06523683 -0.07235735 -0.6363338       -0.05583764  0.05356550
+           C_org Inclination
+full   0.0584467 0.003167463
+subset 0.2093569 0.012378658</code></pre>
+</div>
+</div>
+<p>Aus dem gemittelten Modell können wir die Richtung der Beziehung (positiv oder negativ) und ggf. die Effektgrössen (wie verändert sich die Artenzahl, wenn die Prädiktorvariable um eine Einheit zunimmt?) ermitteln.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik nicht vergessen</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(global_model)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik4_Uebung_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( <span class="fu">lm</span>(Species_richness <span class="sc">~</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>           Heat_index <span class="sc">+</span>  Litter <span class="sc">+</span> CaCO3 <span class="sc">+</span> CN_ratio <span class="sc">+</span> Grazing_intensity, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> stgl))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik4_Uebung_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Wie immer kommt am Ende die Modelldiagnostik. Wir können uns entweder das globale Modell oder das Modell mit den 5 Variablen mit importance &gt; 50% anschauen. Das Bild sieht fast identisch aus und zeigt keinerlei problematische Abweichungen, d.&nbsp;h. links oben weder ein Keil, noch eine Banane, rechts oben eine nahezu perfekte Gerade.</p>
+</div>
+</div>
 
 
 
