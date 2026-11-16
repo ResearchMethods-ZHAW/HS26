@@ -153,8 +153,6 @@ r2(glmm_1)
 # hier 4% (das ist sehr wenig)
 # das conditionale R^2 (r2c) gibt uns die erklärte Varianz für das ganze Modell
 # (mit fixen und variablen Effekten): hier 34% 
-
-performance_roc(glmm_4)
 ```
 
 
@@ -189,11 +187,20 @@ odsr
 # oder
 library("ggeffects")
 ( pred <- predict_response(glmm_4, c("member", "gender") ) )
+
+# Vorhergesagte Wahrscheinlichkeiten mit Vorhersageinterval (95% Konfidenz-
+# intervall inkl. Variation zwischen Personen)
+( pred2 <- predict_response(glmm_4, c("member", "gender"), 
+                            interval = "prediction") )
+plot(pred2)
 ```
 
 ```{r}
 #| message: false
 # Visualisierung
+# Vorhergesagte Wahrscheinlichkeiten mit 95% Konfidenzintervall (Die Variation 
+# zwischen Personen ist in den Konfidenzintervallen nicht enthalten.)
+
 plot(pred) +
   labs(x = "",
        y = "Wahrscheinlichkeiten ein Fleischgericht zu wählen \n") +
