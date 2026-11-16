@@ -224,7 +224,7 @@ sinnvoll, nicht nur einen Random Intercept, sondern auch einen Random
 Slope zu fitten.
 
 ```{r}
-# Fit models
+# Modelle fitten
 
 # Random intercept
 lmm_1 <- glmmTMB(Reaction ~ Days + (1 | Subject),

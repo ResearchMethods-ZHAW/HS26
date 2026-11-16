@@ -99,7 +99,7 @@ fviz_pca_biplot(pca_1, repel = TRUE,
   theme_classic() +
   theme(plot.title = element_blank())
 
-# Nur Inidviudals (hier Sites)
+# Nur Individuals (hier Sites)
 fviz_pca_ind(pca_1, repel = TRUE) +
   theme_classic()
 

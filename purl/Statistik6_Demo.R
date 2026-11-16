@@ -224,7 +224,7 @@ ggplot(sleepstudy_2, aes(y = Reaction, x = Days)) +
 #' Slope zu fitten.
 #' 
 ## -----------------------------------------------------------------------------
-# Fit models
+# Modelle fitten
 
 # Random intercept
 lmm_1 <- glmmTMB(Reaction ~ Days + (1 | Subject),
