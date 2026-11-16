@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Modellgüte und -diagnostics MM – Research Methods HS26</title>
+<title>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung – Research Methods HS26</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -58,26 +58,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -674,21 +655,16 @@ div.csl-indent {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#libraries-laden" id="toc-libraries-laden" class="nav-link active" data-scroll-target="#libraries-laden">Libraries laden</a></li>
-  <li><a href="#ausgangslage" id="toc-ausgangslage" class="nav-link" data-scroll-target="#ausgangslage">Ausgangslage</a></li>
-  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
-  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a>
+  <li><a href="#ziel-und-einordnung" id="toc-ziel-und-einordnung" class="nav-link active" data-scroll-target="#ziel-und-einordnung">Ziel und Einordnung</a></li>
+  <li><a href="#vorbereitung-das-bestmodell-aus-übung-5-übernehmen" id="toc-vorbereitung-das-bestmodell-aus-übung-5-übernehmen" class="nav-link" data-scroll-target="#vorbereitung-das-bestmodell-aus-übung-5-übernehmen">Vorbereitung – Das Bestmodell aus Übung 5 übernehmen</a></li>
+  <li><a href="#aufgabe-1-modellgüte-auc-und-pseudo-r²" id="toc-aufgabe-1-modellgüte-auc-und-pseudo-r²" class="nav-link" data-scroll-target="#aufgabe-1-modellgüte-auc-und-pseudo-r²">Aufgabe 1 – Modellgüte: AUC und Pseudo-R²</a></li>
+  <li><a href="#aufgabe-2-residualdiagnostik-mit-dharma" id="toc-aufgabe-2-residualdiagnostik-mit-dharma" class="nav-link" data-scroll-target="#aufgabe-2-residualdiagnostik-mit-dharma">Aufgabe 2 – Residualdiagnostik mit DHARMa</a>
   <ul class="collapse">
-  <li><a href="#aufgabe-2.1" id="toc-aufgabe-2.1" class="nav-link" data-scroll-target="#aufgabe-2.1">Aufgabe 2.1</a></li>
-  <li><a href="#aufgabe-2.2" id="toc-aufgabe-2.2" class="nav-link" data-scroll-target="#aufgabe-2.2">Aufgabe 2.2</a></li>
-  <li><a href="#aufgabe-2.3" id="toc-aufgabe-2.3" class="nav-link" data-scroll-target="#aufgabe-2.3">Aufgabe 2.3</a></li>
+  <li><a href="#aufgabe-2.1-räumliche-autokorrelation-vertiefung" id="toc-aufgabe-2.1-räumliche-autokorrelation-vertiefung" class="nav-link" data-scroll-target="#aufgabe-2.1-räumliche-autokorrelation-vertiefung">Aufgabe 2.1 – Räumliche Autokorrelation (Vertiefung)</a></li>
+  <li><a href="#aufgabe-2.2-multikollinearität-im-ausgewählten-modell" id="toc-aufgabe-2.2-multikollinearität-im-ausgewählten-modell" class="nav-link" data-scroll-target="#aufgabe-2.2-multikollinearität-im-ausgewählten-modell">Aufgabe 2.2 – Multikollinearität im ausgewählten Modell</a></li>
   </ul></li>
-  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a>
-  <ul class="collapse">
-  <li><a href="#aufgabe-3.1" id="toc-aufgabe-3.1" class="nav-link" data-scroll-target="#aufgabe-3.1">Aufgabe 3.1</a></li>
-  <li><a href="#aufgabe-3.2" id="toc-aufgabe-3.2" class="nav-link" data-scroll-target="#aufgabe-3.2">Aufgabe 3.2</a></li>
-  </ul></li>
-  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
+  <li><a href="#aufgabe-3-modellresultate-darstellen" id="toc-aufgabe-3-modellresultate-darstellen" class="nav-link" data-scroll-target="#aufgabe-3-modellresultate-darstellen">Aufgabe 3 – Modellresultate darstellen</a></li>
+  <li><a href="#aufgabe-4-beitrag-der-variablen-leave-one-out" id="toc-aufgabe-4-beitrag-der-variablen-leave-one-out" class="nav-link" data-scroll-target="#aufgabe-4-beitrag-der-variablen-leave-one-out">Aufgabe 4 – Beitrag der Variablen: Leave-one-out</a></li>
   </ul>
 </nav>
     </div>
@@ -698,7 +674,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_n/1_Vorbereitung.html">Fallstudie N</a></li><li class="breadcrumb-item"><a href="../fallstudie_n/6_Guete_und_Diagnostics.html"><span class="chapter-title">Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Modellgüte und -diagnostics MM</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
+<h1 class="title"><span class="chapter-title">Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span></h1>
 </div>
 
 
@@ -715,94 +691,248 @@ div.csl-indent {
 </header>
 
 
-<section id="libraries-laden" class="level2">
-<h2 class="anchored" data-anchor-id="libraries-laden">Libraries laden</h2>
-<p>Packages die wir für die Modelle und die Diagnostics brauchen</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lme4"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"bbmle"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"DHARMa"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MASS"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ROCR"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggeffects"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjstats"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"cowplot"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gstat"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"purrr"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"broom.mixed"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<!--
+HINWEIS FÜR DIE LEHRPERSON:
+- Aufgabenversion/Musterlösung werden durch execute.echo und execute.output
+  im YAML-Header umgeschaltet (QMD-Quelltext nicht öffentlich bereitstellen).
+- Die Vorbereitung rekonstruiert exakt den Tages-Workflow aus der aktuell
+  hochgeladenen Übung 5: Skalierung IM Tagdatensatz, drei quadratische Terme,
+  dieselbe globale Formel, dieselben dc()-Regeln, best_model_day = Rang 1.
+- Bei eigenständiger Weiterarbeit im gleichen R-Skript können Studierende die
+  Modellrekonstruktion überspringen (Objekte best_model_day/DF_reh_day).
+- Quadratische Terme werden bei Response Curves aus den linearen Variablen
+  abgeleitet und bei Leave-one-out paarweise mit dem linearen Term entfernt.
+- Räumliche Residualprüfung ist optional und erfolgt innerhalb einer Reh-ID.
+-->
+<section id="ziel-und-einordnung" class="level2">
+<h2 class="anchored" data-anchor-id="ziel-und-einordnung">Ziel und Einordnung</h2>
+<p>Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: <strong>das in Übung 5 ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen</strong>. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.</p>
+<p>Wie zuvor bedeutet <code>pres_abs = 0</code> <strong>available</strong>, nicht nachgewiesene Absenz. Vorhersagekurven und AUC beziehen sich auf die Trennung von <em>used</em> und <em>available</em> im Stichprobendesign.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Übernehmt den vorgegebenen Code in euer eigenes R-Skript und beurteilt die Ergebnisse.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hier entwickelt ihr den Code selbst. Die Musterlösungen werden eine Woche später auf der gerenderten GitHub-Seite freigeschaltet.</p>
+</div>
 </div>
 </section>
-<section id="ausgangslage" class="level2">
-<h2 class="anchored" data-anchor-id="ausgangslage">Ausgangslage</h2>
+<section id="vorbereitung-das-bestmodell-aus-übung-5-übernehmen" class="level2">
+<h2 class="anchored" data-anchor-id="vorbereitung-das-bestmodell-aus-übung-5-übernehmen">Vorbereitung – Das Bestmodell aus Übung 5 übernehmen</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wir arbeiten mit <strong><code>DF_reh_day</code> und <code>best_model_day</code> aus dem Block Variablenselektion</strong> weiter. Dort wurde das globale Modell mit drei möglichen quadratischen Termen erstellt und mit <code>dredge()</code> nach AICc verglichen. Wenn ihr euer R-Skript aus dem letzten Block weiterführt, sind die Objekte bereits vorhanden.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>vars_umwelt <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"slope"</span>, <span class="st">"topo_pos"</span>, <span class="st">"dist_road_trails"</span>, <span class="st">"dist_road_only"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dist_sett"</span>, <span class="st">"forest_prop"</span>, <span class="st">"us_2014"</span>, <span class="st">"os_2014"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Identischer Datenpfad wie in Übung 5</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>DF_reh <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">";"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">c</span>(<span class="st">"pres_abs"</span>, <span class="st">"id"</span>, <span class="st">"time_of_day"</span>, vars_umwelt) <span class="sc">%in%</span> <span class="fu">names</span>(DF_reh)))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">vapply</span>(DF_reh[vars_umwelt], is.numeric, <span class="fu">logical</span>(<span class="dv">1</span>))))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">na.omit</span>(DF_reh<span class="sc">$</span>pres_abs) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>DF_reh<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">factor</span>(DF_reh<span class="sc">$</span>id)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh <span class="sc">|&gt;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Wie in Übung 5: innerhalb des Tagesdatensatzes standardisieren.</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(slope)),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">topo_pos_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(topo_pos)),</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">us_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(us_2014)),</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">os_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(os_2014)),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">forest_prop_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(forest_prop)),</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_trails_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_road_trails)),</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_only_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_road_only)),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_sett_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_sett)),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope_quadrat =</span> slope_scaled<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_only_quadrat =</span> dist_road_only_scaled<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">forest_prop_quadrat =</span> forest_prop_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Globale Modellformel aus Übung 5 (unverändert)</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>m_global_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> slope_scaled <span class="sc">+</span> slope_quadrat <span class="sc">+</span> topo_pos_scaled <span class="sc">+</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    us_scaled <span class="sc">+</span> forest_prop_scaled <span class="sc">+</span> forest_prop_quadrat <span class="sc">+</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    dist_road_only_scaled <span class="sc">+</span> dist_road_only_quadrat <span class="sc">+</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    dist_sett_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id),</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> <span class="fu">binomial</span>(), <span class="at">na.action =</span> na.fail</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieselben Hierarchiebedingungen wie in Übung 5</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>all_m_global_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">dredge</span>(</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  m_global_day,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank =</span> <span class="st">"AICc"</span>,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">subset =</span> <span class="fu">dc</span>(slope_scaled, slope_quadrat) <span class="sc">&amp;</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dc</span>(dist_road_only_scaled, dist_road_only_quadrat) <span class="sc">&amp;</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dc</span>(forest_prop_scaled, forest_prop_quadrat)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Exakt das Bestmodell aus Übung 5 (Rang 1 nach AICc)</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>best_model_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">get.models</span>(all_m_global_day, <span class="at">subset =</span> <span class="dv">1</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best_model_day)</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="do">##  Family: binomial  ( logit )</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="do">## Formula:          </span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="do">## pres_abs ~ dist_road_only_quadrat + dist_road_only_scaled + forest_prop_quadrat +  </span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="do">##     forest_prop_scaled + slope_quadrat + slope_scaled + topo_pos_scaled +  </span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="do">##     us_scaled + (1 | id)</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="do">## Data: DF_reh_day</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="do">##       AIC       BIC    logLik -2*log(L)  df.resid </span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="do">##    4354.0    4416.8   -2167.0    4334.0      3954 </span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="do">## Random effects:</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Conditional model:</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="do">##  Groups Name        Variance Std.Dev.</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="do">##  id     (Intercept) 0.208    0.4561  </span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of obs: 3964, groups:  id, 12</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="do">## Conditional model:</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="do">##                        Estimate Std. Error z value             Pr(&gt;|z|)    </span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)             0.18495    0.14995   1.233               0.2174    </span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_quadrat -0.31030    0.02574 -12.056 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_scaled   0.97543    0.06641  14.688 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_quadrat    -0.33080    0.05458  -6.061        0.00000000135 ***</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="do">## forest_prop_scaled      0.91215    0.05610  16.260 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_quadrat          -0.06945    0.03431  -2.024               0.0429 *  </span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled           -0.16009    0.06310  -2.537               0.0112 *  </span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="do">## topo_pos_scaled        -0.07042    0.03799  -1.854               0.0638 .  </span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="do">## us_scaled               0.39713    0.04228   9.393 &lt; 0.0000000000000002 ***</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="at">AICc =</span> MuMIn<span class="sc">::</span><span class="fu">AICc</span>(best_model_day),</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer_code =</span> best_model_day<span class="sc">$</span>fit<span class="sc">$</span>convergence,</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">positive_definite_hessian =</span> <span class="fu">isTRUE</span>(best_model_day<span class="sc">$</span>sdr<span class="sc">$</span>pdHess)</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="do">##                      AICc            optimizer_code positive_definite_hessian </span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="do">##                  4354.009                     0.000                     1.000</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="aufgabe-1-modellgüte-auc-und-pseudo-r²" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-modellgüte-auc-und-pseudo-r²">Aufgabe 1 – Modellgüte: AUC und Pseudo-R²</h2>
+<p>Die beiden Kennzahlen beschreiben unterschiedliche Aspekte der Modellgüte:</p>
 <ul>
-<li><p>Der Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen.</p></li>
-<li><p>Die Modellresultate aus dem avgmodel wären grundsätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht gut, weshalb wir das beste Modell aus der dredge-Funktion wählen und damit weitergehen: falls mehrere innerhalb Δ≤2 -&gt; das mit den WENIGSTEN Fixeffekten</p></li>
+<li><p>Die <strong>AUC</strong> zeigt, wie gut das Modell zwischen genutzten (<em>used</em>) und verfügbaren (<em>available</em>) Stichprobenkreisen unterscheidet. Über die Herleitung der AUC findet ihr weiterführende Informationen unter: <a href="simtest.pdf">Link</a></p></li>
+<li><p>Das <strong>Pseudo-R² nach Nakagawa</strong> beschreibt die erklärte Variation. Das <em>marginale R²</em> berücksichtigt nur die Fixed Effects, das <em>konditionale R²</em> zusätzlich die Random Effects.</p></li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">get.models</span>(all_m_reh_day, <span class="at">subset =</span> delta <span class="sc">&lt;=</span> <span class="dv">2</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pick  <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">length</span>(cand) <span class="sc">==</span> <span class="dv">1</span>) cand[[<span class="dv">1</span>]] <span class="cf">else</span> cand[[ <span class="fu">which.min</span>(<span class="fu">sapply</span>(cand, <span class="cf">function</span>(m) <span class="fu">length</span>(lme4<span class="sc">::</span><span class="fu">fixef</span>(m)))) ]]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>m_reh_day <span class="ot">&lt;-</span> <span class="fu">update</span>(pick)  </span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>AUC:</strong> Berechnet die AUC für <code>best_model_day</code>. Verwendet <code>predict()</code> mit <code>type = "response"</code> und <code>re.form = NULL</code>, damit die Vorhersagen für die untersuchten Rehe auch deren geschätzte Random Effects berücksichtigen. Nutzt danach <code>ROCR::prediction()</code> und <code>ROCR::performance(..., "auc")</code>.</p>
+<p><strong>Pseudo-R²:</strong> Berechnet mit <code>performance::r2_nakagawa()</code> das marginale und das konditionale R² für dasselbe Modell. Wie unterscheiden sich die beiden Werte, und was bedeutet das für den Beitrag der Umweltvariablen und der Reh-ID?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prob &lt;- predict(best_model_day, type = "response", re.form = NULL)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_roc &lt;- ROCR::prediction(...)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># auc &lt;- ROCR::performance(pred_roc, "auc")@y.values[[1]]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># performance::r2_nakagawa(best_model_day)</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Die AUC wird hier mit den <strong>zur Modellschätzung verwendeten Daten</strong> berechnet (keine Cross-Validation). Sie beschreibt daher die Trennschärfe innerhalb unseres Datensatzes. Das Pseudo-R² ist bei einem binomialen GLMM ein modellbasiertes Mass und nicht mit dem klassischen R² einer linearen Regression gleichzusetzen.</p>
+</div>
 </div>
 </section>
-<section id="aufgabe-1" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
-<p>Berechnet die AUC eures Modelles (area under the receiver operating characteristic curve) <strong>= Mass der Modellgüte</strong></p>
-<p>Über die Herleitung der AUC findet ihr weiterführende Informationen unter: <a href="simtest.pdf">Link</a></p>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_reh_day, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"response"</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">prediction</span>(prob, DF_reh_day<span class="sc">$</span>pres_abs)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># AUC</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(pred, <span class="at">measure =</span> <span class="st">"auc"</span>)<span class="sc">@</span>y.values[[<span class="dv">1</span>]]</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>auc</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.765188</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<section id="aufgabe-2-residualdiagnostik-mit-dharma" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-residualdiagnostik-mit-dharma">Aufgabe 2 – Residualdiagnostik mit DHARMa</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</section>
-<section id="aufgabe-2" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
-<p>Diagnose der Modell-Residuen mittels Tests aus dem DHARMa-Package auf verschiedene Aspekte (Dispersion, Zeroinfaltion, Autocorrelation)</p>
-<ul>
-<li>dazu unbedingt die Vignette des DHARMa-Package konsultieren: <a href="https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html">Link</a></li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals werden über eine Simulation auf eine Standard-Skala transformiert und</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># werden (dauert je nach dem lange)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> m_reh_day, <span class="at">n =</span> <span class="dv">10000</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting and testing scaled residuals</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">testResiduals</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
-<section id="aufgabe-2.1" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-2.1">Aufgabe 2.1</h3>
-<p>Die häufigsten Probleme sind overdispersion, underdispersion und Zero-Inflation. Wendet die entsprechenden Tests aus dem DHARMA auf euren <code>simulationOutput</code> an.</p>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bei einem binomialen GLMM erwarten wir <strong>keine normalverteilten Residuen</strong>. Das Paket <code>DHARMa</code> prüft das Modell mit simulationsbasierten, skalierten Residuen. Für ein korrekt spezifiziertes Modell sollten sie näherungsweise <strong>gleichverteilt zwischen 0 und 1</strong> sein.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># test for dispersion</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fittedModel =</span> best_model_day,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="6_Guete_und_Diagnostics_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="6_Guete_und_Diagnostics_files/figure-html/dharma-standard-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testUniformity</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_Guete_und_Diagnostics_files/figure-html/dharma-standard-2.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+<pre><code>## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  simulationOutput$scaledResiduals
+## D = 0.017096, p-value = 0.1969
+## alternative hypothesis: two-sided
+DHARMa::testDispersion(simulationOutput)</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_Guete_und_Diagnostics_files/figure-html/dharma-standard-3.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
@@ -811,157 +941,219 @@ div.csl-indent {
 ##  simulated
 ## 
 ## data:  simulationOutput
-## dispersion = 0.99362, p-value = 0.7922
+## dispersion = 0.9954, p-value = 0.838
 ## alternative hypothesis: two.sided
-
-# test for Zeroinflation
-
-testZeroInflation(simulationOutput)</code></pre>
+DHARMa::testOutliers(simulationOutput)</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="6_Guete_und_Diagnostics_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="6_Guete_und_Diagnostics_files/figure-html/dharma-standard-4.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
 <pre><code>## 
-##  DHARMa zero-inflation test via comparison to expected zeros with
-##  simulation under H0 = fitted model
+##  DHARMa outlier test based on exact binomial test with approximate
+##  expectations
 ## 
 ## data:  simulationOutput
-## ratioObsSim = 1.0318, p-value = 0.5262
-## alternative hypothesis: two.sided</code></pre>
+## outliers at both margin(s) = 5, observations = 3964, p-value = 0.3745
+## alternative hypothesis: true probability of success is not equal to 0.001998002
+## 95 percent confidence interval:
+##  0.0004096805 0.0029411000
+## sample estimates:
+## frequency of outliers (expected: 0.001998001998002 ) 
+##                                          0.001261352</code></pre>
+</div>
+<p>Eine Zero-Inflation-Prüfung ist bei einzelnen 0/1-Beobachtungen <strong>keine sinnvolle Routineentscheidung</strong>, weil eine zusätzliche Null-Komponente gegenüber der binomialen Wahrscheinlichkeit nicht unabhängig identifiziert werden kann.</p>
+</div>
+</div>
+<section id="aufgabe-2.1-räumliche-autokorrelation-vertiefung" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.1-räumliche-autokorrelation-vertiefung">Aufgabe 2.1 – Räumliche Autokorrelation (Vertiefung)</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN – optional">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – optional
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>GPS- und Rasterdaten können räumlich abhängig sein. Mit <code>DHARMa::testSpatialAutocorrelation()</code> lässt sich prüfen, ob benachbarte Stichprobenkreise ähnliche Residuen aufweisen, also ob eine räumliche Autokorrelation vorliegt. <strong>Verwendet für einen ersten Test nur die Beobachtungen eines einzelnen Rehs</strong>, damit das Problem überschaubar bleibt.</p>
+<p>Hinweise: <code>DHARMa::recalculateResiduals(simulationOutput, sel = ...)</code>, <code>x</code>, <code>y</code> sowie <code>testSpatialAutocorrelation()</code>.</p>
+</div>
 </div>
 </section>
-<section id="aufgabe-2.2" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-2.2">Aufgabe 2.2</h3>
-<p>Bei räumlichen Daten / Modellen kann ausserdem räumliche Autokorrelation auftreten. Dieses Phämomen bezieht sich darauf, dass Beobachtungen die näher beieinander liegen häufig ähnlicher sind und dadurch Beobachtungen gewissermassen pseudo-repliziert werden. Auch dafür gibt es im DHARMa-Package einen entsprechenden Test:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># test for spatial Autocorrelation</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating x, y positions per group</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>groupLocations <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(DF_reh_day[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="fu">list</span>(DF_reh_day<span class="sc">$</span>x, DF_reh_day<span class="sc">$</span>y), mean)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>groupLocations<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">paste</span>(groupLocations<span class="sc">$</span>Group<span class="fl">.1</span>, groupLocations<span class="sc">$</span>Group<span class="fl">.2</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>groupLocations <span class="ot">&lt;-</span> groupLocations <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(x,y,group)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating residuals per group</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">=</span> <span class="fu">recalculateResiduals</span>(simulationOutput, <span class="at">group =</span> groupLocations<span class="sc">$</span>group)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># running the spatial test on grouped residuals</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">testSpatialAutocorrelation</span>(res2, groupLocations<span class="sc">$</span>x, groupLocations<span class="sc">$</span>y, <span class="at">plot =</span> F)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="aufgabe-2.2-multikollinearität-im-ausgewählten-modell" class="level3">
+<h3 class="anchored" data-anchor-id="aufgabe-2.2-multikollinearität-im-ausgewählten-modell">Aufgabe 2.2 – Multikollinearität im ausgewählten Modell</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-</section>
-<section id="aufgabe-2.3" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-2.3">Aufgabe 2.3</h3>
-<p>Testen des Modells <code>m_reh_day</code> auf Multikollinearität mittels VIF. Multikollinearität ist vor allem ein Problem, wenn zu starke Korrelationen im finalen Modell vorliegen, zB. falls Variablen rein auf der Basis von ökologischen Kriterien inkludiert wurden und dadurch stark korrelierte Variablen im Modell sind.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># not substantially greater than 1 (say 5), no need to worry.</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(m_reh_day)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_scaled    forest_prop_scaled          slope_scaled </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##              1.059651              1.255186              1.354885 </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##             us_scaled </span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">##              1.129149</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(car<span class="sc">::</span><span class="fu">vif</span>(m_reh_day))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.199718</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
-</section>
-</section>
-<section id="aufgabe-3" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<p>Graphische Darstellung der Modellresultate</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># graphische Darstellung aller Fixeffekte</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(m_reh_day, <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="at">show.values =</span> <span class="cn">TRUE</span>, <span class="at">value.offset =</span> .<span class="dv">25</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="aufgabe-3.1" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-3.1">Aufgabe 3.1</h3>
-<p>In diesem Schritt sollen Vorhersageplots für jede Umweltvariable gemacht werden. Diese “ResponseCurves” visualisieren die vorhergesagte Wahrscheinlichkeit, ob ein Kreis durch ein Reh besetzt ist in Abhängigkeit der erklärenden Variable.</p>
+<div class="callout-body-container callout-body">
+<p>Im Übungsblock “Vorbereitung der Modellierung” habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die <strong>verbleibende Kollinearität im tatsächlich ausgewählten Modell</strong>. Die möglichen quadratischen Terme (<code>slope_quadrat</code>, <code>dist_road_only_quadrat</code>, <code>forest_prop_quadrat</code>) gehören zu den jeweiligen linearen Prädiktoren. Hohe Kollinearitätswerte zwischen einem linearen und seinem quadratischen Term sind deshalb gesondert zu beurteilen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(m_reh_day, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="st">"us_scaled [all]"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Problem: skalierte Variablen lassen sich nicht so ohne weiteres interpretieren, daher müssen die Variablen rückskaliert werden </span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vorhersageplot für eine Variable (hier us_scaled) + Rücketikettierung auf Originalskala</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Einstellungen müssen für jede Variable separat geändert werden</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>p_us <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(m_reh_day, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="st">"us_scaled [all]"</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(DF_reh_day<span class="sc">$</span>us_2014, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>sdv <span class="ot">&lt;-</span> <span class="fu">sd</span>(DF_reh_day<span class="sc">$</span>us_2014, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>min_us <span class="ot">&lt;-</span> <span class="fu">min</span>(DF_reh_day<span class="sc">$</span>us_2014, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>max_us <span class="ot">&lt;-</span> <span class="fu">max</span>(DF_reh_day<span class="sc">$</span>us_2014, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>p_us <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">limits =</span> <span class="fu">c</span>((min_us <span class="sc">-</span> mu)<span class="sc">/</span>sdv, (max_us <span class="sc">-</span> mu)<span class="sc">/</span>sdv),</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span> <span class="fu">seq</span>((min_us <span class="sc">-</span> mu)<span class="sc">/</span>sdv, (max_us <span class="sc">-</span> mu)<span class="sc">/</span>sdv, <span class="at">length.out =</span> <span class="dv">5</span>),</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">round</span>(x<span class="sc">*</span>sdv <span class="sc">+</span> mu, <span class="dv">2</span>),</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"Deckungsgrad Strauchschicht [0-1]"</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_collinearity</span>(best_model_day)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # Check for Multicollinearity</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Low Correlation</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                    Term  VIF   VIF 95% CI adj. VIF Tolerance Tolerance 95% CI</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  dist_road_only_quadrat 2.43 [2.32, 2.56]     1.56      0.41     [0.39, 0.43]</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   dist_road_only_scaled 2.45 [2.33, 2.58]     1.56      0.41     [0.39, 0.43]</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     forest_prop_quadrat 1.07 [1.04, 1.11]     1.03      0.94     [0.90, 0.96]</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">##      forest_prop_scaled 1.35 [1.30, 1.41]     1.16      0.74     [0.71, 0.77]</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">##           slope_quadrat 1.70 [1.63, 1.78]     1.30      0.59     [0.56, 0.61]</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">##            slope_scaled 2.10 [2.01, 2.20]     1.45      0.48     [0.45, 0.50]</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">##         topo_pos_scaled 1.10 [1.07, 1.15]     1.05      0.91     [0.87, 0.93]</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="do">##               us_scaled 1.15 [1.11, 1.20]     1.07      0.87     [0.84, 0.90]</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="aufgabe-3.2" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-3.2">Aufgabe 3.2</h3>
-<p>Die resultierenden ResponseCurves sollten möglichst auf einem Element/Plot zusammengebracht werden als Gesamtgrafik in einem Raster (Small multiples)</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gute Funktionen für schöne Layouts für Grafiken)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+</div>
 </div>
 </section>
 </section>
-<section id="aufgabe-4" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Ermittlung des individuellen Beitrags der einzelnen Variablen im Gesamtmodell (leave-one-out Ansatz)</p>
-<ul>
-<li>Bestimmen delta AIC nach <span class="citation" data-cites="coppes2017">Coppes u.&nbsp;a. (<a href="../References.html#ref-coppes2017" role="doc-biblioref">2017</a>)</span> → Vergleich des Gesamtmodells gegenüber einem Modell ohne den entsprechenden Fixeffekt.</li>
-<li>Auftrag auf nächste Woche: Kurze Vorstellung der Modellresultate &amp; Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)</li>
-</ul>
+<section id="aufgabe-3-modellresultate-darstellen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-modellresultate-darstellen">Aufgabe 3 – Modellresultate darstellen</h2>
+<p>Ein Modellkoeffizient eines binomialen GLMM beschreibt eine Veränderung der <strong>Log-Odds</strong>. Um einen ökologischen Zusammenhang anschaulich darzustellen, verwenden wir <strong>Response Curves</strong>. Also die modellierte Zuordnung zu <em>Präsenz</em> in Abhängigkeit eines Prädiktors, während die übrigen metrischen Prädiktoren auf einem Referenzwert bleiben (Mittelwerte aller standardisierten Variablen (jeweils 0)).</p>
+<p><strong>Wichtig bei quadratischen Termen:</strong> Falls das ausgewählte Modell einen quadratischen Term für <code>slope</code>, <code>dist_road_only</code> oder <code>forest_prop</code> enthält, muss dieser bei einer Vorhersage <strong>aus dem jeweiligen linearen Prädiktor neu berechnet</strong> werden. Andernfalls ist die Kurve falsch dargestellt.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN – Beispiel `slope`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN – Beispiel <code>slope</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Die folgende Funktion erzeugt eine Response Curve auf der <strong>Originalskala</strong>. Für alle übrigen standardisierten Prädiktoren wird der Wert <code>0</code> (ihr Mittelwert im Datensatz) verwendet. Die quadratischen Terme werden passend dazu gesetzt. Individuelle Random Effects werden bei der Vorhersage auf <code>0</code> gesetzt (<code>re.form = NA</code>).</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"slope_scaled"</span>, <span class="st">"forest_prop_scaled"</span>, <span class="st">"dist_road_only_scaled"</span>, <span class="st">"us_scaled"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># leave-one-out models</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>modelle <span class="ot">&lt;-</span> <span class="fu">lapply</span>(vars, <span class="cf">function</span>(var) {</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">"pres_abs ~"</span>, <span class="fu">paste</span>(<span class="fu">setdiff</span>(vars, var), <span class="at">collapse =</span> <span class="st">" + "</span>), <span class="st">"+ (1 | id)"</span>))</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glmer</span>(formula, <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> binomial, <span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(modelle) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"m_"</span>, vars)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>modelle <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">list</span>(<span class="at">m_reh_day =</span> m_reh_day), modelle)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>bbmle<span class="sc">::</span><span class="fu">AICtab</span>(modelle)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="do">##                         dAIC  df</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="do">## m_reh_day                 0.0 6 </span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="do">## m_slope_scaled            8.3 5 </span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="do">## m_dist_road_only_scaled  83.6 5 </span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="do">## m_us_scaled              94.2 5 </span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="do">## m_forest_prop_scaled    282.1 5</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuordnung: standardisierte Modellvariable -&gt; ursprüngliche Umweltvariable</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rohvariablen <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope_scaled =</span> <span class="st">"slope"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">topo_pos_scaled =</span> <span class="st">"topo_pos"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">us_scaled =</span> <span class="st">"us_2014"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">os_scaled =</span> <span class="st">"os_2014"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">forest_prop_scaled =</span> <span class="st">"forest_prop"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_trails_scaled =</span> <span class="st">"dist_road_trails"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_only_scaled =</span> <span class="st">"dist_road_only"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_sett_scaled =</span> <span class="st">"dist_sett"</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plot_response <span class="ot">&lt;-</span> <span class="cf">function</span>(modell, daten, variable) {</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(variable <span class="sc">%in%</span> <span class="fu">names</span>(rohvariablen))</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(variable <span class="sc">%in%</span> <span class="fu">names</span>(glmmTMB<span class="sc">::</span><span class="fu">fixef</span>(modell)<span class="sc">$</span>cond))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Referenz: Mittelwerte aller standardisierten Variablen (jeweils 0).</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  basis <span class="ot">&lt;-</span> daten[<span class="dv">1</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">names</span>(rohvariablen)) basis[[v]] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Die drei möglichen quadratischen Terme gehören zu ihren linearen Werten.</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>slope_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>dist_road_only_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>forest_prop_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  nd <span class="ot">&lt;-</span> basis[<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">80</span>), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  rohname <span class="ot">&lt;-</span> <span class="fu">unname</span>(rohvariablen[[variable]])</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  x_original <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(daten[[rohname]]), <span class="fu">max</span>(daten[[rohname]]), <span class="at">length.out =</span> <span class="dv">80</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  nd[[variable]] <span class="ot">&lt;-</span> (x_original <span class="sc">-</span> <span class="fu">mean</span>(daten[[rohname]])) <span class="sc">/</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sd</span>(daten[[rohname]])</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bei jeder Vorhersage die Quadrate konsistent aktualisieren.</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>slope_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>slope_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>dist_road_only_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>dist_road_only_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>forest_prop_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>forest_prop_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  vorhersage <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    modell, <span class="at">newdata =</span> nd, <span class="at">type =</span> <span class="st">"link"</span>,</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">re.form =</span> <span class="cn">NA</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>unten <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>oben <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>x_original <span class="ot">&lt;-</span> x_original</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nd, <span class="fu">aes</span>(<span class="at">x =</span> x_original, <span class="at">y =</span> fit)) <span class="sc">+</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> unten, <span class="at">ymax =</span> oben), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> rohname, </span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Antreffwahrscheinlichkeit"</span>,</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> rohname) <span class="sc">+</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>fixterme <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(glmmTMB<span class="sc">::</span><span class="fu">fixef</span>(best_model_day)<span class="sc">$</span>cond), <span class="st">"(Intercept)"</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>quadratterme <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="st">"slope_quadrat"</span>, <span class="st">"dist_road_only_quadrat"</span>, <span class="st">"forest_prop_quadrat"</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>plotvariablen <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(fixterme, quadratterme)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(plotvariablen) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Das ausgewählte Modell enthält keine erklärenden Fixeffekte."</span>)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="st">"slope_scaled"</span> <span class="sc">%in%</span> plotvariablen) {</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_response</span>(best_model_day, DF_reh_day, <span class="st">"slope_scaled"</span>)</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_response</span>(best_model_day, DF_reh_day, plotvariablen[<span class="dv">1</span>])</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="6_Guete_und_Diagnostics_files/figure-html/plot-funktion-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN – mehrere Response Curves">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – mehrere Response Curves
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Verwendet die Funktion <code>plot_response()</code>, um <strong>für alle erklärenden Variablen im ausgewählten Modell</strong> eine Response Curve zu erstellen, und ordnet sie mit <code>cowplot::plot_grid()</code> als übersichtliche Gesamtgrafik an. Quadratische Terme bekommen <strong>keine eigenen Plots</strong>. Sie sind Bestandteil der Response Curves ihrer jeweiligen linearen Prädiktoren.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots &lt;- lapply(plotvariablen, function(v) plot_response(best_model_day, DF_reh_day, v))</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist = plots, ncol = 2)</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="aufgabe-4-beitrag-der-variablen-leave-one-out" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4-beitrag-der-variablen-leave-one-out">Aufgabe 4 – Beitrag der Variablen: Leave-one-out</h2>
+<p>Der <strong>Leave-one-out-Vergleich</strong> untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur.</p>
+<p>Bei <code>slope</code>, <code>dist_road_only</code> und <code>forest_prop</code> bilden der lineare und der gegebenenfalls enthaltene quadratische Term <strong>je einen gemeinsamen Block</strong>. Für den gesamten Effekt einer Umweltvariable entfernen wir beide Terme zusammen.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Erstellt zuerst ein reduziertes Modell <strong>ohne einen einzelnen Prädiktor</strong>, berechnet den AICc und vergleicht ihn mit dem vollständigen Modell. Übertragt das Vorgehen anschliessend auf die übrigen Modellvariablen. Falls für die gewählte Variable ein quadratischer Term im Modell vorkommt, entfernt <strong>den linearen und den quadratischen Term gemeinsam</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AICc_voll &lt;- MuMIn::AICc(best_model_day)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># formel_ohne &lt;- update.formula(formula(best_model_day), . ~ . - ...)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># modell_ohne &lt;- update(best_model_day, formula = formel_ohne)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MuMIn::AICc(modell_ohne) - AICc_voll</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-coppes2017" class="csl-entry" role="listitem">
-Coppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. <span>„Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“</span>. <em>Journal of avian biology</em> 48 (12): 1583–94.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
