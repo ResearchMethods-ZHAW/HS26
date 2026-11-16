@@ -50,7 +50,7 @@ Beim erstmaligen Klonen der Übungsunterlagen müssen die Inhalte des *submodule
 git submodule update --init --recursive
 ```
 
-### Submodule Workflow
+### Submodule Workflow Änderungen Dataset
 
 Wenn eine Änderung im Ordner `datasets` gemacht wurde, sind diese im HS26-repo sichtbar: Der Ordner `datasets` ist beispielsweise im *git Pane* in RStudio sichtbar, und `git status` zeigt folgende Meldung:
 
@@ -87,6 +87,29 @@ git add datasets
 git commit -m "update submodule"
 git push
 ```
+
+### Submodule Workflow Änderungen pullen
+
+git pull alleine aktualisiert nicht das Submodule!
+
+If you want to automate this process, you can add the --recurse-submodules flag to the git pull command (since Git 2.14). 
+This will make Git run git submodule update right after the pull, putting the submodules in the correct state.
+
+```bash
+git pull --recurse-submodules
+
+```
+(https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+
+
+Falls es heisst, es sei kein Branch vorhanden:
+
+```bash
+git stash
+git checkout some-branch
+git stash pop
+```
+(https://stackoverflow.com/a/4735584/4139249)
 
 ### Submodule Remote
 
