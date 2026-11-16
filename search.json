@@ -2334,13 +2334,79 @@
     ]
   },
   {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "",
+    "text": "Libraries laden\nPackages die wir für die Modelle und die Diagnostics brauchen\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"DHARMa\")\nlibrary(\"car\")\nlibrary(\"MASS\")\nlibrary(\"ROCR\")\nlibrary(\"sjPlot\")\nlibrary(\"ggeffects\")\nlibrary(\"sjstats\")\nlibrary(\"cowplot\")\nlibrary(\"gstat\")\nlibrary(\"purrr\")\nlibrary(\"broom.mixed\")",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#ausgangslage",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#ausgangslage",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Ausgangslage",
+    "text": "Ausgangslage\n\nDer Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen.\nDie Modellresultate aus dem avgmodel wären grundsätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht gut, weshalb wir das beste Modell aus der dredge-Funktion wählen und damit weitergehen: falls mehrere innerhalb Δ≤2 -&gt; das mit den WENIGSTEN Fixeffekten\n\n\ncand &lt;- get.models(all_m_reh_day, subset = delta &lt;= 2)\npick  &lt;- if (length(cand) == 1) cand[[1]] else cand[[ which.min(sapply(cand, function(m) length(lme4::fixef(m)))) ]]\nm_reh_day &lt;- update(pick)",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-1",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-1",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nBerechnet die AUC eures Modelles (area under the receiver operating characteristic curve) = Mass der Modellgüte\nÜber die Herleitung der AUC findet ihr weiterführende Informationen unter: Link\n\n\nMusterlösung\n\nprob &lt;- predict(m_reh_day, type = c(\"response\"))\npred &lt;- prediction(prob, DF_reh_day$pres_abs)\n\n# AUC\n\nauc &lt;- performance(pred, measure = \"auc\")@y.values[[1]]\nauc\n## [1] 0.765188",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-2",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-2",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nDiagnose der Modell-Residuen mittels Tests aus dem DHARMa-Package auf verschiedene Aspekte (Dispersion, Zeroinfaltion, Autocorrelation)\n\ndazu unbedingt die Vignette des DHARMa-Package konsultieren: Link\n\n\n# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und\n# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt\n# werden (dauert je nach dem lange)\n\nsimulationOutput &lt;- simulateResiduals(fittedModel = m_reh_day, n = 10000)\n\n# plotting and testing scaled residuals\n\nplot(simulationOutput)\ntestResiduals(simulationOutput)\n\n\nAufgabe 2.1\nDie häufigsten Probleme sind overdispersion, underdispersion und Zero-Inflation. Wendet die entsprechenden Tests aus dem DHARMA auf euren simulationOutput an.\n\n\nMusterlösung\n\n\n# test for dispersion\n\ntestDispersion(simulationOutput)\n\n\n\n\n\n\n\n\n## \n##  DHARMa nonparametric dispersion test via sd of residuals fitted vs.\n##  simulated\n## \n## data:  simulationOutput\n## dispersion = 0.99362, p-value = 0.7922\n## alternative hypothesis: two.sided\n\n# test for Zeroinflation\n\ntestZeroInflation(simulationOutput)\n\n\n\n\n\n\n\n## \n##  DHARMa zero-inflation test via comparison to expected zeros with\n##  simulation under H0 = fitted model\n## \n## data:  simulationOutput\n## ratioObsSim = 1.0318, p-value = 0.5262\n## alternative hypothesis: two.sided\n\n\n\nAufgabe 2.2\nBei räumlichen Daten / Modellen kann ausserdem räumliche Autokorrelation auftreten. Dieses Phämomen bezieht sich darauf, dass Beobachtungen die näher beieinander liegen häufig ähnlicher sind und dadurch Beobachtungen gewissermassen pseudo-repliziert werden. Auch dafür gibt es im DHARMa-Package einen entsprechenden Test:\n\n\n# test for spatial Autocorrelation\n\n# calculating x, y positions per group\ngroupLocations &lt;- aggregate(DF_reh_day[, 3:4], list(DF_reh_day$x, DF_reh_day$y), mean)\ngroupLocations$group &lt;- paste(groupLocations$Group.1, groupLocations$Group.2)\ngroupLocations &lt;- groupLocations |&gt; dplyr::select(x,y,group)\n\n# calculating residuals per group\nres2 = recalculateResiduals(simulationOutput, group = groupLocations$group)\n\n# running the spatial test on grouped residuals\ntestSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)\n\n\n\nAufgabe 2.3\nTesten des Modells m_reh_day auf Multikollinearität mittels VIF. Multikollinearität ist vor allem ein Problem, wenn zu starke Korrelationen im finalen Modell vorliegen, zB. falls Variablen rein auf der Basis von ökologischen Kriterien inkludiert wurden und dadurch stark korrelierte Variablen im Modell sind.\n\n\nMusterlösung\n\n\n# use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values\n# not substantially greater than 1 (say 5), no need to worry.\n\ncar::vif(m_reh_day)\n## dist_road_only_scaled    forest_prop_scaled          slope_scaled \n##              1.059651              1.255186              1.354885 \n##             us_scaled \n##              1.129149\nmean(car::vif(m_reh_day))\n## [1] 1.199718",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-3",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-3",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nGraphische Darstellung der Modellresultate\n\n# graphische Darstellung aller Fixeffekte\n\nplot_model(m_reh_day, transform = NULL, show.values = TRUE, value.offset = .25)\n\n\nAufgabe 3.1\nIn diesem Schritt sollen Vorhersageplots für jede Umweltvariable gemacht werden. Diese “ResponseCurves” visualisieren die vorhergesagte Wahrscheinlichkeit, ob ein Kreis durch ein Reh besetzt ist in Abhängigkeit der erklärenden Variable.\n\nplot_model(m_reh_day, type = \"pred\", terms = \"us_scaled [all]\")\n\n# Problem: skalierte Variablen lassen sich nicht so ohne weiteres interpretieren, daher müssen die Variablen rückskaliert werden \n# Vorhersageplot für eine Variable (hier us_scaled) + Rücketikettierung auf Originalskala\n\n# Die Einstellungen müssen für jede Variable separat geändert werden\n\np_us &lt;- plot_model(m_reh_day, type = \"pred\", terms = \"us_scaled [all]\")\nmu &lt;- mean(DF_reh_day$us_2014, na.rm = TRUE)\nsdv &lt;- sd(DF_reh_day$us_2014, na.rm = TRUE)\nmin_us &lt;- min(DF_reh_day$us_2014, na.rm = TRUE)\nmax_us &lt;- max(DF_reh_day$us_2014, na.rm = TRUE)\n\np_us + scale_x_continuous(\n      limits = c((min_us - mu)/sdv, (max_us - mu)/sdv),\n      breaks = seq((min_us - mu)/sdv, (max_us - mu)/sdv, length.out = 5),\n      labels = function(x) round(x*sdv + mu, 2),\n      name = \"Deckungsgrad Strauchschicht [0-1]\"\n    )\n\n\n\nAufgabe 3.2\nDie resultierenden ResponseCurves sollten möglichst auf einem Element/Plot zusammengebracht werden als Gesamtgrafik in einem Raster (Small multiples)\n\n\nMusterlösung\n# Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst\n# gute Funktionen für schöne Layouts für Grafiken)\n\ncowplot::plot_grid()",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-4",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-4",
+    "title": "Modellgüte und -diagnostics MM",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nErmittlung des individuellen Beitrags der einzelnen Variablen im Gesamtmodell (leave-one-out Ansatz)\n\nBestimmen delta AIC nach Coppes u. a. (2017) → Vergleich des Gesamtmodells gegenüber einem Modell ohne den entsprechenden Fixeffekt.\nAuftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)\n\n\n\nMusterlösung\n\nvars &lt;- c(\"slope_scaled\", \"forest_prop_scaled\", \"dist_road_only_scaled\", \"us_scaled\")\n\n# leave-one-out models\nmodelle &lt;- lapply(vars, function(var) {\n  formula &lt;- as.formula(paste(\"pres_abs ~\", paste(setdiff(vars, var), collapse = \" + \"), \"+ (1 | id)\"))\n  glmer(formula, data = DF_reh_day, family = binomial, na.action = \"na.fail\")\n})\n\n\nnames(modelle) &lt;- paste0(\"m_\", vars)\n\nmodelle &lt;- c(list(m_reh_day = m_reh_day), modelle)\n\n\nbbmle::AICtab(modelle)\n##                         dAIC  df\n## m_reh_day                 0.0 6 \n## m_slope_scaled            8.3 5 \n## m_dist_road_only_scaled  83.6 5 \n## m_us_scaled              94.2 5 \n## m_forest_prop_scaled    282.1 5\n\n\n\n\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94.",
+    "crumbs": [
+      "Fallstudie N",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung</span>"
+    ]
+  },
+  {
     "objectID": "References.html",
     "href": "References.html",
     "title": "Literaturverzeichnis",
     "section": "",
-    "text": "Bochud, Murielle, Angéline Chatelan, Juan-Manuel Blanco, and Sigrid\nMaria Beer-Borst. 2017. Anthropometric Characteristics and\nIndicators of Eating and Physical Activity Behaviors in the Swiss Adult\nPopulation: Results from menuCH 2014-2015.\n\n\nBorcard, Daniel, François Gillet, Pierre Legendre,\net al. 2011. Numerical Ecology with r. Vol. 2. Springer.\n\n\nKovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLo, Steson, and Sally Andrews. 2015. “To Transform or Not to\nTransform: Using Generalized Linear Mixed Models to Analyse Reaction\nTime Data.” Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, et al. 2020.\n“Robustness of Linear Mixed-Effects Models to Violations of\nDistributional Assumptions.” Methods in Ecology and\nEvolution 11 (9): 1141–52.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
+    "text": "Bochud, Murielle, Angéline Chatelan, Juan-Manuel Blanco, and Sigrid\nMaria Beer-Borst. 2017. Anthropometric Characteristics and\nIndicators of Eating and Physical Activity Behaviors in the Swiss Adult\nPopulation: Results from menuCH 2014-2015.\n\n\nBorcard, Daniel, François Gillet, Pierre Legendre,\net al. 2011. Numerical Ecology with r. Vol. 2. Springer.\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, and Veronika\nBraunisch. 2017. “Outdoor Recreation Causes Effective Habitat\nReduction in Capercaillie Tetrao Urogallus: A Major Threat for\nGeographically Restricted Populations.” Journal of Avian\nBiology 48 (12): 1583–94.\n\n\nKovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLo, Steson, and Sally Andrews. 2015. “To Transform or Not to\nTransform: Using Generalized Linear Mixed Models to Analyse Reaction\nTime Data.” Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nLuccioni, Alexandra Sasha, Yacine Jernite, and Emma Strubell. 2024.\n“Power Hungry Processing: Watts Driving the Cost of\nAI Deployment?” Proceedings of the 2024 ACM\nConference on Fairness, Accountability, and Transparency. https://doi.org/10.1145/3630106.3658542.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, et al. 2020.\n“Robustness of Linear Mixed-Effects Models to Violations of\nDistributional Assumptions.” Methods in Ecology and\nEvolution 11 (9): 1141–52.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.",
     "crumbs": [
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Literaturverzeichnis</span>"
     ]
   }
 ]
