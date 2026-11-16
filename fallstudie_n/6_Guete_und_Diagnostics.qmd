@@ -1,282 +1,404 @@
 ---
+title: "Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung"
+
+# EINZIGE UMSCHALTSTELLE FÜR DIE VERÖFFENTLICHUNG:
+# Aufgabenversion: beide Schalter false; Musterlösungen: beide true.
 execute:
-  echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false    # true = Musterlösungs-Code anzeigen
+  output: false  # true = Ergebnisse / Grafiken der Musterlösung anzeigen
+  warning: false
+  message: false
+
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
-  opts_chunk: 
+  opts_chunk:
     collapse: true
+    fig.width: 9
+    fig.height: 5
 ---
 
-# Modellgüte und -diagnostics MM
+<!--
+HINWEIS FÜR DIE LEHRPERSON:
+- Aufgabenversion/Musterlösung werden durch execute.echo und execute.output
+  im YAML-Header umgeschaltet (QMD-Quelltext nicht öffentlich bereitstellen).
+- Die Vorbereitung rekonstruiert exakt den Tages-Workflow aus der aktuell
+  hochgeladenen Übung 5: Skalierung IM Tagdatensatz, drei quadratische Terme,
+  dieselbe globale Formel, dieselben dc()-Regeln, best_model_day = Rang 1.
+- Bei eigenständiger Weiterarbeit im gleichen R-Skript können Studierende die
+  Modellrekonstruktion überspringen (Objekte best_model_day/DF_reh_day).
+- Quadratische Terme werden bei Response Curves aus den linearen Variablen
+  abgeleitet und bei Leave-one-out paarweise mit dem linearen Term entfernt.
+- Räumliche Residualprüfung ist optional und erfolgt innerhalb einer Reh-ID.
+-->
 
-## Libraries laden
+## Ziel und Einordnung
 
-Packages die wir für die Modelle und die Diagnostics brauchen
+Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: **das in Übung 5 ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen**. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.
+
+Wie zuvor bedeutet `pres_abs = 0` **available**, nicht nachgewiesene Absenz. Vorhersagekurven und AUC beziehen sich auf die Trennung von *used* und *available* im Stichprobendesign.
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Übernehmt den vorgegebenen Code in euer eigenes R-Skript und beurteilt die Ergebnisse.
+:::
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+Hier entwickelt ihr den Code selbst. Die Musterlösungen werden eine Woche später auf der gerenderten GitHub-Seite freigeschaltet.
+:::
+
+## Vorbereitung – Das Bestmodell aus Übung 5 übernehmen
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Wir arbeiten mit **`DF_reh_day` und `best_model_day` aus dem Block Variablenselektion** weiter. Dort wurde das globale Modell mit drei möglichen quadratischen Termen erstellt und mit `dredge()` nach AICc verglichen. Wenn ihr euer R-Skript aus dem letzten Block weiterführt, sind die Objekte bereits vorhanden. 
 
 ```{r}
+#| label: setup-diagnostics
 #| echo: true
+#| output: true
 #| code-fold: false
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(glmmTMB)
+library(MuMIn)
+library(DHARMa)
+library(ROCR)
+library(performance)
+library(cowplot)
 
-library("lme4")
-library("bbmle")
-library("MuMIn")
-library("dplyr")
-library("readr")
-library("ggplot2")
-library("DHARMa")
-library("car")
-library("MASS")
-library("ROCR")
-library("sjPlot")
-library("ggeffects")
-library("sjstats")
-library("cowplot")
-library("gstat")
-library("purrr")
-library("broom.mixed")
-```
+options(scipen = 999)
 
-## Ausgangslage
+vars_umwelt <- c(
+  "slope", "topo_pos", "dist_road_trails", "dist_road_only",
+  "dist_sett", "forest_prop", "us_2014", "os_2014"
+)
 
-- Der Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen. 
+# Identischer Datenpfad wie in Übung 5
+DF_reh <- read_delim(
+  "datasets/fallstudie_n/Aufgabe_Multivariate_Modelle/Datensatz_Modelle_Habitatnutzung_Reh_261102.csv",
+  delim = ";"
+)
+stopifnot(all(c("pres_abs", "id", "time_of_day", vars_umwelt) %in% names(DF_reh)))
+stopifnot(all(vapply(DF_reh[vars_umwelt], is.numeric, logical(1))))
+stopifnot(all(na.omit(DF_reh$pres_abs) %in% c(0, 1)))
 
-```{r}
-#| echo: true
-#| code-fold: false
-#| include: false
+DF_reh$id <- factor(DF_reh$id)
+DF_reh_day <- DF_reh |>
+  filter(time_of_day == "day")
 
-DF_reh_day <- read_delim("datasets/fallstudie_n/Aufgabe_4/Aufgabe4_Datensatz_Modelle_Habitatnutzung_Reh_251027.csv", delim = ";") |>
-  filter(time_of_day == "day") |>
+# Wie in Übung 5: innerhalb des Tagesdatensatzes standardisieren.
+DF_reh_day <- DF_reh_day |>
   mutate(
-    slope_scaled = scale(slope),
-    topo_pos_scaled = scale(topo_pos),
-    us_scaled = scale(us_2014),
-    os_scaled = scale(os_2014),
-    forest_prop_scaled = scale(forest_prop),
-    dist_road_trails_scaled = scale(dist_road_trails),
-    dist_road_only_scaled = scale(dist_road_only),
-    dist_sett_scaled = scale(dist_sett),
-    id = as.factor(id)
+    slope_scaled = as.numeric(scale(slope)),
+    topo_pos_scaled = as.numeric(scale(topo_pos)),
+    us_scaled = as.numeric(scale(us_2014)),
+    os_scaled = as.numeric(scale(os_2014)),
+    forest_prop_scaled = as.numeric(scale(forest_prop)),
+    dist_road_trails_scaled = as.numeric(scale(dist_road_trails)),
+    dist_road_only_scaled = as.numeric(scale(dist_road_only)),
+    dist_sett_scaled = as.numeric(scale(dist_sett)),
+    slope_quadrat = slope_scaled^2,
+    dist_road_only_quadrat = dist_road_only_scaled^2,
+    forest_prop_quadrat = forest_prop_scaled^2
   )
 
-f <- pres_abs ~
-  slope_scaled +
-  topo_pos_scaled +
-  us_scaled +
-  forest_prop_scaled +
-  dist_road_only_scaled +
-  dist_sett_scaled 
+# Globale Modellformel aus Übung 5 (unverändert)
+m_global_day <- glmmTMB(
+  pres_abs ~ slope_scaled + slope_quadrat + topo_pos_scaled +
+    us_scaled + forest_prop_scaled + forest_prop_quadrat +
+    dist_road_only_scaled + dist_road_only_quadrat +
+    dist_sett_scaled + (1 | id),
+  data = DF_reh_day, family = binomial(), na.action = na.fail
+)
 
-f <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
+# Dieselben Hierarchiebedingungen wie in Übung 5
+all_m_global_day <- MuMIn::dredge(
+  m_global_day,
+  rank = "AICc",
+  subset = dc(slope_scaled, slope_quadrat) &
+    dc(dist_road_only_scaled, dist_road_only_quadrat) &
+    dc(forest_prop_scaled, forest_prop_quadrat)
+)
 
-m_reh_day <- glmer(f, data = DF_reh_day, family = binomial, na.action = "na.fail")
+# Exakt das Bestmodell aus Übung 5 (Rang 1 nach AICc)
+best_model_day <- MuMIn::get.models(all_m_global_day, subset = 1)[[1]]
+summary(best_model_day)
 
-all_m_reh_day <- dredge(m_reh_day)
-all_m_reh_day
-
-avgmodel_m_reh_day <- model.avg(all_m_reh_day, rank = "AICc", subset = delta < 2)
-summary(avgmodel_m_reh_day)
+c(
+  AICc = MuMIn::AICc(best_model_day),
+  optimizer_code = best_model_day$fit$convergence,
+  positive_definite_hessian = isTRUE(best_model_day$sdr$pdHess)
+)
 ```
 
-- Die Modellresultate aus dem avgmodel wären grundsätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht gut, weshalb wir das beste Modell aus der dredge-Funktion wählen und damit weitergehen: falls mehrere innerhalb Δ≤2 -> das mit den WENIGSTEN Fixeffekten
+:::
 
-```{r}
-#| echo: true
-#| code-fold: false
+## Aufgabe 1 – Modellgüte: AUC und Pseudo-R²
 
-cand <- get.models(all_m_reh_day, subset = delta <= 2)
-pick  <- if (length(cand) == 1) cand[[1]] else cand[[ which.min(sapply(cand, function(m) length(lme4::fixef(m)))) ]]
-m_reh_day <- update(pick)  
+Die beiden Kennzahlen beschreiben unterschiedliche Aspekte der Modellgüte:
 
+- Die **AUC** zeigt, wie gut das Modell zwischen genutzten (*used*) und verfügbaren (*available*) Stichprobenkreisen unterscheidet.
+Über die Herleitung der AUC findet ihr weiterführende Informationen unter: [Link](simtest.pdf)
+
+- Das **Pseudo-R² nach Nakagawa** beschreibt die erklärte Variation. Das *marginale R²* berücksichtigt nur die Fixed Effects, das *konditionale R²* zusätzlich die Random Effects.
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+
+**AUC:** Berechnet die AUC für `best_model_day`. Verwendet `predict()` mit `type = "response"` und `re.form = NULL`, damit die Vorhersagen für die untersuchten Rehe auch deren geschätzte Random Effects berücksichtigen. Nutzt danach `ROCR::prediction()` und `ROCR::performance(..., "auc")`.
+
+**Pseudo-R²:** Berechnet mit `performance::r2_nakagawa()` das marginale und das konditionale R² für dasselbe Modell. Wie unterscheiden sich die beiden Werte, und was bedeutet das für den Beitrag der Umweltvariablen und der Reh-ID?
+
+```r
+# prob <- predict(best_model_day, type = "response", re.form = NULL)
+# pred_roc <- ROCR::prediction(...)
+# auc <- ROCR::performance(pred_roc, "auc")@y.values[[1]]
+# performance::r2_nakagawa(best_model_day)
 ```
 
-## Aufgabe 1
-
-Berechnet die AUC eures Modelles (area under the receiver operating characteristic curve) **= Mass der Modellgüte**
-
-Über die Herleitung der AUC findet ihr weiterführende Informationen unter: [Link](simtest.pdf) 
+Die AUC wird hier mit den **zur Modellschätzung verwendeten Daten** berechnet (keine Cross-Validation). Sie beschreibt daher die Trennschärfe innerhalb unseres Datensatzes. Das Pseudo-R² ist bei einem binomialen GLMM ein modellbasiertes Mass und nicht mit dem klassischen R² einer linearen Regression gleichzusetzen.
+:::
 
 ```{r}
-
-prob <- predict(m_reh_day, type = c("response"))
-pred <- prediction(prob, DF_reh_day$pres_abs)
-
-# AUC
-
-auc <- performance(pred, measure = "auc")@y.values[[1]]
+#| label: loesung-auc-und-pseudor2
+prob <- predict(best_model_day, newdata = DF_reh_day,
+                type = "response", re.form = NULL)
+pred_roc <- ROCR::prediction(prob, DF_reh_day$pres_abs)
+auc <- ROCR::performance(pred_roc, "auc")@y.values[[1]]
 auc
+
+roc <- ROCR::performance(pred_roc, "tpr", "fpr")
+plot(roc, main = "ROC – Tagmodell", col = "steelblue", lwd = 2)
+abline(a = 0, b = 1, lty = 2, col = "grey50")
+
+# Modellbasiert erklärte Variation: Fixed Effects und Fixed + Random Effects
+performance::r2_nakagawa(best_model_day)
 ```
 
-## Aufgabe 2
+## Aufgabe 2 – Residualdiagnostik mit DHARMa
 
-Diagnose der Modell-Residuen mittels Tests aus dem DHARMa-Package auf verschiedene Aspekte (Dispersion, Zeroinfaltion, Autocorrelation)
-
-- dazu unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Bei einem binomialen GLMM erwarten wir **keine normalverteilten Residuen**. Das Paket `DHARMa` prüft das Modell mit simulationsbasierten, skalierten Residuen. Für ein korrekt spezifiziertes Modell sollten sie näherungsweise **gleichverteilt zwischen 0 und 1** sein.
 
 ```{r}
-#| output: false
+#| label: dharma-standard
 #| echo: true
+#| output: true
 #| code-fold: false
-
-# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
-# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
-# werden (dauert je nach dem lange)
-
-simulationOutput <- simulateResiduals(fittedModel = m_reh_day, n = 10000)
-
-# plotting and testing scaled residuals
+set.seed(123)
+simulationOutput <- DHARMa::simulateResiduals(
+  fittedModel = best_model_day,
+  n = 1000,
+  plot = FALSE
+)
 
 plot(simulationOutput)
-testResiduals(simulationOutput)
-
+DHARMa::testUniformity(simulationOutput)
+DHARMa::testDispersion(simulationOutput)
+DHARMa::testOutliers(simulationOutput)
 ```
+Eine Zero-Inflation-Prüfung ist bei einzelnen 0/1-Beobachtungen **keine sinnvolle Routineentscheidung**, weil eine zusätzliche Null-Komponente gegenüber der binomialen Wahrscheinlichkeit nicht unabhängig identifiziert werden kann. 
 
-### Aufgabe 2.1
+:::
 
-Die häufigsten Probleme sind overdispersion, underdispersion und Zero-Inflation. Wendet die entsprechenden Tests aus dem DHARMA auf euren `simulationOutput` an.
+### Aufgabe 2.1 – Räumliche Autokorrelation (Vertiefung)
+
+::: {.callout-tip title="SELBST PROGRAMMIEREN – optional"}
+GPS- und Rasterdaten können räumlich abhängig sein. Mit `DHARMa::testSpatialAutocorrelation()` lässt sich prüfen, ob benachbarte Stichprobenkreise ähnliche Residuen aufweisen, also ob eine räumliche Autokorrelation vorliegt. **Verwendet für einen ersten Test nur die Beobachtungen eines einzelnen Rehs**, damit das Problem überschaubar bleibt. 
+
+Hinweise: `DHARMa::recalculateResiduals(simulationOutput, sel = ...)`, `x`, `y` sowie `testSpatialAutocorrelation()`.
+:::
 
 ```{r}
-
-
-# test for dispersion
-
-testDispersion(simulationOutput)
-
-# test for Zeroinflation
-
-testZeroInflation(simulationOutput)
-
-```
-
-### Aufgabe 2.2 
-
-Bei räumlichen Daten / Modellen kann ausserdem räumliche Autokorrelation auftreten. Dieses Phämomen bezieht sich darauf, dass Beobachtungen die näher beieinander liegen häufig ähnlicher sind und dadurch Beobachtungen gewissermassen pseudo-repliziert werden. Auch dafür gibt es im DHARMa-Package einen entsprechenden Test:
-
-
-```{r}
+#| label: loesung-raeumlich
 #| eval: false
-#| output: false
-#| echo: true
-#| code-fold: false
+# Optional: einzeln ausführen – der räumliche Test kann rechenintensiv sein.
+reh_id <- unique(DF_reh_day$id)[1]
+auswahl <- DF_reh_day$id == reh_id
+standorte <- DF_reh_day[auswahl, c("x", "y")]
 
-
-# test for spatial Autocorrelation
-
-# calculating x, y positions per group
-groupLocations <- aggregate(DF_reh_day[, 3:4], list(DF_reh_day$x, DF_reh_day$y), mean)
-groupLocations$group <- paste(groupLocations$Group.1, groupLocations$Group.2)
-groupLocations <- groupLocations |> dplyr::select(x,y,group)
-
-# calculating residuals per group
-res2 = recalculateResiduals(simulationOutput, group = groupLocations$group)
-
-# running the spatial test on grouped residuals
-testSpatialAutocorrelation(res2, groupLocations$x, groupLocations$y, plot = F)
+sim_reh <- DHARMa::recalculateResiduals(simulationOutput, sel = auswahl)
+DHARMa::testSpatialAutocorrelation(sim_reh, x = standorte$x, y = standorte$y, plot = TRUE)
 
 ```
 
-### Aufgabe 2.3
+### Aufgabe 2.2 – Multikollinearität im ausgewählten Modell
 
-Testen  des Modells `m_reh_day` auf Multikollinearität mittels VIF. Multikollinearität ist vor allem ein Problem, wenn zu starke Korrelationen im finalen Modell vorliegen, zB. falls Variablen rein auf der Basis von ökologischen Kriterien inkludiert wurden und dadurch stark korrelierte Variablen im Modell sind.
-
-```{r}
-
-
-# use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
-# not substantially greater than 1 (say 5), no need to worry.
-
-car::vif(m_reh_day)
-mean(car::vif(m_reh_day))
-
-```
-
-## Aufgabe 3
-
-Graphische Darstellung der Modellresultate
-
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
+Im Übungsblock "Vorbereitung der Modellierung" habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die **verbleibende Kollinearität im tatsächlich ausgewählten Modell**. Die möglichen quadratischen Terme (`slope_quadrat`, `dist_road_only_quadrat`, `forest_prop_quadrat`) gehören zu den jeweiligen linearen Prädiktoren. Hohe Kollinearitätswerte zwischen einem linearen und seinem quadratischen Term sind deshalb gesondert zu beurteilen.
 
 ```{r}
-#| output: false
+#| label: vif-final
 #| echo: true
+#| output: true
+#| code-fold: false
+performance::check_collinearity(best_model_day)
+```
+:::
+
+## Aufgabe 3 – Modellresultate darstellen
+
+Ein Modellkoeffizient eines binomialen GLMM beschreibt eine Veränderung der **Log-Odds**. Um einen ökologischen Zusammenhang anschaulich darzustellen, verwenden wir **Response Curves**. Also die modellierte Zuordnung zu *Präsenz* in Abhängigkeit eines Prädiktors, während die übrigen metrischen Prädiktoren auf einem Referenzwert bleiben (Mittelwerte aller standardisierten Variablen (jeweils 0)).
+
+**Wichtig bei quadratischen Termen:** Falls das ausgewählte Modell einen quadratischen Term für `slope`, `dist_road_only` oder `forest_prop` enthält, muss dieser bei einer Vorhersage **aus dem jeweiligen linearen Prädiktor neu berechnet** werden. Andernfalls ist die Kurve falsch dargestellt.
+
+::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN – Beispiel `slope`"}
+Die folgende Funktion erzeugt eine Response Curve auf der **Originalskala**. Für alle übrigen standardisierten Prädiktoren wird der Wert `0` (ihr Mittelwert im Datensatz) verwendet. Die quadratischen Terme werden passend dazu gesetzt. Individuelle Random Effects werden bei der Vorhersage auf `0` gesetzt (`re.form = NA`). 
+
+```{r}
+#| label: plot-funktion
+#| echo: true
+#| output: true
 #| code-fold: false
 
-# graphische Darstellung aller Fixeffekte
+# Zuordnung: standardisierte Modellvariable -> ursprüngliche Umweltvariable
+rohvariablen <- c(
+  slope_scaled = "slope",
+  topo_pos_scaled = "topo_pos",
+  us_scaled = "us_2014",
+  os_scaled = "os_2014",
+  forest_prop_scaled = "forest_prop",
+  dist_road_trails_scaled = "dist_road_trails",
+  dist_road_only_scaled = "dist_road_only",
+  dist_sett_scaled = "dist_sett"
+)
 
-plot_model(m_reh_day, transform = NULL, show.values = TRUE, value.offset = .25)
+plot_response <- function(modell, daten, variable) {
+  stopifnot(variable %in% names(rohvariablen))
+  stopifnot(variable %in% names(glmmTMB::fixef(modell)$cond))
 
+  # Referenz: Mittelwerte aller standardisierten Variablen (jeweils 0).
+  basis <- daten[1, , drop = FALSE]
+  for (v in names(rohvariablen)) basis[[v]] <- 0
+
+  # Die drei möglichen quadratischen Terme gehören zu ihren linearen Werten.
+  basis$slope_quadrat <- 0
+  basis$dist_road_only_quadrat <- 0
+  basis$forest_prop_quadrat <- 0
+
+  nd <- basis[rep(1, 80), , drop = FALSE]
+  rohname <- unname(rohvariablen[[variable]])
+  x_original <- seq(
+    min(daten[[rohname]]), max(daten[[rohname]]), length.out = 80
+  )
+  nd[[variable]] <- (x_original - mean(daten[[rohname]])) /
+    sd(daten[[rohname]])
+
+  # Bei jeder Vorhersage die Quadrate konsistent aktualisieren.
+  nd$slope_quadrat <- nd$slope_scaled^2
+  nd$dist_road_only_quadrat <- nd$dist_road_only_scaled^2
+  nd$forest_prop_quadrat <- nd$forest_prop_scaled^2
+
+  vorhersage <- predict(
+    modell, newdata = nd, type = "link",
+    se.fit = TRUE, re.form = NA
+  )
+  nd$fit <- plogis(vorhersage$fit)
+  nd$unten <- plogis(vorhersage$fit - 1.96 * vorhersage$se.fit)
+  nd$oben <- plogis(vorhersage$fit + 1.96 * vorhersage$se.fit)
+  nd$x_original <- x_original
+
+ggplot(nd, aes(x = x_original, y = fit)) +
+  geom_ribbon(aes(ymin = unten, ymax = oben), alpha = 0.2) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+    labs(x = rohname, 
+         y = "Antreffwahrscheinlichkeit",
+         title = rohname) +
+    theme_bw()
+}
+
+fixterme <- setdiff(
+  names(glmmTMB::fixef(best_model_day)$cond), "(Intercept)"
+)
+quadratterme <- c(
+  "slope_quadrat", "dist_road_only_quadrat", "forest_prop_quadrat"
+)
+plotvariablen <- setdiff(fixterme, quadratterme)
+
+if (length(plotvariablen) == 0) {
+  message("Das ausgewählte Modell enthält keine erklärenden Fixeffekte.")
+} else if ("slope_scaled" %in% plotvariablen) {
+  plot_response(best_model_day, DF_reh_day, "slope_scaled")
+} else {
+  plot_response(best_model_day, DF_reh_day, plotvariablen[1])
+}
 ```
+:::
 
-### Aufgabe 3.1
+::: {.callout-tip title="SELBST PROGRAMMIEREN – mehrere Response Curves"}
+Verwendet die Funktion `plot_response()`, um **für alle erklärenden Variablen im ausgewählten Modell** eine Response Curve zu erstellen, und ordnet sie mit `cowplot::plot_grid()` als übersichtliche Gesamtgrafik an. Quadratische Terme bekommen **keine eigenen Plots**. Sie sind Bestandteil der Response Curves ihrer jeweiligen linearen Prädiktoren.
 
-In diesem Schritt sollen Vorhersageplots für jede Umweltvariable gemacht werden. Diese "ResponseCurves" visualisieren die vorhergesagte Wahrscheinlichkeit, ob ein Kreis durch ein Reh besetzt ist in Abhängigkeit der erklärenden Variable.
+```r
+# plots <- lapply(plotvariablen, function(v) plot_response(best_model_day, DF_reh_day, v))
+# cowplot::plot_grid(plotlist = plots, ncol = 2)
+```
+:::
 
 ```{r}
-#| output: false
-#| echo: true
-#| code-fold: false
+#| label: loesung-multipanel
+if (length(plotvariablen) > 0) {
+  plots <- lapply(plotvariablen, function(v) {
+    plot_response(best_model_day, DF_reh_day, v)
+  })
+  cowplot::plot_grid(plotlist = plots, ncol = 2)
+}
+```
 
-plot_model(m_reh_day, type = "pred", terms = "us_scaled [all]")
+## Aufgabe 4 – Beitrag der Variablen: Leave-one-out
 
-# Problem: skalierte Variablen lassen sich nicht so ohne weiteres interpretieren, daher müssen die Variablen rückskaliert werden 
-# Vorhersageplot für eine Variable (hier us_scaled) + Rücketikettierung auf Originalskala
+Der **Leave-one-out-Vergleich** untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. 
 
-# Die Einstellungen müssen für jede Variable separat geändert werden
+Bei `slope`, `dist_road_only` und `forest_prop` bilden der lineare und der gegebenenfalls enthaltene quadratische Term **je einen gemeinsamen Block**. Für den gesamten Effekt einer Umweltvariable entfernen wir beide Terme zusammen.
 
-p_us <- plot_model(m_reh_day, type = "pred", terms = "us_scaled [all]")
-mu <- mean(DF_reh_day$us_2014, na.rm = TRUE)
-sdv <- sd(DF_reh_day$us_2014, na.rm = TRUE)
-min_us <- min(DF_reh_day$us_2014, na.rm = TRUE)
-max_us <- max(DF_reh_day$us_2014, na.rm = TRUE)
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+Erstellt zuerst ein reduziertes Modell **ohne einen einzelnen Prädiktor**, berechnet den AICc und vergleicht ihn mit dem vollständigen Modell. Übertragt das Vorgehen anschliessend auf die übrigen Modellvariablen. Falls für die gewählte Variable ein quadratischer Term im Modell vorkommt, entfernt **den linearen und den quadratischen Term gemeinsam**.
 
-p_us + scale_x_continuous(
-      limits = c((min_us - mu)/sdv, (max_us - mu)/sdv),
-      breaks = seq((min_us - mu)/sdv, (max_us - mu)/sdv, length.out = 5),
-      labels = function(x) round(x*sdv + mu, 2),
-      name = "Deckungsgrad Strauchschicht [0-1]"
+```r
+# AICc_voll <- MuMIn::AICc(best_model_day)
+# formel_ohne <- update.formula(formula(best_model_day), . ~ . - ...)
+# modell_ohne <- update(best_model_day, formula = formel_ohne)
+# MuMIn::AICc(modell_ohne) - AICc_voll
+```
+:::
+
+```{r}
+#| label: loesung-leave-one-out
+AICc_voll <- MuMIn::AICc(best_model_day)
+
+# Die Quadrat-Terme sind keine separaten Umweltvariablen.
+quadratterme <- c(
+  slope_scaled = "slope_quadrat",
+  dist_road_only_scaled = "dist_road_only_quadrat",
+  forest_prop_scaled = "forest_prop_quadrat"
+)
+
+# Pro linearer Umweltvariable ein Block, bei Bedarf samt Quadrat-Term.
+lineare_terme <- setdiff(fixterme, unname(quadratterme))
+bloecke <- lapply(lineare_terme, function(v) {
+  if (v %in% names(quadratterme) && quadratterme[[v]] %in% fixterme) {
+    c(v, quadratterme[[v]])
+  } else {
+    v
+  }
+})
+names(bloecke) <- lineare_terme
+
+modelle_ohne <- lapply(bloecke, function(begriffe) {
+  formel_ohne <- formula(best_model_day)
+  for (begriff in begriffe) {
+    formel_ohne <- stats::update.formula(
+      formel_ohne, paste(". ~ . -", begriff)
     )
-
-```
-
-### Aufgabe 3.2
-
-Die resultierenden ResponseCurves sollten möglichst auf einem Element/Plot zusammengebracht werden als Gesamtgrafik in einem Raster (Small multiples)
-
-
-```{r}
-#| eval: false
-
-# Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst
-# gute Funktionen für schöne Layouts für Grafiken)
-
-cowplot::plot_grid()
-```
-
-## Aufgabe 4
-
-Ermittlung des individuellen Beitrags der einzelnen Variablen im Gesamtmodell (leave-one-out Ansatz)
-
-- Bestimmen delta AIC nach @coppes2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne den entsprechenden Fixeffekt.
-- Auftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
-
-```{r}
-
-vars <- c("slope_scaled", "forest_prop_scaled", "dist_road_only_scaled", "us_scaled")
-
-# leave-one-out models
-modelle <- lapply(vars, function(var) {
-  formula <- as.formula(paste("pres_abs ~", paste(setdiff(vars, var), collapse = " + "), "+ (1 | id)"))
-  glmer(formula, data = DF_reh_day, family = binomial, na.action = "na.fail")
+  }
+  update(best_model_day, formula = formel_ohne)
 })
 
-
-names(modelle) <- paste0("m_", vars)
-
-modelle <- c(list(m_reh_day = m_reh_day), modelle)
-
-
-bbmle::AICtab(modelle)
-
+vergleich <- data.frame(
+  entfernte_variable = names(bloecke),
+  AICc_ohne = vapply(modelle_ohne, MuMIn::AICc, numeric(1))
+)
+vergleich$delta_AICc <- vergleich$AICc_ohne - AICc_voll
+vergleich[order(-vergleich$delta_AICc), ]
 ```
+
 

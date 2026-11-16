@@ -144,7 +144,7 @@ Die Dichtekurven zeigen, welche Werte der Umweltvariablen in den genutzten und v
 
 ```{r}
 #| echo: true
-#| output: false
+#| output: true
 #| label: dichteplots-funktion
 #| code-fold: false
 plot_used_available <- function(datensatz, titel) {
