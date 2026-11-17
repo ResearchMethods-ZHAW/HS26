@@ -1029,7 +1029,7 @@ DHARMa::testOutliers(simulationOutput)</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Im Übungsblock “Vorbereitung der Modellierung” habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die <strong>verbleibende Kollinearität im tatsächlich ausgewählten Modell</strong>. Die möglichen quadratischen Terme (<code>slope_quadrat</code>, <code>dist_road_only_quadrat</code>, <code>forest_prop_quadrat</code>) gehören zu den jeweiligen linearen Prädiktoren. Hohe Kollinearitätswerte zwischen einem linearen und seinem quadratischen Term sind deshalb gesondert zu beurteilen.</p>
+<p>Im Übungsblock “Vorbereitung der Modellierung” habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die <strong>verbleibende Kollinearität im tatsächlich ausgewählten Modell</strong>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_collinearity</span>(best_model_day)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # Check for Multicollinearity</span></span>
