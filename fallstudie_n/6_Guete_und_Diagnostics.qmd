@@ -218,7 +218,7 @@ DHARMa::testSpatialAutocorrelation(sim_reh, x = standorte$x, y = standorte$y, pl
 ### Aufgabe 2.2 – Multikollinearität im ausgewählten Modell
 
 ::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
-Im Übungsblock "Vorbereitung der Modellierung" habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die **verbleibende Kollinearität im tatsächlich ausgewählten Modell**. Die möglichen quadratischen Terme (`slope_quadrat`, `dist_road_only_quadrat`, `forest_prop_quadrat`) gehören zu den jeweiligen linearen Prädiktoren. Hohe Kollinearitätswerte zwischen einem linearen und seinem quadratischen Term sind deshalb gesondert zu beurteilen.
+Im Übungsblock "Vorbereitung der Modellierung" habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die **verbleibende Kollinearität im tatsächlich ausgewählten Modell**. 
 
 ```{r}
 #| label: vif-final
@@ -333,7 +333,7 @@ cowplot::plot_grid(p_slope, p_strassen, p_wald, p_topo, p_us, ncol = 2)
 
 ## Aufgabe 4 – Beitrag der Variablen: Leave-one-out
 
-Der **Leave-one-out-Vergleich** untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. Ihr diesen Aspekt mit Coppes et al. (2017) abgleichen. 
+Der **Leave-one-out-Vergleich** untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. Ihr könnt diesen Aspekt mit Coppes et al. (2017) abgleichen. 
 
 Bei `slope`, `dist_road_only` und `forest_prop` bilden der lineare und der gegebenenfalls enthaltene quadratische Term **je einen gemeinsamen Block**. Für den gesamten Effekt einer Umweltvariable entfernen wir beide Terme zusammen.
 
