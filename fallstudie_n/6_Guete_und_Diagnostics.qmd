@@ -44,7 +44,7 @@ Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehend
 Hier entwickelt ihr den Code selbst. Die Musterlösungen werden eine Woche später auf der gerenderten GitHub-Seite freigeschaltet.
 :::
 
-## Vorbereitung – Das Bestmodell aus Übung 5 übernehmen
+## Vorbereitung – Das Bestmodell aus der Variablenselektion übernehmen
 
 ::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
 Wir arbeiten mit **`DF_reh_day` und `best_model_day` aus dem Block Variablenselektion** weiter. Dort wurde das globale Modell mit drei möglichen quadratischen Termen erstellt und mit `dredge()` nach AICc verglichen. Wenn ihr euer R-Skript aus dem letzten Block weiterführt, sind die Objekte bereits vorhanden. 
@@ -194,9 +194,9 @@ Eine Zero-Inflation-Prüfung ist bei einzelnen 0/1-Beobachtungen **keine sinnvol
 
 :::
 
-### Aufgabe 2.1 – Räumliche Autokorrelation (Vertiefung)
+### Aufgabe 2.1 – Räumliche Autokorrelation
 
-::: {.callout-tip title="SELBST PROGRAMMIEREN – optional"}
+::: {.callout-tip title="SELBST PROGRAMMIEREN"}
 GPS- und Rasterdaten können räumlich abhängig sein. Mit `DHARMa::testSpatialAutocorrelation()` lässt sich prüfen, ob benachbarte Stichprobenkreise ähnliche Residuen aufweisen, also ob eine räumliche Autokorrelation vorliegt. **Verwendet für einen ersten Test nur die Beobachtungen eines einzelnen Rehs**, damit das Problem überschaubar bleibt. 
 
 Hinweise: `DHARMa::recalculateResiduals(simulationOutput, sel = ...)`, `x`, `y` sowie `testSpatialAutocorrelation()`.
