@@ -34,9 +34,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 
 ## Ziel und Einordnung
 
-Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: **das in Übung 5 ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen**. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.
-
-Wie zuvor bedeutet `pres_abs = 0` **available**, nicht nachgewiesene Absenz. Vorhersagekurven und AUC beziehen sich auf die Trennung von *used* und *available* im Stichprobendesign.
+Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: **das in der Vorwoche ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen**. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.
 
 ::: {.callout-note title="AUSFÜHREN & NACHVOLLZIEHEN"}
 Übernehmt den vorgegebenen Code in euer eigenes R-Skript und beurteilt die Ergebnisse.
@@ -102,7 +100,7 @@ DF_reh_day <- DF_reh_day |>
     forest_prop_quadrat = forest_prop_scaled^2
   )
 
-# Globale Modellformel aus Übung 5 (unverändert)
+# Globale Modellformel aus dem Block Variablenselektion (unverändert)
 m_global_day <- glmmTMB(
   pres_abs ~ slope_scaled + slope_quadrat + topo_pos_scaled +
     us_scaled + forest_prop_scaled + forest_prop_quadrat +
@@ -111,7 +109,7 @@ m_global_day <- glmmTMB(
   data = DF_reh_day, family = binomial(), na.action = na.fail
 )
 
-# Dieselben Hierarchiebedingungen wie in Übung 5
+# Dieselben Hierarchiebedingungen wie im Block Variablenselektion
 all_m_global_day <- MuMIn::dredge(
   m_global_day,
   rank = "AICc",
@@ -120,7 +118,7 @@ all_m_global_day <- MuMIn::dredge(
     dc(forest_prop_scaled, forest_prop_quadrat)
 )
 
-# Exakt das Bestmodell aus Übung 5 (Rang 1 nach AICc)
+# Exakt das Bestmodell aus dem Block Variablenselektion (Rang 1 nach AICc)
 best_model_day <- MuMIn::get.models(all_m_global_day, subset = 1)[[1]]
 summary(best_model_day)
 
@@ -148,14 +146,9 @@ Die beiden Kennzahlen beschreiben unterschiedliche Aspekte der Modellgüte:
 
 **Pseudo-R²:** Berechnet mit `performance::r2_nakagawa()` das marginale und das konditionale R² für dasselbe Modell. Wie unterscheiden sich die beiden Werte, und was bedeutet das für den Beitrag der Umweltvariablen und der Reh-ID?
 
-```r
-# prob <- predict(best_model_day, type = "response", re.form = NULL)
-# pred_roc <- ROCR::prediction(...)
-# auc <- ROCR::performance(pred_roc, "auc")@y.values[[1]]
-# performance::r2_nakagawa(best_model_day)
-```
 
 Die AUC wird hier mit den **zur Modellschätzung verwendeten Daten** berechnet (keine Cross-Validation). Sie beschreibt daher die Trennschärfe innerhalb unseres Datensatzes. Das Pseudo-R² ist bei einem binomialen GLMM ein modellbasiertes Mass und nicht mit dem klassischen R² einer linearen Regression gleichzusetzen.
+
 :::
 
 ```{r}
@@ -196,6 +189,7 @@ DHARMa::testUniformity(simulationOutput)
 DHARMa::testDispersion(simulationOutput)
 DHARMa::testOutliers(simulationOutput)
 ```
+
 Eine Zero-Inflation-Prüfung ist bei einzelnen 0/1-Beobachtungen **keine sinnvolle Routineentscheidung**, weil eine zusätzliche Null-Komponente gegenüber der binomialen Wahrscheinlichkeit nicht unabhängig identifiziert werden kann. 
 
 :::
@@ -263,94 +257,88 @@ rohvariablen <- c(
 )
 
 plot_response <- function(modell, daten, variable) {
-  stopifnot(variable %in% names(rohvariablen))
-  stopifnot(variable %in% names(glmmTMB::fixef(modell)$cond))
 
-  # Referenz: Mittelwerte aller standardisierten Variablen (jeweils 0).
-  basis <- daten[1, , drop = FALSE]
-  for (v in names(rohvariablen)) basis[[v]] <- 0
-
-  # Die drei möglichen quadratischen Terme gehören zu ihren linearen Werten.
-  basis$slope_quadrat <- 0
-  basis$dist_road_only_quadrat <- 0
-  basis$forest_prop_quadrat <- 0
-
-  nd <- basis[rep(1, 80), , drop = FALSE]
   rohname <- unname(rohvariablen[[variable]])
-  x_original <- seq(
-    min(daten[[rohname]]), max(daten[[rohname]]), length.out = 80
-  )
-  nd[[variable]] <- (x_original - mean(daten[[rohname]])) /
+
+  # Alle anderen Umweltvariablen auf ihrem Mittelwert (skaliert = 0)
+  basis <- daten[1, , drop = FALSE]
+  basis[names(rohvariablen)] <- 0
+  basis[c("slope_quadrat", "dist_road_only_quadrat", "forest_prop_quadrat")] <- 0
+
+  # 80 Werte der gewählten Umweltvariable auf der Originalskala
+  nd <- basis[rep(1, 80), , drop = FALSE]
+  nd$x_original <- seq(min(daten[[rohname]]), max(daten[[rohname]]),
+                       length.out = 80)
+  nd[[variable]] <- (nd$x_original - mean(daten[[rohname]])) /
     sd(daten[[rohname]])
 
-  # Bei jeder Vorhersage die Quadrate konsistent aktualisieren.
+  # Quadratische Terme passend zu den skalierten Werten berechnen
   nd$slope_quadrat <- nd$slope_scaled^2
   nd$dist_road_only_quadrat <- nd$dist_road_only_scaled^2
   nd$forest_prop_quadrat <- nd$forest_prop_scaled^2
 
-  vorhersage <- predict(
-    modell, newdata = nd, type = "link",
-    se.fit = TRUE, re.form = NA
-  )
+  # Vorhersage auf Logit-Skala; anschliessend auf 0–1 umrechnen
+  vorhersage <- predict(modell, newdata = nd, type = "link",
+                        se.fit = TRUE, re.form = NA)
   nd$fit <- plogis(vorhersage$fit)
   nd$unten <- plogis(vorhersage$fit - 1.96 * vorhersage$se.fit)
   nd$oben <- plogis(vorhersage$fit + 1.96 * vorhersage$se.fit)
-  nd$x_original <- x_original
 
-ggplot(nd, aes(x = x_original, y = fit)) +
-  geom_ribbon(aes(ymin = unten, ymax = oben), alpha = 0.2) +
-  geom_line(linewidth = 1) +
-  scale_y_continuous(limits = c(0, 1)) +
-    labs(x = rohname, 
-         y = "Antreffwahrscheinlichkeit",
-         title = rohname) +
+  ggplot(nd, aes(x = x_original, y = fit)) +
+    geom_ribbon(aes(ymin = unten, ymax = oben), alpha = 0.2) +
+    geom_line(linewidth = 1) +
+    scale_y_continuous(limits = c(0, 1)) +
+    labs(x = rohname, y = "Antreffwahrscheinlichkeit", title = rohname) +
     theme_bw()
 }
 
-fixterme <- setdiff(
-  names(glmmTMB::fixef(best_model_day)$cond), "(Intercept)"
-)
-quadratterme <- c(
-  "slope_quadrat", "dist_road_only_quadrat", "forest_prop_quadrat"
-)
-plotvariablen <- setdiff(fixterme, quadratterme)
-
-if (length(plotvariablen) == 0) {
-  message("Das ausgewählte Modell enthält keine erklärenden Fixeffekte.")
-} else if ("slope_scaled" %in% plotvariablen) {
-  plot_response(best_model_day, DF_reh_day, "slope_scaled")
-} else {
-  plot_response(best_model_day, DF_reh_day, plotvariablen[1])
-}
+# Eine einzelne Response Curve erstellen
+p_slope <- plot_response(best_model_day, DF_reh_day, "slope_scaled") +
+  labs(x = "slope [°]")
+p_slope
 ```
 :::
 
-::: {.callout-tip title="SELBST PROGRAMMIEREN – mehrere Response Curves"}
-Verwendet die Funktion `plot_response()`, um **für alle erklärenden Variablen im ausgewählten Modell** eine Response Curve zu erstellen, und ordnet sie mit `cowplot::plot_grid()` als übersichtliche Gesamtgrafik an. Quadratische Terme bekommen **keine eigenen Plots**. Sie sind Bestandteil der Response Curves ihrer jeweiligen linearen Prädiktoren.
+::: {.callout-tip title="SELBST PROGRAMMIEREN – Weitere Response Curves und Multipanel"}
+Erstellt die Response Curves für die **übrigen Umweltvariablen im ausgewählten Modell**. Verwendet dafür dieselbe Funktion und speichert die Grafiken einzeln, beispielsweise als `p_strassen`, `p_wald`, `p_topo` und `p_us`.
 
-```r
-# plots <- lapply(plotvariablen, function(v) plot_response(best_model_day, DF_reh_day, v))
-# cowplot::plot_grid(plotlist = plots, ncol = 2)
-```
+Gebt auf der X-Achse jeweils die Originalvariable mit ihrer Einheit an. Die Funktion berücksichtigt die quadratischen Terme automatisch; für diese werden keine separaten Kurven erstellt. Setzt anschliessend die einzelnen Plotobjekte mit `cowplot::plot_grid()` zu einer gemeinsamen Abbildung zusammen.
+
+**Tip für die weiteren Modelle:** Ergänzt später die entsprechenden Response Curves des komplementären Modells (z. B. Nacht gegenüber Tag) in einer anderen Farbe. Für beide Modelle muss dieselbe Originalskala verwendet werden, aber jeweils die Standardisierung des betreffenden Modells.
 :::
 
 ```{r}
 #| label: loesung-multipanel
-if (length(plotvariablen) > 0) {
-  plots <- lapply(plotvariablen, function(v) {
-    plot_response(best_model_day, DF_reh_day, v)
-  })
-  cowplot::plot_grid(plotlist = plots, ncol = 2)
-}
+# Beispiel für das ausgewählte Tagesmodell mit fünf Umweltvariablen.
+# Die Musterlösung ist über die globalen execute-Schalter freischaltbar.
+
+p_strassen <- plot_response(best_model_day, DF_reh_day,
+                            "dist_road_only_scaled") +
+  labs(x = "dist_road_only [m]")
+
+p_wald <- plot_response(best_model_day, DF_reh_day,
+                        "forest_prop_scaled") +
+  labs(x = "forest_prop [Anteil]")
+
+p_topo <- plot_response(best_model_day, DF_reh_day,
+                        "topo_pos_scaled")
+
+p_us <- plot_response(best_model_day, DF_reh_day,
+                      "us_scaled") +
+  labs(x = "us_2014 [Anteil]")
+
+cowplot::plot_grid(p_slope, p_strassen, p_wald, p_topo, p_us, ncol = 2)
 ```
+
 
 ## Aufgabe 4 – Beitrag der Variablen: Leave-one-out
 
-Der **Leave-one-out-Vergleich** untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. 
+Der **Leave-one-out-Vergleich** untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. Ihr diesen Aspekt mit Coppes et al. (2017) abgleichen. 
 
 Bei `slope`, `dist_road_only` und `forest_prop` bilden der lineare und der gegebenenfalls enthaltene quadratische Term **je einen gemeinsamen Block**. Für den gesamten Effekt einer Umweltvariable entfernen wir beide Terme zusammen.
 
 ::: {.callout-tip title="SELBST PROGRAMMIEREN"}
+
 Erstellt zuerst ein reduziertes Modell **ohne einen einzelnen Prädiktor**, berechnet den AICc und vergleicht ihn mit dem vollständigen Modell. Übertragt das Vorgehen anschliessend auf die übrigen Modellvariablen. Falls für die gewählte Variable ein quadratischer Term im Modell vorkommt, entfernt **den linearen und den quadratischen Term gemeinsam**.
 
 ```r
@@ -364,6 +352,11 @@ Erstellt zuerst ein reduziertes Modell **ohne einen einzelnen Prädiktor**, bere
 ```{r}
 #| label: loesung-leave-one-out
 AICc_voll <- MuMIn::AICc(best_model_day)
+
+fixterme <- setdiff(
+  names(glmmTMB::fixef(best_model_day)$cond),
+  "(Intercept)"
+)
 
 # Die Quadrat-Terme sind keine separaten Umweltvariablen.
 quadratterme <- c(
