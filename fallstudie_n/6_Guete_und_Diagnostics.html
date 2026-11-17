@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,13 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../fallstudie_n/5_Variablenselektion.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -743,8 +744,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 -->
 <section id="ziel-und-einordnung" class="level2">
 <h2 class="anchored" data-anchor-id="ziel-und-einordnung">Ziel und Einordnung</h2>
-<p>Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: <strong>das in Übung 5 ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen</strong>. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.</p>
-<p>Wie zuvor bedeutet <code>pres_abs = 0</code> <strong>available</strong>, nicht nachgewiesene Absenz. Vorhersagekurven und AUC beziehen sich auf die Trennung von <em>used</em> und <em>available</em> im Stichprobendesign.</p>
+<p>Wir führen die Modellierung der Reh-Habitatselektion aus den beiden vorangehenden Übungen fort: <strong>das in der Vorwoche ausgewählte Einzelmodell überprüfen, diagnostizieren und die Ergebnisse darstellen</strong>. Die theoretischen Grundlagen stammen vor allem aus Statistik 3 (Modellannahmen), Statistik 5 (GLMs), Statistik 6 (gemischte Modelle) und dem Überblick bis Statistik 8.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -832,7 +832,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">forest_prop_quadrat =</span> forest_prop_scaled<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Globale Modellformel aus Übung 5 (unverändert)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Globale Modellformel aus dem Block Variablenselektion (unverändert)</span></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>m_global_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> slope_scaled <span class="sc">+</span> slope_quadrat <span class="sc">+</span> topo_pos_scaled <span class="sc">+</span></span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    us_scaled <span class="sc">+</span> forest_prop_scaled <span class="sc">+</span> forest_prop_quadrat <span class="sc">+</span></span>
@@ -841,7 +841,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> <span class="fu">binomial</span>(), <span class="at">na.action =</span> na.fail</span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieselben Hierarchiebedingungen wie in Übung 5</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Dieselben Hierarchiebedingungen wie im Block Variablenselektion</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>all_m_global_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">dredge</span>(</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  m_global_day,</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank =</span> <span class="st">"AICc"</span>,</span>
@@ -850,7 +850,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dc</span>(forest_prop_scaled, forest_prop_quadrat)</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Exakt das Bestmodell aus Übung 5 (Rang 1 nach AICc)</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Exakt das Bestmodell aus dem Block Variablenselektion (Rang 1 nach AICc)</span></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>best_model_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">get.models</span>(all_m_global_day, <span class="at">subset =</span> <span class="dv">1</span>)[[<span class="dv">1</span>]]</span>
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best_model_day)</span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="do">##  Family: binomial  ( logit )</span></span>
@@ -914,10 +914,6 @@ HINWEIS FÜR DIE LEHRPERSON:
 <div class="callout-body-container callout-body">
 <p><strong>AUC:</strong> Berechnet die AUC für <code>best_model_day</code>. Verwendet <code>predict()</code> mit <code>type = "response"</code> und <code>re.form = NULL</code>, damit die Vorhersagen für die untersuchten Rehe auch deren geschätzte Random Effects berücksichtigen. Nutzt danach <code>ROCR::prediction()</code> und <code>ROCR::performance(..., "auc")</code>.</p>
 <p><strong>Pseudo-R²:</strong> Berechnet mit <code>performance::r2_nakagawa()</code> das marginale und das konditionale R² für dasselbe Modell. Wie unterscheiden sich die beiden Werte, und was bedeutet das für den Beitrag der Umweltvariablen und der Reh-ID?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prob &lt;- predict(best_model_day, type = "response", re.form = NULL)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_roc &lt;- ROCR::prediction(...)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># auc &lt;- ROCR::performance(pred_roc, "auc")@y.values[[1]]</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># performance::r2_nakagawa(best_model_day)</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Die AUC wird hier mit den <strong>zur Modellschätzung verwendeten Daten</strong> berechnet (keine Cross-Validation). Sie beschreibt daher die Trennschärfe innerhalb unseres Datensatzes. Das Pseudo-R² ist bei einem binomialen GLMM ein modellbasiertes Mass und nicht mit dem klassischen R² einer linearen Regression gleichzusetzen.</p>
 </div>
 </div>
@@ -936,14 +932,14 @@ HINWEIS FÜR DIE LEHRPERSON:
 <div class="callout-body-container callout-body">
 <p>Bei einem binomialen GLMM erwarten wir <strong>keine normalverteilten Residuen</strong>. Das Paket <code>DHARMa</code> prüft das Modell mit simulationsbasierten, skalierten Residuen. Für ein korrekt spezifiziertes Modell sollten sie näherungsweise <strong>gleichverteilt zwischen 0 und 1</strong> sein.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fittedModel =</span> best_model_day,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="cn">FALSE</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fittedModel =</span> best_model_day,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -951,7 +947,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testUniformity</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testUniformity</span>(simulationOutput)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1035,20 +1031,20 @@ DHARMa::testOutliers(simulationOutput)</code></pre>
 <div class="callout-body-container callout-body">
 <p>Im Übungsblock “Vorbereitung der Modellierung” habt ihr paarweise Korrelationen geprüft und letzte Woche habt ihr über die Prädiktoren entschieden. Hier prüfen wir die <strong>verbleibende Kollinearität im tatsächlich ausgewählten Modell</strong>. Die möglichen quadratischen Terme (<code>slope_quadrat</code>, <code>dist_road_only_quadrat</code>, <code>forest_prop_quadrat</code>) gehören zu den jeweiligen linearen Prädiktoren. Hohe Kollinearitätswerte zwischen einem linearen und seinem quadratischen Term sind deshalb gesondert zu beurteilen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_collinearity</span>(best_model_day)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # Check for Multicollinearity</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Low Correlation</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                    Term  VIF   VIF 95% CI adj. VIF Tolerance Tolerance 95% CI</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  dist_road_only_quadrat 2.43 [2.32, 2.56]     1.56      0.41     [0.39, 0.43]</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   dist_road_only_scaled 2.45 [2.33, 2.58]     1.56      0.41     [0.39, 0.43]</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     forest_prop_quadrat 1.07 [1.04, 1.11]     1.03      0.94     [0.90, 0.96]</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">##      forest_prop_scaled 1.35 [1.30, 1.41]     1.16      0.74     [0.71, 0.77]</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">##           slope_quadrat 1.70 [1.63, 1.78]     1.30      0.59     [0.56, 0.61]</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">##            slope_scaled 2.10 [2.01, 2.20]     1.45      0.48     [0.45, 0.50]</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">##         topo_pos_scaled 1.10 [1.07, 1.15]     1.05      0.91     [0.87, 0.93]</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="do">##               us_scaled 1.15 [1.11, 1.20]     1.07      0.87     [0.84, 0.90]</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">check_collinearity</span>(best_model_day)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # Check for Multicollinearity</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Low Correlation</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##                    Term  VIF   VIF 95% CI adj. VIF Tolerance Tolerance 95% CI</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  dist_road_only_quadrat 2.43 [2.32, 2.56]     1.56      0.41     [0.39, 0.43]</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   dist_road_only_scaled 2.45 [2.33, 2.58]     1.56      0.41     [0.39, 0.43]</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     forest_prop_quadrat 1.07 [1.04, 1.11]     1.03      0.94     [0.90, 0.96]</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##      forest_prop_scaled 1.35 [1.30, 1.41]     1.16      0.74     [0.71, 0.77]</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">##           slope_quadrat 1.70 [1.63, 1.78]     1.30      0.59     [0.56, 0.61]</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">##            slope_scaled 2.10 [2.01, 2.20]     1.45      0.48     [0.45, 0.50]</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">##         topo_pos_scaled 1.10 [1.07, 1.15]     1.05      0.91     [0.87, 0.93]</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">##               us_scaled 1.15 [1.11, 1.20]     1.07      0.87     [0.84, 0.90]</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1070,78 +1066,58 @@ DHARMa::testOutliers(simulationOutput)</code></pre>
 <div class="callout-body-container callout-body">
 <p>Die folgende Funktion erzeugt eine Response Curve auf der <strong>Originalskala</strong>. Für alle übrigen standardisierten Prädiktoren wird der Wert <code>0</code> (ihr Mittelwert im Datensatz) verwendet. Die quadratischen Terme werden passend dazu gesetzt. Individuelle Random Effects werden bei der Vorhersage auf <code>0</code> gesetzt (<code>re.form = NA</code>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuordnung: standardisierte Modellvariable -&gt; ursprüngliche Umweltvariable</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rohvariablen <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope_scaled =</span> <span class="st">"slope"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">topo_pos_scaled =</span> <span class="st">"topo_pos"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">us_scaled =</span> <span class="st">"us_2014"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">os_scaled =</span> <span class="st">"os_2014"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">forest_prop_scaled =</span> <span class="st">"forest_prop"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_trails_scaled =</span> <span class="st">"dist_road_trails"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_only_scaled =</span> <span class="st">"dist_road_only"</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_sett_scaled =</span> <span class="st">"dist_sett"</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plot_response <span class="ot">&lt;-</span> <span class="cf">function</span>(modell, daten, variable) {</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(variable <span class="sc">%in%</span> <span class="fu">names</span>(rohvariablen))</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(variable <span class="sc">%in%</span> <span class="fu">names</span>(glmmTMB<span class="sc">::</span><span class="fu">fixef</span>(modell)<span class="sc">$</span>cond))</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Referenz: Mittelwerte aller standardisierten Variablen (jeweils 0).</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  basis <span class="ot">&lt;-</span> daten[<span class="dv">1</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">names</span>(rohvariablen)) basis[[v]] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Die drei möglichen quadratischen Terme gehören zu ihren linearen Werten.</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>slope_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>dist_road_only_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  basis<span class="sc">$</span>forest_prop_quadrat <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  nd <span class="ot">&lt;-</span> basis[<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">80</span>), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  rohname <span class="ot">&lt;-</span> <span class="fu">unname</span>(rohvariablen[[variable]])</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  x_original <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(daten[[rohname]]), <span class="fu">max</span>(daten[[rohname]]), <span class="at">length.out =</span> <span class="dv">80</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  nd[[variable]] <span class="ot">&lt;-</span> (x_original <span class="sc">-</span> <span class="fu">mean</span>(daten[[rohname]])) <span class="sc">/</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sd</span>(daten[[rohname]])</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bei jeder Vorhersage die Quadrate konsistent aktualisieren.</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>slope_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>slope_scaled<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>dist_road_only_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>dist_road_only_scaled<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>forest_prop_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>forest_prop_scaled<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  vorhersage <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    modell, <span class="at">newdata =</span> nd, <span class="at">type =</span> <span class="st">"link"</span>,</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">re.form =</span> <span class="cn">NA</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>unten <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>oben <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>x_original <span class="ot">&lt;-</span> x_original</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nd, <span class="fu">aes</span>(<span class="at">x =</span> x_original, <span class="at">y =</span> fit)) <span class="sc">+</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> unten, <span class="at">ymax =</span> oben), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> rohname, </span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Antreffwahrscheinlichkeit"</span>,</span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> rohname) <span class="sc">+</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>fixterme <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(glmmTMB<span class="sc">::</span><span class="fu">fixef</span>(best_model_day)<span class="sc">$</span>cond), <span class="st">"(Intercept)"</span></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>quadratterme <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="st">"slope_quadrat"</span>, <span class="st">"dist_road_only_quadrat"</span>, <span class="st">"forest_prop_quadrat"</span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>plotvariablen <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(fixterme, quadratterme)</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(plotvariablen) <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Das ausgewählte Modell enthält keine erklärenden Fixeffekte."</span>)</span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="st">"slope_scaled"</span> <span class="sc">%in%</span> plotvariablen) {</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_response</span>(best_model_day, DF_reh_day, <span class="st">"slope_scaled"</span>)</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_response</span>(best_model_day, DF_reh_day, plotvariablen[<span class="dv">1</span>])</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuordnung: standardisierte Modellvariable -&gt; ursprüngliche Umweltvariable</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rohvariablen <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope_scaled =</span> <span class="st">"slope"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">topo_pos_scaled =</span> <span class="st">"topo_pos"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">us_scaled =</span> <span class="st">"us_2014"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">os_scaled =</span> <span class="st">"os_2014"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">forest_prop_scaled =</span> <span class="st">"forest_prop"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_trails_scaled =</span> <span class="st">"dist_road_trails"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_road_only_scaled =</span> <span class="st">"dist_road_only"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_sett_scaled =</span> <span class="st">"dist_sett"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plot_response <span class="ot">&lt;-</span> <span class="cf">function</span>(modell, daten, variable) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  rohname <span class="ot">&lt;-</span> <span class="fu">unname</span>(rohvariablen[[variable]])</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Alle anderen Umweltvariablen auf ihrem Mittelwert (skaliert = 0)</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  basis <span class="ot">&lt;-</span> daten[<span class="dv">1</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  basis[<span class="fu">names</span>(rohvariablen)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  basis[<span class="fu">c</span>(<span class="st">"slope_quadrat"</span>, <span class="st">"dist_road_only_quadrat"</span>, <span class="st">"forest_prop_quadrat"</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 80 Werte der gewählten Umweltvariable auf der Originalskala</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  nd <span class="ot">&lt;-</span> basis[<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">80</span>), , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>x_original <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(daten[[rohname]]), <span class="fu">max</span>(daten[[rohname]]),</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                       <span class="at">length.out =</span> <span class="dv">80</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  nd[[variable]] <span class="ot">&lt;-</span> (nd<span class="sc">$</span>x_original <span class="sc">-</span> <span class="fu">mean</span>(daten[[rohname]])) <span class="sc">/</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sd</span>(daten[[rohname]])</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Quadratische Terme passend zu den skalierten Werten berechnen</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>slope_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>slope_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>dist_road_only_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>dist_road_only_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>forest_prop_quadrat <span class="ot">&lt;-</span> nd<span class="sc">$</span>forest_prop_scaled<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Vorhersage auf Logit-Skala; anschliessend auf 0–1 umrechnen</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  vorhersage <span class="ot">&lt;-</span> <span class="fu">predict</span>(modell, <span class="at">newdata =</span> nd, <span class="at">type =</span> <span class="st">"link"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                        <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">re.form =</span> <span class="cn">NA</span>)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>fit <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>unten <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  nd<span class="sc">$</span>oben <span class="ot">&lt;-</span> <span class="fu">plogis</span>(vorhersage<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> vorhersage<span class="sc">$</span>se.fit)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(nd, <span class="fu">aes</span>(<span class="at">x =</span> x_original, <span class="at">y =</span> fit)) <span class="sc">+</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> unten, <span class="at">ymax =</span> oben), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> rohname, <span class="at">y =</span> <span class="st">"Antreffwahrscheinlichkeit"</span>, <span class="at">title =</span> rohname) <span class="sc">+</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Eine einzelne Response Curve erstellen</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>p_slope <span class="ot">&lt;-</span> <span class="fu">plot_response</span>(best_model_day, DF_reh_day, <span class="st">"slope_scaled"</span>) <span class="sc">+</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"slope [°]"</span>)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>p_slope</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1152,25 +1128,25 @@ DHARMa::testOutliers(simulationOutput)</code></pre>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN – mehrere Response Curves">
+<div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN – Weitere Response Curves und Multipanel">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – mehrere Response Curves
+<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – Weitere Response Curves und Multipanel
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Verwendet die Funktion <code>plot_response()</code>, um <strong>für alle erklärenden Variablen im ausgewählten Modell</strong> eine Response Curve zu erstellen, und ordnet sie mit <code>cowplot::plot_grid()</code> als übersichtliche Gesamtgrafik an. Quadratische Terme bekommen <strong>keine eigenen Plots</strong>. Sie sind Bestandteil der Response Curves ihrer jeweiligen linearen Prädiktoren.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots &lt;- lapply(plotvariablen, function(v) plot_response(best_model_day, DF_reh_day, v))</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist = plots, ncol = 2)</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Erstellt die Response Curves für die <strong>übrigen Umweltvariablen im ausgewählten Modell</strong>. Verwendet dafür dieselbe Funktion und speichert die Grafiken einzeln, beispielsweise als <code>p_strassen</code>, <code>p_wald</code>, <code>p_topo</code> und <code>p_us</code>.</p>
+<p>Gebt auf der X-Achse jeweils die Originalvariable mit ihrer Einheit an. Die Funktion berücksichtigt die quadratischen Terme automatisch; für diese werden keine separaten Kurven erstellt. Setzt anschliessend die einzelnen Plotobjekte mit <code>cowplot::plot_grid()</code> zu einer gemeinsamen Abbildung zusammen.</p>
+<p><strong>Tip für die weiteren Modelle:</strong> Ergänzt später die entsprechenden Response Curves des komplementären Modells (z. B. Nacht gegenüber Tag) in einer anderen Farbe. Für beide Modelle muss dieselbe Originalskala verwendet werden, aber jeweils die Standardisierung des betreffenden Modells.</p>
 </div>
 </div>
 </section>
 <section id="aufgabe-4-beitrag-der-variablen-leave-one-out" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-4-beitrag-der-variablen-leave-one-out">Aufgabe 4 – Beitrag der Variablen: Leave-one-out</h2>
-<p>Der <strong>Leave-one-out-Vergleich</strong> untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur.</p>
+<p>Der <strong>Leave-one-out-Vergleich</strong> untersucht, wie sich der AICc verändert, wenn ein Prädiktor aus einem ausgewählten Modell entfernt wird. Wir verwenden den gleichen Datensatz und die gleiche Random-Effect-Struktur. Ihr diesen Aspekt mit Coppes et al.&nbsp;(2017) abgleichen.</p>
 <p>Bei <code>slope</code>, <code>dist_road_only</code> und <code>forest_prop</code> bilden der lineare und der gegebenenfalls enthaltene quadratische Term <strong>je einen gemeinsamen Block</strong>. Für den gesamten Effekt einer Umweltvariable entfernen wir beide Terme zusammen.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="SELBST PROGRAMMIEREN">
 <div class="callout-header d-flex align-content-center">
@@ -1183,10 +1159,10 @@ DHARMa::testOutliers(simulationOutput)</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Erstellt zuerst ein reduziertes Modell <strong>ohne einen einzelnen Prädiktor</strong>, berechnet den AICc und vergleicht ihn mit dem vollständigen Modell. Übertragt das Vorgehen anschliessend auf die übrigen Modellvariablen. Falls für die gewählte Variable ein quadratischer Term im Modell vorkommt, entfernt <strong>den linearen und den quadratischen Term gemeinsam</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AICc_voll &lt;- MuMIn::AICc(best_model_day)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># formel_ohne &lt;- update.formula(formula(best_model_day), . ~ . - ...)</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># modell_ohne &lt;- update(best_model_day, formula = formel_ohne)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MuMIn::AICc(modell_ohne) - AICc_voll</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AICc_voll &lt;- MuMIn::AICc(best_model_day)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># formel_ohne &lt;- update.formula(formula(best_model_day), . ~ . - ...)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># modell_ohne &lt;- update(best_model_day, formula = formel_ohne)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MuMIn::AICc(modell_ohne) - AICc_voll</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 
