@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -56,14 +91,13 @@ div.csl-indent {
 <link href="../statistik/Statistik6_Demo.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -725,6 +759,409 @@ div.csl-indent {
 <li>Bestimmt das minimal adäquate Modell</li>
 <li>Stellt die Ergebnisse dar</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Hinweis</span>Musterlösung Übung 6: GLMM
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="../purl/Statistik6_Uebung.R" class="dld">Demoscript herunterladen (.R)</a></p>
+<p><a href="../purl/Statistik6_Uebung.qmd" class="dld">Demoscript herunterladen (.qmd)</a></p>
+<ul>
+<li><a href="Statistik6_Loesung.pdf">Lösungstext als Download</a></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lade daten</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>nova <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat/novanimal.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="fu">across</span>( <span class="fu">where</span>(is.character), as.factor))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nova)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [17,900 × 6] (S3: tbl_df/tbl/data.frame)
+ $ ccrs       : num [1:17900] 1e+09 1e+09 1e+09 1e+09 1e+09 ...
+ $ meat       : num [1:17900] 1 0 1 0 0 0 0 0 0 0 ...
+ $ gender     : Factor w/ 2 levels "F","M": 2 2 2 2 2 2 2 2 2 2 ...
+ $ member     : Factor w/ 2 levels "Mitarbeitende",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ age_group  : Factor w/ 4 levels "AK1","AK2","AK3",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ age_group_2: Factor w/ 4 levels "15 - 25-jaehrig",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Variable"ccrs” (single campus_card holder) sollte ein factor sein</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nova<span class="sc">$</span>ccrs <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(nova<span class="sc">$</span>ccrs)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nova)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         ccrs            meat        gender              member      age_group 
+ 1000564796:   57   Min.   :0.0000   F: 5863   Mitarbeitende: 6868   AK1:7651  
+ 1000621354:   57   1st Qu.:0.0000   M:12037   Studierende  :11032   AK2:5720  
+ 1000594415:   54   Median :1.0000                                   AK3:3104  
+ 1000597794:   54   Mean   :0.6041                                   AK4:1425  
+ 1000608246:   54   3rd Qu.:1.0000                                             
+ 1000621447:   54   Max.   :1.0000                                             
+ (Other)   :17570                                                              
+          age_group_2  
+ 15 - 25-jaehrig:7651  
+ 26 - 34-jaehrig:5720  
+ 35 - 49-jaehrig:3104  
+ 50 - 64-jaehrig:1425  
+                       
+                       
+                       </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an,</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># beide Kategorien kommen nicht gleich häufig vor, ist aber nicht tragisch</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nova<span class="sc">$</span>meat) </span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    0     1 
+ 7087 10813 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Werte in Prozent</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>( <span class="fu">table</span>(nova<span class="sc">$</span>meat)) </span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+        0         1 
+0.3959218 0.6040782 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nova<span class="sc">$</span>gender, nova<span class="sc">$</span>member, nova<span class="sc">$</span>age_group) </span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = AK1
+
+   
+    Mitarbeitende Studierende
+  F            70        2148
+  M           234        5199
+
+, ,  = AK2
+
+   
+    Mitarbeitende Studierende
+  F           926         901
+  M          1393        2500
+
+, ,  = AK3
+
+   
+    Mitarbeitende Studierende
+  F          1154         118
+  M          1680         152
+
+, ,  = AK4
+
+   
+    Mitarbeitende Studierende
+  F           546           0
+  M           865          14</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definiert das logistische Modell mit ccrs als random intercept und</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># wendet es auf den Datensatz an</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>glmm_1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(meat <span class="sc">~</span> gender <span class="sc">+</span> age_group <span class="sc">+</span> member <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    gender<span class="sc">:</span>age_group <span class="sc">+</span> gender<span class="sc">:</span>member <span class="sc">+</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                    (<span class="dv">1</span> <span class="sc">|</span> ccrs), </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> binomial, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> nova)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(glmm_1)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II Wald chisquare tests)
+
+Response: meat
+                    Chisq Df Pr(&gt;Chisq)    
+gender           125.9903  1     &lt;2e-16 ***
+age_group          4.3512  3     0.2260    
+member             1.7696  1     0.1834    
+gender:age_group   0.8800  3     0.8302    
+gender:member      1.1107  1     0.2919    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmm_1)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: binomial  ( logit )
+Formula:          
+meat ~ gender + age_group + member + gender:age_group + gender:member +  
+    (1 | ccrs)
+Data: nova
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  21128.1   21213.8  -10553.0   21106.1     17889 
+
+Random effects:
+
+Conditional model:
+ Groups Name        Variance Std.Dev.
+ ccrs   (Intercept) 1.478    1.216   
+Number of obs: 17900, groups:  ccrs, 1427
+
+Conditional model:
+                           Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)               -0.060517   0.221841  -0.273  0.78501   
+genderM                    0.825594   0.281970   2.928  0.00341 **
+age_groupAK2              -0.076795   0.171426  -0.448  0.65417   
+age_groupAK3              -0.023239   0.241615  -0.096  0.92338   
+age_groupAK4               0.209746   0.313142   0.670  0.50298   
+memberStudierende         -0.336658   0.203570  -1.654  0.09817 . 
+genderM:age_groupAK2      -0.152603   0.213397  -0.715  0.47454   
+genderM:age_groupAK3       0.002457   0.319039   0.008  0.99385   
+genderM:age_groupAK4      -0.211615   0.410679  -0.515  0.60636   
+genderM:memberStudierende  0.274622   0.260581   1.054  0.29194   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># erste Interpretation: Geschlecht (Referenzkategorie: Mann) scheint den </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fleischkonsum positiv zu beeinflussen, schauen wir ob wir das Model </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vereinfachen können:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelloptimierung</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(glmm_1, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+meat ~ gender + age_group + member + gender:age_group + gender:member + 
+    (1 | ccrs)
+                 Df   AIC     LRT Pr(&gt;Chi)
+&lt;none&gt;              21128                 
+gender:age_group  3 21123 0.87972   0.8303
+gender:member     1 21127 1.11067   0.2919</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>glmm_2 <span class="ot">&lt;-</span> <span class="fu">update</span>(glmm_1,<span class="sc">~</span>. <span class="sc">-</span>gender<span class="sc">:</span>age_group)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(glmm_2, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+meat ~ gender + age_group + member + (1 | ccrs) + gender:member
+              Df   AIC    LRT Pr(&gt;Chi)  
+&lt;none&gt;           21123                  
+age_group      3 21121 4.3315  0.22782  
+gender:member  1 21124 3.2749  0.07035 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>glmm_3 <span class="ot">&lt;-</span> <span class="fu">update</span>(glmm_2,<span class="sc">~</span>. <span class="sc">-</span>gender<span class="sc">:</span>member)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(glmm_3, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+meat ~ gender + age_group + member + (1 | ccrs)
+          Df   AIC     LRT Pr(&gt;Chi)    
+&lt;none&gt;       21124                     
+gender     1 21245 123.112   &lt;2e-16 ***
+age_group  3 21123   4.256   0.2351    
+member     1 21124   1.968   0.1607    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>glmm_4 <span class="ot">&lt;-</span> <span class="fu">update</span>(glmm_3,<span class="sc">~</span>. <span class="sc">-</span>age_group)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(glmm_4, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+meat ~ gender + member + (1 | ccrs)
+       Df   AIC     LRT Pr(&gt;Chi)    
+&lt;none&gt;    21123                     
+gender  1 21242 121.295   &lt;2e-16 ***
+member  1 21126   4.963   0.0259 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvalidierung</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> glmm_4, <span class="at">plot =</span> <span class="cn">TRUE</span>, <span class="at">n =</span> <span class="dv">500</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik6_Uebung_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot residuals vs. covariates des models</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(simulationOutput, <span class="at">form =</span> nova<span class="sc">$</span>gender)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik6_Uebung_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotResiduals</span>(simulationOutput, <span class="at">form =</span> nova<span class="sc">$</span>member)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik6_Uebung_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Die formalen Tests zeigen, dass es Probleme gibt. Die visuelle Inspektion zeigt jedoch, dass es überhaupt keine Probleme gibt und die Residiuen beinahe perfekt normalverteilt sind (dies zeigt, dass die Testergebnisse stark von der Anzahl der Beobachtungen (in diesem Fall viele) abhängen).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellergebnisse</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(glmm_4)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II Wald chisquare tests)
+
+Response: meat
+          Chisq Df Pr(&gt;Chisq)    
+gender 123.6924  1    &lt; 2e-16 ***
+member   4.9512  1    0.02607 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmm_4)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: binomial  ( logit )
+Formula:          meat ~ gender + member + (1 | ccrs)
+Data: nova
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+  21122.5   21153.7  -10557.3   21114.5     17896 
+
+Random effects:
+
+Conditional model:
+ Groups Name        Variance Std.Dev.
+ ccrs   (Intercept) 1.499    1.224   
+Number of obs: 17900, groups:  ccrs, 1427
+
+Conditional model:
+                  Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)       -0.15918    0.08504  -1.872   0.0612 .  
+genderM            0.93860    0.08439  11.122   &lt;2e-16 ***
+memberStudierende -0.19512    0.08769  -2.225   0.0261 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pseudo R^2</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">r2</span>(glmm_1)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.338
+     Marginal R2: 0.040</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># das marginale R^2 (r2m) gibt uns die erklärte Varianz der fixen Effekte: </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># hier 4% (das ist sehr wenig)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># das conditionale R^2 (r2c) gibt uns die erklärte Varianz für das ganze Modell</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (mit fixen und variablen Effekten): hier 34% </span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Odds Ratios</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrahiere Estimates</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">fixef</span>(glmm_4)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechne Odds Ratios</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>odsr <span class="ot">&lt;-</span> </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>( </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mitarbeiterinnen"</span> <span class="ot">=</span> <span class="fu">exp</span>( estimates<span class="sc">$</span>cond[<span class="st">"(Intercept)"</span>] ), </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mitarbeiter"</span> <span class="ot">=</span> <span class="fu">exp</span>( estimates<span class="sc">$</span>cond[<span class="st">"(Intercept)"</span>] <span class="sc">+</span> estimates<span class="sc">$</span>cond[<span class="st">"genderM"</span>]),</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Studentinnen"</span> <span class="ot">=</span>  <span class="fu">exp</span>( estimates<span class="sc">$</span>cond[<span class="st">"(Intercept)"</span>] <span class="sc">+</span> </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>                           estimates<span class="sc">$</span>cond[<span class="st">"memberStudierende"</span>]),</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Studenten"</span> <span class="ot">=</span> <span class="fu">exp</span>( estimates<span class="sc">$</span>cond[<span class="st">"(Intercept)"</span>] <span class="sc">+</span> estimates<span class="sc">$</span>cond[<span class="st">"genderM"</span>] <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>                       estimates<span class="sc">$</span>cond[<span class="st">"memberStudierende"</span>])</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(odsr) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Odds_ratios"</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>odsr <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(odsr)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wahrscheinlichkeiten in %</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>odsr<span class="sc">$</span>Wahrscheinlichkeit <span class="ot">&lt;-</span> ( odsr<span class="sc">$</span>Odds_ratios <span class="sc">/</span> (odsr<span class="sc">$</span>Odds_ratios <span class="sc">+</span> <span class="dv">1</span> ) )</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>odsr</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Odds_ratios Wahrscheinlichkeit
+Mitarbeiterinnen    0.852846          0.4602897
+Mitarbeiter         2.180207          0.6855550
+Studentinnen        0.701665          0.4123403
+Studenten           1.793729          0.6420555</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># oder</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggeffects"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>( pred <span class="ot">&lt;-</span> <span class="fu">predict_response</span>(glmm_4, <span class="fu">c</span>(<span class="st">"member"</span>, <span class="st">"gender"</span>) ) )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted probabilities of meat
+
+gender: F
+
+member        | Predicted |     95% CI
+--------------------------------------
+Mitarbeitende |      0.46 | 0.42, 0.50
+Studierende   |      0.41 | 0.38, 0.45
+
+gender: M
+
+member        | Predicted |     95% CI
+--------------------------------------
+Mitarbeitende |      0.69 | 0.65, 0.72
+Studierende   |      0.64 | 0.61, 0.67
+
+Adjusted for:
+* ccrs = NA (population-level)</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vorhergesagte Wahrscheinlichkeiten mit Vorhersageinterval (95% Konfidenz-</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># intervall inkl. Variation zwischen Personen)</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>( pred2 <span class="ot">&lt;-</span> <span class="fu">predict_response</span>(glmm_4, <span class="fu">c</span>(<span class="st">"member"</span>, <span class="st">"gender"</span>), </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">interval =</span> <span class="st">"prediction"</span>) )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted probabilities of meat
+
+gender: F
+
+member        | Predicted |     95% CI
+--------------------------------------
+Mitarbeitende |      0.46 | 0.11, 0.86
+Studierende   |      0.41 | 0.09, 0.83
+
+gender: M
+
+member        | Predicted |     95% CI
+--------------------------------------
+Mitarbeitende |      0.69 | 0.23, 0.94
+Studierende   |      0.64 | 0.20, 0.93
+
+Adjusted for:
+* ccrs = NA (population-level)</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred2)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik6_Uebung_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Vorhergesagte Wahrscheinlichkeiten mit 95% Konfidenzintervall (Die Variation </span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># zwischen Personen ist in den Konfidenzintervallen nicht enthalten.)</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Wahrscheinlichkeiten ein Fleischgericht zu wählen </span><span class="sc">\n</span><span class="st">"</span>) <span class="sc">+</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Statistik6_Uebung_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">

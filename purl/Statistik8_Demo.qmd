@@ -41,10 +41,14 @@ str(spe)
 summary(spe)
 ```
 
-k-means ist eine lineare Methode und daher nicht für Artdaten geeignet .Darum müssen wir unsere Daten transformieren (für die meisten anderen Daten ist die Funktion "scale", welche jede Variable so skaliert, dass sie einen Mittelwert von 0 und einen Standardabweichungswert von 1 hat), besser geeignet.
+k-means ist eine lineare Methode und daher nicht für Artdaten geeignet. Darum müssen wir unsere Daten so transformieren dass jeder Wert (Abundanz) durch die  Wurzel der Quadratsumme seiner Zeile geteilt wird (für die meisten anderen Daten ist die Tranformation mit der Funktion "scale", besser geeignet)
 
 
 ```{r}
+# Standardisierung von Hand 
+# spe_norm <- spe / sqrt(rowSums(spe^2)) 
+
+# mit function decostand
 library("vegan")
 spe_norm <- decostand(spe, "normalize")
 ```

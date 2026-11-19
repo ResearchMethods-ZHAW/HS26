@@ -278,8 +278,9 @@ table(DeerEcervi$Farm)
 ```
 
 ```{r}
-# Model fitten. Die function "scale" standartisiert die Kontinuierliche variable 
-# Hischlänge:
+# Model fitten. 
+# Die function "scale" standartisiert die  Kontinuierliche variable Hischlänge 
+# so dass sie einen Mittelwert von 0 und einen Standardabweichungswert von 1 hat:
 # ( DeerEcervi$Length - mean(DeerEcervi$Length)) / sd(DeerEcervi$Length )
 glmm_1 <- glmmTMB(Ecervi ~ scale(Length) * Sex + (1 | Farm), 
                   family = binomial, 
