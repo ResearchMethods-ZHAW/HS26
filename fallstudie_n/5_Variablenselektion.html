@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Multivariate Modelle – Variablenselektion – Research Methods HS26</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -76,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-8e09b5a8d29acdf93648e7d2cca05993.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-ffc4c3fc79587ee79da4865b6a08975e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-9b8f6782e2cd455891acfb332edb59df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c27fdc8e5b00b532d2d5a75ada188648.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -302,8 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <img src="../images/zhaw_rgb_logo_schwarz.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Research Methods HS26</a> 
@@ -751,7 +747,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -764,7 +760,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN
+SELBST PROGRAMMIEREN
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -780,13 +776,13 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Ladet die Packages und den Datensatz. Der Datenpfad entspricht der aktuellen Übung 4. Wahrscheinlich ist sind die Daten in eurem Projekt noch geladen, falls nötig passt ihn <strong>in eurem eigenen Skript</strong> an.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -812,7 +808,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Tagdatensatz erstellen</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh <span class="sc">|&gt;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time_of_day <span class="sc">==</span> <span class="st">"day"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -826,12 +822,12 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">slope_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(slope)))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="sc">|&gt;</span></span>
@@ -840,7 +836,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   mittelwert standardabweichung</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">##        &lt;dbl&gt;              &lt;dbl&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   3.79e-17                  1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   3.79e-17                  1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -850,7 +846,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – Skalierung ergänzen
+SELBST PROGRAMMIEREN – Skalierung ergänzen
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -860,7 +856,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <div class="cell">
 <details class="code-fold">
 <summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">topo_pos_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(topo_pos)),</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">us_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(us_2014)),</span>
@@ -869,7 +865,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_trails_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_road_trails)),</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_only_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_road_only)),</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_sett_scaled =</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(dist_sett))</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -882,13 +878,13 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN
+AUSFÜHREN &amp; NACHVOLLZIEHEN
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Bei der binären Antwortvariable <code>pres_abs</code> verwenden wir eine <strong>Binomialverteilung</strong> mit Logit-Link. Mit <code>(1 | id)</code> darf jedes Reh einen eigenen zufälligen Achsenabschnitt (<em>random intercept</em>) haben. Damit berücksichtigen wir, dass Kreise desselben Rehs nicht wie vollständig unabhängige Individuen behandelt werden dürfen.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m_slope_linear_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m_slope_linear_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> slope_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(),</span>
@@ -915,7 +911,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  -0.27012    0.17850  -1.513                0.13    </span></span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="do">## slope_scaled  0.43490    0.03951  11.007 &lt;0.0000000000000002 ***</span></span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Frage:</strong> Wie interpretiert ihr das Vorzeichen von <code>slope_scaled</code>?</p>
 </div>
@@ -930,14 +926,14 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN – Beispiel Strassen und Wege
+AUSFÜHREN &amp; NACHVOLLZIEHEN – Beispiel Strassen und Wege
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Wir vergleichen <code>dist_road_trails</code> und <code>dist_road_only</code> anhand des AICc. Das Modell mit dem kleineren AICc weist innerhalb dieses Vergleichs die bessere Balance zwischen Modellanpassung und Komplexität auf.</p>
 <p>Da wir später die Habitatselektion zwischen verschiedenen Tageszeiten und Störungskategorien vergleichen, sollten wir in allen vier Teildatensätzen dieselben erklärenden Variablen verwenden. Bei der Auswahl berücksichtigen wir deshalb neben dem AICc auch die ökologische Bedeutung der Variablen und ihre Eignung für die Forschungsfrage. Die Entscheidung kann somit zugunsten einer ökologisch besonders relevanten Variable ausfallen, selbst wenn eine stark korrelierte Alternative in einem einzelnen Teildatensatz einen etwas niedrigeren AICc aufweist. Vergleicht diesen Aspekt auch mit dem Vorgehen von Coppes et al.&nbsp;(2017).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m_wege <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m_wege <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> dist_road_trails_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id),</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> <span class="fu">binomial</span>(), <span class="at">na.action =</span> na.fail</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -950,7 +946,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">AICc</span>(m_wege, m_strassen)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##            df     AICc</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## m_wege      3 5104.886</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## m_strassen  3 5098.375</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## m_strassen  3 5098.375</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -960,7 +956,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – Waldstruktur
+SELBST PROGRAMMIEREN – Waldstruktur
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -970,7 +966,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <div class="cell">
 <details class="code-fold">
 <summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m_waldanteil <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m_waldanteil <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> forest_prop_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id),</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> <span class="fu">binomial</span>(), <span class="at">na.action =</span> na.fail</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -983,7 +979,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">AICc</span>(m_waldanteil, m_baumschicht)</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">##               df     AICc</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">## m_waldanteil   3 4726.144</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## m_baumschicht  3 4863.031</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## m_baumschicht  3 4863.031</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1002,12 +998,12 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>NACHVOLLZIEHEN – Quadratische Variablen
+NACHVOLLZIEHEN – Quadratische Variablen
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DF_reh_day <span class="ot">&lt;-</span> DF_reh_day <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope_quadrat =</span> slope_scaled<span class="sc">^</span><span class="dv">2</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist_road_only_quadrat =</span> dist_road_only_scaled<span class="sc">^</span><span class="dv">2</span>,</span>
@@ -1022,7 +1018,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">AICc</span>(m_slope_linear_day, m_slope_quadrat_day)</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                     df     AICc</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="do">## m_slope_linear_day   3 5081.435</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="do">## m_slope_quadrat_day  4 5052.583</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="do">## m_slope_quadrat_day  4 5052.583</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1032,7 +1028,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>SELBST PROGRAMMIEREN – Weitere quadratische Modelle
+SELBST PROGRAMMIEREN – Weitere quadratische Modelle
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1047,7 +1043,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <div class="cell">
 <details class="code-fold">
 <summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanz zu Strassen</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distanz zu Strassen</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m_strassen_linear_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> dist_road_only_scaled <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id),</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> DF_reh_day, <span class="at">family =</span> <span class="fu">binomial</span>(), <span class="at">na.action =</span> na.fail</span>
@@ -1078,7 +1074,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">AICc</span>(m_wald_linear_day, m_wald_quadrat_day)</span>
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="do">##                    df     AICc</span></span>
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">## m_wald_linear_day   3 4726.144</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="do">## m_wald_quadrat_day  4 4677.686</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="do">## m_wald_quadrat_day  4 4677.686</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1091,22 +1087,22 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tipp</span>SELBST PROGRAMMIEREN – Globales Modell
+SELBST PROGRAMMIEREN – Globales Modell
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Fittet für den <strong>Tagesdatensatz</strong> ein globales binomiales GLMM mit <code>slope_scaled</code>, <code>topo_pos_scaled</code>, <code>us_scaled</code>, <code>forest_prop_scaled</code>, <code>dist_road_only_scaled</code>, <code>dist_sett_scaled</code> und dem zufälligen Interzept <code>(1 | id)</code>. Ergänzt die drei quadratischen Kandidaten <code>slope_quadrat</code>, <code>dist_road_only_quadrat</code> und <code>forest_prop_quadrat</code>. <strong>Jeder quadratische Term darf nur zusammen mit seinem linearen Term vorkommen.</strong></p>
 <p>Verwendet <code>na.action = na.fail</code> und überprüft den Output anschliessend mit <code>summary()</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m_global_day &lt;- glmmTMB(</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m_global_day &lt;- glmmTMB(</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   pres_abs ~ ... + slope_quadrat + (1 | id),</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = DF_reh_day, family = binomial(), na.action = na.fail</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Musterlösung</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m_global_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m_global_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  pres_abs <span class="sc">~</span> slope_scaled <span class="sc">+</span> slope_quadrat <span class="sc">+</span> topo_pos_scaled <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    us_scaled <span class="sc">+</span> forest_prop_scaled <span class="sc">+</span> forest_prop_quadrat <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    dist_road_only_scaled <span class="sc">+</span> dist_road_only_quadrat <span class="sc">+</span></span>
@@ -1145,7 +1141,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_road_only_quadrat -0.31090    0.02581 -12.044 &lt; 0.0000000000000002 ***</span></span>
 <span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="do">## dist_sett_scaled        0.01980    0.06415   0.309               0.7575    </span></span>
 <span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="AUSFÜHREN &amp; NACHVOLLZIEHEN – AICc-Modellselektion">
@@ -1154,14 +1150,14 @@ HINWEIS FÜR DIE LEHRPERSON:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Hinweis</span>AUSFÜHREN &amp; NACHVOLLZIEHEN – AICc-Modellselektion
+AUSFÜHREN &amp; NACHVOLLZIEHEN – AICc-Modellselektion
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Mit <code>MuMIn::dredge()</code> werden Teilmodelle des globalen Modells verglichen. Die Reh-ID bleibt in allen Modellen als zufälliger Effekt erhalten. <strong>Für jeden quadratischen Term wird die Hierarchie über <code>dc()</code> gesichert:</strong> Ein quadratischer Term darf nur dann enthalten sein, wenn auch sein zugehöriger linearer Term im Modell vorkommt. Das gilt für <code>slope</code>, <code>dist_road_only</code> und <code>forest_prop</code>.</p>
 <p><code>dredge()</code> kann viele Modelle fitten. Die Durchläufe dauern je nach Rechenpower eine gewisse Zeit.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>all_m_global_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">dredge</span>(</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>all_m_global_day <span class="ot">&lt;-</span> MuMIn<span class="sc">::</span><span class="fu">dredge</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  m_global_day,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rank =</span> <span class="st">"AICc"</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">subset =</span> <span class="fu">dc</span>(slope_scaled, slope_quadrat) <span class="sc">&amp;</span></span>
@@ -1265,7 +1261,7 @@ HINWEIS FÜR DIE LEHRPERSON:
 <span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a><span class="do">## topo_pos_scaled        -0.07042    0.03799  -1.854               0.0638 .  </span></span>
 <span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a><span class="do">## us_scaled               0.39713    0.04228   9.393 &lt; 0.0000000000000002 ***</span></span>
 <span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Eine kleine ΔAICc in der Liste der Top-Modelle bedeutet, dass mehrere Modelle ähnlich gut gestützt sind. Wir verwenden für die Modelldiagnostik und die Response Curves von nächster Woche ausschliesslich das <code>best_model</code> als einzelnes, konkret spezifiziertes Modell.</p>
 </div>
@@ -1348,14 +1344,13 @@ HINWEIS FÜR DIE LEHRPERSON:
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
