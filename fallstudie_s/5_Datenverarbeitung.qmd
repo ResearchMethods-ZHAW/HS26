@@ -104,9 +104,9 @@ str(depo)
 ```{r eval=FALSE, echo=TRUE}
 depo <- depo |>
   mutate(
-    Datetime = as.POSIXct(DatumUhrzeit, format = "HIER STEHT DAS DATUMSFORMAT", tz = "CET"),
+    Datetime = as.POSIXct(DatumUhrzeit, format = "HIER STEHT DAS DATUMSFORMAT", tz = "Europe/Zurich"),
     # nun schreiben wir uns das Datum in eine seperate Spalte
-    Datum = as.Date(Datetime)
+    Datum = as.Date(Datetime, tz = "Europe/Zurich")
   )
 ```
 
@@ -114,8 +114,8 @@ depo <- depo |>
 # hier der code mit dem richtigen Format
 depo <- depo |>
   mutate(
-    Datetime = as.POSIXct(as.character(Datetime), format = "%Y%m%d%H", tz = "CET"),
-    Datum = as.Date(Datetime)
+    Datetime = as.POSIXct(as.character(Datetime), format = "%Y%m%d%H", tz = "Europe/Zurich"),
+    Datum = as.Date(Datetime, tz = "Europe/Zurich")
   )
 ```
 

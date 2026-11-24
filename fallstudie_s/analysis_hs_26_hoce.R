@@ -108,8 +108,8 @@ str(depo)
 
 depo <- depo |>
   mutate(
-    Datetime = as.POSIXct(as.character(Datetime), format = "%Y%m%d%H", tz = "CET"),
-    Datum = as.Date(Datetime)
+    Datetime = as.POSIXct(as.character(Datetime), format = "%Y%m%d%H", tz = "Europe/Zurich"),
+    Datum = as.Date(Datetime, tz = "Europe/Zurich")
   )
 
 
