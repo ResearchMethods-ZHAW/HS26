@@ -60,11 +60,17 @@ spe_norm <- decostand(spe, "normalize")
 set.seed(123)
 kmeans_1 <- kmeans(spe_norm, centers = 4, nstart = 100)
 kmeans_1$cluster
+```
 
-#  Visualisierung
+### Visualisierung
+
+fviz_cluser verwendet standardmässig eine scale Transformation, diese ist für 
+unsere Daten nicht geeignet weshalb wir die Transformation ausschalten 
+(stand = FALSE) und die zuvor transformieren Daten verwenden (spe_norm)
+
+```{r}
 library("factoextra")
-
-fviz_cluster(kmeans_1, main = "", data = spe) +
+fviz_cluster(kmeans_1, main = "", stand = FALSE, data = spe_norm) +
   theme_classic()
 ```
 
@@ -88,7 +94,7 @@ kmeans_2 <- kmeans(spe_norm, centers = 3, nstart = 100)
 
 
 #  Clustering-Resultat in Ordinationsplots darstellen
-fviz_cluster(kmeans_2, data = spe) +
+fviz_cluster(kmeans_2, stand = FALSE, data = spe) +
   theme_classic() +
   theme(plot.title = element_blank())
 
@@ -118,7 +124,6 @@ spe_2 |>
 spe_2 |>
   group_by(cluster) |>
   summarise( mean(species_richness))
-
 
 # Unterschiede Mittlere Fisch-Artenzahl pro Cluster testen
 aov_1 <- aov(species_richness~cluster, data = spe_2)
