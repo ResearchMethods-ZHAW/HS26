@@ -3,7 +3,7 @@ lesson: Statistik 8
 knitr:
   opts_chunk: 
     collapse: false
-musterloesung: false
+musterloesung: true
 ---
 
 
@@ -98,22 +98,28 @@ kmeans_1 <- kmeans(crimez, 4, nstart = 100)
 
 kmeans_1
 kmeans_1$size
+```
 
-#  Clustering-Resultat in Ordinationsplots darstellen
+Clustering-Resultat in Ordinationsplots darstellen
+Die Daten werden automatisch Transformiert (default stand = TRUE), eine zweite 
+Tranformation mit scale (data = crimez), hat aber kein Effekt auf die Daten und 
+den Plot
+
+```{r}
 library(factoextra)
 
-fviz_cluster(kmeans_1, data = crimez) +
+fviz_cluster(kmeans_1, data = crime) +
   theme_classic() +
   theme(plot.title = element_blank())
+```
 
-
+```{r}
 # File für ANOVA (Originaldaten der Vorfälle, nicht die ztransformierten)
 crime_KM4 <- data.frame(crime, kmeans_1[1])
 crime_KM4$cluster <- as.factor(crime_KM4$cluster)
 crime_KM4
 str(crime_KM4)
 ```
-
 
 Damit die Boxplots und die ANOVA direkt interpretierbar sind, werden für diese, anders als für die Clusterung, die untransformierten Incidenz-Werte verwendet (also crime statt crimez). Die Spalte mit der Clusterzugehörigkeit im Fall von k-means mit 4 Clustern hängt man als Spalte an (Achtung: muss als Faktor definiert werden!).
 
