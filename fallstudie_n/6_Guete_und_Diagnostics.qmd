@@ -4,8 +4,8 @@ title: "Multivariate Modelle - Modellgüte, Diagnostik und Ergebnisdarstellung"
 # EINZIGE UMSCHALTSTELLE FÜR DIE VERÖFFENTLICHUNG:
 # Aufgabenversion: beide Schalter false; Musterlösungen: beide true.
 execute:
-  echo: false    # true = Musterlösungs-Code anzeigen
-  output: false  # true = Ergebnisse / Grafiken der Musterlösung anzeigen
+  echo: true    # true = Musterlösungs-Code anzeigen
+  output: true  # true = Ergebnisse / Grafiken der Musterlösung anzeigen
   warning: false
   message: false
 

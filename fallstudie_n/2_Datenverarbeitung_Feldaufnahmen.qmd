@@ -91,7 +91,7 @@ df_team1 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/gruppe1
 
 df_team2 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebung_Waldstruktur_Team_Gelb.csv", delim = ";")
 
-df_team3 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/ground_truth_Gruppe_3_pink.csv", delim = ";")
+df_team3 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/ground_truth_Gruppe_3_pink.CSV", delim = ";")
 
 df_team4 <- read_delim("datasets/fallstudie_n/Feldaufnahmen_alle_Gruppen/Felderhebungen_Waldstruktur_Team4.csv", delim = ";")
 
