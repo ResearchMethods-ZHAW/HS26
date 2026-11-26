@@ -94,7 +94,7 @@ kmeans_2 <- kmeans(spe_norm, centers = 3, nstart = 100)
 
 
 #  Clustering-Resultat in Ordinationsplots darstellen
-fviz_cluster(kmeans_2, stand = FALSE, data = spe) +
+fviz_cluster(kmeans_2, stand = FALSE, data = spe_norm) +
   theme_classic() +
   theme(plot.title = element_blank())
 
